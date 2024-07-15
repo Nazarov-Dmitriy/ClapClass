@@ -201,6 +201,7 @@
     }
     @media (max-width: $sm) {
         flex-direction: row;
+        align-items: center;
     }
 }
 </style>
