@@ -32,6 +32,7 @@
                 </div>
             </div>
         </div>
+
         <div class="header__container">
             <div class="header__wrapper">
                 <div class="header__logo">
@@ -108,6 +109,7 @@ function setMenuAcive() {
             0 2px 4px 0 rgba(21, 15, 13, 0.1),
             0 8px 8px 0 rgba(21, 15, 13, 0.09);
         background: white;
+        z-index: 9999;
     }
 
     @media (max-width: $sm) {
@@ -124,9 +126,6 @@ function setMenuAcive() {
 
     @media (max-width: $lg) {
         box-shadow: none;
-    }
-
-    @media (max-width: $sm) {
         padding: 16px;
     }
 }
@@ -196,10 +195,10 @@ function setMenuAcive() {
 }
 
 .hamburger.is-active .line:nth-child(3) {
-    -webkit-transform: translateY(-7px) rotate(-45deg);
-    -ms-transform: translateY(-7px) rotate(-45deg);
-    -o-transform: translateY(-7px) rotate(-45deg);
-    transform: translateY(-7px) rotate(-45deg);
+    -webkit-transform: translateY(-8px) rotate(-45deg);
+    -ms-transform: translateY(-8px) rotate(-45deg);
+    -o-transform: translateY(-8px) rotate(-45deg);
+    transform: translateY(-8px) rotate(-45deg);
 }
 
 .header__nav {
