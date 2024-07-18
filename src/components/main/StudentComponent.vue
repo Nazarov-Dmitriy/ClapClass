@@ -79,7 +79,9 @@
         </div>
     </section>
 </template>
-<script setup></script>
+<script setup>
+
+</script>
 <style lang="scss">
 .student {
     padding: 100px 64px 0px 64px;
@@ -170,19 +172,22 @@
     }
     @media (max-width: $sm) {
         min-width: 240px;
+        gap: 16px;
     }
 }
 .student__card-header {
     display: flex;
     justify-content: center;
     position: relative;
+
+    @media (max-width: $sm) {
+    }
 }
 .student__card-img {
     position: absolute;
     top: -200px;
 }
-.student__card-body {
-}
+
 .student__card-title {
     font-family: var(--second-family);
     font-weight: 700;

@@ -7,6 +7,7 @@
         <ReviewsComponent />
         <TeacherComponent />
         <StudentComponent />
+        <NewsComponent />
     </div>
 </template>
 <script setup>
@@ -17,5 +18,6 @@ import ProjectComponent from '../components/main/ProjectComponent.vue'
 import ReviewsComponent from '../components/main/ReviewsComponent.vue'
 import TeacherComponent from '../components/main/TeacherComponent.vue'
 import StudentComponent from '../components/main/StudentComponent.vue'
+import NewsComponent from '../components/main/NewsComponent.vue'
 </script>
 <style lang="scss"></style>
