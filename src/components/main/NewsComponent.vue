@@ -17,8 +17,8 @@
                     <div class="news__card" v-for="(news, index) in newsItems" :key="index">
                         <div class="news__card-info">
                             <div class="news__card-info-hash">
-                                <span>№события</span>
-                                <span>разминки</span>
+                                <span>{{ news.number }}</span>
+                                <span>{{ news.type }}</span>
                             </div>
                             <p class="news__card-text">
                                 {{ news.title }}
@@ -123,17 +123,24 @@ const validateEmail = (email) => {
 
 const newsItems = [
     {
+        number: "№события",
+        type: "разминки",
         title: 'Заголовок новости или события, который может быть достаточно длинным',
         date: '01.01.2023'
     },
     {
+        number: "№события",
+        type: "разминки",
         title: 'Заголовок новости или события, который может быть достаточно длинным',
         date: '01.01.2023'
     },
     {
+        number: "№события",
+        type: "разминки",
         title: 'Заголовок новости или события, который может быть достаточно длинным',
         date: '01.01.2023'
-    }
+    },
+    
 ]
 </script>
 
@@ -262,7 +269,7 @@ const newsItems = [
     font-weight: 400;
     font-size: 20px;
     line-height: 150%;
-    color: #e05704;
+    color: $orange;
 }
 
 .news__card-date {
