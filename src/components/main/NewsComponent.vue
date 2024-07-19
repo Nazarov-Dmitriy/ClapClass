@@ -75,7 +75,7 @@
                                         <p class="news__card-text--subscribe">
                                             Нажимая кнопку “Подписаться” вы соглашаетесь с
                                             <span
-                                                ><a href="#"
+                                                ><a class="news__card-text-link--subscribe" href="#"
                                                     >политикой обработки персональных данных</a
                                                 ></span
                                             >
@@ -112,7 +112,6 @@ const sendMail = () => {
         email.value = ''
     } else {
         showDangerBlock.value = true
-        console.log('nok')
     }
 }
 
@@ -123,24 +122,23 @@ const validateEmail = (email) => {
 
 const newsItems = [
     {
-        number: "№события",
-        type: "разминки",
+        number: '№события',
+        type: 'разминки',
         title: 'Заголовок новости или события, который может быть достаточно длинным',
         date: '01.01.2023'
     },
     {
-        number: "№события",
-        type: "разминки",
+        number: '№события',
+        type: 'разминки',
         title: 'Заголовок новости или события, который может быть достаточно длинным',
         date: '01.01.2023'
     },
     {
-        number: "№события",
-        type: "разминки",
+        number: '№события',
+        type: 'разминки',
         title: 'Заголовок новости или события, который может быть достаточно длинным',
         date: '01.01.2023'
-    },
-    
+    }
 ]
 </script>
 
@@ -199,7 +197,6 @@ const newsItems = [
     @media (max-width: $sm) {
         flex-direction: column;
         justify-content: center;
-        align-items: center;
         gap: 16px;
     }
 }
@@ -208,7 +205,7 @@ const newsItems = [
     font-family: 'CenturyGothic';
     font-weight: 700;
     font-size: 36px;
-    line-height: 133%;
+    line-height: 48px;
     color: $orange;
 
     @media (max-width: $lg) {
@@ -268,14 +265,14 @@ const newsItems = [
 .news__card-text {
     font-weight: 400;
     font-size: 20px;
-    line-height: 150%;
+    line-height: 1.5;
     color: $orange;
 }
 
 .news__card-date {
     font-weight: 400;
     font-size: 16px;
-    line-height: 150%;
+    line-height: 1.5;
     color: $black;
 }
 
@@ -307,7 +304,6 @@ const newsItems = [
 
     @media (max-width: $lg) {
         flex-direction: row;
-        gap: 24px;
         align-items: center;
     }
     @media (max-width: $sm) {
@@ -333,10 +329,9 @@ const newsItems = [
     margin-top: -16px;
     box-sizing: border-box;
     span {
-        font-family: var(--font-family);
         font-weight: 400;
         font-size: 16px;
-        line-height: 150%;
+        line-height: 1.5;
         color: $orange;
     }
 }
@@ -364,10 +359,6 @@ const newsItems = [
     color: $white;
     text-align: center;
 
-    @media (max-width: $lg) {
-        grid-area: btn;
-    }
-
     @media (max-width: $sm) {
         width: 100%;
     }
@@ -388,18 +379,17 @@ const newsItems = [
 }
 
 .news__card-text--subscribe {
-    font-family: var(--font-family);
     font-weight: 400;
     font-size: 12px;
-    line-height: 150%;
+    line-height: 1.5;
     color: $white;
 
-    a {
+    .news__card-text-link--subscribe {
         font-size: 12px;
         color: $white;
     }
 
-    span {
+    .news__card-text--subscribe span {
         text-decoration: underline;
         text-decoration-skip-ink: none;
     }
@@ -434,7 +424,7 @@ const newsItems = [
 .news__card-img-text-wrapper {
     font-weight: 400;
     font-size: 20px;
-    line-height: 150%;
+    line-height: 1.5;
     text-align: center;
     color: $black;
     box-shadow: 0 16px 2px 0 rgba(14, 8, 6, 0.15);
@@ -452,8 +442,8 @@ const newsItems = [
     }
 
     @media (max-width: $sm) {
-        transform: translate(-50%, -50%);
         top: -300px;
+        transform: translate(-50%, -50%);
     }
 }
 

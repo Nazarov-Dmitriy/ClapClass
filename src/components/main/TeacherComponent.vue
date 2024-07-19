@@ -42,6 +42,7 @@
     }
     @media (max-width: $sm) {
         padding: 24px 16px;
+        
     }
 }
 
@@ -93,6 +94,7 @@
     height: 100%;
     box-shadow: 10px 0 2px 0 rgba(20, 5, 5, 0.2);
     background: $orange;
+    aspect-ratio: 2 / 1;
     object-fit: cover;
     box-sizing: border-box;
 }
@@ -125,6 +127,12 @@
     display: flex;
     flex-direction: column;
     gap: 33px;
+
+    @media(max-width: $lg){
+        overflow: scroll;
+        height: 296px;
+        padding-top: 20px;
+    }
 }
 
 .teacher__info-item {

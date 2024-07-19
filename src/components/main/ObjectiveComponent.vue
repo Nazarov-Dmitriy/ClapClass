@@ -16,7 +16,7 @@
                 </div>
                 <div class="objective__info">
                     <h2 class="objective__title">Наша главная цель</h2>
-                    .
+                    
                     <p class="objective__subtitle">
                         Создаем игровые сервисы позволяющие настроить необходимую атмосферу, темп и
                         формат вашего урока для формирования благоприятной внутриклассной среды
@@ -62,8 +62,7 @@ import BtnComponent from '../btns/BtnComponent.vue'
         gap: 0;
     }
 }
-.objective__hero {
-}
+
 .objective__hero-img {
     @media (max-width: $lg) {
         display: none;
@@ -109,11 +108,12 @@ import BtnComponent from '../btns/BtnComponent.vue'
     background: $white;
     font-weight: 700;
     font-size: 36px;
-    line-height: 1.3;
+    line-height: 48px;
     color: $orange;
 
     @media (max-width: $lg) {
         font-size: 32px;
+        line-height: 1.5;
     }
 
     @media (max-width: $sm) {
@@ -135,7 +135,5 @@ import BtnComponent from '../btns/BtnComponent.vue'
     display: flex;
     justify-content: center;
 }
-.objective__btn {
-    margin-top: -24px;
-}
+
 </style>

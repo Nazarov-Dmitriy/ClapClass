@@ -140,7 +140,7 @@ onUnmounted(() => {
     font-family: 'CenturyGothic';
     font-weight: 700;
     font-size: 60px;
-    line-height: 100%;
+    line-height: 60px;
     text-align: center;
     color: $orange;
     border: 4px solid $orange;
@@ -156,7 +156,7 @@ onUnmounted(() => {
 
     @media (max-width: $lg) {
         font-size: 40px;
-        line-height: 150%;
+        line-height: 1.5;
         transform: translate(-30px, 10px) rotate(-8deg);
         width: calc(100% - 30px);
 
@@ -171,7 +171,7 @@ onUnmounted(() => {
     font-family: 'CenturyGothic';
     font-weight: 700;
     font-size: 60px;
-    line-height: 100%;
+    line-height: 1;
     text-align: center;
     color: $white;
     border: 4px solid $white;
@@ -184,7 +184,7 @@ onUnmounted(() => {
 
     @media (max-width: $lg) {
         font-size: 40px;
-        line-height: 150%;
+        line-height: 1.5;
         transform: translate(10px, 0) rotate(-2deg);
         width: 100%;
 
@@ -226,7 +226,7 @@ onUnmounted(() => {
 .about__info-subtitle {
     font-weight: 400;
     font-size: 20px;
-    line-height: 150%;
+    line-height: 1.5;
     text-align: center;
     color: #000000;
     max-width: 431px;

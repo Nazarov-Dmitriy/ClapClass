@@ -79,16 +79,17 @@
 }
 
 .project__title {
-    font-family: var(--second-family);
+    font-family: 'CenturyGothic';
     font-weight: 700;
     font-size: 36px;
-    line-height: 1.3;
+    line-height: 48px;
     text-align: center;
     color: $orange;
     margin-bottom: 48px;
 
     @media (max-width: $lg) {
         font-size: 32px;
+        line-height: 1.5;
     }
     @media (max-width: $sm) {
         font-size: 24px;
@@ -109,7 +110,6 @@
 .project__cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-
     row-gap: 16px;
 
     @media (max-width: $lg) {
@@ -124,22 +124,18 @@
 .project__card {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     flex-direction: column;
     position: relative;
 
     @media (max-width: $lg) {
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
     }
     @media (max-width: $sm) {
-        flex-direction: column;
-    }
+        grid-template-columns: 1fr;
 
-    img {
-        width: 168px;
-
-        @media(max-width: $sm){
-            width: 116px;
+        &:not(:last-child) {
+            border-bottom: none;
         }
     }
 
@@ -158,30 +154,41 @@
     }
 
     span {
-        font-family: "CenturyGothic";
+        font-family: 'CenturyGothic';
         font-weight: 700;
         font-size: 24px;
         line-height: 1.5;
         text-align: center;
         color: $gray;
         margin-bottom: 48px;
-        padding: 16px;
+        cursor: pointer;
 
         @media (max-width: $lg) {
             font-size: 20px;
             padding: 16px 0;
+            margin-bottom: 0;
         }
+        @media (max-width: $sm) {
+            text-align: left;
+        }
+    }
+}
+
+.project__card-img {
+    width: 168px;
+
+    @media (max-width: $sm) {
+        width: 116px;
     }
 }
 
 @media (max-width: $lg) {
     .project__card::after {
-        top: 270px;
-        right: auto;
-        left: 50%;
-        width: 100%;
+        width: 80%;
         height: 1px;
-        transform: translateX(-50%);
+        top: 100%;
+        left: -6px;
+        transform: translateX(12%);
     }
 }
 
