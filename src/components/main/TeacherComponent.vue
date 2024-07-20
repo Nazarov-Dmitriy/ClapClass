@@ -33,15 +33,13 @@
 <style lang="scss">
 .teacher {
     padding: 148px 64px 100px 64px;
-    background: url('../../assets/images/main/teacher/teacher-bg.png') no-repeat;
-    background-size: cover;
-    background-position: top;
+    
     overflow: hidden;
-    @media (max-width: $lg) {
-        padding: 48px 16px;
+    @media (max-width: $xl) {
+        padding: 48px 0;
     }
     @media (max-width: $sm) {
-        padding: 24px 16px;
+        padding: 24px 0;
         
     }
 }
@@ -67,6 +65,11 @@
 }
 
 .teacher__wrapper {
+    background: url('../../assets/images/main/teacher/teacher-bg.png') no-repeat;
+    background-size: cover;
+    background-position: top;
+    padding: 0px 16px 0px 0px;
+    border-radius: 24px;
     display: flex;
     justify-content: center;
     align-items: stretch;
