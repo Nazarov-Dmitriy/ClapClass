@@ -7,7 +7,7 @@
 </template>
 <script setup>
 import HeaderComponent from '../components/header/HeaderComponent.vue';
-import FooterComponent from '../components/footer/FooterComponent.vue';
+import FooterComponent from '../components/main/FooterComponent.vue';
 </script>
 <style lang="scss">
   
