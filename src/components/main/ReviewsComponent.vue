@@ -8,19 +8,49 @@
                         <BtnComponent class="reviews__btn">Больше отзывов</BtnComponent>
                     </div>
                 </div>
-                <div class="reviews__cards">
-                    <div class="reviews__card" v-for="(review, index) in reviews" :key="index">
-                        <div class="reviews__card-header">
-                            <img :src="review.img" alt="" class="reviews__card-img" />
-                            <div class="reviews__card-header-text">
-                                <span>{{ review.name }}</span>
-                                <span>{{ review.date }}</span>
+                <div class="reviews__cards-wrapper">
+                    <div class="reviews__cards">
+                        <div class="reviews__cards-inner">
+                            <div class="reviews__cards-group">
+                                <div
+                                    class="reviews__card"
+                                    v-for="(review, index) in reviews"
+                                    :key="index"
+                                >
+                                    <div class="reviews__card-header">
+                                        <img :src="review.img" alt="" class="reviews__card-img" />
+                                        <div class="reviews__card-header-text">
+                                            <span>{{ review.name }}</span>
+                                            <span>{{ review.date }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="reviews__card-body">
+                                        <p class="reviews__card-text">
+                                            {{ review.text }}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="reviews__card-body">
-                            <p class="reviews__card-text">
-                                {{ review.text }}
-                            </p>
+                            <div class="reviews__cards-group">
+                                <div
+                                    class="reviews__card"
+                                    v-for="(review, index) in reviews"
+                                    :key="index + reviews.length"
+                                >
+                                    <div class="reviews__card-header">
+                                        <img :src="review.img" alt="" class="reviews__card-img" />
+                                        <div class="reviews__card-header-text">
+                                            <span>{{ review.name }}</span>
+                                            <span>{{ review.date }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="reviews__card-body">
+                                        <p class="reviews__card-text">
+                                            {{ review.text }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -28,6 +58,7 @@
         </div>
     </section>
 </template>
+
 <script setup>
 import { ref } from 'vue'
 import BtnComponent from '../btns/BtnComponent.vue'
@@ -35,19 +66,19 @@ import BtnComponent from '../btns/BtnComponent.vue'
 const reviews = ref([
     {
         img: '/src/assets/images/main/reviews/reviews-hero1.png',
-        name: 'Марина И',
+        name: 'Марина И1',
         date: '00.00.0000',
         text: 'Равным образом реализация намеченных плановых заданий требуют определения и уточнения позиций, занимаемых участниками в отношении поставленных задач. Равным образом новая модель организационной деятельности в значительной степени обуславливает создание форм развития. Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации модели развития. Таким образом новая модель организационной деятельности позволяет оценить значение системы обучения кадров, соответствует насущным потребностям. Таким образом рамки и место обучения кадров способствует подготовки и реализации модели развития. Равным образом постоянное информационно-пропагандистское обеспечение нашей деятельности требуют определения и уточнения направлений прогрессивного развития.'
     },
     {
-        img: '/src/assets/images/main/reviews/reviews-hero1.png',
-        name: 'Марина И',
+        img: '/src/assets/images/main/reviews/reviews-hero2.png',
+        name: 'Марина И2',
         date: '00.00.0000',
         text: 'Равным образом реализация намеченных плановых заданий требуют определения и уточнения позиций, занимаемых участниками в отношении поставленных задач. Равным образом новая модель организационной деятельности в значительной степени обуславливает создание форм развития. Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации модели развития. Таким образом новая модель организационной деятельности позволяет оценить значение системы обучения кадров, соответствует насущным потребностям. Таким образом рамки и место обучения кадров способствует подготовки и реализации модели развития. Равным образом постоянное информационно-пропагандистское обеспечение нашей деятельности требуют определения и уточнения направлений прогрессивного развития.'
     },
     {
-        img: '/src/assets/images/main/reviews/reviews-hero1.png',
-        name: 'Марина И',
+        img: '/src/assets/images/main/reviews/reviews-hero3.png',
+        name: 'Марина И3',
         date: '00.00.0000',
         text: 'Равным образом реализация намеченных плановых заданий требуют определения и уточнения позиций, занимаемых участниками в отношении поставленных задач. Равным образом новая модель организационной деятельности в значительной степени обуславливает создание форм развития. Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации модели развития. Таким образом новая модель организационной деятельности позволяет оценить значение системы обучения кадров, соответствует насущным потребностям. Таким образом рамки и место обучения кадров способствует подготовки и реализации модели развития. Равным образом постоянное информационно-пропагандистское обеспечение нашей деятельности требуют определения и уточнения направлений прогрессивного развития.'
     }
@@ -56,6 +87,8 @@ const reviews = ref([
 <style lang="scss">
 .reviews {
     padding: 148px 64px 48px 64px;
+    overflow: hidden;
+    position: relative;
 
     @media (max-width: $lg) {
         padding: 48px 16px;
@@ -99,14 +132,20 @@ const reviews = ref([
 .reviews__btn {
     width: max-content;
 }
+
+.reviews__cards-wrapper {
+    display: flex;
+    width: 200%;
+    overflow: hidden;
+}
 .reviews__cards {
     display: grid;
     grid-auto-flow: column;
     gap: 48px;
     width: calc(100% + 64px);
-    overflow-y: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    animation: slide 20s linear infinite;
 
     @media (max-width: $lg) {
         width: 100%;
@@ -114,6 +153,18 @@ const reviews = ref([
 }
 .no-scrollbar::-webkit-scrollbar {
     display: none;
+}
+
+.reviews__cards-inner {
+    display: flex;
+    width: 50%;
+    gap: 48px;
+}
+
+.reviews__cards-group {
+    display: flex;
+    flex: 1;
+    gap: 48px;
 }
 
 .reviews__card {
@@ -159,5 +210,14 @@ const reviews = ref([
     -webkit-line-clamp: 6;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 </style>
