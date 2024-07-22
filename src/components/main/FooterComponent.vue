@@ -3,7 +3,7 @@
         <div class="footer__container">
             <div class="footer__contact">
                 <img
-                    src="@/assets/icons/footer/footer-logo.svg"
+                    src="@/assets/icons/footer/footer-logo.png"
                     alt="logo"
                     class="footer__logo"
                     @click="mainLink()"
@@ -32,14 +32,16 @@
                     :key="index"
                     class="footer__menu-section"
                 >
-                    <h3 class="footer__list-header">
-                        {{ section.header }}
-                    </h3>
-                    <img
-                        src="@/assets/icons/footer/menu-arrow.svg"
-                        alt="logo"
-                        class="footer__menu-arrow"
-                    >
+                    <div class="footer__list-top">
+                        <h3 class="footer__list-header">
+                            {{ section.header }}
+                        </h3>
+                        <img
+                            src="@/assets/icons/footer/menu-arrow.svg"
+                            alt="logo"
+                            class="footer__menu-arrow"
+                        >
+                    </div>
                     <ul class="footer__list">
                         <li
                             v-for="(item, number) in section.items"
@@ -57,46 +59,47 @@
                 </div>
             </div>
             <div class="footer__copyright">               
-                <div class="footer__copyright-left">
-                    <a
-                        href="https://grant.obr.so/"
-                        target="_blank"
-                        class="footer__copyright-block"
-                    >                
-                        <img
-                            src="@/assets/icons/footer/cot.svg"
-                            alt="cot"
-                            class="footer__cot"
-                        >
-                        <div>
-                            <p class="footer__cot-text">
-                                Победитель конкурса СОТ-2023»
-                            </p>
-                            <p class="footer__cot-text">
-                                Номинация: «Особые образовательные потребности»
-                            </p>
-                        </div>
-                    </a>
-                    <a
-                        href="#"
-                        target="_blank"
-                        class="footer__copyright-block"
-                    >                
-                        <img
-                            src="@/assets/icons/footer/sosh34.svg"
-                            alt="cot"
-                            class="footer__sosh"
-                        >
-                        <div>
-                            <p class="footer__cot-text">
-                                МАОУ СОШ №34 им. героя СССР Кожевникова А.Л., г. Красноярск»
-                            </p>
-                            <p class="footer__cot-text">
-                                Автор проекта: Войнов Александр Витальевич»
-                            </p>
-                        </div>
-                    </a>
-                </div>
+                <a
+                    href="https://grant.obr.so/"
+                    target="_blank"
+                    class="footer__copyright-cot"
+                >                
+                    <img
+                        src="@/assets/icons/footer/cot.svg"
+                        alt="cot"
+                        class="footer__cot"
+                    >
+                    <div>
+                        <p class="footer__cot-text">
+                            Победитель конкурса СОТ-2023»
+                        </p>
+                        <p class="footer__cot-text">
+                            Номинация: «Особые образовательные потребности»
+                        </p>
+                    </div>
+                </a>
+                <a
+                    href="#"
+                    target="_blank"
+                    class="footer__copyright-sosh"
+                >                
+                    <img
+                        src="@/assets/icons/footer/sosh34.svg"
+                        alt="cot"
+                        class="footer__sosh"
+                    >
+                    <div>
+                        <p class="footer__cot-text footer__cot-firsttext">
+                            МАОУ СОШ №34 им. героя СССР Кожевникова А.Л., г. Красноярск»
+                        </p>
+                        <p class="footer__cot-subtext">
+                            МАОУ СОШ №34, г. Красноярск
+                        </p>
+                        <p class="footer__cot-text">
+                            Автор проекта: Войнов Александр Витальевич»
+                        </p>
+                    </div>
+                </a>
 
                 <div class="footer__copyright-madein">
                     <p class="footer__madein-text">
@@ -105,21 +108,21 @@
                     <a
                         href="https://xn--g1ani7c.xn--p1ai/"
                         target="_blank"
+                        class="footer__1t"
                     >
                         <img
                             src="@/assets/icons/footer/logo1t.svg"
                             alt="1T"
-                            class="footer__1t"
                         >
                     </a>
                     <a
                         href="https://bitwizarts.smartspecs.nl/"
                         target="_blank"
+                        class="footer__logobwa"
                     >
                         <img
                             src="@/assets/icons/footer/logoBWA.svg"
                             alt="logoBWA"
-                            class="footer__logobwa"
                         >
                     </a>
                 </div>
@@ -129,6 +132,17 @@
 </template>
 <script setup>
 import { ref } from 'vue'
+document.addEventListener("DOMContentLoaded", function () {
+    let btns = document.querySelectorAll(".footer__menu-arrow");
+    let menus = document.querySelectorAll(".footer__list");
+
+    btns.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+            menus[index].classList.toggle("footer__list-active");
+            btn.classList.toggle("arrow_ative");
+        });
+    });
+});
 
 const sections = ref([
     {
@@ -167,6 +181,7 @@ const sections = ref([
 </script>
 <style lang="scss">
 .footer {
+    width: 100%;
     background-color: $fonLight;
 }
 
@@ -178,10 +193,8 @@ const sections = ref([
     flex-direction: column;
     gap: 24px;
 
-    @media (max-width: $lg) {
-    }
-
-    @media (max-width: $sm) {
+    @media (max-width: $md) {
+        padding: 24px 16px 24px 16px;
     }
 }
 
@@ -189,6 +202,10 @@ const sections = ref([
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    @media (max-width: $md) {
+        flex-direction: column;
+    }
 }
 
 .footer__contact-networks {
@@ -197,20 +214,56 @@ const sections = ref([
     gap: 20px;
 }
 
+.footer__logo,
+.footer__youtube,
+.footer__vk,
+.footer__telegram {
+    cursor: pointer;
+}
+
+.footer__logo {
+    @media (max-width: $sm) {
+        width: 100%;
+    }
+}
+
 .footer__menu {
     display: flex;
     justify-content: space-between;
     padding-bottom: 24px;
+    @media (max-width: $md) {
+        flex-direction: column;
+        padding: 0;
+        gap: 20px;
+    }
 }
 
 .footer__menu-arrow {
     display: none;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease-in-out;
+    @media (max-width: $md) {
+        display: block;
+        cursor: pointer;
+    }
+}
+
+.arrow_ative {
+    transform: rotate(180deg)
 }
 
 .footer__menu-section {
     display: flex;
     flex-direction: column;
     gap: 8px;
+}
+
+.footer__list-top {
+    @media (max-width: $md) {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid $gray
+    }
 }
 
 .footer__list-header {
@@ -226,16 +279,20 @@ const sections = ref([
     display: flex;
     flex-direction: column;
     gap: 8px;
+    @media (max-width: $md) {
+        display: none;
+    }
+}
+
+.footer__list-active {
+    display: flex;
 }
 
 .footer__list-item {
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    color: $gray;
     text-align: center;
+    @media (max-width: $md) {
+        text-align: start;
+    }
 }
 
 .footer__link {
@@ -245,7 +302,6 @@ const sections = ref([
     font-size: 16px;
     line-height: 24px;
     color: $gray;
-    text-align: center;
 
     @media (max-width: $lg) {
         font-size: 14px;
@@ -257,7 +313,7 @@ const sections = ref([
         text-decoration: underline;
         text-decoration-color: $red;
         text-underline-offset: 5px;
-        transition-duration: 0.5s;
+        transition-duration: 0.3s;
     }
 
     &:active {
@@ -269,31 +325,113 @@ const sections = ref([
 }
 
 .footer__copyright {
-    display: flex;
-    justify-content: space-between;
     padding-top: 16px;
     border-top: solid $gray 1px;
-}
-
-.footer__copyright-left {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: 16px;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-areas:
+        'cot madein'
+        'sosh sosh';
+        @media (max-width: $md) {
+            grid-template-areas:
+            'cot'
+            'sosh'
+            'madein';
+            border: none;
+    }   
 }
 
-.footer__copyright-block {
+.footer__copyright-cot,
+.footer__copyright-sosh {
     display: flex;
     justify-content: start;
     align-items: center;
     gap: 16px;
+    cursor: pointer;
+}
+
+.footer__copyright-cot {
+    grid-area: cot
+}
+
+.footer__copyright-sosh {
+    grid-area: sosh
+}
+
+.footer__cot,
+.footer__sosh {
+    @media (max-width: 390px) {
+        display: none;
+    }
+}
+
+.footer__cot-text {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: $gray;
+}
+
+.footer__cot-firsttext {
+    @media (max-width: $md) {
+        display: none;
+    }
+    @media (max-width: 390px) {
+        display: inline;
+    }
+}
+
+.footer__cot-subtext {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: $gray;
+    display: none;
+    @media (max-width: $md) {
+        display: inline;
+        content: "666";
+    }
+    @media (max-width: 390px) {
+        display: none;
+    }
 }
 
 .footer__copyright-madein{
+    grid-area: madein;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     height: 24px;
     align-items: center;
     gap: 8px;
+    @media (max-width: $md) {
+        justify-content: flex-start;
+    }
+}
+.footer__madein-text {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: $gray;
+    text-align: center;
+}
+
+.footer__1t {
+    display: flex;
+    text-align: center;
+    cursor: pointer;
+}
+
+.footer__logobwa {
+    display: flex;
+    text-align: center;
+    cursor: pointer;
 }
 
 .footer__logobwa {
