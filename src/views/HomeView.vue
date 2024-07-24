@@ -1,6 +1,5 @@
 <template>
     <div>
-        Главная
         <HeaderComponent />
         <AboutComponent />
         <ObjectiveComponent />
@@ -27,7 +26,6 @@ import NewsComponent from '../components/main/NewsComponent.vue'
 import FaqComponent from '../components/main/FaqComponent.vue'
 import FormComponent from "../components/form/FormComponent.vue"
 import SliderComponent from '../components/main/SliderComponent.vue'
-import HeaderComponent from '../components/header/HeaderComponent.vue';
 import FooterComponent from '../components/main/FooterComponent.vue';
 </script>
 <style lang="scss"></style>

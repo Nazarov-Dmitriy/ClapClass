@@ -180,13 +180,14 @@ const sections = ref([
 ])
 </script>
 <style lang="scss">
+
 .footer {
     width: 100%;
     background-color: $fonLight;
 }
 
 .footer__container {
-    max-width: 1920px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 100px 64px 100px 64px;
     display: flex;
@@ -203,7 +204,7 @@ const sections = ref([
     justify-content: space-between;
     align-items: center;
     position: relative;
-    @media (max-width: $md) {
+    @media (max-width: $lg) {
         flex-direction: column;
     }
 }
