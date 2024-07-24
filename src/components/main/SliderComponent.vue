@@ -30,7 +30,7 @@
                                 <img :src="item.img" alt="" class="slider__slide-img" />
                                 <div class="slider__slide-info">
                                     <div class="slider__slide-info-title-wrapper">
-                                        <img :src="item.svg" alt="" />
+                                        <img :src="getPath('item.svg')" alt="" />
                                         <h2 class="slider__slide-info-title">
                                             {{ item.title }}
                                         </h2>

@@ -248,6 +248,7 @@ const formatPhone = (event) => {
 <style scoped lang="scss">
 .form__container {
     padding: 48px 64px 0px 64px;
+    box-sizing: border-box;
     background: $gray;
 
     @media (max-width: $lg) {
