@@ -10,6 +10,7 @@
         <NewsComponent />
         <FaqComponent/>
         <FormComponent/>
+        <SliderComponent/>
     </div>
 </template>
 <script setup>
@@ -23,5 +24,6 @@ import StudentComponent from '../components/main/StudentComponent.vue'
 import NewsComponent from '../components/main/NewsComponent.vue'
 import FaqComponent from '../components/main/FaqComponent.vue'
 import FormComponent from "../components/form/FormComponent.vue"
+import SliderComponent from '../components/main/SliderComponent.vue'
 </script>
 <style lang="scss"></style>
