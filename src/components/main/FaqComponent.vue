@@ -91,6 +91,8 @@ const toggleAnswer = (index) => {
 
 .faq {
     padding: 100px 64px;
+    box-sizing: border-box;
+
 
     @media (max-width: $lg) {
         padding: 48px 16px;

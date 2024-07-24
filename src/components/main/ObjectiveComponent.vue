@@ -35,6 +35,7 @@ import BtnComponent from '../btns/BtnComponent.vue'
 <style lang="scss">
 .objective {
     padding: 96px 64px 48px 64px;
+    box-sizing: border-box;
     box-shadow: 0 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: url('../../assets/images/main/objective/objective-bg.png') no-repeat;
     background-position: top;

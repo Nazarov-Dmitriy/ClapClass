@@ -190,6 +190,7 @@ const sections = ref([
     max-width: 1440px;
     margin: 0 auto;
     padding: 100px 64px 100px 64px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 24px;

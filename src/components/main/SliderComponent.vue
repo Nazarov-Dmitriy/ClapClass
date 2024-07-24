@@ -163,7 +163,7 @@ function updateActiveIndex(swiper) {
 </script>
 <style lang="scss">
 .swiper {
-    overflow: visible;
+    overflow: hidden;
 }
 .swiper-slide {
     flex-shrink: 0;
@@ -180,6 +180,7 @@ function updateActiveIndex(swiper) {
 }
 .slider {
     padding: 100px 64px 48px 64px;
+    box-sizing: border-box;
     overflow: hidden;
     @media (max-width: $lg) {
         padding: 48px 16px;
@@ -216,11 +217,11 @@ function updateActiveIndex(swiper) {
     &::after {
         content: '';
         position: absolute;
-        width: calc(100% + 404px);
+        width: calc(100% + 100%);
         margin: 0 auto;
         height: 60%;
         bottom: -100px;
-        left: -140px;
+        left: -50%;
         background: $yellowy;
         z-index: -1;
     }
@@ -272,10 +273,9 @@ function updateActiveIndex(swiper) {
     padding: 16px;
     pointer-events: none;
     position: relative;
-    width: 100%;
+    width: 85%;
     @media (max-width: $lg) {
         flex-direction: column;
-        width: 85%;
     }
     @media (max-width: $sm) {
         width: 100%;

@@ -3,6 +3,7 @@
         <HeaderComponent />
         <AboutComponent />
         <ObjectiveComponent />
+        <SliderComponent/>
         <StudentComponent />
         <TeacherComponent />
         <ProjectComponent />
@@ -10,7 +11,6 @@
         <NewsComponent />
         <FaqComponent/>
         <FormComponent/>
-        <SliderComponent/>
         <FooterComponent />
     </div>
 </template>

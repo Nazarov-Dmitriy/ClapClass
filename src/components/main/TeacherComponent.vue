@@ -33,7 +33,7 @@
 <style lang="scss">
 .teacher {
     padding: 148px 64px 100px 64px;
-    
+    box-sizing: border-box;
     overflow: hidden;
     @media (max-width: $xl) {
         padding: 48px 0;

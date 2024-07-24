@@ -67,7 +67,7 @@
 <style lang="scss">
 .project {
     padding: 100px 0px 0px 0px;
-
+    box-sizing: border-box;
     @media (max-width: $lg) {
         padding: 48px 0px 0px 0px;
     }
