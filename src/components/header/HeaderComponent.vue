@@ -1,26 +1,46 @@
 <template>
     <header class="header">
-        <div class="header-mobile" :class="{ 'is-active': btnMenu }">
+        <div
+            class="header-mobile"
+            :class="{ 'is-active': btnMenu }"
+        >
             <div class="header-mobile__wrapper">
-                <nav class="header__nav header__nav--mobile" :class="{ 'is-active': btnMenu }">
+                <nav
+                    class="header__nav header__nav--mobile"
+                    :class="{ 'is-active': btnMenu }"
+                >
                     <ul class="header__list">
                         <li class="header__list-item">
-                            <router-link to="/services" class="header__list-link"
-                                >Сервисы</router-link
+                            <router-link
+                                to="/services"
+                                class="header__list-link"
                             >
+                                Сервисы
+                            </router-link>
                         </li>
                         <li class="header__list-item">
-                            <router-link class="header__list-link" to="/about"
-                                >О проекте</router-link
+                            <router-link
+                                class="header__list-link"
+                                to="/about"
                             >
+                                О проекте
+                            </router-link>
                         </li>
                         <li class="header__list-item">
-                            <router-link to="/cooperation" class="header__list-link"
-                                >Сотрудничество</router-link
+                            <router-link
+                                to="/cooperation"
+                                class="header__list-link"
                             >
+                                Сотрудничество
+                            </router-link>
                         </li>
                         <li class="header__list-item">
-                            <router-link to="/blog" class="header__list-link">Блог</router-link>
+                            <router-link
+                                to="/blog"
+                                class="header__list-link"
+                            >
+                                Блог
+                            </router-link>
                         </li>
                     </ul>
                 </nav>
@@ -28,7 +48,9 @@
                     class="header__btn-wrapper header__btn-wrapper--mobile"
                     :class="{ 'is-active': btnMenu }"
                 >
-                    <BtnComponent class="header__btn">Вход</BtnComponent>
+                    <BtnComponent class="header__btn">
+                        Вход
+                    </BtnComponent>
                 </div>
             </div>
         </div>
@@ -41,11 +63,15 @@
                             src="../../assets/images/header/header-logo.png"
                             alt=""
                             class="header__logo-img"
-                        />
+                        >
                     </router-link>
                 </div>
 
-                <div class="hamburger" :class="{ 'is-active': btnMenu }" @click="setMenuAcive()">
+                <div
+                    class="hamburger"
+                    :class="{ 'is-active': btnMenu }"
+                    @click="setMenuAcive()"
+                >
                     <span class="line" />
                     <span class="line" />
                     <span class="line" />
@@ -53,27 +79,43 @@
                 <nav class="header__nav">
                     <ul class="header__list">
                         <li class="header__list-item">
-                            <router-link to="/services" class="header__list-link"
-                                >Сервисы</router-link
+                            <router-link
+                                to="/services"
+                                class="header__list-link"
                             >
+                                Сервисы
+                            </router-link>
                         </li>
                         <li class="header__list-item">
-                            <router-link class="header__list-link" to="/about"
-                                >О проекте</router-link
+                            <router-link
+                                class="header__list-link"
+                                to="/about"
                             >
+                                О проекте
+                            </router-link>
                         </li>
                         <li class="header__list-item">
-                            <router-link to="/cooperation" class="header__list-link"
-                                >Сотрудничество</router-link
+                            <router-link
+                                to="/cooperation"
+                                class="header__list-link"
                             >
+                                Сотрудничество
+                            </router-link>
                         </li>
                         <li class="header__list-item">
-                            <router-link to="/blog" class="header__list-link">Блог</router-link>
+                            <router-link
+                                to="/blog"
+                                class="header__list-link"
+                            >
+                                Блог
+                            </router-link>
                         </li>
                     </ul>
                 </nav>
                 <div class="header__btn-wrapper">
-                    <BtnComponent class="header__btn">Вход</BtnComponent>
+                    <BtnComponent class="header__btn">
+                        Вход
+                    </BtnComponent>
                 </div>
             </div>
         </div>
@@ -87,7 +129,7 @@ import { ref } from 'vue'
 const btnMenu = ref(false)
 const menuActive = ref(false)
 
-function setMenuAcive() {
+function setMenuAcive () {
     btnMenu.value = !btnMenu.value
     menuActive.value = !menuActive.value
 }

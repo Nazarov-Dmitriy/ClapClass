@@ -8,7 +8,8 @@
         <TeacherComponent />
         <StudentComponent />
         <NewsComponent />
-        <FaqComponent/>
+        <FaqComponent />
+        <FooterComponent />
     </div>
 </template>
 <script setup>
@@ -21,5 +22,7 @@ import TeacherComponent from '../components/main/TeacherComponent.vue'
 import StudentComponent from '../components/main/StudentComponent.vue'
 import NewsComponent from '../components/main/NewsComponent.vue'
 import FaqComponent from '../components/main/FaqComponent.vue'
+import FooterComponent from '../components/main/FooterComponent.vue'
+
 </script>
 <style lang="scss"></style>

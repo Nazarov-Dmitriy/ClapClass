@@ -5,22 +5,32 @@
                 src="../../assets/images/main/about/about-bg.png"
                 alt=""
                 class="about__background-img"
-            />
+            >
         </div>
         <div class="about__container">
             <div class="about__wrapper">
                 <div class="about__slogan">
-                    <h1 class="about__slogan-title">Учиться весело!</h1>
-                    <p class="about__slogan-subtitle">Преподавать легко</p>
+                    <h1 class="about__slogan-title">
+                        Учиться весело!
+                    </h1>
+                    <p class="about__slogan-subtitle">
+                        Преподавать легко
+                    </p>
                 </div>
                 <div class="about__info">
-                    <img :src="currentImage" alt="Logo" class="about__info-logo" />
+                    <img
+                        :src="currentImage"
+                        alt="Logo"
+                        class="about__info-logo"
+                    >
                     <div class="about__info-text-wrapper">
                         <p class="about__info-subtitle">
                             Сервис геймификации здоровьесберегающих технологий
                         </p>
                         <div class="about__info-btn-wrapper">
-                            <BtnComponent class="about__info-btn">Присоединиться</BtnComponent>
+                            <BtnComponent class="about__info-btn">
+                                Присоединиться
+                            </BtnComponent>
                         </div>
                     </div>
                 </div>
