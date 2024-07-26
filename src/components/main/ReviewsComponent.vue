@@ -87,6 +87,7 @@ const reviews = ref([
 <style lang="scss">
 .reviews {
     padding: 148px 64px 48px 64px;
+    box-sizing: border-box;
     overflow: hidden;
     position: relative;
 

@@ -203,7 +203,7 @@ const sections = ref([
     justify-content: space-between;
     align-items: center;
     position: relative;
-    @media (max-width: $md) {
+    @media (max-width: $lg) {
         flex-direction: column;
     }
 }

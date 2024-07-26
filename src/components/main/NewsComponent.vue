@@ -146,7 +146,7 @@ const newsItems = [
 .news {
     padding: 100px 0 0 0;
     overflow: hidden;
-
+    box-sizing: border-box;
     @media (max-width: $lg) {
         padding: 48px 0;
     }

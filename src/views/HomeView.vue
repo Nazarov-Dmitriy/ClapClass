@@ -3,12 +3,14 @@
         <HeaderComponent />
         <AboutComponent />
         <ObjectiveComponent />
+        <SliderComponent />
+        <StudentComponent />
+        <TeacherComponent />
         <ProjectComponent />
         <ReviewsComponent />
-        <TeacherComponent />
-        <StudentComponent />
         <NewsComponent />
         <FaqComponent />
+        <FormComponent />
         <FooterComponent />
     </div>
 </template>
@@ -22,7 +24,8 @@ import TeacherComponent from '../components/main/TeacherComponent.vue'
 import StudentComponent from '../components/main/StudentComponent.vue'
 import NewsComponent from '../components/main/NewsComponent.vue'
 import FaqComponent from '../components/main/FaqComponent.vue'
-import FooterComponent from '../components/main/FooterComponent.vue'
-
+import FormComponent from "../components/form/FormComponent.vue"
+import SliderComponent from '../components/main/SliderComponent.vue'
+import FooterComponent from '../components/main/FooterComponent.vue';
 </script>
 <style lang="scss"></style>

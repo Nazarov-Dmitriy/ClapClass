@@ -19,7 +19,7 @@
                                 alt=""
                                 class="project__card-img"
                             />
-                            <span>Приглашаем к соавторству </span>
+                            <span>Стать инновационной площадкой </span>
                         </div>
                     </div>
                     <div class="project__card">
@@ -29,7 +29,7 @@
                                 alt=""
                                 class="project__card-img"
                             />
-                            <span>Приглашаем к соавторству </span>
+                            <span>Приглашаем партнеров </span>
                         </div>
                         <div class="project__card-wrapper">
                             <img
@@ -37,7 +37,7 @@
                                 alt=""
                                 class="project__card-img"
                             />
-                            <span>Приглашаем к соавторству </span>
+                            <span>Поддержать проект </span>
                         </div>
                     </div>
                     <div class="project__card">
@@ -47,7 +47,7 @@
                                 alt=""
                                 class="project__card-img"
                             />
-                            <span>Приглашаем к соавторству </span>
+                            <span>Приглашаем в команду </span>
                         </div>
                         <div class="project__card-wrapper">
                             <img
@@ -55,7 +55,7 @@
                                 alt=""
                                 class="project__card-img"
                             />
-                            <span>Приглашаем к соавторству </span>
+                            <span>Пригласить коллегу </span>
                         </div>
                     </div>
                 </div>
@@ -67,17 +67,15 @@
 <style lang="scss">
 .project {
     padding: 100px 0px 0px 0px;
-
+    box-sizing: border-box;
     @media (max-width: $lg) {
         padding: 48px 0px 0px 0px;
     }
 }
-
 .container {
     max-width: 1440px;
     margin: 0 auto;
 }
-
 .project__title {
     font-family: 'CenturyGothic';
     font-weight: 700;
@@ -86,7 +84,6 @@
     text-align: center;
     color: $orange;
     margin-bottom: 48px;
-
     @media (max-width: $lg) {
         font-size: 32px;
         line-height: 1.5;

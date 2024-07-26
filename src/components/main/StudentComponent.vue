@@ -85,6 +85,7 @@
 <style lang="scss">
 .student {
     padding: 100px 64px 0px 64px;
+    box-sizing: border-box;
     overflow-y: hidden;
 
     @media (max-width: $lg) {
