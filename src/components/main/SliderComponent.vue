@@ -10,6 +10,7 @@
                             :class="{ 'active-tab': activeIndex === index }"
                             v-for="(item, index) in slidesData"
                             :key="index"
+                            @click="handleTabClick(index)"
                         >
                             {{ item.tab }}
                         </li>
@@ -19,18 +20,20 @@
                     <Swiper
                         :modules="[Navigation]"
                         :navigation="navigationOptions"
+                        :pagination="paginationOptions"
                         :slides-per-view="1"
                         :space-between="500"
                         @slide-change="updateActiveIndex"
                         mousewheel="true"
                         simulateTouch="true"
+                        ref="swiperRef"
                     >
                         <SwiperSlide v-for="(item, index) in slidesData" :key="index">
                             <div class="slider__slide">
                                 <img :src="item.img" alt="" class="slider__slide-img" />
                                 <div class="slider__slide-info">
                                     <div class="slider__slide-info-title-wrapper">
-                                        <img :src="getPath('item.svg')" alt="" />
+                                        <img :src="getPath(item.svg)" alt="" />
                                         <h2 class="slider__slide-info-title">
                                             {{ item.title }}
                                         </h2>
@@ -114,12 +117,11 @@
 <script setup>
 import { ref } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation } from 'swiper/modules'
+import { Navigation, Pagination } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 import BtnComponent from '../btns/BtnComponent.vue'
-
-const modules = ref([Navigation])
 
 const slidesData = ref([
     {
@@ -129,7 +131,6 @@ const slidesData = ref([
         title: 'Откройте второе дыхание!',
         text: 'Пробудите утомившийся класс, превратив перерыв на уроке в потрясающий танцевальный флешмоб'
     },
-
     {
         tab: 'Ритм-разминки',
         svg: '../src/assets/images/main/slider/slide-svg2.svg',
@@ -147,10 +148,18 @@ const slidesData = ref([
 ])
 
 const activeIndex = ref(0)
+const swiperRef1 = ref(null)
+const swiperRef2 = ref(null)
 
 const navigationOptions = {
     nextEl: '.slider__slide-arrow-btn--right',
     prevEl: '.slider__slide-arrow-btn--left'
+}
+
+const paginationOptions = {
+    el: '.slider__tabs-list-item',
+    type: 'bullets',
+    clickable: true
 }
 
 function getPath(img) {
@@ -160,7 +169,13 @@ function getPath(img) {
 function updateActiveIndex(swiper) {
     activeIndex.value = swiper.activeIndex % slidesData.value.length
 }
+
+function handleTabClick(index) {
+    activeIndex.value = index
+    slideTo(index)
+}
 </script>
+
 <style lang="scss">
 .swiper {
     overflow: hidden;
@@ -217,11 +232,22 @@ function updateActiveIndex(swiper) {
     &::after {
         content: '';
         position: absolute;
-        width: calc(100% + 100%);
+        width: calc(100% + 1000%);
         margin: 0 auto;
         height: 60%;
         bottom: -100px;
-        left: -50%;
+        left: 0;
+        background: $yellowy;
+        z-index: -1;
+    }
+    &::before{
+        content: '';
+        position: absolute;
+        width: calc(100% + 1000%);
+        margin: 0 auto;
+        height: 60%;
+        bottom: -100px;
+        left: calc(-100% - 1000%);
         background: $yellowy;
         z-index: -1;
     }
@@ -254,6 +280,7 @@ function updateActiveIndex(swiper) {
     text-align: center;
     color: $gray;
     border-bottom: 1px solid $gray;
+    cursor: pointer;
     @media (max-width: $lg) {
         font-size: 16px;
     }

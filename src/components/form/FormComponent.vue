@@ -29,12 +29,16 @@
                     </div>
                 </div>
                 <div class="form__info">
-                    <form @submit.prevent="handleSubmit" class="form__form">
+                    <form
+                        @submit.prevent="validateForm"
+                        @keypress.enter.prevent="validateForm"
+                        class="form__form"
+                    >
                         <div class="form__fields">
                             <label
                                 for="name"
                                 class="form__label"
-                                :class="{ form__error: errors.name }"
+                                :class="{ form__error: formField.nameError }"
                             >
                                 Как вас зовут?
                             </label>
@@ -42,43 +46,44 @@
                                 type="text"
                                 id="name"
                                 class="form__input form__input--name"
-                                :class="{ 'form__input--error': errors.name }"
-                                v-model="form.name"
+                                :class="{ 'form__input--error': formField.nameError }"
+                                v-model="formField.name"
                                 placeholder="Мария Ивановна"
+                                @keypress.enter="validateField($event, 'event', 'name')"
                             />
-                            <span v-if="errors.name" class="form__error">
+                            <span v-if="formField.nameError" class="form__error">
                                 <div class="form__error-wrapper">
                                     <img
                                         src="../../assets/images/main/news/news-error-icon.svg"
                                         alt=""
                                     />
-                                    {{ errors.name }}
+                                    <span>Поле заполнено некорректно</span>
                                 </div>
                             </span>
 
                             <div class="form__form-input-wrapper">
-                                <label
-                                    for="phone"
-                                    class="form__label"
-                                    :class="{ form__error: errors.phone }"
-                                >
-                                    Телефон
+                                <label for="phone" class="form__label">
+                                    <span :class="{ form__error: formField.phoneError }"
+                                        >Телефон</span
+                                    >
+
                                     <input
                                         type="text"
                                         id="phone"
                                         class="form__input form__input--phone"
-                                        :class="{ 'form__input--error': errors.phone }"
-                                        v-model="form.phone"
+                                        :class="{ 'form__input--error': formField.phoneError }"
+                                        v-model="formField.phone"
                                         placeholder="+7 (912) 234-56-78"
-                                        @input="formatPhone"
+                                        @input="changePhone($event)"
+                                        @keypress.enter="validateField($event, 'event', 'phone')"
                                     />
-                                    <span v-if="errors.phone" class="form__error">
+                                    <span v-if="formField.phoneError" class="form__error">
                                         <div class="form__error-wrapper">
                                             <img
                                                 src="../../assets/images/main/news/news-error-icon.svg"
                                                 alt=""
                                             />
-                                            {{ errors.phone }}
+                                            <span>Поле заполнено некорректно</span>
                                         </div>
                                     </span>
                                 </label>
@@ -86,24 +91,28 @@
                                 <label
                                     for="email"
                                     class="form__label"
-                                    :class="{ form__error: errors.email }"
+                                    :class="{ form__error: formField.emailError }"
                                 >
-                                    E-mail
+                                    <span :class="{ form__error: formField.phoneError }"
+                                        >E-mail</span
+                                    >
                                     <input
                                         type="text"
                                         id="email"
                                         class="form__input form__input--email"
-                                        :class="{ 'form__input--error': errors.email }"
-                                        v-model="form.email"
+                                        :class="{ 'form__input--error': formField.emailError }"
+                                        v-model="formField.email"
                                         placeholder="marina_ivanova@mail.ru"
+                                        @input="changeEmail($event)"
+                                        @keypress.enter="validateField($event, 'event', 'email')"
                                     />
-                                    <span v-if="errors.email" class="form__error">
+                                    <span v-if="formField.emailError" class="form__error">
                                         <div class="form__error-wrapper">
                                             <img
                                                 src="../../assets/images/main/news/news-error-icon.svg"
                                                 alt=""
                                             />
-                                            {{ errors.email }}
+                                            <span>Поле заполнено некорректно</span>
                                         </div>
                                     </span>
                                 </label>
@@ -112,7 +121,7 @@
                             <label
                                 for="question"
                                 class="form__label"
-                                :class="{ form__error: errors.question }"
+                                :class="{ form__error: formField.textareaError }"
                             >
                                 Вопрос
                             </label>
@@ -121,24 +130,33 @@
                                 cols="30"
                                 rows="10"
                                 class="form__textarea"
-                                :class="{ 'form__textarea--error': errors.question }"
-                                v-model="form.question"
+                                :class="{ 'form__textarea--error': formField.textareaError }"
+                                v-model="formField.textarea"
                                 placeholder="Напишите ваш вопрос"
+                                @input="changeTextarea($event)"
                             ></textarea>
-                            <span v-if="errors.question" class="form__error form__error--textarea">
+                            <span
+                                v-if="formField.textareaError"
+                                class="form__error form__error--textarea"
+                            >
                                 <div class="form__error-wrapper">
                                     <img
                                         src="../../assets/images/main/news/news-error-icon.svg"
                                         alt=""
                                     />
-                                    {{ errors.question }}
+                                    <span>Поле заполнено некорректно</span>
                                 </div>
                             </span>
                         </div>
 
                         <div class="form__form-wrapper">
                             <div class="form__btn-wrapper">
-                                <BtnComponent class="form__btn" type="submit">
+                                <BtnComponent
+                                    class="form__btn"
+                                    type="submit"
+                                    emit-name="form-submit"
+                                    @form-submit="validateForm()"
+                                >
                                     Отправить вопрос
                                 </BtnComponent>
                             </div>
@@ -155,101 +173,95 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import BtnComponent from '../btns/BtnComponent.vue'
+
+const formField = reactive({
+    name: '',
+    phone: '',
+    email: '',
+    textarea: '',
+    nameError: false,
+    phoneError: false,
+    emailError: false,
+    textareaError: false,
+    validateForm: false
+})
+
+function validateField(param, event, nameParam) {
+    let target
+    if (event === 'event') {
+        target = param.target.value.trim()
+    } else {
+        target = param.trim()
+    }
+
+    if (nameParam === 'name') {
+        target.length < 3 ? (formField.nameError = true) : (formField.nameError = false)
+    }
+    if (nameParam === 'phone') {
+        target.length < 18 ? (formField.phoneError = true) : (formField.phoneError = false)
+    }
+    if (nameParam === 'email') {
+        let email_regexp =
+            /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+        !email_regexp.test(String(target).toLowerCase())
+            ? (formField.emailError = true)
+            : (formField.emailError = false)
+    }
+    if (nameParam === 'textarea') {
+        target.length < 3 ? (formField.textareaError = true) : (formField.textareaError = false)
+    }
+}
+
+function changePhone(event) {
+    let target = event.target
+    let x = target.value.replace(/\D/g, '').match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/)
+    x[1] = '+7'
+    target.value = !x[3]
+        ? x[1] + '-(' + x[2]
+        : x[1] + '-(' + x[2] + ')-' + x[3] + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '')
+    formField.phone = target.value
+}
+
+function changeEmail(event) {
+    let target = event.target
+    let x = target.value.match(
+        /([a-zA-Z]{1})([a-zA-Z0-9._-]{0,19})([@]{0,1})([a-zA-Z0-9._-]{0,10})([.]{0,1})([a-zA-Z0-9._-]{0,5})/
+    )
+    target.value = x ? x[1] + x[2] + x[3] + x[4] + x[5] + x[6] : ''
+    formField.email = target.value
+}
+
+function changeTextarea(event) {
+    let target = event.target
+    event.target.scrollBy(target.scrollHeight, 100)
+
+    if (formField.textareaError && target.value.length > 3) {
+        formField.textareaError = false
+    }
+}
+
+function validateForm() {
+    let validateFeildArr = ['name', 'phone', 'email', 'textarea']
+
+    validateFeildArr.forEach((item) => {
+        validateField(formField[item], 'validate', item)
+    })
+}
 
 function getUrl(url) {
     return new URL(url, import.meta.url).href
 }
-
-const form = ref({
-    name: '',
-    phone: '',
-    email: '',
-    question: ''
-})
-
-const errors = ref({
-    name: null,
-    phone: null,
-    email: null,
-    question: null
-})
-
-const validateName = () => {
-    return form.value.name ? null : 'Поле заполненно некорректно'
-}
-
-const validatePhone = () => {
-    const phonePattern = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/
-    return phonePattern.test(form.value.phone) ? null : 'Поле заполненно некорректно'
-}
-
-const validateEmail = () => {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    return emailPattern.test(form.value.email) ? null : 'Поле заполненно некорректно'
-}
-
-const validateQuestion = () => {
-    return form.value.question ? null : 'Поле заполненно некорректно'
-}
-
-const validateForm = () => {
-    errors.value.name = validateName()
-    errors.value.phone = validatePhone()
-    errors.value.email = validateEmail()
-    errors.value.question = validateQuestion()
-    return (
-        !errors.value.name && !errors.value.phone && !errors.value.email && !errors.value.question
-    )
-}
-
-const handleSubmit = () => {
-    const isValid = validateForm()
-    if (isValid) {
-        form.value = {
-            name: '',
-            phone: '',
-            email: '',
-            question: ''
-        }
-        errors.value = {
-            name: null,
-            phone: null,
-            email: null,
-            question: null
-        }
-    }
-}
-
-const formatPhone = (event) => {
-    let input = event.target.value.replace(/\D/g, '')
-    if (input.length > 1) input = input.substring(1, 11)
-    else input = ''
-
-    let formatted = '+7'
-    if (input.length > 0) {
-        formatted += ' (' + input.substring(0, 3)
-    }
-    if (input.length >= 4) {
-        formatted += ') ' + input.substring(3, 6)
-    }
-    if (input.length >= 7) {
-        formatted += '-' + input.substring(6, 8)
-    }
-    if (input.length >= 9) {
-        formatted += '-' + input.substring(8, 10)
-    }
-
-    form.value.phone = formatted
-}
 </script>
 
 <style scoped lang="scss">
+.form {
+    background: $gray;
+}
 .form__container {
     padding: 48px 64px 0px 64px;
     box-sizing: border-box;
-    background: $gray;
 
     @media (max-width: $lg) {
         padding: 48px 16px 0px 16px;
@@ -262,6 +274,7 @@ const formatPhone = (event) => {
 .form__wrapper {
     display: flex;
     align-items: end;
+    justify-content: space-around;
     gap: 16px;
     @media (max-width: $xl) {
         flex-direction: column;
@@ -362,6 +375,14 @@ const formatPhone = (event) => {
     background: $white;
     box-sizing: border-box;
     position: relative;
+    transition: 0.4s;
+    &:hover {
+        background-color: #e6eaed;
+    }
+
+    &:focus {
+        background-color: $white;
+    }
     &--name {
         background-image: url('../../assets/images/form/form-name-svg.svg');
         background-repeat: no-repeat;

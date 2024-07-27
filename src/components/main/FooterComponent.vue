@@ -187,7 +187,7 @@ const sections = ref([
 }
 
 .footer__container {
-    max-width: 1440px;
+    max-width: 1920px;
     margin: 0 auto;
     padding: 100px 64px 100px 64px;
     box-sizing: border-box;

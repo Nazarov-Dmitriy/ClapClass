@@ -2,7 +2,7 @@
     <section class="student">
         <div class="student__container container">
             <h2 class="student__title">Clap class для учеников</h2>
-            <div class="student__cards">
+            <div ref="cardsContainer" class="student__cards">
                 <div class="student__card">
                     <div class="student__card-header">
                         <img
@@ -79,31 +79,51 @@
         </div>
     </section>
 </template>
-<script setup>
 
+<script setup>
+  import { onMounted, onBeforeUnmount, ref } from 'vue';
+
+  const cardsContainer = ref(null);
+
+  onMounted(() => {
+    const container = cardsContainer.value;
+
+    if (window.innerWidth <= 768) {
+      const scrollToCenter = () => {
+        container.scrollLeft = (container.scrollWidth - container.clientWidth) / 2;
+      };
+
+      scrollToCenter();
+      window.addEventListener('resize', scrollToCenter);
+    }
+  });
+
+  onBeforeUnmount(() => {
+  window.removeEventListener('resize', scrollToCenter);
+});
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .student {
     padding: 100px 64px 0px 64px;
     box-sizing: border-box;
     overflow-y: hidden;
 
-    @media (max-width: $lg) {
+    @media (max-width: 768px) {
         padding: 48px 0;
-    }
-    @media (max-width: $sm) {
-        padding: 24px 0;
+        overflow-x: hidden;
     }
 }
+
 .student__container {
     display: flex;
     flex-direction: column;
     gap: 128px;
 
-    @media (max-width: $lg) {
+    @media (max-width: 768px) {
         gap: 10px;
     }
 }
+
 .student__title {
     font-family: var(--second-family);
     font-weight: 700;
@@ -112,14 +132,15 @@
     text-align: center;
     color: $orange;
 
-    @media (max-width: $lg) {
+    @media (max-width: 768px) {
         font-size: 36px;
         line-height: 1.5;
     }
-    @media (max-width: $sm) {
+    @media (max-width: 576px) {
         font-size: 24px;
     }
 }
+
 .student__cards {
     display: flex;
     justify-content: center;
@@ -127,18 +148,22 @@
     padding-bottom: 16px;
     box-sizing: border-box;
 
-    @media (max-width: $lg) {
+    @media (max-width: $md) {
         display: flex;
-        justify-content: start;
+        justify-content: flex-start;
         flex-wrap: nowrap;
-        justify-content: start;
-        overflow-x: scroll;
+        overflow-x: auto;
         padding-top: 71px;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        
+
         &::-webkit-scrollbar {
             display: none;
         }
     }
 }
+
 .student__card {
     border: 2px solid #656d75;
     border-radius: 24px;
@@ -148,9 +173,8 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
-    max-width: 424px;
+    max-width: 586px;
     width: 100%;
-    min-width: 300px;
     cursor: pointer;
     justify-content: space-between;
 
@@ -168,22 +192,22 @@
         color: $white;
     }
 
-    @media (max-width: $lg) {
-        min-width: 420px;
+    @media (max-width: 768px) {
+        min-width: 80%;
+        margin: 0 10px;
     }
-    @media (max-width: $sm) {
+    @media (max-width: 576px) {
         min-width: 240px;
         gap: 16px;
     }
 }
+
 .student__card-header {
     display: flex;
     justify-content: center;
     position: relative;
-
-    @media (max-width: $sm) {
-    }
 }
+
 .student__card-img {
     position: absolute;
     top: -200px;
@@ -203,10 +227,11 @@
         text-align: center;
     }
 
-    @media (max-width: $lg) {
+    @media (max-width: 768px) {
         font-size: 20px;
     }
 }
+
 .student__card-text {
     font-family: var(--font-family);
     font-weight: 400;
@@ -214,10 +239,12 @@
     line-height: 150%;
     text-align: center;
     color: $black;
-    @media (max-width: $lg) {
+
+    @media (max-width: 768px) {
         font-size: 16px;
     }
 }
+
 .student__card-footer {
     border-radius: 24px;
     padding: 16px;
@@ -229,7 +256,7 @@
         background 0.3s,
         color 0.3s;
 
-    @media (max-width: $sm) {
+    @media (max-width: 576px) {
         gap: 0;
     }
 
@@ -237,6 +264,7 @@
         display: flex;
         flex-direction: column;
         gap: 8px;
+        width: 99px;
 
         span {
             font-family: var(--font-family);
@@ -246,7 +274,7 @@
             color: $gray;
             transition: color 0.3s;
 
-            @media (max-width: $sm) {
+            @media (max-width: 576px) {
                 font-size: 16px;
             }
         }
@@ -261,31 +289,36 @@
     }
 }
 
-.student__card:hover .student__card-footer-info span {
-    color: $white;
-}
 .student__card-footer-img-1 {
     background: url('../../assets/images/main/student/student-card-svg1.svg') no-repeat right;
-    width: 100%;
+    width: 110px;
     height: 100%;
 }
+
 .student__card-footer-img-2 {
     background: url('../../assets/images/main/student/student-card-svg2.svg') no-repeat right;
-    width: 100%;
+    width: 110px;
     height: 100%;
 }
+
 .student__card-footer-img-3 {
     background: url('../../assets/images/main/student/student-card-svg3.svg') no-repeat right;
-    width: 100%;
+    width: 110px;
     height: 100%;
+}
+
+.student__card:hover .student__card-footer-info span {
+    color: $white;
 }
 
 .student__card:hover .student__card-footer-img-1 {
     background: url('../../assets/images/main/student/student-svg-active1.svg') no-repeat right;
 }
+
 .student__card:hover .student__card-footer-img-2 {
     background: url('../../assets/images/main/student/student-svg-active2.svg') no-repeat right;
 }
+
 .student__card:hover .student__card-footer-img-3 {
     background: url('../../assets/images/main/student/student-svg-active3.svg') no-repeat right;
 }
