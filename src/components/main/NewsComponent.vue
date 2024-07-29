@@ -331,6 +331,15 @@ const newsItems = [
     box-sizing: border-box;
     width: 100%;
 
+    &:hover{
+        border: 2px solid #656d75;
+        background: #e6eaed;
+    }
+
+    &:focus {
+        background: $white;
+    }
+
     @media (max-width: $lg) {
         width: 100%;
     }

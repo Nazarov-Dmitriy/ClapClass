@@ -36,11 +36,10 @@
     box-sizing: border-box;
     overflow: hidden;
     @media (max-width: $xl) {
-        padding: 48px 0;
+        padding: 48px 16px;
     }
     @media (max-width: $sm) {
-        padding: 24px 0;
-        
+        padding: 24px 16px;
     }
 }
 
@@ -74,7 +73,7 @@
     justify-content: center;
     align-items: stretch;
     gap: 48px;
-    @media (max-width: $xl) {
+    @media (max-width: $md) {
         flex-direction: column;
     }
     @media (max-width: $sm) {
@@ -87,12 +86,12 @@
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+    width: 100%;
 }
 
 .teacher__hero-img {
     border-radius: 24px;
     padding: 16px;
-    max-width: 624px;
     width: 100%;
     height: 100%;
     box-shadow: 10px 0 2px 0 rgba(20, 5, 5, 0.2);
@@ -107,6 +106,7 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
+    width: 100%;
     @media (margin: $sm) {
         padding: 8px;
     }
@@ -130,12 +130,6 @@
     display: flex;
     flex-direction: column;
     gap: 33px;
-
-    @media(max-width: $lg){
-        overflow: scroll;
-        height: 296px;
-        padding-top: 20px;
-    }
 }
 
 .teacher__info-item {

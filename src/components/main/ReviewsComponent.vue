@@ -51,6 +51,26 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="reviews__cards-group">
+                                <div
+                                    class="reviews__card"
+                                    v-for="(review, index) in reviews"
+                                    :key="index + reviews.length"
+                                >
+                                    <div class="reviews__card-header">
+                                        <img :src="review.img" alt="" class="reviews__card-img" />
+                                        <div class="reviews__card-header-text">
+                                            <span>{{ review.name }}</span>
+                                            <span>{{ review.date }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="reviews__card-body">
+                                        <p class="reviews__card-text">
+                                            {{ review.text }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -97,6 +117,10 @@ const reviews = ref([
     @media (max-width: $sm) {
         padding: 24px 16px;
     }
+}
+
+.reviews__container {
+    overflow: hidden;
 }
 
 .reviews__wrapper {
