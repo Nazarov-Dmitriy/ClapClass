@@ -1,15 +1,23 @@
 <template>
     <section class="faq">
         <div class="faq__container container">
-            <h2 class="faq__title">Часто задаваемые вопросы</h2>
+            <h2 class="faq__title">
+                Часто задаваемые вопросы
+            </h2>
             <div class="faq__wrapper">
-                <div v-for="(question, index) in questions" :key="index" class="faq__question">
+                <div
+                    v-for="(question, index) in questions"
+                    :key="index"
+                    class="faq__question"
+                >
                     <div class="faq__question-wrapper">
-                        <p class="faq__question-text">{{ question.question }}</p>
+                        <p class="faq__question-text">
+                            {{ question.question }}
+                        </p>
                         <button
-                            @click="toggleAnswer(index)"
                             class="faq__arrow-btn"
                             :class="{ active: showAnswer[index] }"
+                            @click="toggleAnswer(index)"
                         >
                             <svg
                                 class="faq__arrow-icon"
@@ -30,13 +38,18 @@
                         </button>
                     </div>
                     <transition name="fade">
-                        <div v-if="showAnswer[index]" class="faq__answer">
-                            <p class="faq__answer-text">{{ question.answer }}</p>
+                        <div
+                            v-if="showAnswer[index]"
+                            class="faq__answer"
+                        >
+                            <p class="faq__answer-text">
+                                {{ question.answer }}
+                            </p>
                             <img
                                 class="faq__answer-img"
                                 src="../../assets/images/main/faq/faq-answer-bg.png"
                                 alt=""
-                            />
+                            >
                         </div>
                     </transition>
                 </div>
@@ -97,6 +110,7 @@ const toggleAnswer = (index) => {
     @media (max-width: $lg) {
         padding: 48px 16px;
     }
+
     @media (max-width: $sm) {
         padding: 24px 16px;
     }
@@ -124,6 +138,7 @@ const toggleAnswer = (index) => {
         line-height: 1.5;
         text-align: center;
     }
+
     @media (max-width: $sm) {
         font-size: 24px;
     }
@@ -172,6 +187,8 @@ const toggleAnswer = (index) => {
     &.active {
         background-color: $orange;
         border: none;
+        transform: rotate(180deg);
+
 
         .faq__arrow-icon path {
             stroke: $white;
@@ -187,10 +204,6 @@ const toggleAnswer = (index) => {
     path {
         transition: stroke 0.3s;
     }
-}
-
-.active {
-    transform: rotate(180deg);
 }
 
 .faq__answer {

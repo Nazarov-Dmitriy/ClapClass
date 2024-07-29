@@ -81,26 +81,26 @@
 </template>
 
 <script setup>
-  import { onMounted, onBeforeUnmount, ref } from 'vue';
+import { onMounted, onBeforeUnmount, ref } from 'vue'
 
-  const cardsContainer = ref(null);
+const cardsContainer = ref(null)
 
-  onMounted(() => {
-    const container = cardsContainer.value;
+onMounted(() => {
+    const container = cardsContainer.value
 
     if (window.innerWidth <= 768) {
-      const scrollToCenter = () => {
-        container.scrollLeft = (container.scrollWidth - container.clientWidth) / 2;
-      };
+        const scrollToCenter = () => {
+            container.scrollLeft = (container.scrollWidth - container.clientWidth) / 2
+        }
 
-      scrollToCenter();
-      window.addEventListener('resize', scrollToCenter);
+        scrollToCenter()
+        window.addEventListener('resize', scrollToCenter)
     }
-  });
+})
 
-  onBeforeUnmount(() => {
-  window.removeEventListener('resize', scrollToCenter);
-});
+onBeforeUnmount(() => {
+    window.removeEventListener('resize', scrollToCenter)
+})
 </script>
 <style lang="scss" scoped>
 .student {
@@ -156,7 +156,6 @@
         padding-top: 71px;
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
-        
 
         &::-webkit-scrollbar {
             display: none;

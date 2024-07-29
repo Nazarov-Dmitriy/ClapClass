@@ -3,14 +3,14 @@
         <HeaderComponent />
         <AboutComponent />
         <ObjectiveComponent />
-        <SliderComponent/>
+        <SliderComponent />
         <StudentComponent />
         <TeacherComponent />
         <ProjectComponent />
         <ReviewsComponent />
         <NewsComponent />
-        <FaqComponent/>
-        <FormComponent/>
+        <FaqComponent />
+        <FormComponent />
         <FooterComponent />
     </div>
 </template>
