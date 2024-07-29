@@ -53,22 +53,22 @@
                 class="blog__dropdown"
                 @select="change"
             />
-            <BtnComponentWhite
+            <BtnComponentOrange
                 class="blog__btn-panel"
                 emit-name="action"
                 :value="video"
                 @action="emit('update:video', !props.video)"
             >
                 Только видео
-            </BtnComponentWhite>
-            <BtnComponentWhite
+            </BtnComponentOrange>
+            <BtnComponentOrange
                 class="blog__btn-panel"
                 emit-name="action"
                 :value="article"
                 @action="emit('update:article', !props.article)"
             >
                 Только статьи
-            </BtnComponentWhite>
+            </BtnComponentOrange>
         </div>
         <button class="blog__btn-menu">
             <img
@@ -82,7 +82,8 @@
 <script setup>
 import { ref } from 'vue';
 import DropdownComponent from '../dropdown/DropdownComponent.vue';
-import BtnComponentWhite from '../btns/BtnComponentWhite.vue';
+import BtnComponentOrange from '../btns/BtnComponentOrange.vue';
+
 
 const emit = defineEmits(['update:search', 'update:sort', 'update:video', 'update:article', 'search'])
 

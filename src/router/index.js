@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import BlogPage from '../views/BlogPage.vue'
-import ArticleComponent from '../components/article/ArticleComponent.vue'
+import ArticlePage from '../views/ArticlePage.vue'
+
 
 
 
@@ -24,7 +25,7 @@ const router = createRouter({
                 {
                     path: ':id',
                     name: 'blog-articke',
-                    component: ArticleComponent
+                    component: ArticlePage
                 }
             ]
             

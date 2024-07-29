@@ -2,9 +2,13 @@
     <button
         class="btn-orange"
         :class="{ 'active': value }"
+        :style="{borderColor: props.color}"
         @click="submitEmit"
     >
-        <span class="btn-orange__text">
+        <span
+            class="btn-orange__text"
+            :style="{color: props.color}"
+        >
             <slot />
         </span>
     </button>
@@ -38,15 +42,13 @@ function submitEmit () {
     box-shadow:
         0 2px 4px 0 rgba(21, 15, 13, 0.1),
         0 8px 8px 0 rgba(21, 15, 13, 0.09);
-    border: 2px solid $white;
+    border: 2px solid $orange;
     border-radius: 24px;
     padding: 6px 16px;
     background: none;
     cursor: pointer;
     transition: 0.4s;
     display: block;
-
-
 
     &:hover {
         border: 2px solid $white;
@@ -67,7 +69,7 @@ function submitEmit () {
         .btn-orange__text {
             color: $black;
         }
-    }
+    } 
 }
 
 .btn-orange__text {
@@ -75,7 +77,7 @@ function submitEmit () {
     font-weight: 500;
     font-size: 20px;
     line-height: 1.5;
-    color: $white;
+    color: $orange;
     transform: 0.4s;
 }
 </style>

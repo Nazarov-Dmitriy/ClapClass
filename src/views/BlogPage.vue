@@ -54,18 +54,14 @@ onMounted(() => {
 })
 
 function search () {
-    console.log(222);
     data.value = dataAll.value.filter(el => {
         return (el.title).toLocaleLowerCase().includes((panel.search).toLocaleLowerCase())
     })
-    console.log(data);
 }
 
 onMounted(() => {
     dataAll.value = [...getAll()]
     data.value = dataAll.value
-    console.log(data);
-
 })
 
 watch(() =>panel.search, (newVal) => {

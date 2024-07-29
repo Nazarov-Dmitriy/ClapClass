@@ -6,7 +6,7 @@
                     src="@/assets/icons/footer/footer-logo.png"
                     alt="logo"
                     class="footer__logo"
-                    @click="mainLink()"
+                    @click="$router.push('/')"
                 >
                 <div class="footer__contact-networks">
                     <img
@@ -40,9 +40,14 @@
                             src="@/assets/icons/footer/menu-arrow.svg"
                             alt="logo"
                             class="footer__menu-arrow"
+                            :class="{'active': menuIndex.includes(index)}"
+                            @click="activeMenu(index)"
                         >
                     </div>
-                    <ul class="footer__list">
+                    <ul
+                        class="footer__list"
+                        :class="{'footer__list-active': menuIndex.includes(index)}"
+                    >
                         <li
                             v-for="(item, number) in section.items"
                             :key="number"
@@ -132,17 +137,15 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-document.addEventListener("DOMContentLoaded", function () {
-    let btns = document.querySelectorAll(".footer__menu-arrow");
-    let menus = document.querySelectorAll(".footer__list");
+const menuIndex =ref([]);
 
-    btns.forEach((btn, index) => {
-        btn.addEventListener('click', () => {
-            menus[index].classList.toggle("footer__list-active");
-            btn.classList.toggle("arrow_ative");
-        });
-    });
-});
+function activeMenu (index){
+    if (!menuIndex.value.includes(index)) {
+        menuIndex.value.push(index)
+    } else {
+        menuIndex.value.splice(menuIndex.value.indexOf(index), 1)
+    }
+}
 
 const sections = ref([
     {
@@ -193,7 +196,7 @@ const sections = ref([
     flex-direction: column;
     gap: 24px;
 
-    @media (max-width: $md) {
+    @media (max-width: $lg) {
         padding: 24px 16px 24px 16px;
     }
 }
@@ -245,6 +248,10 @@ const sections = ref([
     @media (max-width: $md) {
         display: block;
         cursor: pointer;
+    }
+
+    &.active{
+        transform: rotate(180deg);
     }
 }
 

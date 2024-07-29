@@ -5,16 +5,25 @@
                 class="news__bg"
                 src="../../assets/images/main/news/news-bg.png"
                 alt="Background"
-            />
+            >
             <div class="news__wrapper">
                 <div class="news__info">
-                    <h2 class="news__info-title">Новости проекта</h2>
-                    <BtnComponent @click="goToBlog" class="news__info-btn"
-                        >Перейти в блог</BtnComponent
+                    <h2 class="news__info-title">
+                        Новости проекта
+                    </h2>
+                    <BtnComponent
+                        class="news__info-btn"
+                        @click="goToBlog"
                     >
+                        Перейти в блог
+                    </BtnComponent>
                 </div>
                 <div class="news__cards">
-                    <div class="news__card" v-for="(news, index) in newsItems" :key="index">
+                    <div
+                        v-for="(news, index) in newsItems"
+                        :key="index"
+                        class="news__card"
+                    >
                         <div class="news__card-info">
                             <div class="news__card-info-hash">
                                 <span>{{ news.number }}</span>
@@ -34,22 +43,24 @@
                                 src="../../assets/images/main/news/news-hero.png"
                                 alt="Subscribe"
                                 class="news__card-img"
-                            />
+                            >
                             <div class="news__card-img-text-wrapper">
-                                <p class="news__card-img-text">Подписывайся на наши новости!</p>
+                                <p class="news__card-img-text">
+                                    Подписывайся на наши новости!
+                                </p>
                                 <img
                                     class="news-text-bg"
                                     src="../../assets/images/main/news/news-text-bg.png"
                                     alt="Text Background"
-                                />
+                                >
                             </div>
                         </div>
                         <div class="news__card-info news__card-info--subscribe">
                             <form
-                                @submit.prevent="sendMail"
-                                @keypress.enter.prevent="sendMail"
                                 action="#"
                                 class="news__card-form"
+                                @submit.prevent="sendMail"
+                                @keypress.enter.prevent="sendMail"
                             >
                                 <input
                                     v-model="email"
@@ -57,28 +68,30 @@
                                     :class="{ 'is-invalid': showDangerBlock }"
                                     type="text"
                                     placeholder="Введите ваш email"
-                                />
-                                <div v-if="showDangerBlock" class="input-error">
+                                >
+                                <div
+                                    v-if="showDangerBlock"
+                                    class="input-error"
+                                >
                                     <img
                                         src="../../assets/images/main/news/news-error-icon.svg"
                                         alt=""
-                                    />
+                                    >
                                     <span>Поле заполненно некорректно</span>
                                 </div>
                                 <div>
                                     <div class="news__card-info-wrapper">
                                         <div class="news__card-btn-wrapper">
-                                            <BtnComponent class="news__card-form-btn"
-                                                >Подписаться</BtnComponent
-                                            >
+                                            <BtnComponent class="news__card-form-btn">
+                                                Подписаться
+                                            </BtnComponent>
                                         </div>
                                         <p class="news__card-text--subscribe">
                                             Нажимая кнопку “Подписаться” вы соглашаетесь с
-                                            <span
-                                                ><a class="news__card-text-link--subscribe" href="#"
-                                                    >политикой обработки персональных данных</a
-                                                ></span
-                                            >
+                                            <span><a
+                                                class="news__card-text-link--subscribe"
+                                                href="#"
+                                            >политикой обработки персональных данных</a></span>
                                         </p>
                                     </div>
                                 </div>
@@ -92,7 +105,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import BtnComponent from '../btns/BtnComponent.vue'
 

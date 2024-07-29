@@ -1,7 +1,7 @@
 @font-face {
     font-family: "Inter";
-    src: url("../fonts/Inter-Regular.woff2") format("woff2"),
-        url("../fonts/Inter-Regular.woff") format("woff");
+    src: url("../font/Inter-Regular.woff2") format("woff2"),
+        url("../font/Inter-Regular.woff") format("woff");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -9,8 +9,8 @@
 
 @font-face {
     font-family: "Inter";
-    src: url("../fonts/Inter-Medium.woff2") format("woff2"),
-        url("../fonts/Inter-Medium.woff") format("woff");
+    src: url("../font/Inter-Medium.woff2") format("woff2"),
+        url("../font/Inter-Medium.woff") format("woff");
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -18,8 +18,8 @@
 
 @font-face {
     font-family: "CenturyGothic";
-    src: url("../font/CenturyGothic-Bold.woff2") format("woff2");
-    src: url("../font/CenturyGothic-Bold.woff") format("woff");
+    src: url("../font/CenturyGothic-Bold.woff2") format("woff2"),
+        url("../font/CenturyGothic-Bold.woff") format("woff");
     font-weight: 600;
     font-style: normal;
     font-display: swap;
