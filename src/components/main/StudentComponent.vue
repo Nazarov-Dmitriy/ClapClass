@@ -1,18 +1,25 @@
 <template>
     <section class="student">
         <div class="student__container container">
-            <h2 class="student__title">Clap class для учеников</h2>
-            <div ref="cardsContainer" class="student__cards">
+            <h2 class="student__title">
+                Clap class для учеников
+            </h2>
+            <div
+                ref="cardsContainer"
+                class="student__cards"
+            >
                 <div class="student__card">
                     <div class="student__card-header">
                         <img
                             src="../../assets/images/main/student/student-hero1.png"
                             alt=""
                             class="student__card-img"
-                        />
+                        >
                     </div>
                     <div class="student__card-body">
-                        <h3 class="student__card-title">Крепкое <span>здоровье</span></h3>
+                        <h3 class="student__card-title">
+                            Крепкое <span>здоровье</span>
+                        </h3>
                         <p class="student__card-text">
                             Регулярная двигательная активность улучшает показатели психофизического
                             здоровья
@@ -24,7 +31,7 @@
                             <span>больше</span>
                             <span>движения</span>
                         </div>
-                        <div class="student__card-footer-img student__card-footer-img-1"></div>
+                        <div class="student__card-footer-img student__card-footer-img-1" />
                     </div>
                 </div>
                 <div class="student__card">
@@ -33,10 +40,12 @@
                             src="../../assets/images/main/student/student-hero2.png"
                             alt=""
                             class="student__card-img"
-                        />
+                        >
                     </div>
                     <div class="student__card-body">
-                        <h3 class="student__card-title">Благоприятная <span>атмосфера</span></h3>
+                        <h3 class="student__card-title">
+                            Благоприятная <span>атмосфера</span>
+                        </h3>
                         <p class="student__card-text">
                             Кратно улучшает показатели академической успеваемости, вовлеченности и
                             счастья
@@ -48,7 +57,7 @@
                             <span>лучше</span>
                             <span>концентрация</span>
                         </div>
-                        <div class="student__card-footer-img student__card-footer-img-2"></div>
+                        <div class="student__card-footer-img student__card-footer-img-2" />
                     </div>
                 </div>
                 <div class="student__card">
@@ -57,10 +66,12 @@
                             src="../../assets/images/main/student/student-hero3.png"
                             alt=""
                             class="student__card-img"
-                        />
+                        >
                     </div>
                     <div class="student__card-body">
-                        <h3 class="student__card-title">Эффективное <span>обучение</span></h3>
+                        <h3 class="student__card-title">
+                            Эффективное <span>обучение</span>
+                        </h3>
                         <p class="student__card-text">
                             Игровой формат является естественным способом быстрого усвоения
                             информации
@@ -72,7 +83,7 @@
                             <span>больше</span>
                             <span>движения</span>
                         </div>
-                        <div class="student__card-footer-img student__card-footer-img-3"></div>
+                        <div class="student__card-footer-img student__card-footer-img-3" />
                     </div>
                 </div>
             </div>
@@ -86,21 +97,21 @@ import { onMounted, onBeforeUnmount, ref } from 'vue'
 const cardsContainer = ref(null)
 
 onMounted(() => {
-    const container = cardsContainer.value
-
-    if (window.innerWidth <= 768) {
-        const scrollToCenter = () => {
-            container.scrollLeft = (container.scrollWidth - container.clientWidth) / 2
-        }
-
+    if (window.innerWidth <= 768) {     
         scrollToCenter()
         window.addEventListener('resize', scrollToCenter)
     }
 })
 
+const scrollToCenter = () => {
+    const container = cardsContainer.value;
+    container.scrollLeft = (container.scrollWidth - container.clientWidth) / 2
+}
+
 onBeforeUnmount(() => {
     window.removeEventListener('resize', scrollToCenter)
 })
+
 </script>
 <style lang="scss" scoped>
 .student {

@@ -94,7 +94,7 @@ function article (id) {
         width: calc(100% /2 - 8px);
     }
 
-    @media (max-width: $lg) {
+    @media (max-width: $md) {
         width: 100%;
     }
 }
@@ -104,6 +104,10 @@ function article (id) {
 
     @media (max-width: $xl) {
         display: block;
+    }
+
+    @media (max-width: $md) {
+        display: none;
     }
 }
 

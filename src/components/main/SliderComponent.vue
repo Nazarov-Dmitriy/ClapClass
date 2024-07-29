@@ -1,15 +1,17 @@
 <template>
     <section class="slider">
         <div class="slider__container container">
-            <h2 class="slider__title">Готовые игровые решения для учебного процесса</h2>
+            <h2 class="slider__title">
+                Готовые игровые решения для учебного процесса
+            </h2>
             <div class="slider__wrapper">
                 <div class="slider__tabs">
                     <ul class="slider__tabs-list">
                         <li
-                            class="slider__tabs-list-item"
-                            :class="{ 'active-tab': activeIndex === index }"
                             v-for="(item, index) in slidesData"
                             :key="index"
+                            class="slider__tabs-list-item"
+                            :class="{ 'active-tab': activeIndex === index }"
                             @click="handleTabClick(index)"
                         >
                             {{ item.tab }}
@@ -18,30 +20,44 @@
                 </div>
                 <div class="slider__slider-wrapper">
                     <Swiper
+                        ref="swiperRef"
                         :modules="[Navigation, Pagination]"
                         :navigation="navigationOptions"
                         :pagination="paginationOptions"
                         :slides-per-view="1"
                         :space-between="500"
-                        @slide-change="updateActiveIndex"
                         mousewheel="true"
-                        simulateTouch="true"
-                        ref="swiperRef"
+                        simulate-touch="true"
+                        @slide-change="updateActiveIndex"
                     >
-                        <SwiperSlide v-for="(item, index) in slidesData" :key="index">
+                        <SwiperSlide
+                            v-for="(item, index) in slidesData"
+                            :key="index"
+                        >
                             <div class="slider__slide">
-                                <img :src="item.img" alt="" class="slider__slide-img" />
+                                <img
+                                    :src="item.img"
+                                    alt=""
+                                    class="slider__slide-img"
+                                >
                                 <div class="slider__slide-info">
                                     <div class="slider__slide-info-title-wrapper">
-                                        <img :src="getPath(item.svg)" alt="" />
-                                        <h2 class="slider__slide-info-title">{{ item.title }}</h2>
+                                        <img
+                                            :src="getPath(item.svg)"
+                                            alt=""
+                                        >
+                                        <h2 class="slider__slide-info-title">
+                                            {{ item.title }}
+                                        </h2>
                                     </div>
                                     <div class="slider__slide-info-text-wrapper">
-                                        <p class="slider__slide-info-text">{{ item.text }}</p>
+                                        <p class="slider__slide-info-text">
+                                            {{ item.text }}
+                                        </p>
                                         <div class="slider__slide-info-text-btn-wrapper">
-                                            <BtnComponent class="slider__slide-info-text-btn"
-                                                >Подробнее</BtnComponent
-                                            >
+                                            <BtnComponent class="slider__slide-info-text-btn">
+                                                Подробнее
+                                            </BtnComponent>
                                         </div>
                                     </div>
                                 </div>
@@ -90,7 +106,7 @@
                             </div>
                         </SwiperSlide>
                     </Swiper>
-                    <div class="swiper-pagination"></div>
+                    <div class="swiper-pagination" />
                 </div>
                 <div class="slider__slide-tabs">
                     <span
@@ -98,17 +114,16 @@
                         :key="index"
                         class="slider__slide-tabs-span"
                         :class="{ active: activeIndex === index }"
-                    >
-                    </span>
+                    />
                 </div>
                 <div class="slider__info">
                     <p class="slider__info-text">
                         Присоединяйтесь к проекту и создайте свою витрину кейсов
                     </p>
                     <div class="slider__info-btn-wrapper">
-                        <BtnComponentWhite class="slider__info-btn"
-                            >Витрина кейсов</BtnComponentWhite
-                        >
+                        <BtnComponentWhite class="slider__info-btn">
+                            Витрина кейсов
+                        </BtnComponentWhite>
                     </div>
                 </div>
             </div>
@@ -163,15 +178,15 @@ const paginationOptions = {
     clickable: true
 }
 
-function getPath(img) {
+function getPath (img) {
     return new URL(img, import.meta.url).href
 }
 
-function updateActiveIndex(swiper) {
+function updateActiveIndex (swiper) {
     activeIndex.value = swiper.activeIndex
 }
 
-function handleTabClick(index) {
+function handleTabClick (index) {
     activeIndex.value = index
     swiperRef.value.swiper.slideTo(index)
 }
@@ -190,6 +205,17 @@ onMounted(() => {
 <style lang="scss">
 .swiper {
     overflow: hidden;
+
+    // @media (max-width: $md) {
+    //     width: calc(100% + 32px);
+    // left: -16px;
+    // position: relative;
+
+    // .swiper-wrapper{
+    //     padding-left: 16px;
+    //     padding-right: 16px;
+    // }
+    // }
 }
 
 .swiper-slide {
@@ -355,6 +381,7 @@ onMounted(() => {
     align-items: center;
     padding: 24px;
     box-sizing: border-box;
+
     @media (max-width: $lg) {
         padding: 16px 8px;
     }
@@ -492,4 +519,6 @@ onMounted(() => {
         }
     }
 }
+
+
 </style>
