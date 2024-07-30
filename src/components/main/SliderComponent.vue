@@ -344,6 +344,7 @@ onMounted(() => {
     width: 85%;
     @media (max-width: $lg) {
         flex-direction: column;
+        width: 80%;
     }
     @media (max-width: $sm) {
         width: 100%;
