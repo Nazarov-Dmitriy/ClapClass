@@ -5,36 +5,36 @@
                 class="news__bg"
                 src="../../assets/images/main/news/news-bg.png"
                 alt="Background"
-            >
+            />
             <div class="news__wrapper">
                 <div class="news__info">
-                    <h2 class="news__info-title">
-                        Новости проекта
-                    </h2>
-                    <BtnComponent
-                        class="news__info-btn"
-                        @click="goToBlog"
-                    >
+                    <h2 class="news__info-title">Новости проекта</h2>
+                    <BtnComponent 
+                        class="news__info-btn" 
+                        emit-name="goToBlog" 
+                        @goToBlog="goToBlog">
                         Перейти в блог
                     </BtnComponent>
                 </div>
                 <div class="news__cards">
                     <div
-                        v-for="(news, index) in newsItems"
+                        v-for="(news, index) in limitedNewsItems"
                         :key="index"
                         class="news__card"
+                        @click="linkArticle(news.id)"
                     >
                         <div class="news__card-info">
                             <div class="news__card-info-hash">
-                                <span>{{ news.number }}</span>
-                                <span>{{ news.type }}</span>
+                                <span 
+                                    v-for="tag in news.tags" 
+                                    :key="tag">{{ tag }}</span>
                             </div>
                             <p class="news__card-text">
                                 {{ news.title }}
                             </p>
                         </div>
                         <div class="news__card-date">
-                            <span>{{ news.date }}</span>
+                            <span>{{ news.publication_date }}</span>
                         </div>
                     </div>
                     <div class="news__card--subscribe">
@@ -42,17 +42,14 @@
                             <img
                                 src="../../assets/images/main/news/news-hero.png"
                                 alt="Subscribe"
-                                class="news__card-img"
-                            >
+                                class="news__card-img"></img>
                             <div class="news__card-img-text-wrapper">
-                                <p class="news__card-img-text">
-                                    Подписывайся на наши новости!
-                                </p>
+                                <p class="news__card-img-text">Подписывайся на наши новости!</p>
                                 <img
                                     class="news-text-bg"
                                     src="../../assets/images/main/news/news-text-bg.png"
                                     alt="Text Background"
-                                >
+                                ></img>
                             </div>
                         </div>
                         <div class="news__card-info news__card-info--subscribe">
@@ -67,16 +64,11 @@
                                     class="news__card-form-input"
                                     :class="{ 'is-invalid': showDangerBlock }"
                                     type="text"
-                                    placeholder="Введите ваш email"
-                                >
-                                <div
-                                    v-if="showDangerBlock"
-                                    class="input-error"
-                                >
+                                    placeholder="Введите ваш email"/>
+                                <div v-if="showDangerBlock" class="input-error">
                                     <img
                                         src="../../assets/images/main/news/news-error-icon.svg"
-                                        alt=""
-                                    >
+                                        alt=""/>
                                     <span>Поле заполненно некорректно</span>
                                 </div>
                                 <div>
@@ -88,10 +80,11 @@
                                         </div>
                                         <p class="news__card-text--subscribe">
                                             Нажимая кнопку “Подписаться” вы соглашаетесь с
-                                            <span><a
-                                                class="news__card-text-link--subscribe"
-                                                href="#"
-                                            >политикой обработки персональных данных</a></span>
+                                            <span>
+                                                <a class="news__card-text-link--subscribe" href="#">
+                                                    политикой обработки персональных данных
+                                                </a>
+                                            </span>
                                         </p>
                                     </div>
                                 </div>
@@ -105,21 +98,47 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, defineProps, watch, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import BtnComponent from '../btns/BtnComponent.vue'
 
-const email = ref()
+const props = defineProps({
+    data: {
+        type: Array,
+        default: () => []
+    }
+})
 
+const email = ref('')
 const showDangerBlock = ref(false)
+const newsItems = ref([])
 
 const router = useRouter()
 
-const goToBlog = () => {
+function linkArticle(id) {
+    router.push(`/blog/${id}`)
+}
+
+watch(
+    () => props.data,
+    (newData) => {
+        newsItems.value = newData.map((news, index) => ({
+            id: news.id ?? index,
+            ...news
+        }))
+    },
+    { immediate: true }
+)
+
+const limitedNewsItems = computed(() => {
+    return newsItems.value.slice(0, 3)
+})
+
+function goToBlog() {
     router.push('/blog')
 }
 
-const sendMail = () => {
+function sendMail() {
     if (validateEmail(email.value)) {
         showDangerBlock.value = false
         email.value = ''
@@ -128,31 +147,11 @@ const sendMail = () => {
     }
 }
 
-const validateEmail = (email) => {
+function validateEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return re.test(email)
 }
 
-const newsItems = [
-    {
-        number: '№события',
-        type: 'разминки',
-        title: 'Заголовок новости или события, который может быть достаточно длинным',
-        date: '01.01.2023'
-    },
-    {
-        number: '№события',
-        type: 'разминки',
-        title: 'Заголовок новости или события, который может быть достаточно длинным',
-        date: '01.01.2023'
-    },
-    {
-        number: '№события',
-        type: 'разминки',
-        title: 'Заголовок новости или события, который может быть достаточно длинным',
-        date: '01.01.2023'
-    }
-]
 </script>
 
 <style lang="scss">
@@ -331,7 +330,7 @@ const newsItems = [
     box-sizing: border-box;
     width: 100%;
 
-    &:hover{
+    &:hover {
         border: 2px solid #656d75;
         background: #e6eaed;
     }
