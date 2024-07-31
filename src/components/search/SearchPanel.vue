@@ -56,18 +56,18 @@
             <BtnComponentOrange
                 class="blog__btn-panel"
                 emit-name="action"
-                :value="video"
-                @action="emit('update:video', !props.video)"
-            >
-                Только видео
-            </BtnComponentOrange>
-            <BtnComponentOrange
-                class="blog__btn-panel"
-                emit-name="action"
                 :value="article"
                 @action="emit('update:article', !props.article)"
             >
                 Только статьи
+            </BtnComponentOrange>
+            <BtnComponentOrange
+                class="blog__btn-panel"
+                emit-name="action"
+                :value="video"
+                @action="emit('update:video', !props.video)"
+            >
+                Только видео
             </BtnComponentOrange>
         </div>
         <button class="blog__btn-menu">
@@ -170,7 +170,7 @@ function change (select) {
 
 .blog__btn-panel {
     @media (max-width : $lg) {
-        width: 173px;
+        min-width: 173px;
     }
 }
 

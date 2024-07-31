@@ -143,22 +143,22 @@ import BtnComponentWhite from '../btns/BtnComponentWhite.vue'
 const slidesData = ref([
     {
         tab: 'Подвижные разминки',
-        svg: '/src/assets/images/main/slider/slide-svg1.svg',
-        img: '/src/assets/images/main/slider/slide-img1.png',
+        svg: '/images/slider/slide-svg1.svg',
+        img: '/images/slider/slide-img1.png',
         title: 'Откройте второе дыхание!',
         text: 'Пробудите утомившийся класс, превратив перерыв на уроке в потрясающий танцевальный флешмоб'
     },
     {
         tab: 'Ритм-разминки',
-        svg: '/src/assets/images/main/slider/slide-svg2.svg',
-        img: '/src/assets/images/main/slider/slide-img2.png',
+        svg: '/images/slider/slide-svg2.svg',
+        img: '/images/slider/slide-img2.png',
         title: 'На старт, внимание!',
         text: 'Активируйте режим концентрации учеников веселыми ритм-играми, задавая необходимый темп занятия'
     },
     {
         tab: 'Конгитивные разминки',
-        svg: '/src/assets/images/main/slider/slide-svg3.svg',
-        img: '/src/assets/images/main/slider/slide-img3.png',
+        svg: '/images/slider/slide-svg3.svg',
+        img: '/images/slider/slide-img3.png',
         title: 'Курс на эффективность!',
         text: 'Настройте аудиторию на мозговой штурм при помощи нейрогимнастики и увлекательных упражнений брейн-фитнеса'
     }
@@ -205,17 +205,6 @@ onMounted(() => {
 <style lang="scss">
 .swiper {
     overflow: hidden;
-
-    // @media (max-width: $md) {
-    //     width: calc(100% + 32px);
-    // left: -16px;
-    // position: relative;
-
-    // .swiper-wrapper{
-    //     padding-left: 16px;
-    //     padding-right: 16px;
-    // }
-    // }
 }
 
 .swiper-slide {

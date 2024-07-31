@@ -159,9 +159,10 @@ function validateForm () {
 }
 
 .subscribe__hero {
-    margin-top: 140px;
+    margin: 140px auto 0 auto;
     width: 315px;
     height: 211px;
+    display: block;
 
     &-mobile {
         display: none;
@@ -169,7 +170,7 @@ function validateForm () {
 
     @media (max-width: $xl) {
         min-width: 200px;
-        margin-top: 0;
+        margin: 0;
         max-width: 315px;
         max-height: 211px;
         width: 100%;

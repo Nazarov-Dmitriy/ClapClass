@@ -95,12 +95,21 @@ const props = defineProps({
         background: $yellowy;
         border-color: $orange;
         box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
+
+        .blog-article__cover::before{
+            content: "";
+         position: absolute;
+         width: 100%;
+         height: 100%;
+        background:rgba(255, 255, 255, 0.3);
+        }
     }
 }
 
 .blog-article__cover {
     width: 100%;
     height: 220px;
+    position: relative;
 }
 
 .blog-article__img {
