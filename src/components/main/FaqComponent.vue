@@ -1,22 +1,16 @@
 <template>
     <section class="faq">
         <div class="faq__container container">
-            <h2 class="faq__title">
-                Часто задаваемые вопросы
-            </h2>
+            <h2 class="faq__title">Часто задаваемые вопросы</h2>
             <div class="faq__wrapper">
-                <div
-                    v-for="(question, index) in questions"
-                    :key="index"
-                    class="faq__question"
-                >
+                <div v-for="(question, index) in questions" :key="index" class="faq__question">
                     <div class="faq__question-wrapper">
                         <p class="faq__question-text">
                             {{ question.question }}
                         </p>
                         <button
                             class="faq__arrow-btn"
-                            :class="{ active: showAnswer[index] }"
+                            :class="{ active: openIndex === index }"
                             @click="toggleAnswer(index)"
                         >
                             <svg
@@ -37,21 +31,16 @@
                             </svg>
                         </button>
                     </div>
-                    <transition name="fade">
-                        <div
-                            v-if="showAnswer[index]"
-                            class="faq__answer"
-                        >
-                            <p class="faq__answer-text">
-                                {{ question.answer }}
-                            </p>
-                            <img
-                                class="faq__answer-img"
-                                src="../../assets/images/main/faq/faq-answer-bg.png"
-                                alt=""
-                            >
-                        </div>
-                    </transition>
+                    <div v-if="openIndex === index" class="faq__answer">
+                        <p class="faq__answer-text">
+                            {{ question.answer }}
+                        </p>
+                        <img
+                            class="faq__answer-img"
+                            src="../../assets/images/main/faq/faq-answer-bg.png"
+                            alt=""
+                        />
+                    </div>
                 </div>
             </div>
         </div>
@@ -64,7 +53,7 @@ import { ref } from 'vue'
 const questions = ref([
     {
         question: 'Как начать пользоваться сервисом?',
-        answer: '1После регистрации вам будет открыт доступ к сопроводительным материалам кейса и возможности запуска разминок'
+        answer: 'После регистрации вам будет открыт доступ к сопроводительным материалам кейса и возможности запуска разминок'
     },
     {
         question: 'Какое оборудование необходимо для запуска разминок?',
@@ -76,7 +65,7 @@ const questions = ref([
     },
     {
         question: 'У меня есть идея, могу я ее предложить?',
-        answer: 'Вы можете стать соавтором проекта и предложить свой кейс по представленным или новым направлениям в разделе «Сотрудничество». После проверки мы свяжемся с вами и опубликуем кейс с указанием информации об авторе                    '
+        answer: 'Вы можете стать соавтором проекта и предложить свой кейс по представленным или новым направлениям в разделе «Сотрудничество». После проверки мы свяжемся с вами и опубликуем кейс с указанием информации об авторе'
     },
     {
         question: 'Как я могу помочь проекту?',
@@ -84,10 +73,14 @@ const questions = ref([
     }
 ])
 
-const showAnswer = ref(Array(questions.value.length).fill(false))
+const openIndex = ref(null)
 
-const toggleAnswer = (index) => {
-    showAnswer.value[index] = !showAnswer.value[index]
+function toggleAnswer(index) {
+    if (openIndex.value === index) {
+        openIndex.value = null
+    } else {
+        openIndex.value = index
+    }
 }
 </script>
 
@@ -105,7 +98,6 @@ const toggleAnswer = (index) => {
 .faq {
     padding: 100px 64px;
     box-sizing: border-box;
-
 
     @media (max-width: $lg) {
         padding: 48px 16px;
@@ -188,7 +180,6 @@ const toggleAnswer = (index) => {
         background-color: $orange;
         border: none;
         transform: rotate(180deg);
-
 
         .faq__arrow-icon path {
             stroke: $white;

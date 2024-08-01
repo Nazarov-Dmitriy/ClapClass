@@ -15,11 +15,12 @@
                         Универсальный инструмент современного преподавателя
                     </h2>
                     <ul class="teacher__info-list">
-                        <li class="teacher__info-item">Широкий выбор эффективных методик</li>
-                        <li class="teacher__info-item">Кейсы, не требующие долгой подготовки</li>
-                        <li class="teacher__info-item">Интерактивное взаимодействие с классом</li>
-                        <li class="teacher__info-item">
-                            Быстрый доступ и понятный интерфейс сервиса
+                        <li
+                            v-for="(item, index) in itemInfo"
+                            :key="index"
+                            class="teacher__info-item"
+                        >
+                            {{ item }}
                         </li>
                     </ul>
                 </div>
@@ -28,7 +29,20 @@
     </section>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+
+const itemInfo = ref([
+    'Широкий выбор эффективных методик',
+    'Кейсы, не требующие долгой подготовки',
+    'Интерактивное взаимодействие с классом',
+    'Быстрый доступ и понятный интерфейс сервиса',
+    'Быстрый доступ и понятный интерфейс сервиса',
+    'Быстрый доступ и понятный интерфейс сервиса',
+    'Быстрый доступ и понятный интерфейс сервиса',
+    'Быстрый доступ и понятный интерфейс сервиса'
+])
+</script>
 
 <style lang="scss">
 .teacher {
@@ -73,6 +87,7 @@
     justify-content: center;
     align-items: stretch;
     gap: 48px;
+    box-shadow: 0 16px 2px 0 rgba(14, 8, 6, 0.15);
     @media (max-width: $md) {
         flex-direction: column;
     }
@@ -85,20 +100,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 16px;
     box-sizing: border-box;
     width: 100%;
+    background: $orange;
+    border-radius: 24px;
 }
 
 .teacher__hero-img {
-    border-radius: 24px;
-    padding: 16px;
     width: 100%;
     height: 100%;
     box-shadow: 10px 0 2px 0 rgba(20, 5, 5, 0.2);
-    background: $orange;
     aspect-ratio: 2 / 1;
     object-fit: cover;
-    box-sizing: border-box;
+    border: 4px solid #fff;
+    border-radius: 24px;
+    background-color: $white;
 }
 
 .teacher__info {
@@ -107,8 +124,12 @@
     flex-direction: column;
     gap: 24px;
     width: 100%;
-    @media (margin: $sm) {
+
+    @media (max-width: $lg) {
         padding: 8px;
+    }
+    @media (max-width: $sm) {
+        padding: 0;
     }
 }
 
@@ -130,6 +151,9 @@
     display: flex;
     flex-direction: column;
     gap: 33px;
+    overflow: auto;
+    height: 356px;
+    padding-top: 5px;
 }
 
 .teacher__info-item {

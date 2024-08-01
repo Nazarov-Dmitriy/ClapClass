@@ -8,21 +8,21 @@
                     <div class="form__hero-img-wrapper">
                         <img
                             class="form__hero-question-img"
-                            :src="getUrl('../../assets/images/form/form-question-img.png')"
+                            src="../../assets/images/form/form-question-img.png"
                             alt=""
                         />
                         <img
                             class="form__hero-question-img form__hero-question-img--center"
-                            :src="getUrl('../../assets/images/form/form-question-img.png')"
+                            src="../../assets/images/form/form-question-img.png"
                             alt=""
                         />
                         <img
                             class="form__hero-question-img form__hero-question-img--right"
-                            :src="getUrl('../../assets/images/form/form-question-img.png')"
+                            src="../../assets/images/form/form-question-img.png"
                             alt=""
                         />
                         <img
-                            :src="getUrl('../../assets/images/form/form-hero-img.png')"
+                            src="../../assets/images/form/form-hero-img.png"
                             alt=""
                             class="form__hero-img"
                         />
@@ -173,7 +173,7 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive } from 'vue'
 import BtnComponent from '../btns/BtnComponent.vue'
 
 const formField = reactive({
@@ -248,10 +248,6 @@ function validateForm() {
     validateFeildArr.forEach((item) => {
         validateField(formField[item], 'validate', item)
     })
-}
-
-function getUrl(url) {
-    return new URL(url, import.meta.url).href
 }
 </script>
 

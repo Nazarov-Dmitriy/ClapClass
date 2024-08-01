@@ -1,9 +1,7 @@
 <template>
     <section class="slider">
         <div class="slider__container container">
-            <h2 class="slider__title">
-                Готовые игровые решения для учебного процесса
-            </h2>
+            <h2 class="slider__title">Готовые игровые решения для учебного процесса</h2>
             <div class="slider__wrapper">
                 <div class="slider__tabs">
                     <ul class="slider__tabs-list">
@@ -25,27 +23,17 @@
                         :navigation="navigationOptions"
                         :pagination="paginationOptions"
                         :slides-per-view="1"
-                        :space-between="500"
+                        :space-between="5000"
                         mousewheel="true"
                         simulate-touch="true"
                         @slide-change="updateActiveIndex"
                     >
-                        <SwiperSlide
-                            v-for="(item, index) in slidesData"
-                            :key="index"
-                        >
+                        <SwiperSlide v-for="(item, index) in slidesData" :key="index">
                             <div class="slider__slide">
-                                <img
-                                    :src="item.img"
-                                    alt=""
-                                    class="slider__slide-img"
-                                >
+                                <img :src="item.img" alt="" class="slider__slide-img" />
                                 <div class="slider__slide-info">
                                     <div class="slider__slide-info-title-wrapper">
-                                        <img
-                                            :src="getPath(item.svg)"
-                                            alt=""
-                                        >
+                                        <img :src="getPath(item.svg)" alt="" />
                                         <h2 class="slider__slide-info-title">
                                             {{ item.title }}
                                         </h2>
@@ -178,15 +166,15 @@ const paginationOptions = {
     clickable: true
 }
 
-function getPath (img) {
+function getPath(img) {
     return new URL(img, import.meta.url).href
 }
 
-function updateActiveIndex (swiper) {
+function updateActiveIndex(swiper) {
     activeIndex.value = swiper.activeIndex
 }
 
-function handleTabClick (index) {
+function handleTabClick(index) {
     activeIndex.value = index
     swiperRef.value.swiper.slideTo(index)
 }
@@ -254,6 +242,10 @@ onMounted(() => {
         font-size: 32px;
         line-height: 1.5;
     }
+    @media (max-width: $sm) {
+        font-size: 24px;
+    }
+
 }
 
 .slider__wrapper {
@@ -347,6 +339,7 @@ onMounted(() => {
 .slider__slide-img {
     width: 50%;
     object-fit: cover;
+    border-radius: 24px;
     aspect-ratio: 2 / 1;
     @media (max-width: $lg) {
         width: 100%;
@@ -363,6 +356,9 @@ onMounted(() => {
     @media (max-width: $lg) {
         width: 100%;
     }
+    @media (max-width: $sm) {
+        gap: 0;
+    }
 }
 
 .slider__slide-info-title-wrapper {
@@ -375,6 +371,7 @@ onMounted(() => {
     @media (max-width: $lg) {
         padding: 16px 8px;
     }
+    
 }
 
 .slider__slide-info-title-wrapper img {
@@ -390,6 +387,11 @@ onMounted(() => {
     line-height: 1.5;
     color: $orange;
     text-align: center;
+    @media (max-width: $sm) {
+        font-size: 20px;
+        max-width: 210px;
+        width: 100%;
+    }
 }
 
 .slider__slide-info-text-wrapper {
@@ -458,7 +460,7 @@ onMounted(() => {
     gap: 24px;
     transform: translateY(-30px);
     @media (max-width: $sm) {
-        transform: translateY(-15px);
+        transform: translateY(-5px);
     }
 }
 
@@ -509,6 +511,4 @@ onMounted(() => {
         }
     }
 }
-
-
 </style>

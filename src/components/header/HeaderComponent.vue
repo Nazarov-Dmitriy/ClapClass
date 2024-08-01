@@ -1,46 +1,26 @@
 <template>
     <header class="header">
-        <div
-            class="header-mobile"
-            :class="{ 'is-active': btnMenu }"
-        >
+        <div class="header-mobile" :class="{ 'is-active': btnMenu }">
             <div class="header-mobile__wrapper">
-                <nav
-                    class="header__nav header__nav--mobile"
-                    :class="{ 'is-active': btnMenu }"
-                >
+                <nav class="header__nav header__nav--mobile" :class="{ 'is-active': btnMenu }">
                     <ul class="header__list">
                         <li class="header__list-item">
-                            <router-link
-                                to="/services"
-                                class="header__list-link"
-                            >
+                            <router-link to="/services" class="header__list-link">
                                 Сервисы
                             </router-link>
                         </li>
                         <li class="header__list-item">
-                            <router-link
-                                class="header__list-link"
-                                to="/about"
-                            >
+                            <router-link class="header__list-link" to="/about">
                                 О проекте
                             </router-link>
                         </li>
                         <li class="header__list-item">
-                            <router-link
-                                to="/cooperation"
-                                class="header__list-link"
-                            >
+                            <router-link to="/cooperation" class="header__list-link">
                                 Сотрудничество
                             </router-link>
                         </li>
                         <li class="header__list-item">
-                            <router-link
-                                to="/blog"
-                                class="header__list-link"
-                            >
-                                Блог
-                            </router-link>
+                            <router-link to="/blog" class="header__list-link"> Блог </router-link>
                         </li>
                     </ul>
                 </nav>
@@ -48,9 +28,7 @@
                     class="header__btn-wrapper header__btn-wrapper--mobile"
                     :class="{ 'is-active': btnMenu }"
                 >
-                    <BtnComponent class="header__btn">
-                        Вход
-                    </BtnComponent>
+                    <BtnComponent class="header__btn"> Вход </BtnComponent>
                 </div>
             </div>
         </div>
@@ -63,15 +41,11 @@
                             src="../../assets/images/header/header-logo.png"
                             alt=""
                             class="header__logo-img"
-                        >
+                        />
                     </router-link>
                 </div>
 
-                <div
-                    class="hamburger"
-                    :class="{ 'is-active': btnMenu }"
-                    @click="setMenuAcive()"
-                >
+                <div class="hamburger" :class="{ 'is-active': btnMenu }" @click="setMenuAcive()">
                     <span class="line" />
                     <span class="line" />
                     <span class="line" />
@@ -79,43 +53,27 @@
                 <nav class="header__nav">
                     <ul class="header__list">
                         <li class="header__list-item">
-                            <router-link
-                                to="/services"
-                                class="header__list-link"
-                            >
+                            <router-link to="/services" class="header__list-link">
                                 Сервисы
                             </router-link>
                         </li>
                         <li class="header__list-item">
-                            <router-link
-                                class="header__list-link"
-                                to="/about"
-                            >
+                            <router-link class="header__list-link" to="/about">
                                 О проекте
                             </router-link>
                         </li>
                         <li class="header__list-item">
-                            <router-link
-                                to="/cooperation"
-                                class="header__list-link"
-                            >
+                            <router-link to="/cooperation" class="header__list-link">
                                 Сотрудничество
                             </router-link>
                         </li>
                         <li class="header__list-item">
-                            <router-link
-                                to="/blog"
-                                class="header__list-link"
-                            >
-                                Блог
-                            </router-link>
+                            <router-link to="/blog" class="header__list-link"> Блог </router-link>
                         </li>
                     </ul>
                 </nav>
                 <div class="header__btn-wrapper">
-                    <BtnComponent class="header__btn">
-                        Вход
-                    </BtnComponent>
+                    <BtnComponent class="header__btn"> Вход </BtnComponent>
                 </div>
             </div>
         </div>
@@ -129,12 +87,13 @@ import { ref } from 'vue'
 const btnMenu = ref(false)
 const menuActive = ref(false)
 
-function setMenuAcive () {
+function setMenuAcive() {
     btnMenu.value = !btnMenu.value
     menuActive.value = !menuActive.value
 }
 </script>
 <style lang="scss">
+
 .header-mobile {
     display: none;
 
@@ -160,11 +119,16 @@ function setMenuAcive () {
 }
 .header {
     padding: 16px 64px;
+    box-sizing: border-box;
+    top: 0;
+    z-index: 999;
     box-shadow:
         0 2px 4px 0 rgba(21, 15, 13, 0.1),
         0 8px 8px 0 rgba(21, 15, 13, 0.09);
     background: rgba(255, 255, 255, 0.8);
-    position: relative;
+    position: fixed;
+    width: 100%;
+    background-color: $white;
 
     @media (max-width: $lg) {
         box-shadow: none;

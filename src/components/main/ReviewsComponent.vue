@@ -3,7 +3,7 @@
         <div class="reviews__container container">
             <div class="reviews__wrapper">
                 <div class="reviews__info-wrapper">
-                    <h2 class="reviews__title">КОЛЛЕГИ УЖЕ ИСПОЛЬЗУЮТ CLAP CLASS</h2>
+                    <h2 class="reviews__title">Коллеги уже используют Clap class</h2>
                     <div class="reviews__btn-wrapper">
                         <BtnComponent class="reviews__btn">Больше отзывов</BtnComponent>
                     </div>
@@ -16,6 +16,148 @@
                                     class="reviews__card"
                                     v-for="(review, index) in reviews"
                                     :key="index"
+                                >
+                                    <div class="reviews__card-header">
+                                        <img :src="review.img" alt="" class="reviews__card-img" />
+                                        <div class="reviews__card-header-text">
+                                            <span>{{ review.name }}</span>
+                                            <span>{{ review.date }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="reviews__card-body">
+                                        <p class="reviews__card-text">
+                                            {{ review.text }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reviews__cards-group">
+                                <div
+                                    class="reviews__card"
+                                    v-for="(review, index) in reviews"
+                                    :key="index + reviews.length"
+                                >
+                                    <div class="reviews__card-header">
+                                        <img :src="review.img" alt="" class="reviews__card-img" />
+                                        <div class="reviews__card-header-text">
+                                            <span>{{ review.name }}</span>
+                                            <span>{{ review.date }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="reviews__card-body">
+                                        <p class="reviews__card-text">
+                                            {{ review.text }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reviews__cards-group">
+                                <div
+                                    class="reviews__card"
+                                    v-for="(review, index) in reviews"
+                                    :key="index + reviews.length"
+                                >
+                                    <div class="reviews__card-header">
+                                        <img :src="review.img" alt="" class="reviews__card-img" />
+                                        <div class="reviews__card-header-text">
+                                            <span>{{ review.name }}</span>
+                                            <span>{{ review.date }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="reviews__card-body">
+                                        <p class="reviews__card-text">
+                                            {{ review.text }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reviews__cards-group">
+                                <div
+                                    class="reviews__card"
+                                    v-for="(review, index) in reviews"
+                                    :key="index + reviews.length"
+                                >
+                                    <div class="reviews__card-header">
+                                        <img :src="review.img" alt="" class="reviews__card-img" />
+                                        <div class="reviews__card-header-text">
+                                            <span>{{ review.name }}</span>
+                                            <span>{{ review.date }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="reviews__card-body">
+                                        <p class="reviews__card-text">
+                                            {{ review.text }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reviews__cards-group">
+                                <div
+                                    class="reviews__card"
+                                    v-for="(review, index) in reviews"
+                                    :key="index + reviews.length"
+                                >
+                                    <div class="reviews__card-header">
+                                        <img :src="review.img" alt="" class="reviews__card-img" />
+                                        <div class="reviews__card-header-text">
+                                            <span>{{ review.name }}</span>
+                                            <span>{{ review.date }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="reviews__card-body">
+                                        <p class="reviews__card-text">
+                                            {{ review.text }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="reviews__cards-inner">
+                            <div class="reviews__cards-group">
+                                <div
+                                    class="reviews__card"
+                                    v-for="(review, index) in reviews"
+                                    :key="index"
+                                >
+                                    <div class="reviews__card-header">
+                                        <img :src="review.img" alt="" class="reviews__card-img" />
+                                        <div class="reviews__card-header-text">
+                                            <span>{{ review.name }}</span>
+                                            <span>{{ review.date }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="reviews__card-body">
+                                        <p class="reviews__card-text">
+                                            {{ review.text }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reviews__cards-group">
+                                <div
+                                    class="reviews__card"
+                                    v-for="(review, index) in reviews"
+                                    :key="index + reviews.length"
+                                >
+                                    <div class="reviews__card-header">
+                                        <img :src="review.img" alt="" class="reviews__card-img" />
+                                        <div class="reviews__card-header-text">
+                                            <span>{{ review.name }}</span>
+                                            <span>{{ review.date }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="reviews__card-body">
+                                        <p class="reviews__card-text">
+                                            {{ review.text }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reviews__cards-group">
+                                <div
+                                    class="reviews__card"
+                                    v-for="(review, index) in reviews"
+                                    :key="index + reviews.length"
                                 >
                                     <div class="reviews__card-header">
                                         <img :src="review.img" alt="" class="reviews__card-img" />
@@ -127,6 +269,7 @@ const reviews = ref([
     display: flex;
     flex-direction: column;
     gap: 48px;
+    padding-top: 5px;
 }
 .reviews__info-wrapper {
     display: flex;
@@ -160,7 +303,7 @@ const reviews = ref([
 
 .reviews__cards-wrapper {
     display: flex;
-    width: 200%;
+    width: 500%;
     overflow: hidden;
 }
 .reviews__cards {
@@ -170,7 +313,7 @@ const reviews = ref([
     width: calc(100% + 64px);
     scrollbar-width: none;
     -ms-overflow-style: none;
-    animation: slide 20s linear infinite;
+    animation: slide 100s linear infinite;
 
     @media (max-width: $lg) {
         width: 100%;
@@ -242,7 +385,7 @@ const reviews = ref([
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-50%);
+        transform: translateX(-100%);
     }
 }
 </style>

@@ -42,6 +42,7 @@ function submitEmit () {
     border-radius: 24px;
     padding: 6px 16px;
     background: none;
+    background-color: $white;
     cursor: pointer;
     transition: 0.4s;
     display: block;
