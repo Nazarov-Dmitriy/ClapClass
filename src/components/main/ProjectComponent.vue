@@ -124,7 +124,6 @@
     flex-direction: column;
     position: relative;
 
-
     @media (max-width: $lg) {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -161,7 +160,6 @@
         color: $gray;
         margin-bottom: 48px;
         cursor: pointer;
-        
 
         @media (max-width: $lg) {
             font-size: 20px;
@@ -207,7 +205,7 @@
 
     @media (max-width: $lg) {
         display: flex;
-        height: auto
+        height: auto;
     }
     @media (max-width: $sm) {
         flex-direction: row;

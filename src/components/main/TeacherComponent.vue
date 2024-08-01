@@ -61,7 +61,7 @@ const itemInfo = ref([
     font-family: 'CenturyGothic';
     font-weight: 700;
     font-size: 36px;
-    line-height: 1.3;
+    line-height: 47px;
     text-align: center;
     color: $orange;
     margin-bottom: 48px;
@@ -95,7 +95,6 @@ const itemInfo = ref([
         gap: 16px;
     }
 }
-
 .teacher__hero {
     display: flex;
     justify-content: center;
@@ -113,11 +112,10 @@ const itemInfo = ref([
     box-shadow: 10px 0 2px 0 rgba(20, 5, 5, 0.2);
     aspect-ratio: 2 / 1;
     object-fit: cover;
-    border: 4px solid #fff;
+    border: 4px solid $white;
     border-radius: 24px;
     background-color: $white;
 }
-
 .teacher__info {
     padding: 24px 0px;
     display: flex;
@@ -137,7 +135,7 @@ const itemInfo = ref([
     font-family: 'CenturyGothic';
     font-weight: 700;
     font-size: 24px;
-    line-height: 150%;
+    line-height: 1.5;
     color: $orange;
     @media (max-width: $xl) {
         text-align: center;
