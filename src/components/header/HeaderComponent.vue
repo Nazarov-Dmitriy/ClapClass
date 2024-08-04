@@ -1,38 +1,41 @@
 <template>
-    <header class="header">
-        <div class="header-mobile" :class="{ 'is-active': btnMenu }">
-            <div class="header-mobile__wrapper">
-                <nav class="header__nav header__nav--mobile" :class="{ 'is-active': btnMenu }">
-                    <ul class="header__list">
-                        <li class="header__list-item">
-                            <router-link to="/services" class="header__list-link">
-                                Сервисы
-                            </router-link>
-                        </li>
-                        <li class="header__list-item">
-                            <router-link class="header__list-link" to="/about">
-                                О проекте
-                            </router-link>
-                        </li>
-                        <li class="header__list-item">
-                            <router-link to="/cooperation" class="header__list-link">
-                                Сотрудничество
-                            </router-link>
-                        </li>
-                        <li class="header__list-item">
-                            <router-link to="/blog" class="header__list-link"> Блог </router-link>
-                        </li>
-                    </ul>
-                </nav>
-                <div
-                    class="header__btn-wrapper header__btn-wrapper--mobile"
-                    :class="{ 'is-active': btnMenu }"
-                >
-                    <BtnComponent class="header__btn"> Вход </BtnComponent>
+    <header class="header" ref="headerMobile">
+        <Transition name="slide-fade">
+            <div v-if="isVisible" class="header-mobile" :class="{ 'is-active': isVisible }">
+                <div class="header-mobile__wrapper">
+                    <nav class="header__nav header__nav--mobile">
+                        <ul class="header__list">
+                            <li class="header__list-item">
+                                <router-link to="/services" class="header__list-link">
+                                    Сервисы
+                                </router-link>
+                            </li>
+                            <li class="header__list-item">
+                                <router-link class="header__list-link" to="/about">
+                                    О проекте
+                                </router-link>
+                            </li>
+                            <li class="header__list-item">
+                                <router-link to="/cooperation" class="header__list-link">
+                                    Сотрудничество
+                                </router-link>
+                            </li>
+                            <li class="header__list-item">
+                                <router-link to="/blog" class="header__list-link">
+                                    Блог
+                                </router-link>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div
+                        class="header__btn-wrapper header__btn-wrapper--mobile"
+                        :class="{ 'is-active': isVisible }"
+                    >
+                        <BtnComponent class="header__btn"> Вход </BtnComponent>
+                    </div>
                 </div>
             </div>
-        </div>
-
+        </Transition>
         <div class="header__container">
             <div class="header__wrapper">
                 <div class="header__logo">
@@ -82,18 +85,33 @@
 <script setup>
 import BtnComponent from '../btns/BtnComponent.vue'
 
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 
+const isVisible = ref(false)
 const btnMenu = ref(false)
-const menuActive = ref(false)
+const headerMobile = ref(null)
 
 function setMenuAcive() {
     btnMenu.value = !btnMenu.value
-    menuActive.value = !menuActive.value
+    isVisible.value = !isVisible.value
 }
+
+const closeHeader = (element) => {
+    if (!headerMobile.value.contains(element.target)) {
+        isVisible.value = false
+        btnMenu.value = false
+    }
+}
+
+onMounted(() => {
+    window.addEventListener('click', closeHeader)
+})
+
+onBeforeUnmount(() => {
+    window.removeEventListener('click', closeHeader)
+})
 </script>
 <style lang="scss">
-
 .header-mobile {
     display: none;
 
@@ -270,5 +288,19 @@ function setMenuAcive() {
     &--mobile {
         display: grid;
     }
+}
+
+.slide-fade-enter-active {
+    transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+    transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+    transform: translateY(-4px);
+    opacity: 0;
 }
 </style>
