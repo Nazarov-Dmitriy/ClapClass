@@ -192,7 +192,7 @@ onMounted(() => {
 
 <style lang="scss">
 .swiper {
-    overflow: hidden;
+    overflow: visible;
 }
 
 .swiper-slide {

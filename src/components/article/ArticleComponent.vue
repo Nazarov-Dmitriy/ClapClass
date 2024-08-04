@@ -143,6 +143,7 @@ watch(() => props.article, () => {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    margin-top: 88px;
 }
 
 .article__img {
