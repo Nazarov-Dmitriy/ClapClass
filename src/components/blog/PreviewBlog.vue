@@ -36,7 +36,7 @@ onMounted(() => {
     overflow: hidden;
     height: 390px;
     position: relative;
-    margin-top: 88px;
+    margin-top: 95px;
 
     @media(max-width: $xxx) {
         background-size: cover;

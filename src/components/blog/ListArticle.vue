@@ -46,7 +46,6 @@ const router = useRouter()
 const renderList = ref([])
 
 function getRenderList (list) {
-    console.log(list);
     renderList.value = list
 }
 

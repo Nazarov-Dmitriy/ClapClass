@@ -493,13 +493,13 @@ const data = [
     }
 ]
 
-export function getById(id) {
+export function getById (id) {
     return data.filter((el) => {
         return el.id === id
     })
 }
 
-export function getSiblingCard(id) {
+export function getSiblingCard (id) {
     let index = data.findIndex((el) => isId(el, id))
     let prev = data[index - 1]?.id
     let next = data[index + 1]?.id
@@ -513,11 +513,11 @@ export function getSiblingCard(id) {
     return { prevId: prev, nextId: next }
 }
 
-function isId(el, id) {
+function isId (el, id) {
     return el.id === id
 }
 
-export function randomArticle(id, count) {
+export function randomArticle (id, count) {
     const idArr = [id]
     const arrContnent = []
 
@@ -531,6 +531,6 @@ export function randomArticle(id, count) {
     return arrContnent
 }
 
-export function getAll() {
+export function getAll () {
     return data
 }
