@@ -207,7 +207,7 @@ function toggleAnswer(index) {
     justify-content: center;
     border-radius: 50%;
     background: $white;
-    border: 1px solid #060c1f;
+    border: 1px solid $black;
     cursor: pointer;
     transition:
         background-color 0.3s,
