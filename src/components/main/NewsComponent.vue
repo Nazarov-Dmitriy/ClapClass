@@ -67,7 +67,7 @@
                                     placeholder="Введите ваш email"/>
                                 <div v-if="showDangerBlock" class="input-error">
                                     <img
-                                        src="../../assets/images/main/news/news-error-icon.svg"
+                                        src="../../assets/images/form/form-error-svg.svg"
                                         alt=""/>
                                     <span>Поле заполненно некорректно</span>
                                 </div>
@@ -331,8 +331,8 @@ function validateEmail(email) {
     width: 100%;
 
     &:hover {
-        border: 2px solid #656d75;
-        background: #e6eaed;
+        border: 2px solid $gray;
+        background: $fonLight;
     }
 
     &:focus {
@@ -353,12 +353,12 @@ function validateEmail(email) {
         font-weight: 400;
         font-size: 16px;
         line-height: 1.5;
-        color: $orange;
+        color: $yellowy;
     }
 }
 
 .is-invalid {
-    border-color: $orange !important;
+    border-color: $yellowy !important;
 }
 
 .news__card-btn-wrapper {

@@ -30,7 +30,7 @@
                 </div>
                 <div class="form__info">
                     <form
-                        @submit.prevent="validateForm"
+                        @submit.prevent="handleSubmit"
                         @keypress.enter.prevent="validateForm"
                         class="form__form"
                     >
@@ -53,10 +53,7 @@
                             />
                             <span v-if="formField.nameError" class="form__error">
                                 <div class="form__error-wrapper">
-                                    <img
-                                        src="../../assets/images/main/news/news-error-icon.svg"
-                                        alt=""
-                                    />
+                                    <img src="../../assets/images/form/form-error-svg.svg" alt="" />
                                     <span>Поле заполнено некорректно</span>
                                 </div>
                             </span>
@@ -80,7 +77,7 @@
                                     <span v-if="formField.phoneError" class="form__error">
                                         <div class="form__error-wrapper">
                                             <img
-                                                src="../../assets/images/main/news/news-error-icon.svg"
+                                                src="../../assets/images/form/form-error-svg.svg"
                                                 alt=""
                                             />
                                             <span>Поле заполнено некорректно</span>
@@ -109,7 +106,7 @@
                                     <span v-if="formField.emailError" class="form__error">
                                         <div class="form__error-wrapper">
                                             <img
-                                                src="../../assets/images/main/news/news-error-icon.svg"
+                                                src="../../assets/images/form/form-error-svg.svg"
                                                 alt=""
                                             />
                                             <span>Поле заполнено некорректно</span>
@@ -140,10 +137,7 @@
                                 class="form__error form__error--textarea"
                             >
                                 <div class="form__error-wrapper">
-                                    <img
-                                        src="../../assets/images/main/news/news-error-icon.svg"
-                                        alt=""
-                                    />
+                                    <img src="../../assets/images/form/form-error-svg.svg" alt="" />
                                     <span>Поле заполнено некорректно</span>
                                 </div>
                             </span>
@@ -248,6 +242,26 @@ function validateForm() {
     validateFeildArr.forEach((item) => {
         validateField(formField[item], 'validate', item)
     })
+
+    if (
+        !formField.nameError &&
+        !formField.phoneError &&
+        !formField.emailError &&
+        !formField.textareaError
+    ) {
+        resetForm()
+    }
+}
+
+function resetForm() {
+    formField.name = ''
+    formField.phone = ''
+    formField.email = ''
+    formField.textarea = ''
+}
+
+function handleSubmit() {
+    validateForm()
 }
 </script>
 
@@ -372,6 +386,10 @@ function validateForm() {
     box-sizing: border-box;
     position: relative;
     transition: 0.4s;
+    font-size: 16px;
+    font-family: 'Inter';
+    color: #656d75;
+
     &:hover {
         background-color: #e6eaed;
     }
@@ -398,13 +416,13 @@ function validateForm() {
     }
 }
 .form__input--error {
-    border: 2px solid $orange !important;
+    border: 2px solid $yellowy !important;
 }
 .form__textarea--error {
-    border: 2px solid $orange !important;
+    border: 2px solid $yellowy !important;
 }
 .form__error {
-    color: $orange !important;
+    color: $yellowy !important;
 }
 .form__error-wrapper {
     margin-top: 8px;
@@ -439,7 +457,12 @@ function validateForm() {
     background-color: $white;
     resize: none;
     box-sizing: border-box;
+    font-size: 16px;
+    font-family: 'Inter';
+    color: $gray;
+
     &::placeholder {
+        font-family: 'Inter';
         font-weight: 400;
         font-size: 16px;
         line-height: 1.5;
