@@ -1,9 +1,15 @@
 <template>
     <section class="faq">
         <div class="faq__container container">
-            <h2 class="faq__title">Часто задаваемые вопросы</h2>
+            <h2 class="faq__title">
+                Часто задаваемые вопросы
+            </h2>
             <div class="faq__wrapper">
-                <div v-for="(question, index) in questions" :key="index" class="faq__question">
+                <div
+                    v-for="(question, index) in questions"
+                    :key="index"
+                    class="faq__question"
+                >
                     <div class="faq__question-wrapper">
                         <p class="faq__question-text">
                             {{ question.question }}
@@ -31,35 +37,49 @@
                             </svg>
                         </button>
                     </div>
-                    <div v-if="openIndex === index" class="faq__answer">
-                        <div v-if="question.id === 3" class="faq__answer-wrapper">
+                    <div
+                        v-if="openIndex === index"
+                        class="faq__answer"
+                    >
+                        <div
+                            v-if="question.id === 3"
+                            class="faq__answer-wrapper"
+                        >
                             <ul class="faq__answer-list">
                                 <li
+                                    v-for="(item, ind) in question.answer"
+                                    :key="ind"
                                     class="faq__answer-item faq__answer-text"
-                                    v-for="(item, index) in question.answer"
-                                    :key="index"
                                 >
                                     {{ item }}
                                 </li>
                             </ul>
                         </div>
                         <p
-                            class="faq__answer-text"
                             v-else-if="question.id === 4 || question.id === 5"
+                            class="faq__answer-text"
                         >
                             {{ question.answer.part1 }}
-                            <router-link class="faq__answer-link" to="/">
-                                {{ question.answer.link }}</router-link
+                            <router-link
+                                class="faq__answer-link"
+                                to="/"
                             >
+                                {{ question.answer.link }}
+                            </router-link>
                             {{ question.answer.part2 }}
                         </p>
-                        <p class="faq__answer-text" v-else>{{ question.answer }}</p>
+                        <p
+                            v-else
+                            class="faq__answer-text"
+                        >
+                            {{ question.answer }}
+                        </p>
 
                         <img
                             class="faq__answer-img"
                             src="../../assets/images/main/faq/faq-answer-bg.png"
                             alt=""
-                        />
+                        >
                     </div>
                 </div>
             </div>
@@ -85,9 +105,9 @@ const questions = ref([
         id: 3,
         question: 'Что такое витрина, направление, кейс, разминка?',
         answer: [
-            'Витрина кейсов – страница со списком всех кейсов сервиса Направление – выкладка на витрине кейсов, объединяющая все разминки по выбранному формату (подвижные/ритм/когнитивные)',
-            'Кейс – страница определенной разминки, содержащая все необходимые материалы и инструкции для ее проведения',
-            'Разминка – видео для демонстрации в аудитории'
+            'Витрина кейсов – страница со списком всех кейсов сервиса Направление – выкладка на витрине кейсов, объединяющая все разминки по выбранному формату (подвижные/ритм/когнитивные).',
+            'Кейс – страница определенной разминки, содержащая все необходимые материалы и инструкции для ее проведения.',
+            'Разминка – видео для демонстрации в аудитории.'
         ]
     },
     {
@@ -112,7 +132,7 @@ const questions = ref([
 
 const openIndex = ref(null)
 
-function toggleAnswer(index) {
+function toggleAnswer (index) {
     if (openIndex.value === index) {
         openIndex.value = null
     } else {
@@ -249,10 +269,6 @@ function toggleAnswer(index) {
     font-size: 20px;
     line-height: 1.5;
     color: $black;
-}
-
-.faq__answer-item {
-    list-style-type: disc;
 }
 
 .faq__answer-img {
