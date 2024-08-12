@@ -54,10 +54,10 @@
                             class="footer__list-item"
                         >
                             <router-link
-                                to="/"
+                                :to="item.url"
                                 class="footer__link"
                             >
-                                {{ item.description }}
+                                {{ item.description }} 
                             </router-link>                            
                         </li>
                     </ul>
@@ -151,33 +151,33 @@ const sections = ref([
     {
         header: 'О проекте',
         items: [
-            {description: 'О проекте'},
-            {description: 'Блог'}
+            {description: 'О проекте', url : '/'},
+            {description: 'Блог', url : '/blog'}
         ]
     },
     {
         header: 'Сервисы',
         items: [
-            {description: 'Подвижные разминки'},
-            {description: 'Ритм-разминки'},
-            {description: 'Конгитивные разминки'},
-            {description: 'Витрина кейсов'},
+            {description: 'Подвижные разминки', url : '/'},
+            {description: 'Ритм-разминки', url : '/'},
+            {description: 'Конгитивные разминки', url : '/'},
+            {description: 'Витрина кейсов', url : '/'},
         ]
     },
     {
         header: 'Сотрудничество',
         items: [
-            {description: 'Партнерская программа'},
-            {description: 'Поддержать проект'}
+            {description: 'Партнерская программа', url : '/'},
+            {description: 'Поддержать проект', url : '/'}
 
         ]
     },
     {
         header: 'Документы',
         items: [
-            {description: 'Пользовательское соглашение'},
-            {description: 'Политика обработки данных'},
-            {description: 'Разработано Freepic'},
+            {description: 'Пользовательское соглашение', url : '/'},
+            {description: 'Политика обработки данных', url : '/'},
+            {description: 'Разработано Freepic', url : '/'},
         ]
     }
 ])
@@ -310,10 +310,6 @@ const sections = ref([
     line-height: 24px;
     color: $gray;
 
-    @media (max-width: $lg) {
-        font-size: 14px;
-        line-height: 20px;
-    }
 
     &:hover {
         color: $red;

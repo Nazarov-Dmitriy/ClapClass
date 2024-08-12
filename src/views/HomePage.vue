@@ -8,7 +8,7 @@
         <TeacherComponent />
         <ProjectComponent />
         <ReviewsComponent />
-        <NewsComponent  :data="data" />
+        <NewsComponent :data="data" />
         <FaqComponent />
         <FormComponent />
         <FooterComponent />
