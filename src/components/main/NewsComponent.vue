@@ -74,7 +74,9 @@
                                 <div>
                                     <div class="news__card-info-wrapper">
                                         <div class="news__card-btn-wrapper">
-                                            <BtnComponent class="news__card-form-btn">
+                                            <BtnComponent
+                                             class="news__card-form-btn"
+                                             >
                                                 Подписаться
                                             </BtnComponent>
                                         </div>
@@ -376,10 +378,14 @@ function validateEmail(email) {
     padding: 8px 16px;
     width: 163px;
     height: 46px;
-    background: $gray;
+    background-color: $gray !important;
     color: $white;
     text-align: center;
 
+    &:hover{
+    background-color: $red !important;
+
+    }
     @media (max-width: $sm) {
         width: 100%;
     }

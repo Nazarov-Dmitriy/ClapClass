@@ -1,9 +1,5 @@
 <template>
-    <button
-        class="btn-orange"
-        :class="{ 'active': value }"
-        @click="submitEmit"
-    >
+    <button class="btn-orange" :class="{ active: value }" @click="submitEmit">
         <span class="btn-orange__text">
             <slot />
         </span>
@@ -17,16 +13,14 @@ const props = defineProps({
         default: null
     },
     value: {
-        type: Boolean,
+        type: Boolean
     }
 })
-const emit = defineEmits(['action',])
+const emit = defineEmits(['action'])
 
-
-function submitEmit () {
+function submitEmit() {
     emit(props.emitName)
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -47,7 +41,7 @@ function submitEmit () {
     &.active {
         border: 2px solid $black;
         background: $red;
-        
+
         .btn-orange__text {
             color: $black;
         }
@@ -59,8 +53,6 @@ function submitEmit () {
         background: $red;
         transform: translateY(-5px);
     }
-
- 
 }
 
 .btn-orange__text {
