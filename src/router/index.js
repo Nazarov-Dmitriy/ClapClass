@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
 import BlogPage from '../views/BlogPage.vue'
 import ArticlePage from '../views/ArticlePage.vue'
+import CooperationPage from '../views/CooperationPage.vue'
 
 
 
@@ -27,10 +28,14 @@ const router = createRouter({
                     name: 'blog-articke',
                     component: ArticlePage
                 }
-            ]
-            
+            ]            
         },
-
+        {
+            path: '/cooperation',
+            name: 'cooperation',
+            component: CooperationPage
+        },
+        
     ],
     scrollBehavior (to, from, savedPosition) {
         if (savedPosition) {
