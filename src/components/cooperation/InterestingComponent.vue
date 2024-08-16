@@ -4,60 +4,57 @@
             <div class="interesting__cards">
                 <div class="interesting__card" v-for="(card, index) in cardsInfoArr" :key="index">
                     <div class="card__wrapper">
-                        <div class="card__hero">
-                            <div class="card__hero-img-wrapper">
-                                <img :src="card.heroImg" alt="" class="card__hero-img" />
-                            </div>
+                        <div class="card__hero-img-wrapper">
+                            <img :src="card.heroImg" alt="" class="card__hero-img" />
                             <p class="card__hero-text">
                                 {{ card.heroText }}
                             </p>
                         </div>
-                        <div class="card__info">
-                            <h2 class="card__title">
-                                {{ card.infoTitle }}
-                            </h2>
-                            <div class="card__carusel">
-                                <p class="card__carusel-text">
-                                    {{ card.infoText }}
-                                </p>
-                                <button
-                                    class="faq__arrow-btn--orange"
-                                    :class="{ active: openIndex === index }"
-                                    @click="toggleAnswer(index)"
+                        <h2 class="card__title">
+                            <span>{{ card.spanTitle }}</span>
+                            {{ card.infoTitle }}
+                        </h2>
+                        <div class="card__carusel">
+                            <p class="card__carusel-text">
+                                {{ card.infoText }}
+                            </p>
+                            <button
+                                class="faq__arrow-btn--orange"
+                                :class="{ active: openIndex === index }"
+                                @click="toggleAnswer(index)"
+                            >
+                                <svg
+                                    width="24"
+                                    height="25"
+                                    viewBox="0 0 24 25"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
                                 >
-                                    <svg
-                                        width="24"
-                                        height="25"
-                                        viewBox="0 0 24 25"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
+                                    <path
+                                        d="M6 9.64453L12 15.6445L18 9.64453"
+                                        stroke="#E05704"
+                                        stroke-width="1.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                        <div v-if="openIndex === index" class="card__carusel-answer">
+                            <div
+                                v-for="answer in card.answers"
+                                :key="answer.id"
+                                class="card__carusel-answer-wrapper"
+                            >
+                                <p class="card__carusel-answer-text">{{ answer.text1 }}</p>
+                                <p class="card__carusel-answer-text">{{ answer.text2 }}</p>
+                                <div class="card__carusel-answer-action">
+                                    <a href="#" class="card__carusel-answer-action-link">{{
+                                        answer.linkText
+                                    }}</a>
+                                    <BtnComponent :currentСlass="'card__carusel-answer-btn'"
+                                        >Заполните заявку</BtnComponent
                                     >
-                                        <path
-                                            d="M6 9.64453L12 15.6445L18 9.64453"
-                                            stroke="#E05704"
-                                            stroke-width="1.5"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                    </svg>
-                                </button>
-                            </div>
-                            <div v-if="openIndex === index" class="card__carusel-answer">
-                                <div
-                                    v-for="answer in card.answers"
-                                    :key="answer.id"
-                                    class="card__carusel-answer-wrapper"
-                                >
-                                    <p class="card__carusel-answer-text">{{ answer.text1 }}</p>
-                                    <p class="card__carusel-answer-text">{{ answer.text2 }}</p>
-                                    <div class="card__carusel-answer-action">
-                                        <a href="#" class="card__carusel-answer-action-link">{{
-                                            answer.linkText
-                                        }}</a>
-                                        <BtnComponent :currentСlass="'card__carusel-answer-btn'"
-                                            >Заполните заявку</BtnComponent
-                                        >
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +79,8 @@ const cardsInfoArr = ref([
     {
         heroImg: '/src/assets/images/main/project/project-card1.png',
         heroText: 'Профи',
-        infoTitle: `Клэппи ищет креативных супергероев в свою команду`,
+        spanTitle: 'Клэппи ищет',
+        infoTitle: ` креативных супергероев в свою команду`,
         infoText: 'Создавайте уникальный продукт для поколения будущего',
         btnText: 'Да',
         answers: [
@@ -97,7 +95,8 @@ const cardsInfoArr = ref([
     {
         heroImg: '/src/assets/images/main/project/project-card2.png',
         heroText: 'Педагогам',
-        infoTitle: `Вы полны идей, опыта и желания проявить себя?`,
+        spanTitle: 'Вы полны идей,',
+        infoTitle: ` опыта и желания проявить себя?`,
         infoText: 'Публикуйте лучшие образовательные практики нового уровня',
         answers: [
             {
@@ -111,7 +110,8 @@ const cardsInfoArr = ref([
     {
         heroImg: '/src/assets/images/main/project/project-card3.png',
         heroText: 'Инвесторам',
-        infoTitle: `Инвестируйте в новый образовательный формат будущего`,
+        spanTitle: 'Инвестируйте',
+        infoTitle: ` в новый образовательный формат будущего`,
         infoText: 'Сделайте вклад в стандарт обучения, опережающий время',
         answers: [
             {
@@ -130,22 +130,25 @@ const cardsInfoArr = ref([
     padding: 48px 64px;
     box-sizing: border-box;
 
-    @media (max-width: $lg) {
+    @media (max-width: 991px) {
         padding: 48px 16px;
     }
-    @media (max-width: $sm) {
+    @media (max-width: 767px) {
         padding: 64px 16px 48px 16px;
     }
 }
+
 .interesting__container {
     max-width: 1312px;
     margin: 0 auto;
 }
+
 .interesting__cards {
     display: flex;
     flex-direction: column;
     gap: 48px;
 }
+
 .interesting__card {
     border-radius: 24px;
     padding: 16px;
@@ -153,22 +156,35 @@ const cardsInfoArr = ref([
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: #e6eaed;
 }
+
 .card__wrapper {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 38px;
+    align-items: center;
     @media (max-width: $lg) {
+        grid-template-areas: 'img title';
+    }
+    @media (max-width: $sm) {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
     }
 }
-.card__hero {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
+
 .card__hero-img-wrapper {
+    grid-row: span 2;
+    @media (max-width: $lg) {
+        grid-area: img;
+    }
+    @media (max-width: $sm) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }
-.card__hero-img {
-}
+
 .card__hero-text {
     font-family: 'CenturyGothic';
     font-weight: 700;
@@ -177,12 +193,7 @@ const cardsInfoArr = ref([
     text-align: center;
     color: $black;
 }
-.card__info {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    justify-content: space-between;
-}
+
 .card__title {
     font-family: 'CenturyGothic';
     font-weight: 700;
@@ -190,7 +201,16 @@ const cardsInfoArr = ref([
     line-height: 48px;
     text-align: center;
     color: $orange;
+
+    span {
+        display: block;
+        text-align: center;
+    }
+    @media (max-width: $lg) {
+        grid-area: title;
+    }
 }
+
 .card__carusel {
     border-radius: 24px;
     padding: 16px;
@@ -199,7 +219,12 @@ const cardsInfoArr = ref([
     display: grid;
     grid-template-columns: 1fr 32px;
     align-items: end;
+
+    @media (max-width: $lg) {
+        grid-column: span 2;
+    }
 }
+
 .card__carusel-text {
     font-family: 'CenturyGothic';
     font-weight: 700;
@@ -219,10 +244,24 @@ const cardsInfoArr = ref([
         height: 32px;
         background: #fff;
         cursor: pointer;
+        transition:
+            background-color 0.3s,
+            color 0.3s;
+
+        &.active {
+            transform: rotate(180deg);
+            background-color: $orange;
+            color: $white;
+
+            svg path {
+                stroke: $white;
+            }
+        }
     }
 }
 
 .card__carusel-answer {
+    grid-column: span 2;
     // background: url(../../assets/images/main/teacher/teacher-bg.png);
     // background-repeat: no-repeat;
     // background-size: cover;
@@ -234,8 +273,10 @@ const cardsInfoArr = ref([
     flex-direction: column;
     gap: 16px;
 }
+
 .card__carusel-answer-text {
 }
+
 .card__carusel-answer-action {
     display: flex;
     justify-content: center;
@@ -243,6 +284,7 @@ const cardsInfoArr = ref([
     flex-direction: column;
     gap: 16px;
 }
+
 .card__carusel-answer-action-link {
     font-weight: 500;
     font-size: 16px;
