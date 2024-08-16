@@ -1,6 +1,6 @@
 <template>
     <button class="btn-orange" :class="{ active: value }" @click="submitEmit">
-        <span class="btn-orange__text">
+        <span class="btn-orange__text" :class="props.currentClass">
             <slot />
         </span>
     </button>
@@ -14,6 +14,9 @@ const props = defineProps({
     },
     value: {
         type: Boolean
+    },
+    currentClass: {
+        type: String
     }
 })
 const emit = defineEmits(['action'])

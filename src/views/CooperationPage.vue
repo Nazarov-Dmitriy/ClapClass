@@ -1,29 +1,23 @@
 <template>
     <div class="page">
         <HeaderComponent />
-        <p>Сотрудничество</p>
-        <p>Сотрудничество</p>
-        <p>Сотрудничество</p>
-        <p>Сотрудничество</p>
-        <p>Сотрудничество</p>
-        <p>Сотрудничество</p>
-        <p>Сотрудничество</p>
-        <p>Сотрудничество</p>
-        <p>Сотрудничество</p>
+        <SliderCooperation />
+        <InterestingComponent />
         <FooterComponent />
     </div>
 </template>
 
 <script setup>
-import HeaderComponent from '../components/header/HeaderComponent.vue';
-
-import FooterComponent from '../components/main/FooterComponent.vue';
-
+import InterestingComponent from '../components/cooperation/InterestingComponent.vue'
+import SliderCooperation from '../components/cooperation/SliderCooperation.vue'
+import HeaderComponent from '../components/header/HeaderComponent.vue'
+import FooterComponent from '../components/main/FooterComponent.vue'
 </script>
 <style scoped lang="scss">
 .page {
     min-height: 100vh;
     overflow: hidden;
     margin: 0 auto;
+    padding-top: 88px;
 }
 </style>
