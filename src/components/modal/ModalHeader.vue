@@ -62,6 +62,7 @@ function closeModal() {
 
     @media (max-width: $lg) {
         padding: 24px;
+        width: 100%;
     }
 }
 
@@ -98,7 +99,7 @@ function closeModal() {
 
     @media (max-width: $lg) {
         top: 0;
-        right: 0;
+        right: 10px;
     }
 }
 .modal-close {

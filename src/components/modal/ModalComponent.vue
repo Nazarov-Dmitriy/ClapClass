@@ -29,6 +29,7 @@ onBeforeUnmount(() => {
 
 <style lang="scss">
 .modal-wrapper {
+    overflow: auto;
     height: 100%;
     width: 100%;
     position: fixed;
@@ -40,11 +41,18 @@ onBeforeUnmount(() => {
     overflow: auto;
     max-width: 868px;
     width: 100%;
-    height: 90%;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    @media (max-width: $xxl) {
+        transform: translate(-50%, -25%);
+    }
+
+    @media (max-width: $sm) {
+        transform: translate(-50%, -20%);
+    }
 }
 
 .no-scroll {
