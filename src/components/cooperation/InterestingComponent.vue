@@ -6,41 +6,40 @@
                     <div class="card__wrapper">
                         <div class="card__hero-img-wrapper">
                             <img :src="card.heroImg" alt="" class="card__hero-img" />
-                            <p class="card__hero-text">
-                                {{ card.heroText }}
-                            </p>
+                            <p class="card__hero-text">{{ card.heroText }}</p>
                         </div>
                         <h2 class="card__title">
                             <span>{{ card.spanTitle }}</span>
                             {{ card.infoTitle }}
                         </h2>
                         <div class="card__carusel">
-                            <p class="card__carusel-text">
-                                {{ card.infoText }}
-                            </p>
-                            <button
-                                class="faq__arrow-btn--orange"
-                                :class="{ active: openIndex === index }"
-                                @click="toggleAnswer(index)"
-                            >
-                                <svg
-                                    width="24"
-                                    height="25"
-                                    viewBox="0 0 24 25"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
+                            <p class="card__carusel-text">{{ card.infoText }}</p>
+                            <div class="faq__arrow-btn-wrapper">
+                                <button
+                                    class="faq__arrow-btn--orange"
+                                    :class="{ active: openIndex === index }"
+                                    @click="toggleAnswer(index)"
                                 >
-                                    <path
-                                        d="M6 9.64453L12 15.6445L18 9.64453"
-                                        stroke="#E05704"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                </svg>
-                            </button>
+                                    <svg
+                                        width="24"
+                                        height="25"
+                                        viewBox="0 0 24 25"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M6 9.64453L12 15.6445L18 9.64453"
+                                            stroke="#E05704"
+                                            stroke-width="1.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
-                        <div v-if="openIndex === index" class="card__carusel-answer">
+
+                        <div v-if="openIndex === index && index !== 2" class="card__carusel-answer">
                             <div
                                 v-for="answer in card.answers"
                                 :key="answer.id"
@@ -49,12 +48,36 @@
                                 <p class="card__carusel-answer-text">{{ answer.text1 }}</p>
                                 <p class="card__carusel-answer-text">{{ answer.text2 }}</p>
                                 <div class="card__carusel-answer-action">
-                                    <a href="#" class="card__carusel-answer-action-link">{{
-                                        answer.linkText
-                                    }}</a>
-                                    <BtnComponent :currentСlass="'card__carusel-answer-btn'"
-                                        >Заполните заявку</BtnComponent
-                                    >
+                                    <a href="#" class="card__carusel-answer-action-link">
+                                        {{ answer.linkText }}
+                                    </a>
+                                    <BtnComponentWhite :custom-class="'custom-btn'">{{
+                                        answer.btnText
+                                    }}</BtnComponentWhite>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div v-if="openIndex === index && index === 2" class="card__carusel-answer">
+                            <div
+                                v-for="answer in card.answers"
+                                :key="answer.id"
+                                class="card__carusel-answer-wrapper"
+                            >
+                                <p class="card__carusel-answer-text">{{ answer.text1 }}</p>
+                                <p class="card__carusel-answer-text">{{ answer.text2 }}</p>
+                                <div class="card__carusel-answer-action">
+                                    <a href="#" class="card__carusel-answer-action-link">
+                                        {{ answer.linkText }}
+                                    </a>
+                                    <div class="card__carusel-answer-btns">
+                                        <BtnComponentWhite :custom-class="'custom-btn'">{{
+                                            answer.btnText
+                                        }}</BtnComponentWhite>
+                                        <BtnComponent :currentСlass="'card__carusel-answer-btn'">{{
+                                            answer.btnText2
+                                        }}</BtnComponent>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -68,6 +91,7 @@
 <script setup>
 import { ref } from 'vue'
 import BtnComponent from '../btns/BtnComponent.vue'
+import BtnComponentWhite from '../btns/BtnComponentWhite.vue'
 
 const openIndex = ref(null)
 
@@ -82,13 +106,13 @@ const cardsInfoArr = ref([
         spanTitle: 'Клэппи ищет',
         infoTitle: ` креативных супергероев в свою команду`,
         infoText: 'Создавайте уникальный продукт для поколения будущего',
-        btnText: 'Да',
         answers: [
             {
                 id: 1,
                 text1: `«Clap Class» – это увлекательный проект, создающий новый стандарт образования. Мы разрабатываем яркие, интерактивные разминки в лучших традициях аркадных игр, вдохновляющие современных учеников. Каждый кейс – результат трудоемкой работы экспертов в сфере педагогики и креативных индустрий.`,
                 text2: `Мы верим, что будущее за вовлекающим обучением! Создавайте его вместе с нами уже сегодня. Станьте частью креативной команды единомышленников – формируйте идеи, развивайте маркетинг, дизайн, разработку или музыкальную составляющую. Мы всегда в поиске увлеченных своим делом волонтеров, готовых менять подход к передаче знаний.`,
-                linkText: 'Скачать партнерскую  программу >'
+                linkText: 'Скачать партнерскую  программу >',
+                btnText: 'Станьте волонтером'
             }
         ]
     },
@@ -103,7 +127,8 @@ const cardsInfoArr = ref([
                 id: 2,
                 text1: `Станьте амбассадором "Clap Class" - соавтором проекта, чье мнение мы ценим. Делитесь своими уникальными методическими разработками, тестируйте новые кейсы и получайте возможность опубликовать свой педагогический опыт на платформе с поддержкой команды сервиса.`,
                 text2: `Если у вас есть свежие идеи, готовность первыми опробовать инновационные инструменты сервисаи желание давать обратную связь - вы наш человек!`,
-                linkText: 'Скачать партнерскую  программу >'
+                linkText: 'Скачать партнерскую  программу >',
+                btnText: 'Заполните заявку'
             }
         ]
     },
@@ -118,7 +143,9 @@ const cardsInfoArr = ref([
                 id: 3,
                 text1: `Проект "Clap Class" помогает педагогам и детям до 12 лет создавать благоприятную атмосферу для обучения, предоставляя уникальные возможности на ed-tech рынке России. Мы разрабатываем библиотеку игровых приложений для геймификации здоровьесберегающих технологий и готовы к дальнейшему развитию.`,
                 text2: `Наш план развития включает расширение линейки направлений, выход на новые платформы и способы взаимодействия с пользователями. Мы открыты для инвестиционных предложений и сотрудничества, и будем благодарны за финансовую поддержку, которая позволит поддерживать свободный доступ к инструментам сервиса.`,
-                linkText: 'Скачать партнерскую  программу >'
+                linkText: 'Скачать партнерскую  программу >',
+                btnText: 'Свяжитесь с нами',
+                btnText2: 'Поддержите проект'
             }
         ]
     }
@@ -192,6 +219,10 @@ const cardsInfoArr = ref([
     line-height: 1.5;
     text-align: center;
     color: $black;
+
+    @media (max-width: $sm) {
+        font-size: 20px;
+    }
 }
 
 .card__title {
@@ -208,6 +239,11 @@ const cardsInfoArr = ref([
     }
     @media (max-width: $lg) {
         grid-area: title;
+        font-size: 32px;
+        line-height: 1.5;
+    }
+    @media (max-width: $sm) {
+        font-size: 24px;
     }
 }
 
@@ -222,6 +258,7 @@ const cardsInfoArr = ref([
 
     @media (max-width: $lg) {
         grid-column: span 2;
+        grid-template-columns: 1fr;
     }
 }
 
@@ -231,6 +268,17 @@ const cardsInfoArr = ref([
     font-size: 24px;
     line-height: 1.5;
     color: $gray;
+
+    @media (max-width: $sm) {
+        font-size: 20px;
+    }
+}
+
+.faq__arrow-btn-wrapper {
+    @media (max-width: $lg) {
+        display: flex;
+        justify-content: flex-end;
+    }
 }
 
 .faq__arrow-btn {
@@ -246,26 +294,26 @@ const cardsInfoArr = ref([
         cursor: pointer;
         transition:
             background-color 0.3s,
-            color 0.3s;
+            color 0.3s,
+            transform 0.3s;
 
         &.active {
-            transform: rotate(180deg);
             background-color: $orange;
             color: $white;
-
             svg path {
                 stroke: $white;
             }
+            transform: rotate(180deg);
         }
     }
 }
 
 .card__carusel-answer {
     grid-column: span 2;
-    // background: url(../../assets/images/main/teacher/teacher-bg.png);
-    // background-repeat: no-repeat;
-    // background-size: cover;
-    // background-position: bottom;
+    background: url(../../assets/images/main/teacher/teacher-bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
 }
 
 .card__carusel-answer-wrapper {
@@ -279,10 +327,14 @@ const cardsInfoArr = ref([
 
 .card__carusel-answer-action {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    flex-direction: column;
     gap: 16px;
+
+    @media (max-width: $lg) {
+        flex-direction: column;
+        justify-content: center;
+    }
 }
 
 .card__carusel-answer-action-link {
@@ -293,9 +345,24 @@ const cardsInfoArr = ref([
     border-bottom: 2px solid #e05704;
     padding: 4px 8px;
     text-align: center;
+    text-decoration: none;
+
+    @media (max-width: $lg) {
+        text-align: left;
+    }
 }
 
-.card__carusel-answer-btn {
-    color: red;
+.card__carusel-answer-btns {
+    display: flex;
+    gap: 16px;
+
+    @media (max-width: $sm) {
+        flex-direction: column;
+    }
+}
+
+.custom-btn {
+    color: $orange !important;
+    border: 1px solid $orange !important;
 }
 </style>

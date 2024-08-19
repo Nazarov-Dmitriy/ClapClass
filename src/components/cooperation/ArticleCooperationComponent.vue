@@ -41,7 +41,7 @@
         padding: 48px 16px;
     }
     @media (max-width: $sm) {
-        padding: 64px 16px 48px 16px;
+        padding: 24px 0px 0px 0px;
     }
 }
 .article-cooperation__container {
@@ -94,17 +94,19 @@
         height: 122px;
         box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
         background: rgba(255, 255, 255, 0.8);
-        transform: rotate(-6deg);
         font-family: var(--second-family);
         font-weight: 700;
         font-size: 60px;
         line-height: 150%;
         text-align: center;
         color: #e05704;
+        transform: rotate(-6deg) translate(-13px, -10px);
+
         @media (max-width: $lg) {
             width: 420px;
             height: 92px;
             font-size: 40px;
+            transform: rotate(-6deg) translate(-13px, 0px);
         }
         @media (max-width: $sm) {
             width: 287px;
@@ -127,9 +129,11 @@
             width: 420px;
             height: 92px;
             font-size: 40px;
+            transform: rotate(0) translate(0);
         }
         @media (max-width: $sm) {
-            width: 324px;
+            font-size: 26px;
+            width: 290px;
             font-size: 26px;
             height: 71px;
         }

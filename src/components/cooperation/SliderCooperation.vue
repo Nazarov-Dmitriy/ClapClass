@@ -144,6 +144,7 @@ onUnmounted(() => {
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: rgba(255, 255, 255, 0.5);
     position: relative;
+    margin-top: 20px;
 }
 .slider__card-img-wrapper {
     position: absolute;
