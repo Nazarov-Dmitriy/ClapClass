@@ -1,6 +1,10 @@
 <template>
     <div class="form__info">
+        <div v-if="formField.success" class="form__success">
+            <h2 class="form__success-title">Сообщение отправлено</h2>
+        </div>
         <form
+            v-if="!formField.success"
             @submit.prevent="handleSubmit"
             @keypress.enter.prevent="validateForm"
             class="form__form"
@@ -71,13 +75,32 @@
                         </span>
                     </label>
                 </div>
+
+                <!-- Added Message Field -->
                 <label
-                    for="question"
+                    for="message"
                     class="form__label"
-                    :class="{ form__error: formField.textareaError }"
+                    :class="{ form__error: formField.messageError }"
                 >
-                    Вопрос
+                    Ваше сообщение
                 </label>
+                <input
+                    type="text"
+                    id="message"
+                    class="form__input form__input--message"
+                    :class="{ 'form__input--error': formField.messageError }"
+                    v-model="formField.message"
+                    placeholder="Введите тему сообщения"
+                    @input="changeMessage($event)"
+                    @keypress.enter="validateField($event, 'event', 'message')"
+                />
+                <span v-if="formField.messageError" class="form__error">
+                    <div class="form__error-wrapper">
+                        <img src="../../assets/images/form/form-error-svg.svg" alt="" />
+                        <span>Поле заполнено некорректно</span>
+                    </div>
+                </span>
+
                 <textarea
                     id="question"
                     cols="30"
@@ -85,7 +108,7 @@
                     class="form__textarea"
                     :class="{ 'form__textarea--error': formField.textareaError }"
                     v-model="formField.textarea"
-                    placeholder="Напишите ваш вопрос"
+                    placeholder="Введите ваше сообщение"
                     @input="changeTextarea($event)"
                 ></textarea>
                 <span v-if="formField.textareaError" class="form__error form__error--textarea">
@@ -115,7 +138,6 @@
         </form>
     </div>
 </template>
-
 <script setup>
 import { reactive } from 'vue'
 import BtnComponent from '../btns/BtnComponent.vue'
@@ -124,12 +146,14 @@ const formField = reactive({
     name: '',
     phone: '',
     email: '',
+    message: '', // Added field
     textarea: '',
     nameError: false,
     phoneError: false,
     emailError: false,
+    messageError: false, // Added field
     textareaError: false,
-    validateForm: false
+    success: false
 })
 
 function validateField(param, event, nameParam) {
@@ -141,20 +165,21 @@ function validateField(param, event, nameParam) {
     }
 
     if (nameParam === 'name') {
-        target.length < 3 ? (formField.nameError = true) : (formField.nameError = false)
+        formField.nameError = target.length < 3
     }
     if (nameParam === 'phone') {
-        target.length < 18 ? (formField.phoneError = true) : (formField.phoneError = false)
+        formField.phoneError = target.length < 18
     }
     if (nameParam === 'email') {
         let email_regexp =
             /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-        !email_regexp.test(String(target).toLowerCase())
-            ? (formField.emailError = true)
-            : (formField.emailError = false)
+        formField.emailError = !email_regexp.test(String(target).toLowerCase())
+    }
+    if (nameParam === 'message') {
+        formField.messageError = target.length < 3
     }
     if (nameParam === 'textarea') {
-        target.length < 3 ? (formField.textareaError = true) : (formField.textareaError = false)
+        formField.textareaError = target.length < 3
     }
 }
 
@@ -177,6 +202,15 @@ function changeEmail(event) {
     formField.email = target.value
 }
 
+function changeMessage(event) {
+    let target = event.target
+    formField.message = target.value
+
+    if (formField.messageError && target.value.length >= 3) {
+        formField.messageError = false
+    }
+}
+
 function changeTextarea(event) {
     let target = event.target
     event.target.scrollBy(target.scrollHeight, 100)
@@ -187,9 +221,9 @@ function changeTextarea(event) {
 }
 
 function validateForm() {
-    let validateFeildArr = ['name', 'phone', 'email', 'textarea']
+    let validateFieldArr = ['name', 'phone', 'email', 'message', 'textarea']
 
-    validateFeildArr.forEach((item) => {
+    validateFieldArr.forEach((item) => {
         validateField(formField[item], 'validate', item)
     })
 
@@ -197,8 +231,10 @@ function validateForm() {
         !formField.nameError &&
         !formField.phoneError &&
         !formField.emailError &&
+        !formField.messageError && 
         !formField.textareaError
     ) {
+        formField.success = true
         resetForm()
     }
 }
@@ -207,6 +243,7 @@ function resetForm() {
     formField.name = ''
     formField.phone = ''
     formField.email = ''
+    formField.message = '' 
     formField.textarea = ''
 }
 
@@ -216,6 +253,18 @@ function handleSubmit() {
 </script>
 
 <style lang="scss" scoped>
+.form__success-title {
+    font-family: 'CenturyGothic';
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.5;
+    text-align: center;
+    color: $white;
+    padding: 48px 48px;
+    background-color: $gray;
+    border-radius: 0 0 24px 24px;
+}
+
 .form__form {
     display: flex;
     flex-direction: column;
@@ -224,7 +273,7 @@ function handleSubmit() {
     margin-bottom: 40px;
     background-color: $gray;
     border-radius: 0 0 25px 25px;
-    padding: 0 15px;
+    padding: 10px 15px;
 }
 .form__fields {
     display: flex;

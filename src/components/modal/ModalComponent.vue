@@ -1,16 +1,23 @@
 <template>
-    <Teleport to="body">
-        <div class="modal-wrapper" @click="activateEmit">
+    <Transition name="modal">
+        <div v-if="props.visible" class="modal-wrapper" @click="activateEmit">
             <div class="modal" @click.stop>
                 <slot name="header" />
                 <slot name="form" />
             </div>
         </div>
-    </Teleport>
+    </Transition>
 </template>
 
 <script setup>
-import { onMounted, onBeforeUnmount } from 'vue'
+import { onMounted, onBeforeUnmount, watch } from 'vue'
+
+const props = defineProps({
+    visible: {
+        type: Boolean,
+        default: false
+    }
+})
 
 const emit = defineEmits(['closeModal'])
 
@@ -18,9 +25,18 @@ function activateEmit() {
     emit('closeModal')
 }
 
+function updateBodyScroll() {
+    if (props.visible) {
+        document.body.classList.add('no-scroll')
+    } else {
+        document.body.classList.remove('no-scroll')
+    }
+}
+
 onMounted(() => {
-    document.body.classList.add('no-scroll')
+    updateBodyScroll()
 })
+watch(() => props.visible, updateBodyScroll)
 
 onBeforeUnmount(() => {
     document.body.classList.remove('no-scroll')

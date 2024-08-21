@@ -1,14 +1,16 @@
 <template>
     <section class="support">
         <div class="support__container">
-            <ModalComponent v-if="isModalVisible" @close-modal="toggleModal">
-                <template #header>
-                    <ModalHeader @close-modal="toggleModal"  />
-                </template>
-                <template #form>
-                    <UiFom> </UiFom>
-                </template>
-            </ModalComponent>
+            <Teleport to="body">
+                <ModalComponent :visible="isModalVisible" @close-modal="toggleModal">
+                    <template #header>
+                        <ModalHeader @close-modal="toggleModal" />
+                    </template>
+                    <template #form>
+                        <UiForm> </UiForm>
+                    </template>
+                </ModalComponent>
+            </Teleport>
             <div class="support__wrapper">
                 <div class="support__text-wrapper">
                     <h2 class="support__title">Поддержите нас</h2>
@@ -43,19 +45,9 @@
                         />
                     </div>
                     <div class="support__share">
-                        <span>Рассказать о нас</span>
-                        <svg
-                            width="21"
-                            height="18"
-                            viewBox="0 0 21 18"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M20.5 8.52708L12.7222 0.59375V5.12708C4.94444 6.26042 1.61111 11.9271 0.5 17.5938C3.27778 13.6271 7.16667 11.8137 12.7222 11.8137V16.4604L20.5 8.52708Z"
-                                fill="#656D75"
-                            />
-                        </svg>
+                        <ShareComponent>
+                            <template #text> Рассказать о нас </template>
+                        </ShareComponent>
                     </div>
                 </div>
             </div>
@@ -67,9 +59,10 @@
 import { ref } from 'vue'
 import BtnComponent from '../btns/BtnComponent.vue'
 import BtnComponentWhite from '../btns/BtnComponentWhite.vue'
-import UiFom from '../form/UiFom.vue'
+import UiForm from '../form/UiForm.vue'
 import ModalComponent from '../modal/ModalComponent.vue'
 import ModalHeader from '../modal/ModalHeader.vue'
+import ShareComponent from '../article/ShareComponent.vue'
 
 const isModalVisible = ref(false)
 

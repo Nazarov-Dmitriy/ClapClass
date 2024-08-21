@@ -1,8 +1,23 @@
 <template>
     <section class="interesting">
+        <Teleport to="body">
+            <ModalComponent :visible="isModalVisible" @close-modal="toggleModalVisible">
+                <template #header>
+                    <ModalHeader @close-modal="toggleModalVisible" />
+                </template>
+                <template #form>
+                    <UiForm> </UiForm>
+                </template>
+            </ModalComponent>
+        </Teleport>
         <div class="interesting__container">
             <div class="interesting__cards">
-                <div class="interesting__card" v-for="(card, index) in cardsInfoArr" :key="index">
+                <div
+                    class="interesting__card"
+                    v-for="(card, index) in cardsInfoArr"
+                    :key="index"
+                    :class="{ active: openIndex === index }"
+                >
                     <div class="card__wrapper">
                         <div class="card__hero-img-wrapper">
                             <img :src="card.heroImg" alt="" class="card__hero-img" />
@@ -51,9 +66,12 @@
                                     <a href="#" class="card__carusel-answer-action-link">
                                         {{ answer.linkText }}
                                     </a>
-                                    <BtnComponentWhite :custom-class="'custom-btn'">{{
-                                        answer.btnText
-                                    }}</BtnComponentWhite>
+                                    <BtnComponentWhite
+                                        emit-name="action"
+                                        @action="toggleModalVisible"
+                                        :custom-class="'custom-btn'"
+                                        >{{ answer.btnText }}</BtnComponentWhite
+                                    >
                                 </div>
                             </div>
                         </div>
@@ -71,9 +89,12 @@
                                         {{ answer.linkText }}
                                     </a>
                                     <div class="card__carusel-answer-btns">
-                                        <BtnComponentWhite :custom-class="'custom-btn'">{{
-                                            answer.btnText
-                                        }}</BtnComponentWhite>
+                                        <BtnComponentWhite
+                                            emit-name="action"
+                                            @action="toggleModalVisible"
+                                            :custom-class="'custom-btn'"
+                                            >{{ answer.btnText }}</BtnComponentWhite
+                                        >
                                         <BtnComponent :currentСlass="'card__carusel-answer-btn'">{{
                                             answer.btnText2
                                         }}</BtnComponent>
@@ -92,11 +113,19 @@
 import { ref } from 'vue'
 import BtnComponent from '../btns/BtnComponent.vue'
 import BtnComponentWhite from '../btns/BtnComponentWhite.vue'
-
+import ModalComponent from '../modal/ModalComponent.vue'
+import ModalHeader from '../modal/ModalHeader.vue'
+import UiForm from '../form/UiForm.vue'
 const openIndex = ref(null)
 
 const toggleAnswer = (index) => {
     openIndex.value = openIndex.value === index ? null : index
+}
+
+const isModalVisible = ref(false)
+
+function toggleModalVisible() {
+    isModalVisible.value = !isModalVisible.value
 }
 
 const cardsInfoArr = ref([
@@ -182,6 +211,23 @@ const cardsInfoArr = ref([
     box-sizing: border-box;
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: #e6eaed;
+
+    &.active {
+        background: url(../../assets/images/cooperation/interesting/card-bg.png) no-repeat left
+            center;
+        background-color: #e6eaed;
+        background-size: cover;
+
+        @media (max-width: $lg) {
+            background: url(../../assets/images/cooperation/interesting/card-bg.png) no-repeat
+                bottom;
+            background-color: #e6eaed;
+            padding-left: 16px;
+        }
+        @media (max-width: $sm) {
+            background-image: none;
+        }
+    }
 }
 
 .card__wrapper {
@@ -189,6 +235,7 @@ const cardsInfoArr = ref([
     grid-template-columns: auto 1fr;
     gap: 38px;
     align-items: center;
+
     @media (max-width: $lg) {
         grid-template-areas: 'img title';
     }
@@ -309,11 +356,10 @@ const cardsInfoArr = ref([
 }
 
 .card__carusel-answer {
-    grid-column: span 2;
-    background: url(../../assets/images/main/teacher/teacher-bg.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: top;
+    grid-column: 2;
+    @media (max-width: $lg) {
+        grid-column: span 2;
+    }
 }
 
 .card__carusel-answer-wrapper {
@@ -331,7 +377,7 @@ const cardsInfoArr = ref([
     align-items: center;
     gap: 16px;
 
-    @media (max-width: $lg) {
+    @media (max-width: $xl) {
         flex-direction: column;
         justify-content: center;
     }

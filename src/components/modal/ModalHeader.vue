@@ -57,7 +57,7 @@ function closeModal() {
     justify-content: center;
     gap: 24px;
     position: relative;
-    border-radius: 25px 25px;
+    border-radius: 25px 25px 0 0;
     margin-bottom: -5px;
 
     @media (max-width: $lg) {

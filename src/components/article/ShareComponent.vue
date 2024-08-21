@@ -1,10 +1,7 @@
 <template>
-    <div
-        class="share"
-        @click="setShow(!showMenu)"
-    >
+    <div class="share" @click="setShow(!showMenu)">
         <p class="share__text">
-            Поделиться
+            <slot name="text"> Поделиться </slot>
         </p>
         <svg
             class="share-icon"
@@ -19,72 +16,45 @@
                 fill="#656D75"
             />
         </svg>
-        <div
-            v-if="showMenu"
-            ref="menu"
-            v-esc="() => setShow(false)"
-            class="share-menu"
-        >
+        <div v-if="showMenu" ref="menu" v-esc="() => setShow(false)" class="share-menu">
             <ul class="share__list">
                 <li class="share__item">
-                    <a
-                        :href="getTelgramLink"
-                        target="_blank"
-                        class="share__link"
-                    >
-                        <img
-                            src="@/assets/icons/social/tg.svg"
-                            alt="telegram"
-                            class="share-icon"
-                        >
+                    <a :href="getTelgramLink" target="_blank" class="share__link">
+                        <img src="@/assets/icons/social/tg.svg" alt="telegram" class="share-icon" />
                         <p class="share__link-text bold">Telegram</p>
                     </a>
                 </li>
                 <li class="share__item">
-                    <a
-                        :href="getVkLink"
-                        target="_blank"
-                        class="share__link"
-                    >
+                    <a :href="getVkLink" target="_blank" class="share__link">
                         <img
                             src="@/assets/icons/social/vk.svg"
                             alt="vcontakte"
                             class="share-icon"
-                        >
+                        />
                         <p class="share__link-text bold">вконтакте</p>
                     </a>
                 </li>
-                <li
-                    class="share__item"
-                    @click="copyText($event)"
-                >
-                    <img
-                        src="@/assets/icons/article/copy.svg"
-                        alt="copy-link"
-                        class="share-icon"
-                    >
-                    <p class="share__link-text">
-                        Копировать ссылку
-                    </p>
+                <li class="share__item" @click="copyText($event)">
+                    <img src="@/assets/icons/article/copy.svg" alt="copy-link" class="share-icon" />
+                    <p class="share__link-text">Копировать ссылку</p>
                 </li>
             </ul>
         </div>
     </div>
 </template>
 <script setup>
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue'
 const props = defineProps({
     article: {
         type: Array,
         default: () => []
-    },
+    }
 })
 
 const showMenu = ref(false)
 const menu = ref(null)
 
-
-function setShow (param) {
+function setShow(param) {
     setTimeout(() => {
         showMenu.value = param
     })
@@ -96,24 +66,21 @@ const closeDropDown = (element) => {
     }
 }
 
-function copyText (event) {
-    event.preventDefault();
-    navigator.clipboard.writeText(window.location.href);
+function copyText(event) {
+    event.preventDefault()
+    navigator.clipboard.writeText(window.location.href)
 }
 
 const getTelgramLink = computed(() => {
-    return `https://t.me/share/url?url=${window.location.href}&text=${props.article?.title}`;
-});
+    return `https://t.me/share/url?url=${window.location.href}&text=${props.article?.title}`
+})
 const getVkLink = computed(() => {
-    return `http://vk.com/share.php?url=${window.location.href}&title=${props.article?.title}&image=${props.article?.img}`;
-});
-
+    return `http://vk.com/share.php?url=${window.location.href}&title=${props.article?.title}&image=${props.article?.img}`
+})
 
 onMounted(() => {
     window.addEventListener('click', closeDropDown)
 })
-
-
 </script>
 <style lang="scss">
 .share {
@@ -128,7 +95,7 @@ onMounted(() => {
     position: relative;
 
     &:hover {
-        color:$orange;
+        color: $orange;
 
         & svg path {
             fill: $orange;
@@ -136,7 +103,7 @@ onMounted(() => {
     }
 
     &:active {
-        color:$black;
+        color: $black;
 
         & svg path {
             fill: $red;
@@ -201,7 +168,7 @@ onMounted(() => {
     font-weight: 500;
     color: $black;
 
-    &.bold{
+    &.bold {
         font-weight: 600;
     }
 
