@@ -54,54 +54,64 @@
                             </div>
                         </div>
 
-                        <div v-if="openIndex === index && index !== 2" class="card__carusel-answer">
+                        <Transition name="answer">
                             <div
-                                v-for="answer in card.answers"
-                                :key="answer.id"
-                                class="card__carusel-answer-wrapper"
+                                v-if="openIndex === index && index !== 2"
+                                class="card__carusel-answer"
                             >
-                                <p class="card__carusel-answer-text">{{ answer.text1 }}</p>
-                                <p class="card__carusel-answer-text">{{ answer.text2 }}</p>
-                                <div class="card__carusel-answer-action">
-                                    <a href="#" class="card__carusel-answer-action-link">
-                                        {{ answer.linkText }}
-                                    </a>
-                                    <BtnComponentWhite
-                                        emit-name="action"
-                                        @action="toggleModalVisible"
-                                        :custom-class="'custom-btn'"
-                                        >{{ answer.btnText }}</BtnComponentWhite
-                                    >
-                                </div>
-                            </div>
-                        </div>
-
-                        <div v-if="openIndex === index && index === 2" class="card__carusel-answer">
-                            <div
-                                v-for="answer in card.answers"
-                                :key="answer.id"
-                                class="card__carusel-answer-wrapper"
-                            >
-                                <p class="card__carusel-answer-text">{{ answer.text1 }}</p>
-                                <p class="card__carusel-answer-text">{{ answer.text2 }}</p>
-                                <div class="card__carusel-answer-action">
-                                    <a href="#" class="card__carusel-answer-action-link">
-                                        {{ answer.linkText }}
-                                    </a>
-                                    <div class="card__carusel-answer-btns">
+                                <div
+                                    v-for="answer in card.answers"
+                                    :key="answer.id"
+                                    class="card__carusel-answer-wrapper"
+                                >
+                                    <p class="card__carusel-answer-text">{{ answer.text1 }}</p>
+                                    <p class="card__carusel-answer-text">{{ answer.text2 }}</p>
+                                    <div class="card__carusel-answer-action">
+                                        <a href="#" class="card__carusel-answer-action-link">
+                                            {{ answer.linkText }}
+                                        </a>
                                         <BtnComponentWhite
                                             emit-name="action"
                                             @action="toggleModalVisible"
                                             :custom-class="'custom-btn'"
                                             >{{ answer.btnText }}</BtnComponentWhite
                                         >
-                                        <BtnComponent :currentСlass="'card__carusel-answer-btn'">{{
-                                            answer.btnText2
-                                        }}</BtnComponent>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </Transition>
+                        <Transition name="answer">
+                            <div
+                                v-if="openIndex === index && index === 2"
+                                class="card__carusel-answer"
+                            >
+                                <div
+                                    v-for="answer in card.answers"
+                                    :key="answer.id"
+                                    class="card__carusel-answer-wrapper"
+                                >
+                                    <p class="card__carusel-answer-text">{{ answer.text1 }}</p>
+                                    <p class="card__carusel-answer-text">{{ answer.text2 }}</p>
+                                    <div class="card__carusel-answer-action">
+                                        <a href="#" class="card__carusel-answer-action-link">
+                                            {{ answer.linkText }}
+                                        </a>
+                                        <div class="card__carusel-answer-btns">
+                                            <BtnComponentWhite
+                                                emit-name="action"
+                                                @action="toggleModalVisible"
+                                                :custom-class="'custom-btn'"
+                                                >{{ answer.btnText }}</BtnComponentWhite
+                                            >
+                                            <BtnComponent
+                                                :currentСlass="'card__carusel-answer-btn'"
+                                                >{{ answer.btnText2 }}</BtnComponent
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </Transition>
                     </div>
                 </div>
             </div>
@@ -410,5 +420,22 @@ const cardsInfoArr = ref([
 .custom-btn {
     color: $orange !important;
     border: 1px solid $orange !important;
+}
+
+.answer-enter-active,
+.answer-leave-active {
+    transition:
+        opacity 0.3s ease-in-out,
+        transform 0.3s ease-in-out;
+}
+
+.answer-enter-from,
+.answer-leave-to {
+    opacity: 0;
+}
+
+.answer-enter-to,
+.answer-leave-from {
+    opacity: 1;
 }
 </style>

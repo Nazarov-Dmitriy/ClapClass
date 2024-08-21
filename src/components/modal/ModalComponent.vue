@@ -61,6 +61,9 @@ onBeforeUnmount(() => {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
 
     @media (max-width: $xxl) {
         transform: translate(-50%, -25%);
@@ -70,8 +73,23 @@ onBeforeUnmount(() => {
         transform: translate(-50%, -20%);
     }
 }
-
 .no-scroll {
     overflow: hidden;
+}
+.modal-enter-active,
+.modal-leave-active {
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+    opacity: 0;
+}
+
+.modal-enter-to,
+.modal-leave-from {
+    opacity: 1;
 }
 </style>
