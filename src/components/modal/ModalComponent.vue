@@ -21,7 +21,7 @@ const props = defineProps({
 
 const emit = defineEmits(['closeModal'])
 
-function activateEmit () {
+function activateEmit() {
     emit('closeModal')
 }
 
@@ -45,37 +45,36 @@ onBeforeUnmount(() => {
 
 <style lang="scss">
 .modal-wrapper {
-    overflow: auto;
-    height: 100%;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: fixed;
     inset: 0;
     background: rgba(31, 42, 62, 0.75);
+    overflow: auto;
+    z-index: 1000;
+    padding: 20px;
 }
 
 .modal {
-    overflow: auto;
     max-width: 868px;
     width: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition:
-        opacity 0.3s ease,
-        transform 0.3s ease;
+    max-height: 90vh;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: auto;
+    transform: translateY(0);
+    margin: auto;
 
-    @media (max-width: $xxl) {
-        transform: translate(-50%, -25%);
-    }
-
-    @media (max-width: $sm) {
-        transform: translate(-50%, -20%);
+    @media (max-width: $lg) {
+        max-height: 80vh;
     }
 }
+
 .no-scroll {
     overflow: hidden;
 }
+
 .modal-enter-active,
 .modal-leave-active {
     transition:
@@ -86,10 +85,12 @@ onBeforeUnmount(() => {
 .modal-enter-from,
 .modal-leave-to {
     opacity: 0;
+    transform: translateY(-10px);
 }
 
 .modal-enter-to,
 .modal-leave-from {
     opacity: 1;
+    transform: translateY(0);
 }
 </style>
