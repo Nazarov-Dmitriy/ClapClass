@@ -1,6 +1,6 @@
 <template>
     <Transition name="modal">
-        <div v-if="props.visible" class="modal-wrapper" @click="activateEmit">
+        <div v-if="props.visible" class="modal-wrapper" @click="activateEmit" v-esc="activateEmit">
             <div class="modal" @click.stop>
                 <slot name="header" />
                 <slot name="form" />
@@ -21,7 +21,7 @@ const props = defineProps({
 
 const emit = defineEmits(['closeModal'])
 
-function activateEmit() {
+function activateEmit () {
     emit('closeModal')
 }
 
