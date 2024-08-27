@@ -66,6 +66,16 @@ onBeforeUnmount(() => {
     transform: translateY(0);
     margin: auto;
 
+    &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+
+    & {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
     @media (max-width: $lg) {
         max-height: 80vh;
     }
