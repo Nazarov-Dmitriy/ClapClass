@@ -98,7 +98,7 @@ function closeModal() {
     right: 40px;
 
     @media (max-width: $lg) {
-        top: 0;
+        top: 10px;
         right: 10px;
     }
 }

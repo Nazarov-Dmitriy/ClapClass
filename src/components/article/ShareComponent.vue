@@ -125,6 +125,7 @@ onMounted(() => {
     border-radius: 16px;
     display: flex;
     width: max-content;
+    z-index: 1;
 
     @media (max-width: $xl) {
         left: 0;
