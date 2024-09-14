@@ -1,16 +1,6 @@
 <template>
     <section class="support">
         <div class="support__container">
-            <Teleport to="body">
-                <ModalComponent :visible="isModalVisible" @close-modal="toggleModal">
-                    <template #header>
-                        <ModalHeader @close-modal="toggleModal" />
-                    </template>
-                    <template #form>
-                        <UiForm> </UiForm>
-                    </template>
-                </ModalComponent>
-            </Teleport>
             <div class="support__wrapper">
                 <div class="support__text-wrapper">
                     <h2 class="support__title">Поддержите нас</h2>
@@ -52,6 +42,16 @@
                 </div>
             </div>
         </div>
+        <Teleport to="body">
+            <ModalComponent :visible="isModalVisible" @close-modal="toggleModal">
+                <template #header>
+                    <ModalHeader @close-modal="toggleModal" />
+                </template>
+                <template #form>
+                    <UiForm> </UiForm>
+                </template>
+            </ModalComponent>
+        </Teleport>
     </section>
 </template>
 

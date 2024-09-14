@@ -154,6 +154,11 @@ const itemInfo = ref([
     overflow: auto;
     height: 356px;
     padding-top: 5px;
+
+    &::-webkit-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
 }
 
 .teacher__info-item {
@@ -163,10 +168,13 @@ const itemInfo = ref([
     color: $black;
     position: relative;
     margin-left: 80px;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    box-sizing: border-box;
     &::before {
         content: url('../../assets/images/main/teacher/teacher-list-img.png');
         position: absolute;
-        top: -14px;
+        top: 1px;
         left: -80px;
     }
     @media (max-width: $lg) {

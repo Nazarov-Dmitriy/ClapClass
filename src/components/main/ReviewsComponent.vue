@@ -4,7 +4,7 @@
             <div class="reviews__wrapper">
                 <div class="reviews__info-wrapper">
                     <h2 class="reviews__title">Коллеги уже используют Clap class</h2>
-                    <div class="reviews__btn-wrapper">
+                    <div class="reviews__btn-wrapper ">
                         <BtnComponent class="reviews__btn">Больше отзывов</BtnComponent>
                     </div>
                 </div>
@@ -297,6 +297,11 @@ const reviews = ref([
         text-align: center;
     }
 }
+
+.reviews__btn-wrapper{
+    display: none;
+}
+
 .reviews__btn {
     width: max-content;
 }

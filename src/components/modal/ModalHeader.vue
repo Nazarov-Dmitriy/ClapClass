@@ -90,12 +90,13 @@ function closeModal() {
 }
 .modal__header-hero-img {
     width: 226px;
+    transform: translate(0, -3px)
 }
 
 .modal-close-wrapper {
     position: absolute;
-    top: 60px;
-    right: 40px;
+    top: 24px;
+    right: 24px;
 
     @media (max-width: $lg) {
         top: 10px;

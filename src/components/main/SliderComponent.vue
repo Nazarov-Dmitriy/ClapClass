@@ -19,13 +19,15 @@
                 <div class="slider__slider-wrapper">
                     <Swiper
                         ref="swiperRef"
-                        :modules="[Navigation, Pagination]"
+                        :modules="[Navigation, Pagination, Autoplay]"
                         :navigation="navigationOptions"
                         :pagination="paginationOptions"
                         :slides-per-view="1"
                         :space-between="5000"
                         mousewheel="true"
                         simulate-touch="true"
+                        :loop="true"
+                        :autoplay="autoplayOptions"
                         @slide-change="updateActiveIndex"
                     >
                         <SwiperSlide v-for="(item, index) in slidesData" :key="index">
@@ -110,7 +112,7 @@
                     </p>
                     <div class="slider__info-btn-wrapper">
                         <BtnComponentWhite class="slider__info-btn">
-                            Витрина кейсов
+                            Регистрация
                         </BtnComponentWhite>
                     </div>
                 </div>
@@ -122,12 +124,13 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Pagination } from 'swiper/modules'
+import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import BtnComponent from '../btns/BtnComponent.vue'
 import BtnComponentWhite from '../btns/BtnComponentWhite.vue'
+
 const slidesData = ref([
     {
         tab: 'Подвижные разминки',
@@ -166,12 +169,17 @@ const paginationOptions = {
     clickable: true
 }
 
+const autoplayOptions = {
+    delay: 3000,
+    disableOnInteraction: true
+}
+
 function getPath(img) {
     return new URL(img, import.meta.url).href
 }
 
 function updateActiveIndex(swiper) {
-    activeIndex.value = swiper.activeIndex
+    activeIndex.value = swiper.realIndex % slidesData.value.length
 }
 
 function handleTabClick(index) {
@@ -245,7 +253,6 @@ onMounted(() => {
     @media (max-width: $sm) {
         font-size: 24px;
     }
-
 }
 
 .slider__wrapper {
@@ -302,6 +309,11 @@ onMounted(() => {
     color: $gray;
     border-bottom: 1px solid $gray;
     cursor: pointer;
+
+    &:hover {
+        color: $red;
+        border-bottom: 1px solid $red;
+    }
     @media (max-width: $lg) {
         font-size: 16px;
     }
@@ -371,7 +383,6 @@ onMounted(() => {
     @media (max-width: $lg) {
         padding: 16px 8px;
     }
-    
 }
 
 .slider__slide-info-title-wrapper img {
@@ -440,6 +451,15 @@ onMounted(() => {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: $red;
+
+        & > svg path {
+            stroke: $white;
+        }
+    }
     &--left {
         left: -60px;
     }

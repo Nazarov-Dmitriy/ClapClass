@@ -231,7 +231,7 @@ function validateForm() {
         !formField.nameError &&
         !formField.phoneError &&
         !formField.emailError &&
-        !formField.messageError && 
+        !formField.messageError &&
         !formField.textareaError
     ) {
         formField.success = true
@@ -243,7 +243,7 @@ function resetForm() {
     formField.name = ''
     formField.phone = ''
     formField.email = ''
-    formField.message = '' 
+    formField.message = ''
     formField.textarea = ''
 }
 
@@ -371,6 +371,9 @@ function handleSubmit() {
     font-family: 'Inter';
     color: $gray;
 
+    &:hover {
+        background-color: #e6eaed;
+    }
     &::placeholder {
         font-family: 'Inter';
         font-weight: 400;
@@ -380,6 +383,7 @@ function handleSubmit() {
     }
     &:focus {
         outline: none;
+        background-color: $white;
     }
 }
 .form__btn-wrapper {

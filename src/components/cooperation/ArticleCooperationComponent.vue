@@ -32,7 +32,9 @@
 .article-cooperation {
     padding: 48px 64px;
     box-sizing: border-box;
-    background: url('../../assets/images/cooperation/article/article-bg.png');
+    background:
+        url('../../assets/images/cooperation/article/article-bg.png'),
+        url('/public/images/cooperation/article/bg-img.png') no-repeat;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: bottom;

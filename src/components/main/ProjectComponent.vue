@@ -5,7 +5,7 @@
             <div class="project__wrapper">
                 <div class="project__cards">
                     <div class="project__card">
-                        <div class="project__card-wrapper">
+                        <div class="project__card-wrapper" @click="$router.push('/cooperation')">
                             <img
                                 src="../../assets/images/main/project/project-card1.png"
                                 alt=""
@@ -13,7 +13,7 @@
                             />
                             <span>Приглашаем к соавторству </span>
                         </div>
-                        <div class="project__card-wrapper">
+                        <div class="project__card-wrapper" @click="$router.push('/cooperation')">
                             <img
                                 src="../../assets/images/main/project/project-card4.png"
                                 alt=""
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div class="project__card">
-                        <div class="project__card-wrapper">
+                        <div class="project__card-wrapper" @click="$router.push('/cooperation')">
                             <img
                                 src="../../assets/images/main/project/project-card2.png"
                                 alt=""
@@ -31,7 +31,7 @@
                             />
                             <span>Приглашаем партнеров </span>
                         </div>
-                        <div class="project__card-wrapper">
+                        <div class="project__card-wrapper" @click="$router.push('/cooperation')">
                             <img
                                 src="../../assets/images/main/project/project-card5.png"
                                 alt=""
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="project__card">
-                        <div class="project__card-wrapper">
+                        <div class="project__card-wrapper" @click="$router.push('/cooperation')">
                             <img
                                 src="../../assets/images/main/project/project-card3.png"
                                 alt=""
@@ -49,7 +49,7 @@
                             />
                             <span>Приглашаем в команду </span>
                         </div>
-                        <div class="project__card-wrapper">
+                        <div class="project__card-wrapper" @click="$router.push('/cooperation')">
                             <img
                                 src="../../assets/images/main/project/project-card6.png"
                                 alt=""
@@ -63,7 +63,11 @@
         </div>
     </section>
 </template>
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+
+const projectCard = ref(null)
+</script>
 <style lang="scss">
 .project {
     padding: 100px 0px 0px 0px;
@@ -160,6 +164,12 @@
         color: $gray;
         margin-bottom: 48px;
         cursor: pointer;
+        transition: 0.3s ease;
+
+        &:hover {
+            border-bottom: 2px solid $red;
+            color: $red;
+        }
 
         @media (max-width: $lg) {
             font-size: 20px;
@@ -174,9 +184,16 @@
 
 .project__card-img {
     width: 168px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 
     @media (max-width: $sm) {
         width: 116px;
+    }
+
+    &:hover + span {
+        border-bottom: 2px solid $red;
+        color: $red;
     }
 }
 

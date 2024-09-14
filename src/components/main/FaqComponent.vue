@@ -1,15 +1,9 @@
 <template>
     <section class="faq">
         <div class="faq__container container">
-            <h2 class="faq__title">
-                Часто задаваемые вопросы
-            </h2>
+            <h2 class="faq__title">Часто задаваемые вопросы</h2>
             <div class="faq__wrapper">
-                <div
-                    v-for="(question, index) in questions"
-                    :key="index"
-                    class="faq__question"
-                >
+                <div v-for="(question, index) in questions" :key="index" class="faq__question">
                     <div class="faq__question-wrapper">
                         <p class="faq__question-text">
                             {{ question.question }}
@@ -37,50 +31,40 @@
                             </svg>
                         </button>
                     </div>
-                    <div
-                        v-if="openIndex === index"
-                        class="faq__answer"
-                    >
-                        <div
-                            v-if="question.id === 3"
-                            class="faq__answer-wrapper"
-                        >
-                            <ul class="faq__answer-list">
-                                <li
-                                    v-for="(item, ind) in question.answer"
-                                    :key="ind"
-                                    class="faq__answer-item faq__answer-text"
-                                >
-                                    {{ item }}
-                                </li>
-                            </ul>
-                        </div>
-                        <p
-                            v-else-if="question.id === 4 || question.id === 5"
-                            class="faq__answer-text"
-                        >
-                            {{ question.answer.part1 }}
-                            <router-link
-                                class="faq__answer-link"
-                                to="/"
+                    <transition name="fade">
+                        <div v-if="openIndex === index" class="faq__answer">
+                            <div v-if="question.id === 3" class="faq__answer-wrapper">
+                                <ul class="faq__answer-list">
+                                    <li
+                                        v-for="(item, ind) in question.answer"
+                                        :key="ind"
+                                        class="faq__answer-item faq__answer-text"
+                                    >
+                                        {{ item }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <p
+                                v-else-if="question.id === 4 || question.id === 5"
+                                class="faq__answer-text"
                             >
-                                {{ question.answer.link }}
-                            </router-link>
-                            {{ question.answer.part2 }}
-                        </p>
-                        <p
-                            v-else
-                            class="faq__answer-text"
-                        >
-                            {{ question.answer }}
-                        </p>
+                                {{ question.answer.part1 }}
+                                <router-link class="faq__answer-link" to="/">
+                                    {{ question.answer.link }}
+                                </router-link>
+                                {{ question.answer.part2 }}
+                            </p>
+                            <p v-else class="faq__answer-text">
+                                {{ question.answer }}
+                            </p>
 
-                        <img
-                            class="faq__answer-img"
-                            src="../../assets/images/main/faq/faq-answer-bg.png"
-                            alt=""
-                        >
-                    </div>
+                            <img
+                                class="faq__answer-img"
+                                src="../../assets/images/main/faq/faq-answer-bg.png"
+                                alt=""
+                            />
+                        </div>
+                    </transition>
                 </div>
             </div>
         </div>
@@ -132,7 +116,7 @@ const questions = ref([
 
 const openIndex = ref(null)
 
-function toggleAnswer (index) {
+function toggleAnswer(index) {
     if (openIndex.value === index) {
         openIndex.value = null
     } else {
@@ -142,16 +126,6 @@ function toggleAnswer (index) {
 </script>
 
 <style lang="scss">
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.2s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-}
-
 .faq {
     padding: 100px 64px;
     box-sizing: border-box;
@@ -262,6 +236,7 @@ function toggleAnswer (index) {
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
+    gap: 48px;
 }
 
 .faq__answer-text {

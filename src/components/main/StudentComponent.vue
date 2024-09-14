@@ -175,6 +175,7 @@ onBeforeUnmount(() => {
     width: 100%;
     cursor: pointer;
     justify-content: space-between;
+    transition: 0.3s;
 
     &:hover {
         border: 2px solid $orange;
@@ -184,6 +185,8 @@ onBeforeUnmount(() => {
     &:hover .student__card-footer {
         background: $orange;
         color: $white;
+        transform: scale(1.05);
+        transition: 0.3s;
     }
 
     &:hover .student__card-footer-info span {
