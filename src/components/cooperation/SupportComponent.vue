@@ -69,6 +69,22 @@ const isModalVisible = ref(false)
 function toggleModal() {
     isModalVisible.value = !isModalVisible.value
 }
+
+function getScrollbarWidth() {
+    return window.innerWidth - document.documentElement.clientWidth;
+}
+
+function openModal() {
+    const scrollbarWidth = getScrollbarWidth();
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.body.style.paddingRight = '';
+    document.body.style.overflow = '';
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -86,6 +102,7 @@ function toggleModal() {
 .support__container {
     max-width: 1042px;
     margin: 0 auto;
+    scrollbar-gutter: stable;
 }
 .support__wrapper {
     display: flex;
