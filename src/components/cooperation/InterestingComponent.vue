@@ -140,7 +140,7 @@ function toggleModalVisible() {
 
 const cardsInfoArr = ref([
     {
-        heroImg: '/src/assets/images/main/project/project-card1.png',
+        heroImg: '/images/main/project/project-card3.png',
         heroText: 'Профи',
         spanTitle: 'Клэппи ищет',
         infoTitle: ` креативных супергероев в свою команду`,
@@ -156,7 +156,7 @@ const cardsInfoArr = ref([
         ]
     },
     {
-        heroImg: '/src/assets/images/main/project/project-card2.png',
+        heroImg: '/images/main/project/project-card1.png',
         heroText: 'Педагогам',
         spanTitle: 'Вы полны идей,',
         infoTitle: ` опыта и желания проявить себя?`,
@@ -172,7 +172,7 @@ const cardsInfoArr = ref([
         ]
     },
     {
-        heroImg: '/src/assets/images/main/project/project-card3.png',
+        heroImg: '/images/main/project/project-card5.png',
         heroText: 'Инвесторам',
         spanTitle: 'Инвестируйте',
         infoTitle: ` в новый образовательный формат будущего`,
@@ -185,6 +185,22 @@ const cardsInfoArr = ref([
                 linkText: 'Скачать партнерскую  программу >',
                 btnText: 'Свяжитесь с нами',
                 btnText2: 'Поддержите проект'
+            }
+        ]
+    },
+    {
+        heroImg: '/images/main/project/project-card4.png',
+        heroText: 'Школам',
+        spanTitle: 'Станьте частью сообщества',
+        infoTitle: ` которое меняет подход к образованию`,
+        infoText: 'Сформируем благоприятную школьную среду вместе!',
+        answers: [
+            {
+                id: 4,
+                text1: `Ваша организация внедряет передовые методики обучения? Тогда мы движемся в одном направлении! Станьте точкой роста, формирующей новый образовательный опыт при поддержке проекта "Clap Class"`,
+                text2: `Наши амбассадоры готовы провести презентацию возможностей сервиса, оказать информационную поддержку вашим педагогам и предоставить доступ в сеть инновационных площадок. Этот статус позволит вам участвовать в развитии, тестировании и мероприятиях нашего проекта.`,
+                linkText: 'Скачать партнерскую  программу >',
+                btnText: 'Заполните заявку'
             }
         ]
     }
@@ -357,10 +373,10 @@ const cardsInfoArr = ref([
         &.active {
             background-color: $orange;
             color: $white;
+            transform: rotate(180deg);
             svg path {
                 stroke: $white;
             }
-            transform: rotate(180deg);
         }
     }
 }

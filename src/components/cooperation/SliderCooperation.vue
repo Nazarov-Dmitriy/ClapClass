@@ -63,14 +63,14 @@ const isMobile = ref(true)
 
 const slidesDataArr = ref([
     {
-        img: '/src/assets/images/cooperation/slider/cooperation-logo.png',
+        img: '/images/cooperation/slider/cooperation-logo.png',
         text: `«Clap Class» – это динамичный, инновационный проект с новыми стандартами
                             в образовании. Мы создаем уникальные игровые сервисы, помогающие
                             трансформировать школьную среду в эффективную и комфортную атмосферу,
                             где главным приоритетом является здоровье и развитие детей.`
     },
     {
-        img: '/src/assets/images/cooperation/slider/cooperation-hero.png',
+        img: '/images/cooperation/slider/cooperation-hero.png',
         class: 'hero-img',
         text: `Наши продукты увлекают учеников, улучшают качество преподавания и делают
                             процесс передачи знаний веселым и эффективным. Присоединяйтесь к миссии
