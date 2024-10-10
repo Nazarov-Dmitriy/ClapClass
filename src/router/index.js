@@ -3,9 +3,7 @@ import HomePage from '../views/HomePage.vue'
 import BlogPage from '../views/BlogPage.vue'
 import ArticlePage from '../views/ArticlePage.vue'
 import CooperationPage from '../views/CooperationPage.vue'
-
-
-
+import ServicesPage from '../views/ServicesPage.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,7 +15,7 @@ const router = createRouter({
         },
         {
             path: '/blog',
-            children:[
+            children: [
                 {
                     path: '',
                     name: 'blog',
@@ -28,21 +26,26 @@ const router = createRouter({
                     name: 'blog-articke',
                     component: ArticlePage
                 }
-            ]            
+            ]
         },
         {
             path: '/cooperation',
             name: 'cooperation',
             component: CooperationPage
         },
-        
+        {
+            path: '/services',
+            name: 'services',
+            component: ServicesPage
+        }
     ],
-    scrollBehavior (to, from, savedPosition) {
+    scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
             return savedPosition
         } else {
             return {
-                top: 0, behavior: 'smooth',
+                top: 0,
+                behavior: 'smooth'
             }
         }
     }
