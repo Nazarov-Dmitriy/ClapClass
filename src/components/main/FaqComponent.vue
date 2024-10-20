@@ -31,16 +31,40 @@
                             </svg>
                         </button>
                     </div>
-                    <div v-if="openIndex === index" class="faq__answer">
-                        <p class="faq__answer-text">
-                            {{ question.answer }}
-                        </p>
-                        <img
-                            class="faq__answer-img"
-                            src="../../assets/images/main/faq/faq-answer-bg.png"
-                            alt=""
-                        />
-                    </div>
+                    <transition name="fade">
+                        <div v-if="openIndex === index" class="faq__answer">
+                            <div v-if="question.id === 3" class="faq__answer-wrapper">
+                                <ul class="faq__answer-list">
+                                    <li
+                                        v-for="(item, ind) in question.answer"
+                                        :key="ind"
+                                        class="faq__answer-item faq__answer-text"
+                                    >
+                                        {{ item }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <p
+                                v-else-if="question.id === 4 || question.id === 5"
+                                class="faq__answer-text"
+                            >
+                                {{ question.answer.part1 }}
+                                <router-link class="faq__answer-link" to="/">
+                                    {{ question.answer.link }}
+                                </router-link>
+                                {{ question.answer.part2 }}
+                            </p>
+                            <p v-else class="faq__answer-text">
+                                {{ question.answer }}
+                            </p>
+
+                            <img
+                                class="faq__answer-img"
+                                src="../../assets/images/main/faq/faq-answer-bg.png"
+                                alt=""
+                            />
+                        </div>
+                    </transition>
                 </div>
             </div>
         </div>
@@ -52,24 +76,41 @@ import { ref } from 'vue'
 
 const questions = ref([
     {
+        id: 1,
         question: 'Как начать пользоваться сервисом?',
         answer: 'После регистрации вам будет открыт доступ к сопроводительным материалам кейса и возможности запуска разминок'
     },
     {
+        id: 2,
         question: 'Какое оборудование необходимо для запуска разминок?',
         answer: 'Для использования кейсов сервиса вам понадобится доступ к сети интернет, компьютер подключенный к устройству вывода видео (проектор, телевизор, интерактивная панель) и устройству вывода звука (колонки, аудиосистема), принтер'
     },
     {
+        id: 3,
         question: 'Что такое витрина, направление, кейс, разминка?',
-        answer: 'Витрина кейсов – страница со списком всех кейсов сервиса Направление – выкладка на витрине кейсов, объединяющая все разминки по выбранному формату (подвижные/ритм/когнитивные) Кейс – страница определенной разминки, содержащая все необходимые материалы и инструкции для ее проведения Разминка – видео для демонстрации в аудитории'
+        answer: [
+            'Витрина кейсов – страница со списком всех кейсов сервиса Направление – выкладка на витрине кейсов, объединяющая все разминки по выбранному формату (подвижные/ритм/когнитивные).',
+            'Кейс – страница определенной разминки, содержащая все необходимые материалы и инструкции для ее проведения.',
+            'Разминка – видео для демонстрации в аудитории.'
+        ]
     },
     {
+        id: 4,
         question: 'У меня есть идея, могу я ее предложить?',
-        answer: 'Вы можете стать соавтором проекта и предложить свой кейс по представленным или новым направлениям в разделе «Сотрудничество». После проверки мы свяжемся с вами и опубликуем кейс с указанием информации об авторе'
+        answer: {
+            part1: 'Вы можете стать соавтором проекта и предложить свой кейс по представленным или новым направлениям в разделе ',
+            link: '"Сотрудничество"',
+            part2: '. После проверки мы свяжемся с вами и опубликуем кейс с указанием информации об авторе'
+        }
     },
     {
+        id: 5,
         question: 'Как я могу помочь проекту?',
-        answer: 'Информация по этому вопросу собрана в разделе «Сотрудничество»'
+        answer: {
+            part1: 'Информация по этому вопросу собрана в разделе ',
+            link: '"Сотрудничество"',
+            part2: ''
+        }
     }
 ])
 
@@ -85,16 +126,6 @@ function toggleAnswer(index) {
 </script>
 
 <style lang="scss">
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.2s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-}
-
 .faq {
     padding: 100px 64px;
     box-sizing: border-box;
@@ -170,7 +201,7 @@ function toggleAnswer(index) {
     justify-content: center;
     border-radius: 50%;
     background: $white;
-    border: 1px solid #060c1f;
+    border: 1px solid $black;
     cursor: pointer;
     transition:
         background-color 0.3s,
@@ -205,6 +236,7 @@ function toggleAnswer(index) {
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
+    gap: 48px;
 }
 
 .faq__answer-text {
@@ -221,5 +253,10 @@ function toggleAnswer(index) {
     @media (max-width: $sm) {
         display: none;
     }
+}
+
+.faq__answer-link {
+    color: $orange;
+    border-bottom: 1px solid $orange;
 }
 </style>

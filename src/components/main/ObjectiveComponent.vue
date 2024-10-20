@@ -132,8 +132,13 @@ import BtnComponent from '../btns/BtnComponent.vue'
     text-align: center;
     color: $black;
 
+    @media (max-width: $lg) {
+        font-size: 24px;
+    }
     @media (max-width: $sm) {
         font-size: 16px;
+        padding-left: 8px;
+        padding-right: 8px;
     }
 }
 .objective__btn-wrapper {

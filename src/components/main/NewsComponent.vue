@@ -67,14 +67,16 @@
                                     placeholder="Введите ваш email"/>
                                 <div v-if="showDangerBlock" class="input-error">
                                     <img
-                                        src="../../assets/images/main/news/news-error-icon.svg"
+                                        src="../../assets/images/form/form-error-svg.svg"
                                         alt=""/>
                                     <span>Поле заполненно некорректно</span>
                                 </div>
                                 <div>
                                     <div class="news__card-info-wrapper">
                                         <div class="news__card-btn-wrapper">
-                                            <BtnComponent class="news__card-form-btn">
+                                            <BtnComponent
+                                             class="news__card-form-btn"
+                                             >
                                                 Подписаться
                                             </BtnComponent>
                                         </div>
@@ -331,8 +333,8 @@ function validateEmail(email) {
     width: 100%;
 
     &:hover {
-        border: 2px solid #656d75;
-        background: #e6eaed;
+        border: 2px solid $gray;
+        background: $fonLight;
     }
 
     &:focus {
@@ -353,12 +355,12 @@ function validateEmail(email) {
         font-weight: 400;
         font-size: 16px;
         line-height: 1.5;
-        color: $orange;
+        color: $yellowy;
     }
 }
 
 .is-invalid {
-    border-color: $orange !important;
+    border-color: $yellowy !important;
 }
 
 .news__card-btn-wrapper {
@@ -376,10 +378,14 @@ function validateEmail(email) {
     padding: 8px 16px;
     width: 163px;
     height: 46px;
-    background: $gray;
+    background-color: $gray !important;
     color: $white;
     text-align: center;
 
+    &:hover{
+    background-color: $red !important;
+
+    }
     @media (max-width: $sm) {
         width: 100%;
     }

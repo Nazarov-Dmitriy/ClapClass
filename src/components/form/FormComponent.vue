@@ -2,7 +2,7 @@
     <div class="form">
         <div class="form__container container">
             <h2 class="form__hero-title form__hero-title--mobile">Остались вопросы?</h2>
-            <div class="form__wrapper">
+            <div class="form__wrapper" :class="{ success: formField.success }">
                 <div class="form__hero">
                     <h2 class="form__hero-title">Остались вопросы?</h2>
                     <div class="form__hero-img-wrapper">
@@ -29,8 +29,12 @@
                     </div>
                 </div>
                 <div class="form__info">
+                    <div v-if="formField.success" class="form__success">
+                        <h2 class="form__success-title">Сообщение отправлено</h2>
+                    </div>
                     <form
-                        @submit.prevent="validateForm"
+                        v-if="!formField.success"
+                        @submit.prevent="handleSubmit"
                         @keypress.enter.prevent="validateForm"
                         class="form__form"
                     >
@@ -53,10 +57,7 @@
                             />
                             <span v-if="formField.nameError" class="form__error">
                                 <div class="form__error-wrapper">
-                                    <img
-                                        src="../../assets/images/main/news/news-error-icon.svg"
-                                        alt=""
-                                    />
+                                    <img src="../../assets/images/form/form-error-svg.svg" alt="" />
                                     <span>Поле заполнено некорректно</span>
                                 </div>
                             </span>
@@ -80,7 +81,7 @@
                                     <span v-if="formField.phoneError" class="form__error">
                                         <div class="form__error-wrapper">
                                             <img
-                                                src="../../assets/images/main/news/news-error-icon.svg"
+                                                src="../../assets/images/form/form-error-svg.svg"
                                                 alt=""
                                             />
                                             <span>Поле заполнено некорректно</span>
@@ -109,7 +110,7 @@
                                     <span v-if="formField.emailError" class="form__error">
                                         <div class="form__error-wrapper">
                                             <img
-                                                src="../../assets/images/main/news/news-error-icon.svg"
+                                                src="../../assets/images/form/form-error-svg.svg"
                                                 alt=""
                                             />
                                             <span>Поле заполнено некорректно</span>
@@ -117,7 +118,6 @@
                                     </span>
                                 </label>
                             </div>
-
                             <label
                                 for="question"
                                 class="form__label"
@@ -140,10 +140,7 @@
                                 class="form__error form__error--textarea"
                             >
                                 <div class="form__error-wrapper">
-                                    <img
-                                        src="../../assets/images/main/news/news-error-icon.svg"
-                                        alt=""
-                                    />
+                                    <img src="../../assets/images/form/form-error-svg.svg" alt="" />
                                     <span>Поле заполнено некорректно</span>
                                 </div>
                             </span>
@@ -185,7 +182,7 @@ const formField = reactive({
     phoneError: false,
     emailError: false,
     textareaError: false,
-    validateForm: false
+    success: false
 })
 
 function validateField(param, event, nameParam) {
@@ -197,20 +194,18 @@ function validateField(param, event, nameParam) {
     }
 
     if (nameParam === 'name') {
-        target.length < 3 ? (formField.nameError = true) : (formField.nameError = false)
+        formField.nameError = target.length < 3
     }
     if (nameParam === 'phone') {
-        target.length < 18 ? (formField.phoneError = true) : (formField.phoneError = false)
+        formField.phoneError = target.length < 18
     }
     if (nameParam === 'email') {
         let email_regexp =
             /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-        !email_regexp.test(String(target).toLowerCase())
-            ? (formField.emailError = true)
-            : (formField.emailError = false)
+        formField.emailError = !email_regexp.test(String(target).toLowerCase())
     }
     if (nameParam === 'textarea') {
-        target.length < 3 ? (formField.textareaError = true) : (formField.textareaError = false)
+        formField.textareaError = target.length < 3
     }
 }
 
@@ -248,10 +243,31 @@ function validateForm() {
     validateFeildArr.forEach((item) => {
         validateField(formField[item], 'validate', item)
     })
+
+    if (
+        !formField.nameError &&
+        !formField.phoneError &&
+        !formField.emailError &&
+        !formField.textareaError
+    ) {
+        formField.success = true
+        resetForm()
+    }
+}
+
+function resetForm() {
+    formField.name = ''
+    formField.phone = ''
+    formField.email = ''
+    formField.textarea = ''
+}
+
+function handleSubmit() {
+    validateForm()
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .form {
     background: $gray;
 }
@@ -272,6 +288,11 @@ function validateForm() {
     align-items: end;
     justify-content: space-around;
     gap: 16px;
+
+    &.success {
+        display: flex;
+        align-items: center;
+    }
     @media (max-width: $xl) {
         flex-direction: column;
         justify-content: center;
@@ -344,12 +365,29 @@ function validateForm() {
         max-width: 604px;
     }
 }
+.form__success-title {
+    font-family: 'CenturyGothic';
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.5;
+    text-align: center;
+    color: $white;
+    padding: 48px 48px;
+    background-color: $gray;
+    border-radius: 0 0 24px 24px;
+    display: flex;
+    align-items: flex-start;
+}
+
 .form__form {
     display: flex;
     flex-direction: column;
     gap: 40px;
     order: 2;
     margin-bottom: 40px;
+    background-color: $gray;
+    border-radius: 0 0 25px 25px;
+    padding: 10px 15px;
 }
 .form__fields {
     display: flex;
@@ -372,6 +410,10 @@ function validateForm() {
     box-sizing: border-box;
     position: relative;
     transition: 0.4s;
+    font-size: 16px;
+    font-family: 'Inter';
+    color: #656d75;
+
     &:hover {
         background-color: #e6eaed;
     }
@@ -398,13 +440,13 @@ function validateForm() {
     }
 }
 .form__input--error {
-    border: 2px solid $orange !important;
+    border: 2px solid $yellowy !important;
 }
 .form__textarea--error {
-    border: 2px solid $orange !important;
+    border: 2px solid $yellowy !important;
 }
 .form__error {
-    color: $orange !important;
+    color: $yellowy !important;
 }
 .form__error-wrapper {
     margin-top: 8px;
@@ -439,7 +481,16 @@ function validateForm() {
     background-color: $white;
     resize: none;
     box-sizing: border-box;
+    font-size: 16px;
+    font-family: 'Inter';
+    color: $gray;
+
+    &:hover {
+        background-color: #e6eaed;
+    }
+
     &::placeholder {
+        font-family: 'Inter';
         font-weight: 400;
         font-size: 16px;
         line-height: 1.5;
@@ -447,6 +498,7 @@ function validateForm() {
     }
     &:focus {
         outline: none;
+        background-color: $white;
     }
 }
 .form__btn-wrapper {

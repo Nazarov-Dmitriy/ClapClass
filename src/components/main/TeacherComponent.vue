@@ -37,10 +37,12 @@ const itemInfo = ref([
     'Кейсы, не требующие долгой подготовки',
     'Интерактивное взаимодействие с классом',
     'Быстрый доступ и понятный интерфейс сервиса',
+    'Интерактивное взаимодействие с классом',
     'Быстрый доступ и понятный интерфейс сервиса',
-    'Быстрый доступ и понятный интерфейс сервиса',
-    'Быстрый доступ и понятный интерфейс сервиса',
-    'Быстрый доступ и понятный интерфейс сервиса'
+    'Улучшение внутриклассного климата',
+    'Интерактивное вовлечение аудитории в процесс',
+    'Поддержание необходимого уровня активности',
+    'Управление концентрацией и вниманием учеников'
 ])
 </script>
 
@@ -88,7 +90,7 @@ const itemInfo = ref([
     align-items: stretch;
     gap: 48px;
     box-shadow: 0 16px 2px 0 rgba(14, 8, 6, 0.15);
-    @media (max-width: $md) {
+    @media (max-width: $lg) {
         flex-direction: column;
     }
     @media (max-width: $sm) {
@@ -152,6 +154,16 @@ const itemInfo = ref([
     overflow: auto;
     height: 356px;
     padding-top: 5px;
+
+    &::-webkit-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    @media (max-width: $sm) {
+        gap: 16px;
+        height: 400px;
+    }
 }
 
 .teacher__info-item {
@@ -161,14 +173,28 @@ const itemInfo = ref([
     color: $black;
     position: relative;
     margin-left: 80px;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    box-sizing: border-box;
     &::before {
         content: url('../../assets/images/main/teacher/teacher-list-img.png');
         position: absolute;
-        top: -14px;
+        top: 1px;
         left: -80px;
     }
+    @media (max-width: $xl) {
+        // font-size: 16px;
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+
     @media (max-width: $lg) {
-        font-size: 16px;
+        padding-bottom: 17px;
+        padding-top: 17px;
+    }
+    @media (max-width: $sm) {
+        padding-bottom: 2px;
+        padding-top: 2px;
     }
 }
 </style>

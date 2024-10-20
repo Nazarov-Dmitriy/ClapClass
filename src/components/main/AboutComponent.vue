@@ -5,32 +5,22 @@
                 src="../../assets/images/main/about/about-bg.png"
                 alt=""
                 class="about__background-img"
-            >
+            />
         </div>
         <div class="about__container">
             <div class="about__wrapper">
                 <div class="about__slogan">
-                    <h1 class="about__slogan-title">
-                        Учиться весело!
-                    </h1>
-                    <p class="about__slogan-subtitle">
-                        Преподавать легко
-                    </p>
+                    <h1 class="about__slogan-title">Учиться весело!</h1>
+                    <p class="about__slogan-subtitle">Преподавать легко</p>
                 </div>
                 <div class="about__info">
-                    <img
-                        :src="currentImage"
-                        alt="Logo"
-                        class="about__info-logo"
-                    >
+                    <div class="about__info-logo"></div>
                     <div class="about__info-text-wrapper">
                         <p class="about__info-subtitle">
                             Сервис геймификации здоровьесберегающих технологий
                         </p>
                         <div class="about__info-btn-wrapper">
-                            <BtnComponent class="about__info-btn">
-                                Присоединиться
-                            </BtnComponent>
+                            <BtnComponent class="about__info-btn"> Присоединиться </BtnComponent>
                         </div>
                     </div>
                 </div>
@@ -40,37 +30,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
 import BtnComponent from '../btns/BtnComponent.vue'
-
-const images = [
-    new URL('../../assets/images/main/about/about-logo.png', import.meta.url).href,
-    new URL('../../assets/images/main/about/about-logo1.png', import.meta.url).href,
-    new URL('../../assets/images/main/about/about-logo2.png', import.meta.url).href,
-    new URL('../../assets/images/main/about/about-logo3.png', import.meta.url).href,
-    new URL('../../assets/images/main/about/about-logo4.png', import.meta.url).href
-]
-
-const currentImage = ref(images[0])
-let intervalId = null
-let imageIndex = 0
-
-const changeImage = () => {
-    imageIndex++
-    if (imageIndex < images.length) {
-        currentImage.value = images[imageIndex]
-    } else {
-        clearInterval(intervalId)
-    }
-}
-
-onMounted(() => {
-    intervalId = setInterval(changeImage, 400)
-})
-
-onUnmounted(() => {
-    clearInterval(intervalId)
-})
 </script>
 
 <style lang="scss">
@@ -164,13 +124,11 @@ onUnmounted(() => {
     width: 541px;
     transform: translate(-30px, 0) rotate(-6deg);
 
-
     @media (max-width: $lg) {
         font-size: 40px;
         line-height: 1.5;
         transform: translate(-30px, 10px) rotate(-8deg);
         width: calc(100% - 30px);
-
     }
     @media (max-width: $sm) {
         font-size: 26px;
@@ -198,13 +156,11 @@ onUnmounted(() => {
         line-height: 1.5;
         transform: translate(10px, 0) rotate(-2deg);
         width: 100%;
-
     }
     @media (max-width: $sm) {
         font-size: 26px;
         transform: translate(0, 0) rotate(-2deg);
         padding: 9px 0;
-
     }
 }
 .about__info {
@@ -215,13 +171,43 @@ onUnmounted(() => {
     width: 100%;
 }
 .about__info-logo {
-    max-width: 100%;
-    height: auto;
+    max-width: 496px;
+    height: 211px;
 
     @media (max-width: $lg) {
         display: none;
     }
 }
+.about__info-logo {
+    display: block;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    animation: backgroundChange 3s forwards;
+
+    @media (max-width: $lg) {
+        display: none;
+    }
+}
+
+@keyframes backgroundChange {
+    0% {
+        background-image: url('../../assets/images/main/about/about-logo.png');
+    }
+    20% {
+        background-image: url('../../assets/images/main/about/about-logo1.png');
+    }
+    40% {
+        background-image: url('../../assets/images/main/about/about-logo2.png');
+    }
+    60% {
+        background-image: url('../../assets/images/main/about/about-logo3.png');
+    }
+    100% {
+        background-image: url('../../assets/images/main/about/about-logo4.png');
+    }
+}
+
 .about__info-text-wrapper {
     display: flex;
     flex-direction: column;

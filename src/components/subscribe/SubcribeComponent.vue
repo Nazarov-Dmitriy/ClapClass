@@ -5,32 +5,21 @@
                 class="subscribe__slogan"
                 src="../../assets/images/article/slogan.png"
                 alt="slogan"
-            >
+            />
             <img
                 class="subscribe__slogan-mobile"
                 src="../../assets/images/article/slogan-mobile.png"
                 alt="slogan"
-            >
-            <img
-                class="subscribe__hero"
-                src="../../assets/images/article/hero.png"
-                alt="hero"
-            >
+            />
+            <img class="subscribe__hero" src="../../assets/images/article/hero.png" alt="hero" />
             <img
                 class="subscribe__hero-mobile"
                 src="../../assets/images/article/hero-mobile.png"
                 alt="hero"
-            >
+            />
         </div>
-        <form
-            class="subscribe__form"
-            @submit.prevent
-            @keypress.enter.prevent
-        >
-            <div
-                class="subscribe__group"
-                :class="{ 'error': formField.emailError }"
-            >
+        <form class="subscribe__form" @submit.prevent @keypress.enter.prevent>
+            <div class="subscribe__group" :class="{ error: formField.emailError }">
                 <input
                     v-model="formField.email"
                     class="subscribe__input"
@@ -38,15 +27,9 @@
                     placeholder="Введите ваш email"
                     @input="changeEmail($event)"
                     @keypress.enter="validateField($event, 'event')"
-                >
-                <div
-                    v-if="formField.emailError"
-                    class="input-error"
-                >
-                    <img
-                        src="../../assets/images/main/news/news-error-icon.svg"
-                        alt=""
-                    >
+                />
+                <div v-if="formField.emailError" class="input-error">
+                    <img src="../../assets/images/main/news/news-error-icon.svg" alt="" />
                     <span>Поле заполненно некорректно</span>
                 </div>
             </div>
@@ -54,58 +37,60 @@
                 <BtnComponentWhite
                     emit-name="subscribe"
                     class="subscribe__btn"
+                    :color="subscribe__btn"
                     @subscribe="validateForm()"
                 >
-                    Подписаться
+                    <span>Подписаться</span>
                 </BtnComponentWhite>
                 <p class="subscribe__text">
                     Нажимая кнопку “Подписаться” вы соглашаетесь с
-                    <span><a
-                        class="subscribe__text-link"
-                        href="#"
-                    >политикой обработки персональных
-                        данных</a></span>
+                    <span
+                        ><a class="subscribe__text-link" href="#"
+                            >политикой обработки персональных данных</a
+                        ></span
+                    >
                 </p>
             </div>
         </form>
     </div>
 </template>
 <script setup>
-import { reactive } from 'vue';
-import BtnComponentWhite from '../btns/BtnComponentWhite.vue';
+import { reactive } from 'vue'
+import BtnComponentWhite from '../btns/BtnComponentWhite.vue'
 
 const formField = reactive({
     email: '',
     emailError: false,
-    validateSubscribe: false,
+    validateSubscribe: false
 })
 
-
-function validateField (param, event) {
-    let target;
+function validateField(param, event) {
+    let target
     if (event === 'event') {
-        target = param.target.value.trim();
+        target = param.target.value.trim()
     } else {
         target = param.trim()
     }
-    let email_regexp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-    !email_regexp.test(String(target).toLowerCase()) ? formField.emailError = true : formField.emailError = false;
-
-};
-
-function changeEmail (event) {
-    console.log(222);
-    let target = event.target;
-    let x = target.value.match(/([a-zA-Z]{1})([a-zA-Z0-9._-]{0,19})([@]{0,1})([a-zA-Z0-9._-]{0,10})([.]{0,1})([a-zA-Z0-9._-]{0,5})/);
-    target.value = x ? (x[1] + x[2] + x[3] + x[4] + x[5] + x[6]) : '';
-    formField.email = target.value;
-};
-
-
-function validateForm () {
-    validateField(formField.email, 'validate')
+    let email_regexp =
+        /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+    !email_regexp.test(String(target).toLowerCase())
+        ? (formField.emailError = true)
+        : (formField.emailError = false)
 }
 
+function changeEmail(event) {
+    console.log(222)
+    let target = event.target
+    let x = target.value.match(
+        /([a-zA-Z]{1})([a-zA-Z0-9._-]{0,19})([@]{0,1})([a-zA-Z0-9._-]{0,10})([.]{0,1})([a-zA-Z0-9._-]{0,5})/
+    )
+    target.value = x ? x[1] + x[2] + x[3] + x[4] + x[5] + x[6] : ''
+    formField.email = target.value
+}
+
+function validateForm() {
+    validateField(formField.email, 'validate')
+}
 </script>
 <style lang="scss">
 .subscribe {
@@ -213,7 +198,7 @@ function validateForm () {
 
     &.error {
         .subscribe__input {
-            outline: 2px solid $orange ;
+            outline: 2px solid $orange;
         }
     }
 }
@@ -227,7 +212,6 @@ function validateForm () {
     font-size: 16px;
     line-height: 1.5;
 }
-
 
 .subscribe__info {
     display: flex;

@@ -1,25 +1,18 @@
 <template>
     <section class="student">
         <div class="student__container container">
-            <h2 class="student__title">
-                Clap class для учеников
-            </h2>
-            <div
-                ref="cardsContainer"
-                class="student__cards"
-            >
+            <h2 class="student__title">Clap class для учеников</h2>
+            <div ref="cardsContainer" class="student__cards">
                 <div class="student__card">
                     <div class="student__card-header">
                         <img
                             src="../../assets/images/main/student/student-hero1.png"
                             alt=""
                             class="student__card-img"
-                        >
+                        />
                     </div>
                     <div class="student__card-body">
-                        <h3 class="student__card-title">
-                            Крепкое <span>здоровье</span>
-                        </h3>
+                        <h3 class="student__card-title">Крепкое <span>здоровье</span></h3>
                         <p class="student__card-text">
                             Регулярная двигательная активность улучшает показатели психофизического
                             здоровья
@@ -40,12 +33,10 @@
                             src="../../assets/images/main/student/student-hero2.png"
                             alt=""
                             class="student__card-img"
-                        >
+                        />
                     </div>
                     <div class="student__card-body">
-                        <h3 class="student__card-title">
-                            Благоприятная <span>атмосфера</span>
-                        </h3>
+                        <h3 class="student__card-title">Благоприятная <span>атмосфера</span></h3>
                         <p class="student__card-text">
                             Кратно улучшает показатели академической успеваемости, вовлеченности и
                             счастья
@@ -66,12 +57,10 @@
                             src="../../assets/images/main/student/student-hero3.png"
                             alt=""
                             class="student__card-img"
-                        >
+                        />
                     </div>
                     <div class="student__card-body">
-                        <h3 class="student__card-title">
-                            Эффективное <span>обучение</span>
-                        </h3>
+                        <h3 class="student__card-title">Эффективное <span>обучение</span></h3>
                         <p class="student__card-text">
                             Игровой формат является естественным способом быстрого усвоения
                             информации
@@ -97,21 +86,20 @@ import { onMounted, onBeforeUnmount, ref } from 'vue'
 const cardsContainer = ref(null)
 
 onMounted(() => {
-    if (window.innerWidth <= 768) {     
+    if (window.innerWidth <= 768) {
         scrollToCenter()
         window.addEventListener('resize', scrollToCenter)
     }
 })
 
 const scrollToCenter = () => {
-    const container = cardsContainer.value;
+    const container = cardsContainer.value
     container.scrollLeft = (container.scrollWidth - container.clientWidth) / 2
 }
 
 onBeforeUnmount(() => {
     window.removeEventListener('resize', scrollToCenter)
 })
-
 </script>
 <style lang="scss" scoped>
 .student {
@@ -187,6 +175,7 @@ onBeforeUnmount(() => {
     width: 100%;
     cursor: pointer;
     justify-content: space-between;
+    transition: 0.3s;
 
     &:hover {
         border: 2px solid $orange;
@@ -196,6 +185,8 @@ onBeforeUnmount(() => {
     &:hover .student__card-footer {
         background: $orange;
         color: $white;
+        transform: scale(1.05);
+        transition: 0.3s;
     }
 
     &:hover .student__card-footer-info span {
@@ -249,6 +240,7 @@ onBeforeUnmount(() => {
     line-height: 150%;
     text-align: center;
     color: $black;
+    padding: 0 16px 0 16px;
 
     @media (max-width: 768px) {
         font-size: 16px;

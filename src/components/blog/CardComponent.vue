@@ -1,40 +1,14 @@
 <template>
-    <div      
-        class="blog-article__card"
-    >
-        <div
-            v-if="props.data.img"
-            class="blog-article__cover"
-        >
-            <img
-                :src="props.data.img"
-                alt="image article"
-                class="blog-article__img"
-            >
+    <div class="blog-article__card">
+        <div v-if="props.data.img" class="blog-article__cover">
+            <img :src="props.data.img" alt="image article" class="blog-article__img" />
         </div>
-        <div
-            v-else
-            class="blog-article__cover default"
-        >
-            <img
-                src="/images/stub.png"
-                alt="image article"
-                class="blog-article__img"
-            >
+        <div v-else class="blog-article__cover default">
+            <img src="/images/stub.png" alt="image article" class="blog-article__img" />
         </div>
         <div class="blog-article__tag">
-            <p
-                v-if="props.data.type === 'article'"
-                class="blog-article__tag-text"
-            >
-                Статья
-            </p>
-            <p
-                v-else
-                class="blog-article__tag-text video"
-            >
-                Видео
-            </p>
+            <p v-if="props.data.type === 'article'" class="blog-article__tag-text">Статья</p>
+            <p v-else class="blog-article__tag-text video">Видео</p>
         </div>
         <div class="blog-article__contnent">
             <h3 class="blog-article__title">
@@ -47,7 +21,7 @@
                             src="@/assets/icons/blog/like.svg"
                             alt="like"
                             class="blog-article__icon"
-                        >
+                        />
                         <div class="blog-article__count">
                             {{ props.data.like }}
                         </div>
@@ -58,7 +32,7 @@
                                 src="@/assets/icons/blog/show.svg"
                                 alt="like"
                                 class="blog-article__icon"
-                            >
+                            />
                             <div class="blog-article__count">
                                 {{ props.data.show }}
                             </div>
@@ -77,11 +51,11 @@ const props = defineProps({
     data: {
         type: Object,
         default: () => {}
-    },
+    }
 })
 </script>
 <style lang="scss">
-    .blog-article__card {
+.blog-article__card {
     display: flex;
     flex-direction: column;
     border: 2px solid $gray;
@@ -91,18 +65,25 @@ const props = defineProps({
     cursor: pointer;
     position: relative;
 
+    .blog-article__cover::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.3);
+    }
+
     &:hover {
         background: $yellowy;
         border-color: $orange;
         box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
-
-        .blog-article__cover::before{
-            content: "";
-         position: absolute;
-         width: 100%;
-         height: 100%;
-        background:rgba(255, 255, 255, 0.3);
-        }
+        .blog-article__cover::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: none;
+    }
     }
 }
 
@@ -128,7 +109,7 @@ const props = defineProps({
     overflow: hidden;
 
     & .video {
-        background: $yellowy
+        background: $yellowy;
     }
 }
 
@@ -143,7 +124,6 @@ const props = defineProps({
     gap: 16px;
     justify-content: space-between;
     flex-grow: 1;
-
 }
 
 .blog-article__title {
@@ -172,11 +152,11 @@ const props = defineProps({
     gap: 24px;
     width: 100%;
 
-    @media(max-width: $md) {
+    @media (max-width: $md) {
         gap: 16px;
     }
 
-    @media(max-width: $sm) {
+    @media (max-width: $sm) {
         gap: 24px;
     }
 }
@@ -198,6 +178,6 @@ const props = defineProps({
 .blog-article__tag-text {
     font-size: 16px;
     line-height: 1.5;
-    color: $gray
+    color: $gray;
 }
 </style>
