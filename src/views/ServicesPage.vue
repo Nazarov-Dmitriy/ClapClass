@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import ServeciesComponent from '../components/services/ServeciesComponent.vue'
-import TestComponent from '../components/services/TestComponent.vue'
+import ServicesComponent from '../components/services/ServicesComponent.vue'
 import MainLayout from '../layouts/MainLayout.vue'
 </script>
 
 <template>
     <MainLayout>
         <div class="page">
-            <TestComponent />
+            <ServicesComponent />
         </div>
     </MainLayout>
 </template>
