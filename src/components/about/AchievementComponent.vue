@@ -1,20 +1,18 @@
 <template>
     <section class="achievements">
         <div class="achievements__container">
-            <h2 class="achievements__title">
-                Ачивки Clap Class
-            </h2>
+            <h2 class="achievements__title">Ачивки Clap Class</h2>
             <div class="achievements__img-wrapper">
                 <img
                     src="/public/images/about/achievement/img1.svg"
                     alt="image 1"
                     class="achievements__img"
-                >
+                />
                 <img
                     src="/public/images/about/achievement/img2.png"
                     alt="image 2"
                     class="achievements__img"
-                >
+                />
             </div>
         </div>
     </section>
@@ -41,7 +39,7 @@
     }
 }
 .achievements__title {
-    font-family: var(--second-family);
+    font-family: 'CenturyGothic';
     font-weight: 700;
     font-size: 36px;
     line-height: 48px;

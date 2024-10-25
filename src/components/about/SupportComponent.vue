@@ -85,7 +85,7 @@ import BtnComponent from '../btns/BtnComponent.vue'
         padding: 0 24px;
     }
     @media (max-width: $sm) {
-        padding: 16px 24px;
+        padding: 0;
     }
 }
 .support__hero {
