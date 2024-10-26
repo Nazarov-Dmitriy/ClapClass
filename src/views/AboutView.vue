@@ -3,6 +3,7 @@ import AchievementComponent from '../components/about/AchievementComponent.vue'
 import AcquaintComponent from '../components/about/AcquaintComponent.vue'
 import ChangeComponent from '../components/about/ChangeComponent.vue'
 import InformationComponent from '../components/about/InformationComponent.vue'
+import ProblemsComponent from '../components/about/ProblemsComponent.vue'
 import SupportComponent from '../components/about/SupportComponent.vue'
 import MainLayout from '../layouts/MainLayout.vue'
 </script>
@@ -12,6 +13,7 @@ import MainLayout from '../layouts/MainLayout.vue'
         <AcquaintComponent />
         <InformationComponent />
         <SupportComponent />
+        <ProblemsComponent />
         <AchievementComponent />
         <ChangeComponent />
     </MainLayout>
