@@ -1,25 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
-    font-family: "Inter";
-    src: url("../font/Inter-Regular.woff2") format("woff2"),
-        url("../font/Inter-Regular.woff") format("woff");
+    font-family: 'Inter';
+    src:
+        url('../font/Inter-Regular.woff2') format('woff2'),
+        url('../font/Inter-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: "Inter";
-    src: url("../font/Inter-Medium.woff2") format("woff2"),
-        url("../font/Inter-Medium.woff") format("woff");
+    font-family: 'Inter';
+    src:
+        url('../font/Inter-Medium.woff2') format('woff2'),
+        url('../font/Inter-Medium.woff') format('woff');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: "CenturyGothic";
-    src: url("../font/CenturyGothic-Bold.woff2") format("woff2"),
-        url("../font/CenturyGothic-Bold.woff") format("woff");
+    font-family: 'CenturyGothic';
+    src:
+        url('../font/CenturyGothic-Bold.woff2') format('woff2'),
+        url('../font/CenturyGothic-Bold.woff') format('woff');
     font-weight: 600;
     font-style: normal;
     font-display: swap;
@@ -55,6 +62,6 @@ html,
 body,
 #root {
     position: relative;
-    font-family: "Inter", sans-serif;
+    font-family: 'Inter', sans-serif;
     box-sizing: border-box;
 }

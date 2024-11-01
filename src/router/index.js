@@ -2,10 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
 import BlogPage from '../views/BlogPage.vue'
 import ArticlePage from '../views/ArticlePage.vue'
-import LoginView from '../views/auth/LoginView.vue'
-import RegisterView from '../views/auth/RegisterView.vue'
 import CooperationPage from '../views/CooperationPage.vue'
 import ServicesPage from '../views/ServicesPage.vue'
+import AboutComponent from '../components/main/AboutComponent.vue'
+import AboutView from '../views/AboutView.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,32 +31,22 @@ const router = createRouter({
             ]
         },
         {
-            path: '/auth',
-            children: [
-                {
-                    path: 'login',
-                    name: 'login',
-                    component: LoginView
-                },
-                {
-                    path: 'register',
-                    name: 'register',
-                    component: RegisterView
-                }
-            ]
-        },
-        {
             path: '/cooperation',
             name: 'cooperation',
             component: CooperationPage
-        },        
+        },
         {
             path: '/services',
             name: 'services',
             component: ServicesPage
+        },
+        {
+            path: '/about',
+            name: 'about',
+            component: AboutView
         }
     ],
-    scrollBehavior (to, from, savedPosition) {
+    scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
             return savedPosition
         } else {
