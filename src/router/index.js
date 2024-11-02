@@ -45,7 +45,7 @@ const router = createRouter({
             component: AboutView
         }
     ],
-    scrollBehavior(to, from, savedPosition) {
+    scrollBehavior (to, from, savedPosition) {
         if (savedPosition) {
             return savedPosition
         } else {
