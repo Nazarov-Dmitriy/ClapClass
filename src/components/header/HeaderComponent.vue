@@ -31,7 +31,13 @@
                         class="header__btn-wrapper header__btn-wrapper--mobile"
                         :class="{ 'is-active': isVisible }"
                     >
-                        <BtnComponent class="header__btn"> Вход </BtnComponent>
+                        <BtnComponent
+                            emit-name="action"
+                            @action="toggleVisible"
+                            class="header__btn"
+                        >
+                            Вход
+                        </BtnComponent>
                     </div>
                 </div>
             </div>
@@ -76,9 +82,19 @@
                     </ul>
                 </nav>
                 <div class="header__btn-wrapper">
-                    <BtnComponent class="header__btn"> Вход </BtnComponent>
+                    <BtnComponent emit-name="action" @action="toggleVisible" class="header__btn">
+                        Вход
+                    </BtnComponent>
                 </div>
             </div>
+            <Teleport to="body">
+                <RegisterComponent
+                    :isModalVisible="isModalVisible"
+                    @close="isModalVisible = false"
+                    @register="handleRegister"
+                    @login="handleLogin"
+                />
+            </Teleport>
         </div>
     </header>
 </template>
@@ -86,6 +102,7 @@
 import BtnComponent from '../btns/BtnComponent.vue'
 
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+import RegisterComponent from '../modal/auth/RegisterComponent.vue'
 
 const isVisible = ref(false)
 const btnMenu = ref(false)
@@ -101,6 +118,12 @@ const closeHeader = (element) => {
         isVisible.value = false
         btnMenu.value = false
     }
+}
+
+const isModalVisible = ref(false)
+
+function toggleVisible() {
+    isModalVisible.value = !isModalVisible.value
 }
 
 onMounted(() => {

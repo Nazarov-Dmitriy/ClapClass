@@ -69,12 +69,15 @@ import BtnComponent from '../btns/BtnComponent.vue'
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     display: grid;
     grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 48px;
     background-image: url('/images/about/information/information-img.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 0 0;
     overflow: hidden;
-
+    padding: 48px 24px;
+    box-sizing: border-box;
     @media (max-width: $sm) {
         grid-template-columns: 1fr;
     }
@@ -83,7 +86,11 @@ import BtnComponent from '../btns/BtnComponent.vue'
     width: 100%;
     max-width: 307px;
     min-width: 288px;
-
+    background-color: grey;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+    height: calc(100% + 24px);
+    border-radius: 24px;
     @media (max-width: $sm) {
         display: none;
     }
@@ -94,8 +101,14 @@ import BtnComponent from '../btns/BtnComponent.vue'
         }
     }
 }
+.info__info {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
 .info__texts {
-    padding: 48px 24px;
+    padding: 0 24px;
+    padding-left: 0;
     box-sizing: border-box;
     display: grid;
     gap: 48px;
@@ -122,5 +135,6 @@ import BtnComponent from '../btns/BtnComponent.vue'
 }
 .info__texts-btn {
     width: max-content;
+    margin-top: -24px;
 }
 </style>

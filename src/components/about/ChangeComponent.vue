@@ -12,7 +12,12 @@ import BtnComponent from '../btns/BtnComponent.vue'
                         Стань амбассадором нового движения! Присоединяйся к команде, задающей тренд
                         на увлекательное образование!
                     </p>
-                    <BtnComponent class="change__card-info-btn">Сотрудничество</BtnComponent>
+                    <BtnComponent
+                        emit-name="action"
+                        @action="$router.push('/cooperation')"
+                        class="change__card-info-btn"
+                        >Сотрудничество</BtnComponent
+                    >
                 </div>
                 <img
                     src="/images/about/change/banner.png"
