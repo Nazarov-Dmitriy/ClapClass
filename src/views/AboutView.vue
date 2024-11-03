@@ -18,10 +18,10 @@ import MainLayout from '../layouts/MainLayout.vue'
         <InformationComponent />
         <SupportComponent />
         <ProblemsComponent />
-        <LearnPlayDevelopComponent />
         <FormatComponent />
         <UseComponent />
         <AboutFeaturesComponent />
+        <LearnPlayDevelopComponent />
         <AchievementComponent />
         <ChangeComponent />
     </MainLayout>
