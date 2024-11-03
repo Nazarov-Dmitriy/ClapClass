@@ -19,6 +19,9 @@
                         быть взаимоисключающими факторами.
                     </p>
                 </div>
+                <div 
+                    class="max-[768px]:hidden md+1:block h-80 w-px bg-gray"
+                />
                 <div class="teacher__cards">
                     <div 
                         v-for="card in cards"
@@ -65,7 +68,6 @@ const cards = ref([
 <style lang="scss" scoped>
 .learn {
     padding: 48px 64px;
-
     @media (max-width: $lg) {
         padding: 24px 16px;
     }
@@ -80,16 +82,16 @@ const cards = ref([
     justify-content: center;
 }
 .learn__wrapper {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
     justify-content: center;
     align-items: center;
     max-width: 1312px;
     width: 100%;
     box-sizing: border-box;
 
-    @media (max-width: $lg) {
-        grid-template-columns: 1fr;
+    @media (max-width: $md) {
+        flex-direction: column;
+        gap: 24px;
     }
 }
 .learn__info {
@@ -97,20 +99,26 @@ const cards = ref([
     display: flex;
     flex-direction: column;
     gap: 48px;
-    border-right: 1px solid $gray;
     box-sizing: border-box;
 
-    @media (max-width: $lg) {
+    @media (max-width: $xl) {
+        padding-right: 24px;
+    }
+    @media (max-width: $md) {
         gap: 24px;
+        padding: 0 64px;
     }
     @media (max-width: $sm) {
-        gap: 16px;
+        padding: 0;
     }
 }
-
 .learn__info-title {
-    @media (max-width: $lg) {
+    @media (max-width: $md) {
         text-align: center;
+        font-size: 32px;
+    }
+    @media (max-width: $sm) {
+        font-size: 24px;
     }
 }
 .learn__info-text {
@@ -118,27 +126,22 @@ const cards = ref([
     font-size: 20px;
     line-height: 150%;
     color: $black;
-    
-    @media (max-width: $lg) {
+    @media (max-width: $md) {
         text-align: center;
-    }
-    @media (max-width: $sm) {
-        text-align: left;
+        font-size: 16px;
     }
 }
 .teacher__cards {
     padding: 0 64px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     gap: 64px;
-    max-width: 656px;
-
-    @media (max-width: $lg) {
-        display: flex;
-        overflow-x: auto;
-        gap: 16px;
-        scroll-snap-type: x mandatory;
-        justify-content: start;
+    @media (max-width: $xl) {
+        padding-left: 24px;
+        gap: 24px;
+    }
+    @media (max-width: $md) {
+        padding: 0;
     }
 }
 .teacher__card {
@@ -146,14 +149,11 @@ const cards = ref([
     display: flex;
     flex-direction: column;
     gap: 16px;
-    flex-wrap: wrap;
     align-content: space-between;
     align-items: center;
-    width: 220px;
-
-    @media (max-width: $lg) {
-        flex: 0 0 auto;
-        width: 188px;
+    max-width: 220px;
+    @media (max-width: $sm) {
+        gap: 0;
     }
 }
 .teacher__card-icon {
@@ -167,6 +167,10 @@ const cards = ref([
     line-height: 36px;
     color: $orange;
     text-align: center;
+    @media (max-width: $sm) {
+        font-size: 20px;
+        line-height: 30px;
+    }
 }
 .teacher__card-text {
     font-weight: 400;
