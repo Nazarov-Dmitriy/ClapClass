@@ -28,6 +28,7 @@
             <p class="modal__header-info-text">
                 <slot>Заполните форму, и команда Клеппи свяжется с вами</slot>
             </p>
+            <slot name="subtitle" />
         </div>
         <div class="modal__header-hero">
             <img

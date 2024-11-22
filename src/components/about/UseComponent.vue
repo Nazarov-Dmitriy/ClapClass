@@ -218,10 +218,15 @@ onMounted(() => {
 }
 .user__wrapper {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1.5fr 1fr;
+    // grid-template-columns: repeat(2, 1fr);
     justify-content: center;
     align-items: center;
     gap: 84px;
+
+    @media (max-width: $xl) {
+        grid-template-columns: 2fr 1fr;
+    }
 
     @media (max-width: $lg) {
         grid-template-columns: 1fr;

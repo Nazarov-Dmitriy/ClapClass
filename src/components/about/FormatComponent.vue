@@ -49,11 +49,13 @@ import TitleComponent from '../UI/TitleComponent.vue'
                         class="game__img game__img--mobile"
                     />
                 </div>
-                <img
-                    src="/images/about/format/format-img2.png"
-                    alt="game title image"
-                    class="game__img"
-                />
+                <div class="game__img-wrapper">
+                    <img
+                        src="/images/about/format/format-img2.png"
+                        alt="game title image"
+                        class="game__img"
+                    />
+                </div>
             </div>
         </div>
     </section>
@@ -62,6 +64,7 @@ import TitleComponent from '../UI/TitleComponent.vue'
 <style lang="scss" scoped>
 .format {
     padding: 48px 64px;
+    overflow: hidden;
     @media (max-width: $lg) {
         padding: 24px 16px;
     }
@@ -76,6 +79,12 @@ import TitleComponent from '../UI/TitleComponent.vue'
 .game__block {
     display: grid;
     grid-template-columns: 1fr auto;
+    @media (max-width: $sm) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }
 .format__wrapper {
     display: grid;
@@ -108,6 +117,7 @@ import TitleComponent from '../UI/TitleComponent.vue'
             display: none;
         }
         display: block;
+        transform: translate(0, 0);
     }
 }
 .format__info {
@@ -126,6 +136,7 @@ import TitleComponent from '../UI/TitleComponent.vue'
     }
     @media (max-width: $sm) {
         flex-direction: column;
+        padding: 16px;
     }
 }
 
@@ -158,6 +169,10 @@ import TitleComponent from '../UI/TitleComponent.vue'
     @media (max-width: $lg) {
         padding: 16px 64px;
     }
+    @media (max-width: $sm) {
+        flex-direction: column;
+        padding: 16px;
+    }
 }
 .game__info {
     display: flex;
@@ -169,7 +184,17 @@ import TitleComponent from '../UI/TitleComponent.vue'
 }
 .game__text {
 }
+.game__img-wrapper {
+    @media (max-width: $sm) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        order: -1;
+    }
+}
 .game__img {
+    display: block;
     transform: translate(-100px, 0);
 
     &--mobile {
@@ -181,7 +206,18 @@ import TitleComponent from '../UI/TitleComponent.vue'
         &--mobile {
             display: block;
             transform: translate(0);
+            width: 326px;
         }
+    }
+
+    @media (max-width: $sm) {
+        &--mobile {
+            display: none;
+        }
+        display: block;
+        width: 280px;
+        transform: translate(0);
+        order: -1;
     }
 }
 </style>

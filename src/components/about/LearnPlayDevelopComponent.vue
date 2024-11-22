@@ -68,7 +68,7 @@ const cards = ref([
 <style lang="scss" scoped>
 .learn {
     padding: 48px 64px;
-    @media (max-width: $lg) {
+    @media (max-width: $md) {
         padding: 24px 16px;
     }
     @media (max-width: $sm) {
@@ -101,7 +101,7 @@ const cards = ref([
     gap: 48px;
     box-sizing: border-box;
 
-    @media (max-width: $xl) {
+    @media (max-width: $md) {
         padding-right: 24px;
     }
     @media (max-width: $md) {

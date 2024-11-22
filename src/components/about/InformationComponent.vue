@@ -61,6 +61,13 @@ import BtnComponent from '../btns/BtnComponent.vue'
 .info__container {
     max-width: 1307px;
     margin: 0 auto;
+
+    @media(max-width: $sm){
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }
 .info__wrapper {
     border-radius: 24px;
@@ -78,6 +85,7 @@ import BtnComponent from '../btns/BtnComponent.vue'
     overflow: hidden;
     padding: 48px 24px;
     box-sizing: border-box;
+
     @media (max-width: $sm) {
         grid-template-columns: 1fr;
     }
@@ -115,7 +123,35 @@ import BtnComponent from '../btns/BtnComponent.vue'
     max-height: 274px;
     height: 100%;
     overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 100%;
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #fff7ac;
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #f57c00;
+        border-radius: 4px;
+        border-radius: 4px;
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color: #f57c00 #fff7ac;
+    border-radius: 4px;
 }
+
+@supports (-ms-overflow-style: none) {
+    .info__texts {
+        -ms-overflow-style: scrollbar;
+    }
+}
+
 .info__texts-title {
     font-family: 'CenturyGothic';
     font-weight: 700;
