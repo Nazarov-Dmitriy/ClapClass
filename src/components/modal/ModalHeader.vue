@@ -29,7 +29,7 @@
         </div>
         <div class="modal__header-hero">
             <img
-                src="../../assets/images/form/form-hero-img.png"
+                src="../../assets/images/form/form-hero-img.svg"
                 alt=""
                 class="modal__header-hero-img"
             />
@@ -56,7 +56,6 @@ function closeModal() {
     align-items: center;
     justify-content: center;
     gap: 24px;
-    position: relative;
     border-radius: 25px 25px 0 0;
     margin-bottom: -5px;
 
@@ -90,7 +89,8 @@ function closeModal() {
 }
 .modal__header-hero-img {
     width: 226px;
-    transform: translate(0, -3px)
+    height: 171px;
+    transform: translate(0, -5px)
 }
 
 .modal-close-wrapper {
