@@ -167,6 +167,7 @@ onUnmounted(() => {
     top: -30px;
 }
 .slider__card-text {
+    padding: 8px 16px;
     font-weight: 400;
     font-size: 16px;
     line-height: 1.5;
