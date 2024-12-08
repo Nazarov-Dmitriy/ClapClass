@@ -93,7 +93,7 @@ function closeModal() {
 }
 .modal__header-hero-img {
     width: 226px;
-    transform: translate(0, -3px);
+    transform: translate(0, -5px);
 }
 
 .modal-close-wrapper {
