@@ -4,7 +4,6 @@ import BlogPage from '../views/BlogPage.vue'
 import ArticlePage from '../views/ArticlePage.vue'
 import CooperationPage from '../views/CooperationPage.vue'
 import ServicesPage from '../views/ServicesPage.vue'
-import AboutComponent from '../components/main/AboutComponent.vue'
 import AboutView from '../views/AboutView.vue'
 
 const router = createRouter({

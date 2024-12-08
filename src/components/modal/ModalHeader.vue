@@ -25,7 +25,10 @@
             </span>
         </div>
         <div class="modal__header-info">
-            <p class="modal__header-info-text">Заполните форму, и команда Клеппи свяжется с вами</p>
+            <p class="modal__header-info-text">
+                <slot>Заполните форму, и команда Клеппи свяжется с вами</slot>
+            </p>
+            <slot name="subtitle" />
         </div>
         <div class="modal__header-hero">
             <img
@@ -36,6 +39,7 @@
         </div>
     </div>
 </template>
+
 <script setup>
 const emit = defineEmits(['closeModal'])
 
@@ -89,8 +93,7 @@ function closeModal() {
 }
 .modal__header-hero-img {
     width: 226px;
-    height: 171px;
-    transform: translate(0, -5px)
+    transform: translate(0, -3px);
 }
 
 .modal-close-wrapper {
