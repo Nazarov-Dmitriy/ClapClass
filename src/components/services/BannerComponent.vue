@@ -43,6 +43,8 @@ const props = defineProps({
     align-items: center;
     gap: 40px;
     margin: 0 64px;
+    position: relative;
+    z-index: 5;
 
     @media (max-width: $lg) {
         grid-template-columns: 1fr;

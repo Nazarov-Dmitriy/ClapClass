@@ -139,7 +139,6 @@ function updateActiveIndex(swiper) {
     background-size: cover;
     background-position: 0 0;
     position: relative;
-    z-index: -1;
     @media (max-width: $lg) {
         padding: 196px 48px 48px 48px;
     }
