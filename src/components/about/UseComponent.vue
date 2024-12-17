@@ -17,7 +17,15 @@
                         <div class="use__slider">
                             <div v-for="card in slide" :key="card.id" class="use__slider-card">
                                 <img :src="card.img" :alt="card.text" class="use__slide-img" />
-                                <p class="use__slide-text">{{ card.text }}</p>
+                                <div class="flex flex-col gap-1">
+                                    <span
+                                        v-for="item in card.text"
+                                        :key="item"
+                                        class="use__slide-text"
+                                    >
+                                        {{ item }}
+                                    </span>
+                                </div>
                             </div>
 
                             <div class="slider__slide-tabs slider__slide-tabs--use">
@@ -104,68 +112,68 @@ const slidesCards = ref([
         {
             id: 1,
             img: '/images/about/use/card-img1.svg',
-            text: 'Геймификации'
+            text: ['Геймификации']
         },
         {
             id: 2,
             img: '/images/about/use/card-img2.svg',
-            text: 'Игропедагогика'
+            text: ['Игропедагогика']
         },
         {
             id: 3,
             img: '/images/about/use/card-img3.svg',
-            text: 'Нейрогимнастика'
+            text: ['Нейрогимнастика']
         }
     ],
     [
         {
             id: 4,
             img: '/images/about/use/card-img4.svg',
-            text: 'Ритм-гимнастика'
+            text: ['Ритм-гимнастика']
         },
         {
             id: 5,
             img: '/images/about/use/card-img5.svg',
-            text: 'Lecture-racing'
+            text: ['Lecture-racing']
         },
         {
             id: 6,
             img: '/images/about/use/card-img6.svg',
-            text: 'Брейн-фитнес'
+            text: ['Брейн-фитнес']
         }
     ],
     [
         {
             id: 7,
             img: '/images/about/use/card-img7.svg',
-            text: 'Быстрое творчество'
+            text: ['Быстрое', 'творчество']
         },
         {
             id: 8,
             img: '/images/about/use/card-img8.svg',
-            text: 'Танцевальные сессии'
+            text: ['Танцевальные', 'сессии']
         },
         {
             id: 9,
             img: '/images/about/use/card-img9.svg',
-            text: 'Пальчиковая гимнастика'
+            text: ['Пальчиковая', 'гимнастика']
         }
     ],
     [
         {
             id: 10,
             img: '/images/about/use/card-img10.svg',
-            text: 'Музыкальные упражнения'
+            text: ['Музыкальные', 'упражнения']
         },
         {
             id: 11,
             img: '/images/about/use/card-img11.svg',
-            text: 'Динамические паузы'
+            text: ['Динамические', 'паузы']
         },
         {
             id: 12,
             img: '/images/about/use/card-img12.svg',
-            text: 'Логические игры'
+            text: ['Логические', 'игры']
         }
     ]
 ])
@@ -246,7 +254,7 @@ onMounted(() => {
 }
 .use__slider {
     display: grid;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(3, 1fr);
     gap: 28px;
 
     @media (max-width: $sm) {
@@ -276,6 +284,7 @@ onMounted(() => {
     line-height: 150%;
     text-align: center;
     color: #656d75;
+    max-width: 121px;
 }
 .use__info {
     display: flex;

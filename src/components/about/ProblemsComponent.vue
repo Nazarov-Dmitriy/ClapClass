@@ -47,27 +47,27 @@ const cards = ref([
     {
         id: 2,
         img: '/images/about/problems/img2.svg',
-        text: 'Дефицит движения'
+        text: 'Сложности самовыражения'
     },
     {
         id: 3,
         img: '/images/about/problems/img3.svg',
-        text: 'Дефицит движения'
+        text: 'Интенсификация образования'
     },
     {
         id: 4,
         img: '/images/about/problems/img4.svg',
-        text: 'Дефицит движения'
+        text: 'Цифровая зависимость'
     },
     {
         id: 5,
         img: '/images/about/problems/img5.svg',
-        text: 'Дефицит движения'
+        text: 'Монотонность обучения'
     },
     {
         id: 6,
         img: '/images/about/problems/img6.svg',
-        text: 'Дефицит движения'
+        text: 'Эмоциональная нестабильность'
     }
 ])
 </script>
@@ -160,7 +160,13 @@ const cards = ref([
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 16px;
+
+    img {
+        max-width: 100px;
+    }
 
     &:nth-child(even) {
         background: #fff7ac;

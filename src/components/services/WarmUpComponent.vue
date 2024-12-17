@@ -139,8 +139,7 @@ function updateActiveIndex(swiper) {
     background-size: cover;
     background-position: 0 0;
     position: relative;
-    z-index: 0;
-
+    z-index: -1;
     @media (max-width: $lg) {
         padding: 196px 48px 48px 48px;
     }
@@ -153,6 +152,7 @@ function updateActiveIndex(swiper) {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
     align-items: center;
+
     @media (max-width: $lg) {
         grid-template-columns: 1fr;
     }
@@ -161,7 +161,6 @@ function updateActiveIndex(swiper) {
     border-radius: 24px;
     max-width: 648px;
     width: 100%;
-    border: 2px solid black;
     height: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
@@ -183,33 +182,32 @@ function updateActiveIndex(swiper) {
     height: 100%;
 }
 .warm-up__info-title {
-    font-family: var(--second-family);
+    font-family: 'CenturyGothic';
     font-weight: 700;
     font-size: 36px;
-    line-height: 133%;
+    line-height: 48px;
     text-align: center;
-    color: orange;
+    color: $orange;
 }
 .warm-up__text {
-    font-family: var(--font-family);
     font-weight: 400;
     font-size: 20px;
     line-height: 150%;
     text-align: center;
-    color: black;
+    color: $black;
     padding: 16px;
 }
 .slider__slide-tabs {
     transform: translate(0);
 }
 .slider__slide-tabs-span {
-    background: #fff7ac;
+    background: $yellowy;
     border-radius: 8px;
     width: 40px;
     height: 12px;
 
     &.active {
-        background: #e05704;
+        background: $orange;
     }
 }
 .tab-wrapper {
@@ -228,9 +226,9 @@ function updateActiveIndex(swiper) {
 }
 
 .btn {
-    border: 2px solid #e05704;
+    border: 2px solid $orange;
     border-radius: 100px;
-    background: #fff7ac;
+    background: $yellowy;
     position: relative;
 
     &--prev {

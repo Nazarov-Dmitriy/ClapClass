@@ -39,21 +39,24 @@ const props = defineProps({
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
+    max-width: 1440px;
+    margin: 0 auto;
 
     @media (max-width: $lg) {
         padding: 24px 24px 48px 24px;
     }
 }
 .features__title {
-    font-family: var(--second-family);
+    font-family: 'CenturyGothic';
     font-weight: 700;
     font-size: 36px;
-    line-height: 133%;
+    line-height: 48px;
     text-align: center;
-    color: #e05704;
+    color: $orange;
 }
 .features__blocks {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
     align-items: center;
     overflow-x: auto;
@@ -68,6 +71,7 @@ const props = defineProps({
     }
 
     @media (max-width: $lg) {
+        display: flex;
         flex-wrap: nowrap;
     }
 }
@@ -97,22 +101,21 @@ const props = defineProps({
 .features__block-img {
 }
 .features__block-text {
-    font-family: var(--second-family);
+    font-family: 'CenturyGothic';
     font-weight: 700;
     font-size: 24px;
     line-height: 150%;
-    color: #e05704;
+    color: $orange;
 
     & span {
         display: block;
     }
 }
 .features__main-text {
-    font-family: var(--font-family);
     font-weight: 400;
     font-size: 16px;
     line-height: 150%;
-    color: #0e0806;
+    color: $black;
 }
 .btn {
     width: max-content;

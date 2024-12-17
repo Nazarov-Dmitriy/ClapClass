@@ -53,11 +53,11 @@ defineProps({
     gap: 48px;
 }
 .important__title {
-    font-family: var(--second-family);
+    font-family: 'CenturyGothic';
     font-weight: 700;
     font-size: 36px;
-    line-height: 133%;
-    color: #e05704;
+    line-height: 48px;
+    color: $orange;
 
     @media (max-width: $lg) {
         text-align: center;
@@ -68,11 +68,10 @@ defineProps({
     gap: 24px;
 }
 .important__text {
-    font-family: var(--font-family);
     font-weight: 400;
     font-size: 20px;
     line-height: 150%;
-    color: #0e0806;
+    color: $black;
 }
 .important__img {
     object-fit: cover;

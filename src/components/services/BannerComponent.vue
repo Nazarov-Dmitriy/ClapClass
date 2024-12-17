@@ -43,8 +43,6 @@ const props = defineProps({
     align-items: center;
     gap: 40px;
     margin: 0 64px;
-    position: relative;
-    z-index: 1;
 
     @media (max-width: $lg) {
         grid-template-columns: 1fr;
@@ -55,6 +53,7 @@ const props = defineProps({
     display: flex;
     align-items: flex-end;
     position: relative;
+    font-family: 'CenturyGothic';
     @media (max-width: $lg) {
         justify-content: center;
     }
@@ -65,9 +64,11 @@ const props = defineProps({
     padding: 48px;
     box-sizing: border-box;
     background-color: $white;
+    position: absolute;
 
     @media (max-width: $xl) {
         display: none;
+        position: relative;
     }
     @media (max-width: $lg) {
         display: block;
@@ -79,11 +80,18 @@ const props = defineProps({
     }
 }
 .services__titles {
-    // position: absolute;
-    // left: 200px;
+    margin-left: 150px;
+    @media (max-width: $xl) {
+        margin-left: 0;
+        transform: translate(-40px, 0);
+    }
+    @media (max-width: $sm) {
+        transform: translate(-30px, 0);
+        max-width: 191px;
+    }
 }
 .services__title {
-    font-family: var(--second-family);
+    font-family: 'CenturyGothic';
     font-weight: 700;
     font-size: 60px;
     line-height: 150%;
@@ -109,15 +117,27 @@ const props = defineProps({
     @media (max-width: $lg) {
         padding: 16px 24px;
     }
+    @media (max-width: $sm) {
+        padding: 8px 16px;
+    }
 }
 .services__title--orange {
-    border: 4px solid #fff;
+    border: 4px solid $white;
     padding: 16px;
     box-sizing: border-box;
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
-    background: #e05704;
+    background: $orange;
     color: $white;
     z-index: 2;
+    transform: translate(20px, 0);
+
+    @media (max-width: $lg) {
+        padding: 16px 24px;
+    }
+
+    @media (max-width: $sm) {
+        padding: 8px 16px;
+    }
 }
 .services__info {
     display: grid;
@@ -131,7 +151,7 @@ const props = defineProps({
     }
 }
 .services__info-title {
-    font-family: var(--second-family);
+    font-family: 'CenturyGothic';
     font-weight: 700;
     font-size: 24px;
     line-height: 150%;
@@ -139,7 +159,6 @@ const props = defineProps({
     color: $orange;
 }
 .services__info-text {
-    font-family: var(--font-family);
     font-weight: 400;
     font-size: 20px;
     line-height: 150%;
@@ -148,7 +167,7 @@ const props = defineProps({
     max-width: 650px;
     width: 100%;
 
-    @media(max-width: $lg){
+    @media (max-width: $lg) {
         font-size: 16px;
     }
 }

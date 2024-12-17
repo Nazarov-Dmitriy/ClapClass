@@ -126,6 +126,20 @@ import TitleComponent from '../UI/TitleComponent.vue'
     padding: 16px 64px 16px 148px;
     box-sizing: border-box;
     background: #fff7ac;
+    position: relative;
+    z-index: -1;
+    &::after{
+        content: '';
+        position: absolute;
+        background-color: $yellowy;
+        height: 100%;
+        width: 200%;
+        z-index: -1;
+
+        @media(max-width: $lg){
+            display: none;
+        }
+    }
 
     @media (max-width: $lg) {
         padding: 16px 64px;
@@ -165,6 +179,20 @@ import TitleComponent from '../UI/TitleComponent.vue'
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    &::after{
+        content: '';
+        position: absolute;
+        background-color: #e6eaed;
+        height: 100%;
+        width: 200%;
+        z-index: -1;
+        left: -200%;
+
+        @media(max-width: $lg){
+            display: none;
+        }
+    }
 
     @media (max-width: $lg) {
         padding: 16px 64px;

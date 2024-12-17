@@ -1,115 +1,45 @@
 <template>
-    <ModalComponent
-        :visible="isModalVisible"
-        @close="closeModal"
-    >
+    <ModalComponent :visible="isModalVisible" @close="closeModal">
         <template #header>
             <ModalHeader @close-modal="closeModal">
                 Регистрируйся и получи доступ к витрине кейсов
             </ModalHeader>
         </template>
-        <template
-            v-if="!isLogin"
-            #form
-        >
-            <form
-                class="form__wrapper"
-                @submit.prevent="registerUser"
-            >
+        <template v-if="!isLogin" #form>
+            <form class="form__wrapper" @submit.prevent="login">
                 <div class="form__group">
-                    <label
-                        for="email"
-                        class="form__label"
-                    >E-mail</label>
+                    <label for="email" class="form__label">E-mail</label>
                     <input
-                        id="email"
                         v-model="inputData.email"
-                        class="form__input"
-                        placeholder="marina_ivanova@mail.ru"
-                    >
-                </div>
-                <div class="form__group">
-                    <label
-                        for="password"
-                        class="form__label"
-                    >Придумайте пароль</label>
-                    <input
-                        id="password"
-                        v-model="inputData.password"
+                        type="text"
                         class="form__input"
                         placeholder="пароль"
-                    >
+                    />
+                    <img class="input-icon" src="/public/icons/auth/inputs/input-mail.svg" alt="" />
                 </div>
                 <div class="form__group">
-                    <label
-                        for="repeat-pass"
-                        class="form__label"
-                    >Повторите пароль</label>
-                    <input
-                        id="repeat-pass"
-                        v-model="inputData.repeatPassword"
-                        class="form__input"
-                        placeholder="повторите пароль"
-                    >
-                </div>
-                <div class="form__links">
-                    <p class="form__text">
-                        Нажимая кнопку, я соглашаюсь с
-                        <span>Политикой обработки персональных данных.</span>
-                    </p>
-                    <BtnComponent
-                        class="form__btn"
-                        @click="registerUser"
-                    >
-                        Зарегистрироваться
-                    </BtnComponent>
-                </div>
-                <div class="form__footer">
-                    <p class="form__footer-text">
-                        Уже есть аккаунт?
-                    </p>
-                    <div class="btn-wrapper">
-                        <button
-                            class="form__footer-link"
-                            @click.prevent="switchToLogin"
-                        >
-                            Войти
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </template>
-        <template
-            v-else
-            #form
-        >
-            <form
-                class="form__wrapper"
-                @submit.prevent="login"
-            >
-                <div class="form__group">
-                    <label
-                        for="email"
-                        class="form__label"
-                    >E-mail</label>
-                    <input
-                        id="email"
-                        v-model="inputData.email"
-                        placeholder="marina_ivanova@mail.ru"
-                        class="form__input"
-                    >
-                </div>
-                <div class="form__group">
-                    <label
-                        for="password"
-                        class="form__label"
-                    >Пароль</label>
+                    <label for="password" class="form__label">Пароль</label>
                     <input
                         id="password"
                         v-model="inputData.password"
                         placeholder="Введите пароль"
                         class="form__input"
-                    >
+                        :type="passwordVisible.password ? 'password' : 'text'"
+                    />
+                    <img
+                        v-if="passwordVisible.password"
+                        class="input-icon"
+                        src="/public/icons/auth/inputs/password-invisible.svg"
+                        alt=""
+                        @click="changeVisiblePassword('password')"
+                    />
+                    <img
+                        v-else
+                        class="input-icon"
+                        src="/public/icons/auth/inputs/input-mail.svg"
+                        alt=""
+                        @click="changeVisiblePassword('password')"
+                    />
                 </div>
                 <div class="form__login flex justify-between items-center">
                     <div class="flex gap-2">
@@ -118,52 +48,120 @@
                             src="/public/icons/auth/checkboxes/checkbox-empty.svg"
                             alt=""
                             @click="toggleCheckbox"
-                        >
+                        />
                         <div
                             v-else
                             class="checkbox-filled flex justify-center items-center bg-[#fff7ac]"
                             @click="toggleCheckbox"
                         >
-                            <img
-                                src="/public/icons/auth/checkboxes/checkbox-filled.svg"
-                                alt=""
-                            >
+                            <img src="/public/icons/auth/checkboxes/checkbox-filled.svg" alt="" />
                         </div>
 
-                        <span
-                            class="checkbox-label"
-                            @click="toggleCheckbox"
-                        >Запомнить меня</span>
+                        <span class="checkbox-label" @click="toggleCheckbox">Запомнить меня</span>
                     </div>
-                    <BtnComponent @click="login">
-                        Войти
-                    </BtnComponent>
+                    <BtnComponent @click="login"> Войти </BtnComponent>
                 </div>
-                <div class="form__footer">
+                <div class="form__footer form__footer--login">
                     <div class="btn-wrapper">
                         <button
-                            class="form__footer-link"
+                            class="form__footer-link form__footer-link--black"
                             @click="showForgotPassword"
                         >
                             Забыли пароль?
                         </button>
                     </div>
                     <div class="btn-wrapper">
-                        <button
-                            class="form__footer-link"
-                            @click.prevent="switchToRegister"
-                        >
+                        <button class="form__footer-link" @click.prevent="switchToRegister">
                             Зарегистрироваться
                         </button>
                     </div>
                 </div>
             </form>
         </template>
+        <template v-else #form>
+            <form class="form__wrapper" @submit.prevent="registerUser">
+                <div class="form__group">
+                    <label for="email" class="form__label">E-mail</label>
+                    <input
+                        id="email"
+                        v-model="inputData.email"
+                        class="form__input"
+                        placeholder="marina_ivanova@mail.ru"
+                    />
+                </div>
+                <div class="form__group">
+                    <label for="password" class="form__label">Придумайте пароль</label>
+                    <input
+                        id="password"
+                        ref="passwordInput"
+                        v-model="inputData.password"
+                        :type="passwordVisible.password ? 'password' : 'text'"
+                        class="form__input"
+                        placeholder="пароль"
+                    />
+                    <img
+                        v-if="passwordVisible.password"
+                        class="input-icon"
+                        src="/public/icons/auth/inputs/password-invisible.svg"
+                        alt=""
+                        @click="changeVisiblePassword('password')"
+                    />
+                    <img
+                        v-else
+                        class="input-icon"
+                        src="/public/icons/auth/inputs/input-mail.svg"
+                        alt=""
+                        @click="changeVisiblePassword('password')"
+                    />
+                </div>
+                <div class="form__group">
+                    <label for="repeat-pass" class="form__label">Повторите пароль</label>
+                    <input
+                        id="repeat-pass"
+                        ref="repeatPasswordInput"
+                        v-model="inputData.repeatPassword"
+                        :type="passwordVisible.repeatPassword ? 'password' : 'text'"
+                        class="form__input"
+                        placeholder="повторите пароль"
+                    />
+                    <img
+                        v-if="passwordVisible.repeatPassword"
+                        class="input-icon"
+                        src="/public/icons/auth/inputs/password-invisible.svg"
+                        alt=""
+                        @click="changeVisiblePassword('repeatPassword')"
+                    />
+                    <img
+                        v-else
+                        class="input-icon"
+                        src="/public/icons/auth/inputs/input-mail.svg"
+                        alt=""
+                        @click="changeVisiblePassword('repeatPassword')"
+                    />
+                </div>
+
+                <div class="form__links">
+                    <p class="form__text">
+                        Нажимая кнопку, я соглашаюсь с
+                        <span>Политикой обработки персональных данных.</span>
+                    </p>
+                    <BtnComponent class="form__btn" @click="registerUser">
+                        Зарегистрироваться
+                    </BtnComponent>
+                </div>
+                <div class="form__footer">
+                    <p class="form__footer-text">Уже есть аккаунт?</p>
+                    <div class="btn-wrapper">
+                        <button class="form__footer-link" @click.prevent="switchToLogin">
+                            Войти
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </template>
     </ModalComponent>
-    <ModalComponent
-        :visible="forgotPassword"
-        @close="closeModal"
-    >
+
+    <ModalComponent :visible="forgotPassword" @close="closeModal">
         <template #header>
             <ModalHeader @close-modal="closeModal">
                 Восстановление пароля
@@ -173,21 +171,16 @@
                     </p>
                 </template>
             </ModalHeader>
-            <form
-                class="form__wrapper"
-                @submit.prevent="registerUser"
-            >
+            <form class="form__wrapper" @submit.prevent="registerUser">
                 <div class="form__group">
                     <input
                         id="email"
                         v-model="inputData.email"
                         placeholder="marina_ivanova@mail.ru"
                         class="form__input"
-                    >
+                    />
                 </div>
-                <BtnComponent class="mx-auto">
-                    Войти
-                </BtnComponent>
+                <BtnComponent class="mx-auto"> Войти </BtnComponent>
             </form>
         </template>
     </ModalComponent>
@@ -211,9 +204,8 @@ const emit = defineEmits(['close'])
 const router = useRouter()
 const userStore = useUserStore()
 
-const forgotPassword = ref(false)
-
 // переменные для авторизации, регистрации, пароля
+const forgotPassword = ref(false)
 const isLogin = ref(false)
 const inputData = reactive({
     email: '',
@@ -221,41 +213,51 @@ const inputData = reactive({
     repeatPassword: ''
 })
 
+// Работа с видимостью пароля
+const passwordVisible = reactive({
+    password: false,
+    repeatPassword: false
+})
+
+function changeVisiblePassword(field) {
+    passwordVisible[field] = !passwordVisible[field]
+}
+
 const user = computed(() => userStore.getUser)
 const isCheckboxActive = ref(false)
 
-function closeModal () {
+function closeModal() {
     forgotPassword.value = false
     emit('close')
 }
 
-function toggleCheckbox () {
+function toggleCheckbox() {
     isCheckboxActive.value = !isCheckboxActive.value
 }
 
 // логика переключения модальных окон
-function switchToLogin () {
-    isLogin.value = true
-}
-
-function switchToRegister () {
+function switchToLogin() {
     isLogin.value = false
 }
 
-function showForgotPassword () {
+function switchToRegister() {
+    isLogin.value = true
+}
+
+function showForgotPassword() {
     isLogin.value = false
     forgotPassword.value = true
     emit('close')
 }
 
-function handleEscapeKey (event) {
+function handleEscapeKey(event) {
     if (event.key === 'Escape') {
         closeModal()
     }
 }
 
 // логика регистрации и авторизации пользователя
-async function registerUser () {
+async function registerUser() {
     try {
         const status = await new Promise((resolve) => {
             userStore.registerUser({ ...inputData }, resolve)
@@ -270,7 +272,7 @@ async function registerUser () {
     }
 }
 
-function login () {
+function login() {
     userStore.login({ email: inputData.email, password: inputData.password })
     if (user.value) {
         router.push('/')
@@ -300,6 +302,7 @@ onUnmounted(() => {
 .form__group {
     display: grid;
     gap: 8px;
+    position: relative;
 }
 .form__label {
     font-weight: 500;
@@ -315,6 +318,13 @@ onUnmounted(() => {
     background: #fff;
     color: $gray;
 }
+.input-icon {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translate(0, 20%);
+}
+
 .form__links {
     display: flex;
     flex-direction: column;
@@ -327,7 +337,7 @@ onUnmounted(() => {
     font-size: 16px;
     line-height: 150%;
     color: $black;
-
+    text-align: center;
     & span {
         font-weight: 400;
         font-size: 16px;
@@ -336,12 +346,18 @@ onUnmounted(() => {
         text-decoration-skip-ink: none;
         text-align: center;
         color: $black;
+        display: block;
     }
 }
 .form__btn {
     margin: 0 auto;
 }
 .form__footer {
+    &--login {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
 }
 .form__footer-text {
     font-weight: 400;
@@ -357,6 +373,11 @@ onUnmounted(() => {
     text-align: center;
     color: $white;
     border-bottom: 1px solid #fff;
+
+    &--black {
+        color: $black;
+        border-bottom: 1px solid $black;
+    }
 }
 .btn-wrapper {
     display: flex;

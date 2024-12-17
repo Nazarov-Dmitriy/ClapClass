@@ -111,13 +111,25 @@
                         Присоединяйтесь к проекту и создайте свою витрину кейсов
                     </p>
                     <div class="slider__info-btn-wrapper">
-                        <BtnComponentWhite class="slider__info-btn">
+                        <BtnComponentWhite
+                            class="slider__info-btn"
+                            emit-name="action"
+                            @action="toggleVisible"
+                        >
                             Регистрация
                         </BtnComponentWhite>
                     </div>
                 </div>
             </div>
         </div>
+        <Teleport to="body">
+            <RegisterComponent
+                :isModalVisible="isModalVisible"
+                @close="isModalVisible = false"
+                @register="handleRegister"
+                @login="handleLogin"
+            />
+        </Teleport>
     </section>
 </template>
 
@@ -130,6 +142,13 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import BtnComponent from '../btns/BtnComponent.vue'
 import BtnComponentWhite from '../btns/BtnComponentWhite.vue'
+import RegisterComponent from '../modal/auth/RegisterComponent.vue'
+
+const isModalVisible = ref(false)
+
+function toggleVisible() {
+    isModalVisible.value = !isModalVisible.value
+}
 
 const slidesData = ref([
     {

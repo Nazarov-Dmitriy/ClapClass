@@ -96,13 +96,14 @@
     }
 }
 .acquaint__title--white {
-    border: 4px solid #e05704;
+    font-family: 'CenturyGothic';
+    border: 4px solid $orange;
     padding: 16px 24px;
     box-sizing: border-box;
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: rgba(255, 255, 255, 0.8);
     transform: rotate(-6deg);
-    color: #e05704;
+    color: $orange;
     max-width: 461px;
     width: 100%;
 
@@ -114,13 +115,14 @@
     }
 }
 .acquaint__title--orange {
-    border: 4px solid #fff;
+    font-family: 'CenturyGothic';
+    border: 4px solid $white;
     padding: 16px 24px;
     box-sizing: border-box;
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
-    background: #e05704;
+    background: $orange;
     transform: rotate(-2deg) translate(30px, 0);
-    color: #fff;
+    color: $white;
     max-width: 412px;
     width: 100%;
 
@@ -134,7 +136,7 @@
     }
 }
 .acquaint__text {
-    font-family: var(--second-family);
+    font-family: 'CenturyGothic';
     font-weight: 700;
     font-size: 24px;
     line-height: 150%;

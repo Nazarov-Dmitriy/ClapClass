@@ -11,12 +11,10 @@ import BtnComponent from '../btns/BtnComponent.vue'
                         src="/public/images/about/support/hero.png"
                         alt="hero"
                         class="support__hero-img"
-                    >
+                    />
                 </div>
                 <div class="support__info">
-                    <p class="support__text">
-                        Миссия Клеппи
-                    </p>
+                    <p class="support__text">Миссия Клеппи</p>
                     <h2 class="support__title">
                         Сделать атмосферу занятий здоровой, позитивной и эффективной
                     </h2>
@@ -27,16 +25,13 @@ import BtnComponent from '../btns/BtnComponent.vue'
                     src="/public/images/about/support/coin.png"
                     alt="coin img"
                     class="support__offer-img support__offer-img--coin"
-                >
+                />
                 <img
                     src="/public/images/about/support/offer-hero.png"
                     alt="offer hero img"
                     class="support__offer-img support__offer-img--hero"
-                >
-                <BtnComponent
-                    emit-name="action"
-                    @action="$router.push('/')"
-                >
+                />
+                <BtnComponent emit-name="action" @action="$router.push('/')">
                     Поддержать проект
                 </BtnComponent>
             </div>
@@ -74,9 +69,20 @@ import BtnComponent from '../btns/BtnComponent.vue'
     display: grid;
     grid-template-columns: 280px 1fr;
     align-items: center;
-    background: #fff7ac;
+    background: $yellowy;
     padding: 0 64px;
     height: 251px;
+    position: relative;
+
+    &::after {
+        content: '';
+        background-color: $yellowy;
+        position: absolute;
+        width: 500%;
+        height: 100%;
+        z-index: -1;
+        left: -200%;
+    }
 
     @media (max-width: $lg) {
         display: flex;

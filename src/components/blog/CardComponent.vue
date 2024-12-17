@@ -151,6 +151,7 @@ const props = defineProps({
     align-items: center;
     gap: 24px;
     width: 100%;
+    margin: 0 16px;
 
     @media (max-width: $md) {
         gap: 16px;

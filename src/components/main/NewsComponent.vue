@@ -9,10 +9,11 @@
             <div class="news__wrapper">
                 <div class="news__info">
                     <h2 class="news__info-title">Новости проекта</h2>
-                    <BtnComponent 
-                        class="news__info-btn" 
-                        emit-name="goToBlog" 
-                        @goToBlog="goToBlog">
+                    <BtnComponent
+                        class="news__info-btn"
+                        emit-name="goToBlog"
+                        @go-to-blog="goToBlog"
+                    >
                         Перейти в блог
                     </BtnComponent>
                 </div>
@@ -25,9 +26,7 @@
                     >
                         <div class="news__card-info">
                             <div class="news__card-info-hash">
-                                <span 
-                                    v-for="tag in news.tags" 
-                                    :key="tag">{{ tag }}</span>
+                                <span v-for="tag in news.tags" :key="tag">{{ tag }}</span>
                             </div>
                             <p class="news__card-text">
                                 {{ news.title }}
@@ -42,14 +41,15 @@
                             <img
                                 src="../../assets/images/main/news/news-hero.png"
                                 alt="Subscribe"
-                                class="news__card-img"></img>
+                                class="news__card-img"
+                            />
                             <div class="news__card-img-text-wrapper">
                                 <p class="news__card-img-text">Подписывайся на наши новости!</p>
                                 <img
                                     class="news-text-bg"
                                     src="../../assets/images/main/news/news-text-bg.png"
                                     alt="Text Background"
-                                ></img>
+                                />
                             </div>
                         </div>
                         <div class="news__card-info news__card-info--subscribe">
@@ -64,19 +64,16 @@
                                     class="news__card-form-input"
                                     :class="{ 'is-invalid': showDangerBlock }"
                                     type="text"
-                                    placeholder="Введите ваш email"/>
+                                    placeholder="Введите ваш email"
+                                />
                                 <div v-if="showDangerBlock" class="input-error">
-                                    <img
-                                        src="../../assets/images/form/form-error-svg.svg"
-                                        alt=""/>
+                                    <img src="../../assets/images/form/form-error-svg.svg" alt="" />
                                     <span>Поле заполненно некорректно</span>
                                 </div>
                                 <div>
                                     <div class="news__card-info-wrapper">
                                         <div class="news__card-btn-wrapper">
-                                            <BtnComponent
-                                             class="news__card-form-btn"
-                                             >
+                                            <BtnComponent class="news__card-form-btn">
                                                 Подписаться
                                             </BtnComponent>
                                         </div>
@@ -153,10 +150,9 @@ function validateEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return re.test(email)
 }
-
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .news {
     padding: 100px 0 0 0;
     overflow: hidden;
@@ -274,6 +270,18 @@ function validateEmail(email) {
 .news__card-info-hash {
     display: flex;
     gap: 16px;
+
+    span {
+        border: 1px solid $gray;
+        border-radius: 8px;
+        padding: 4px 8px;
+        background: $yellowy;
+
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 150%;
+        color: $gray;
+    }
 }
 
 .news__card-text {
@@ -382,9 +390,8 @@ function validateEmail(email) {
     color: $white;
     text-align: center;
 
-    &:hover{
-    background-color: $red !important;
-
+    &:hover {
+        background-color: $red !important;
     }
     @media (max-width: $sm) {
         width: 100%;
@@ -462,6 +469,7 @@ function validateEmail(email) {
     width: 204px;
     top: -240px;
     left: -257px;
+    z-index: 1;
 
     @media (max-width: $lg) {
         left: 50%;
@@ -478,6 +486,7 @@ function validateEmail(email) {
     position: absolute;
     top: 50px;
     right: -20px;
+    z-index: -1;
 
     @media (max-width: $sm) {
         display: none;
