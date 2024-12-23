@@ -167,7 +167,7 @@ onBeforeUnmount(() => {
         0 2px 4px 0 rgba(21, 15, 13, 0.1),
         0 8px 8px 0 rgba(21, 15, 13, 0.09);
     background: rgba(255, 255, 255, 0.8);
-    position: fixed;
+    position: sticky;
     width: 100%;
     background-color: $white;
 

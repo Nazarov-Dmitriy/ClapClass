@@ -1,16 +1,18 @@
 <template>
     <div class="important">
         <div class="important__wrapper">
-            <div class="important__info">
-                <h2 class="important__title">{{ information.title }}</h2>
-                <div class="important__text-wrapper">
-                    <p
-                        v-for="(text, index) in information.text"
-                        :key="index"
-                        class="important__text"
-                    >
-                        {{ text }}
-                    </p>
+            <div class="important__subwrapper">
+                <div class="important__info">
+                    <h2 class="important__title">{{ information.title }}</h2>
+                    <div class="important__text-wrapper">
+                        <p
+                            v-for="(text, index) in information.text"
+                            :key="index"
+                            class="important__text"
+                        >
+                            {{ text }}
+                        </p>
+                    </div>
                 </div>
             </div>
             <img :src="information.img" alt="" class="important__img" />
@@ -29,9 +31,12 @@ defineProps({
 
 <style lang="scss" scoped>
 .important {
-    padding: 80px 64px;
+    padding: 80px 240px;
     box-sizing: border-box;
 
+    @media (max-width: $xxl) {
+        padding: 80px 64px;
+    }
     @media (max-width: $lg) {
         padding: 64px 16px;
     }

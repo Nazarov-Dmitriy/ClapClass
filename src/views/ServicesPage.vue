@@ -12,9 +12,9 @@ import MainLayout from '../layouts/MainLayout.vue'
 </template>
 
 <style lang="scss" scoped>
-.page {
-    max-width: 1440px;
-    margin: 0 auto;
-    margin-top: 90px;
-}
+// .page {
+//     max-width: 1440px;
+//     margin: 0 auto;
+//     margin-top: 90px;
+// }
 </style>

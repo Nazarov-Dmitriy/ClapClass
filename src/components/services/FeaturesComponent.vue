@@ -39,8 +39,6 @@ const props = defineProps({
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
-    max-width: 1440px;
-    margin: 0 auto;
 
     @media (max-width: $lg) {
         padding: 24px 24px 48px 24px;
@@ -62,6 +60,8 @@ const props = defineProps({
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
+    max-width: 1440px;
+    margin: 0 auto;
 
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -73,6 +73,10 @@ const props = defineProps({
     @media (max-width: $lg) {
         display: flex;
         flex-wrap: nowrap;
+    }
+    @media (max-width: $sm) {
+        max-width: auto;
+        margin: auto;
     }
 }
 

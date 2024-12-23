@@ -252,6 +252,9 @@ onMounted(() => {
 .services__wrapper {
     position: relative;
 }
+.services__components-wrapper{
+    overflow: hidden;
+}
 .services__tabs {
     display: grid;
     justify-content: center;

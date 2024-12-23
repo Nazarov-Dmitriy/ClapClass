@@ -131,7 +131,7 @@ function updateActiveIndex(swiper) {
     padding: 0;
 }
 .warm-up {
-    margin-top: -10%;
+    margin-top: -5%;
     padding: 196px 64px 48px 64px;
     box-sizing: border-box;
     background-image: url('/images/servecies/warm-up/bg-img.png');
@@ -151,6 +151,8 @@ function updateActiveIndex(swiper) {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
     align-items: center;
+    max-width: 1440px;
+    margin: 0 auto;
 
     @media (max-width: $lg) {
         grid-template-columns: 1fr;

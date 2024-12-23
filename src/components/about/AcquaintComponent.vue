@@ -40,7 +40,6 @@
     background-position: 0 0;
     background-size: cover;
     background-repeat: no-repeat;
-    margin-top: 90px;
 
     @media (max-width: $lg) {
         padding: 24px 16px;

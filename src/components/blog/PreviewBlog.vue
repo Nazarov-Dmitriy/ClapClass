@@ -2,31 +2,26 @@
     <section class="bp-section">
         <div class="bp__container">
             <div class="bp__slogan">
-                <h2 class="bp__title">
-                    Новости
-                </h2>
-                <h2 class="bp__subtitle">
-                    из мира Клеппи
-                </h2>
+                <h2 class="bp__title">Новости</h2>
+                <h2 class="bp__subtitle">из мира Клеппи</h2>
             </div>
             <img
                 class="bp__hero"
-                :class="{ 'animation': animation }"
+                :class="{ animation: animation }"
                 src="@/assets/images/blog/hero.svg"
                 alt="hero"
-            >
+            />
         </div>
     </section>
 </template>
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue'
 
 const animation = ref(false)
 
 onMounted(() => {
     animation.value = true
 })
-
 </script>
 <style lang="scss">
 .bp-section {
@@ -36,31 +31,30 @@ onMounted(() => {
     overflow: hidden;
     height: 390px;
     position: relative;
-    margin-top: 95px;
 
-    @media(max-width: $xxx) {
+    @media (max-width: $xxx) {
         background-size: cover;
         background-repeat: no-repeat;
     }
 
-    @media(max-width: $xxl) {
+    @media (max-width: $xxl) {
         background-image: url('@/assets/images/blog/bg-xxl.png');
     }
 
-    @media(max-width: $xl) {
+    @media (max-width: $xl) {
         height: 259px;
     }
 
-    @media(max-width: $lg) {
+    @media (max-width: $lg) {
         background-image: url('@/assets/images/blog/bg-lg.png');
     }
 
-    @media(max-width: $md) {
+    @media (max-width: $md) {
         background-image: url('@/assets/images/blog/bg-md.png');
         height: 235px;
     }
 
-    @media(max-width: $sm) {
+    @media (max-width: $sm) {
         background-image: url('@/assets/images/blog/bg-sm.png');
         height: 226px;
     }
@@ -80,30 +74,30 @@ onMounted(() => {
     padding-top: 118px;
     margin-left: calc(clamp(8.313rem, 50vw - 36.688rem, 23.313rem));
 
-    @media(max-width: $xxl) {
+    @media (max-width: $xxl) {
         margin-left: 6.2%;
     }
 
-    @media(max-width: $xl) {
+    @media (max-width: $xl) {
         margin-left: 5%;
     }
 
-    @media(max-width: $xl) {
+    @media (max-width: $xl) {
         padding-top: 52px;
     }
 
-    @media(max-width: $lg) {
+    @media (max-width: $lg) {
         margin-left: 6%;
         width: 399px;
     }
 
-    @media(max-width: $md) {
+    @media (max-width: $md) {
         margin-left: 16px;
         padding-top: 48px;
     }
 
-    @media(max-width: $sm) {
-                padding-top: 69px;
+    @media (max-width: $sm) {
+        padding-top: 69px;
     }
 }
 
@@ -121,12 +115,12 @@ onMounted(() => {
     box-sizing: border-box;
     transform: rotate(-6deg);
 
-    @media(max-width: $lg) {
+    @media (max-width: $lg) {
         font-size: 40px;
         width: fit-content;
     }
 
-    @media(max-width: $sm) {
+    @media (max-width: $sm) {
         font-size: 26px;
         line-height: 39px;
     }
@@ -149,13 +143,13 @@ onMounted(() => {
     left: 32px;
     top: -8px;
 
-    @media(max-width: $lg) {
+    @media (max-width: $lg) {
         font-size: 40px;
         width: fit-content;
         top: -14px;
     }
 
-    @media(max-width: $sm) {
+    @media (max-width: $sm) {
         font-size: 26px;
         line-height: 39px;
     }
@@ -173,21 +167,21 @@ onMounted(() => {
         top: 48px;
     }
 
-    @media(max-width: $xxl) {
+    @media (max-width: $xxl) {
         right: 6.2%;
     }
 
-    @media(max-width: $xl) {
+    @media (max-width: $xl) {
         right: 5%;
         width: 288px;
         height: 211px;
     }
 
-    @media(max-width: $lg) {
+    @media (max-width: $lg) {
         right: 6%;
     }
 
-    @media(max-width: $md) {
+    @media (max-width: $md) {
         display: none;
     }
 }

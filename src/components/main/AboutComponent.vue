@@ -39,7 +39,6 @@ import BtnComponent from '../btns/BtnComponent.vue'
     height: 687px;
     box-sizing: border-box;
     position: relative;
-    margin-top: 80px;
 
     @media (max-width: $lg) {
         padding: 48px 16px 0px 16px;

@@ -67,7 +67,7 @@ watch(
 <style scoped lang="scss">
 .page {
     min-height: 100vh;
-    overflow: hidden;
+    // overflow: hidden;
     margin: 0 auto;
 }
 
