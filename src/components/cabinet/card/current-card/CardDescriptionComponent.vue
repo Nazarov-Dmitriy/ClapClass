@@ -1,7 +1,7 @@
 <template>
     <div class="card-page__left">
         <div class="card-page__left-img-wrapper">
-            <img src="/images/cabinet/card/card-img1.png" alt="" class="card-page__left-img" />
+            <img :src="cardInfo.img" alt="" class="card-page__left-img" />
         </div>
         <div class="card-page__left-info">
             <TitleComponent class="card-page__left-title">Описание</TitleComponent>

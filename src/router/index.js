@@ -9,6 +9,7 @@ import CabinetView from '../views/cabinet/ShowcaseView.vue'
 import MyCasesView from '../views/cabinet/MyCasesView.vue'
 import MyArticleView from '../views/cabinet/MyArticleView.vue'
 import CardPage from '../views/cabinet/CardPage.vue'
+import ProfileView from '../views/cabinet/ProfileView.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -75,7 +76,7 @@ const router = createRouter({
                 {
                     path: 'profile',
                     name: 'profile',
-                    component: MyCasesView
+                    component: ProfileView
                 }
             ]
         }

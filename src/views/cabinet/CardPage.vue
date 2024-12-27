@@ -29,7 +29,7 @@
 
 <script setup>
 import { useRoute } from 'vue-router'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, watch } from 'vue'
 import { useCardsStore } from '/src/stores/cabinetCardsStore'
 import CardDescriptionComponent from '/src/components/cabinet/card/current-card/CardDescriptionComponent.vue'
 import PanelComponent from '/src/components/cabinet/panel/PanelComponent.vue'
@@ -51,22 +51,14 @@ const cardInfo = computed(() => {
 
 const cardsInfo = computed(() => cardsStore.getCardInfo)
 const recommendedList = computed(() => {
-    // Логика для отображения рекомендованных карточек.
-    // Можно изменить на любую логику: например, показывать все карточки, кроме текущей
     return cardsStore.getCardInfo.filter((card) => card.title !== cardName.value)
 })
 
 watch(
     () => cardsInfo.value,
-    (newCardsInfo) => {
-        // Это сработает, если карточки изменятся, но нам нужно отслеживать изменения в маршруте
-    },
+    (newCardsInfo) => {},
     { immediate: true }
 )
-
-onMounted(() => {
-    // Загрузка начальных данных (не обязательно, если всё происходит автоматически)
-})
 </script>
 
 <style lang="scss" scoped>

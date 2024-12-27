@@ -62,6 +62,7 @@ function linkCard(name) {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    background-color: $white;
 }
 .cabinet-card__info-title {
     font-family: 'CenturyGothic';
