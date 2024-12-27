@@ -5,6 +5,10 @@ import ArticlePage from '../views/ArticlePage.vue'
 import CooperationPage from '../views/CooperationPage.vue'
 import ServicesPage from '../views/ServicesPage.vue'
 import AboutView from '../views/AboutView.vue'
+import CabinetView from '../views/cabinet/ShowcaseView.vue'
+import MyCasesView from '../views/cabinet/MyCasesView.vue'
+import MyArticleView from '../views/cabinet/MyArticleView.vue'
+import CardPage from '../views/cabinet/CardPage.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,9 +47,39 @@ const router = createRouter({
             path: '/about',
             name: 'about',
             component: AboutView
+        },
+        {
+            path: '/cabinet',
+            children: [
+                {
+                    path: 'showcase',
+                    name: 'showcase',
+                    component: CabinetView
+                },
+                {
+                    path: 'showcase/:name/',
+                    name: 'card-page',
+                    component: CardPage
+                },
+                {
+                    path: 'my-cases',
+                    name: 'my-cases',
+                    component: MyCasesView
+                },
+                {
+                    path: 'my-article',
+                    name: 'my-article',
+                    component: MyArticleView
+                },
+                {
+                    path: 'profile',
+                    name: 'profile',
+                    component: MyCasesView
+                }
+            ]
         }
     ],
-    scrollBehavior (to, from, savedPosition) {
+    scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
             return savedPosition
         } else {
