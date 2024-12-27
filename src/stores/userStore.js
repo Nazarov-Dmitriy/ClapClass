@@ -1,6 +1,4 @@
 import { defineStore } from 'pinia'
-import * as cookie from 'cookiejs'
-import axiosR from '../api/http'
 
 export const useUserStore = defineStore('userStore', {
     state: () => ({

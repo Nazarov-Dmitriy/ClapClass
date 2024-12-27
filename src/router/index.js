@@ -58,6 +58,7 @@ const router = createRouter({
                 },
                 {
                     path: 'showcase/:name/',
+                    props: true,
                     name: 'card-page',
                     component: CardPage
                 },

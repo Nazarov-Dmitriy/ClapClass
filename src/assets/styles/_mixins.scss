@@ -1,0 +1,16 @@
+@mixin flex-col-gap($gap) {
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+}
+
+@mixin adaptive-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+@mixin max-width {
+    max-width: 1920px;
+    margin: 0 auto;
+}

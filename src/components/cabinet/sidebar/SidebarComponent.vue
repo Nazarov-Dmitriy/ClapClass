@@ -80,7 +80,6 @@ const isActiveLink = (link) => route.path === link
 
 .sidebar {
     padding: 12px 8px;
-    height: 100%;
     box-sizing: border-box;
     max-width: 64px;
     background-color: #e6eaed;
