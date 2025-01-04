@@ -92,7 +92,7 @@ function validateForm() {
     validateField(formField.email, 'validate')
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .subscribe {
     width: 100%;
     position: relative;
