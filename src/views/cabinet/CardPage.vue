@@ -75,7 +75,8 @@ watch(
     padding: 24px 24px 0px 64px;
 
     @media (max-width: $xl) {
-        grid-template-columns: 70% 30%;
+        grid-template-columns: 1fr 1fr;
+        padding: 24px 24px 0px 24px;
     }
 }
 .recommend {

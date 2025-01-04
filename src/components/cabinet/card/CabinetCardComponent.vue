@@ -1,6 +1,13 @@
 <template>
     <div class="cabinet-card" @click="linkCard(cardInfo.title)">
-        <img :src="cardInfo.img" alt="" class="cabinet-card__img" />
+        <img
+            v-if="Array.isArray(cardInfo.img) && cardInfo.img.length > 1"
+            :src="cardInfo.img[0]"
+            alt=""
+            class="cabinet-card__img"
+        />
+        <img v-else :src="cardInfo.img" alt="" class="cabinet-card__img" />
+
         <div class="cabinet-card__info">
             <h2 class="cabinet-card__info-title">{{ cardInfo.title }}</h2>
             <p class="cabinet-card__info-text">{{ cardInfo.subtitle }}</p>

@@ -4,7 +4,7 @@ export const useCardsStore = defineStore('cardsStore', {
         cardInfo: [
             {
                 id: 1,
-                img: '/images/cabinet/card/card-img1.png',
+                img: ['/images/cabinet/card/card-img1.png', '/images/cabinet/card/card-img2.png', '/images/cabinet/card/card-img3.png'],
                 title: 'Школа зельеварения',
                 subtitle: 'Записывайте великие формулы магистра',
                 viewIcon: '/images/cabinet/card/views.png',

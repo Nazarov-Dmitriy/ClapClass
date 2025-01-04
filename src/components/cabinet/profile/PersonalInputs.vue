@@ -11,11 +11,8 @@
                             type="text"
                             placeholder="Введите ФИО"
                             class="lk__main-personal-input"
-                        >
-                        <p
-                            v-if="errors.fcs"
-                            class="error"
-                        >
+                        />
+                        <p v-if="errors.fcs" class="error">
                             {{ errors.fcs }}
                         </p>
                     </div>
@@ -29,11 +26,8 @@
                             placeholder="+7 (___) ___-__-__"
                             class="lk__main-personal-input"
                             @input="onPhoneInput"
-                        >
-                        <p
-                            v-if="errors.phone"
-                            class="error"
-                        >
+                        />
+                        <p v-if="errors.phone" class="error">
                             {{ errors.phone }}
                         </p>
                     </div>
@@ -46,11 +40,8 @@
                             type="text"
                             placeholder="maria@mail.ru"
                             class="lk__main-personal-input"
-                        >
-                        <p
-                            v-if="errors.email"
-                            class="error"
-                        >
+                        />
+                        <p v-if="errors.email" class="error">
                             {{ errors.email }}
                         </p>
                     </div>
@@ -65,11 +56,8 @@
                             type="text"
                             placeholder="Выберите город"
                             class="lk__main-personal-input"
-                        >
-                        <p
-                            v-if="errors.city"
-                            class="error"
-                        >
+                        />
+                        <p v-if="errors.city" class="error">
                             {{ errors.city }}
                         </p>
                     </div>
@@ -82,11 +70,8 @@
                             type="text"
                             placeholder="Введите место работы"
                             class="lk__main-personal-input"
-                        >
-                        <p
-                            v-if="errors.workPlace"
-                            class="error"
-                        >
+                        />
+                        <p v-if="errors.workPlace" class="error">
                             {{ errors.workPlace }}
                         </p>
                     </div>
@@ -99,11 +84,8 @@
                             type="text"
                             placeholder="Введите вашу должность"
                             class="lk__main-personal-input"
-                        >
-                        <p
-                            v-if="errors.post"
-                            class="error"
-                        >
+                        />
+                        <p v-if="errors.post" class="error">
                             {{ errors.post }}
                         </p>
                     </div>
@@ -137,7 +119,7 @@ const isFormValid = computed(() => {
     return Object.values(errors).every((error) => error === '')
 })
 
-function validateForm () {
+function validateForm() {
     validateField('fcs')
     validateField('phone')
     validateField('email')
@@ -150,7 +132,7 @@ function validateForm () {
     }
 }
 
-function validateField (field) {
+function validateField(field) {
     const value = form[field]
 
     switch (field) {
@@ -179,13 +161,16 @@ function validateField (field) {
     }
 }
 
-function onPhoneInput (event) {
+function onPhoneInput(event) {
     const target = event.target
     let value = target.value.replace(/\D/g, '')
-    if (value.length > 10) value = value.slice(0, 10) // ограничиваем длину
+    if (value.length > 10) value = value.slice(0, 10) 
     const formattedPhone = value.replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, '+7($2) $3-$4-$5')
     form.phone = formattedPhone
 }
+defineExpose({
+    validateForm
+})
 </script>
 
 <style lang="scss" scoped>

@@ -1,20 +1,62 @@
-<script setup lang="ts">
-import BtnComponentOrange from '/src/components/btns/BtnComponentOrange.vue'
-</script>
-
 <template>
     <div class="card-page__right">
         <div class="card-page__right-options">
             <div class="card-page__right-btns">
-                <img
-                    class="card-page__right-btn card-page__right-btn--orange"
-                    src="/public/images/cabinet/card-page/button.png"
-                    alt=""
-                />
-
-                <BtnComponentOrange class="card-page__right-btn card-page__right-btn--white"
-                    ><img src="" alt="" /> <span>Добавить в мои кейсы</span></BtnComponentOrange
+                <div
+                    class="card-page__right-btns-img"
+                    @mouseenter="isHovered = true"
+                    @mouseleave="isHovered = false"
                 >
+                    <img
+                        v-if="isHovered"
+                        class="card-page__right-btn card-page__right-btn--orange"
+                        src="/public/images/cabinet/card-page/button-hovered.png"
+                        alt=""
+                    />
+                    <img
+                        v-else
+                        class="card-page__right-btn card-page__right-btn--orange"
+                        src="/public/images/cabinet/card-page/button.png"
+                        alt=""
+                    />
+                </div>
+
+                <BtnComponentOrange class="card-page__right-btn card-page__right-btn--white">
+                    <div class="card-page__right-btn-wrapper">
+                        <svg
+                            width="23"
+                            height="23"
+                            viewBox="0 0 23 23"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M11.5 21.0117C17.0475 21.0117 21.5 16.6039 21.5 11.0564C21.5 5.50886 17.0475 1.01172 11.5 1.01172C5.9525 1.01172 1.5 5.50886 1.5 11.0564C1.5 16.6039 5.9525 21.0117 11.5 21.0117Z"
+                                stroke="#DE4700"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                d="M6.5 11.0117H16.5"
+                                stroke="#DE4700"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                d="M11.5 16.0822V6.01172"
+                                stroke="#DE4700"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                        <span>Добавить в мои кейсы</span>
+                    </div>
+                </BtnComponentOrange>
             </div>
             <div class="card-page__right-info">
                 <div class="card-page__right-rules">
@@ -54,7 +96,11 @@ import BtnComponentOrange from '/src/components/btns/BtnComponentOrange.vue'
         <slot />
     </div>
 </template>
-
+<script setup>
+import { ref } from 'vue'
+import BtnComponentOrange from '/src/components/btns/BtnComponentOrange.vue'
+const isHovered = ref(false)
+</script>
 <style lang="scss" scoped>
 .card-page__right-options {
     border-bottom: 1px solid $gray;
@@ -66,15 +112,27 @@ import BtnComponentOrange from '/src/components/btns/BtnComponentOrange.vue'
     align-items: center;
 }
 .card-page__right-btn {
-    &--orange {
-    }
+    cursor: pointer;
+
     &--white {
         text-align: center;
         max-width: 284px;
         font-weight: 500;
         font-size: 20px;
         line-height: 150%;
-        color: #e05704;
+        color: $orange;
+    }
+}
+.card-page__right-btn-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: max-content;
+
+    &:hover {
+        & svg {
+            fill: $white;
+        }
     }
 }
 .card-page__right-info {
