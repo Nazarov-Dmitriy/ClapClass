@@ -91,10 +91,10 @@ function removeImage () {
     overflow: hidden;
     cursor: pointer;
     transition: background 0.4s;
-    background-color: #f5f5f5;
+    background-color: $white;
 
     &.profile__photo-img-empty:hover {
-        background-color: #ffffff;
+        background-color: $white;
     }
 
     &.profile__photo-img-loaded {
@@ -118,14 +118,14 @@ function removeImage () {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: $white;
     border-radius: 50%;
     opacity: 0;
     transition: opacity 0.4s;
 }
 
 .profile__photo-img-wrapper:hover .profile__photo-hover {
-    opacity: 1;
+    opacity: 0.6;
 }
 
 .profile__photo-hover-text {

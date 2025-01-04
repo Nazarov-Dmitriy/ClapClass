@@ -50,6 +50,11 @@ function linkCard(name) {
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
+
+    &:hover {
+        border: 2px solid $orange;
+        box-shadow: 0 0 20px 0 $orange;
+    }
 }
 .cabinet-card__img {
     aspect-ratio: 1 / 1;
