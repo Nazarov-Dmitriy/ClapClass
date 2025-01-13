@@ -28,8 +28,8 @@
 <script setup>
 import { ref } from 'vue'
 
-const isPopupVisible = ref(false) // Управление видимостью попапа
-const hoveredTab = ref(null) // Текущий таб, над которым наведен курсор
+const isPopupVisible = ref(false)
+const hoveredTab = ref(null)
 const slidesData = ref([
     {
         tab: 'Все кейсы',
@@ -125,11 +125,11 @@ function hidePopup() {
     padding: 16px;
     box-sizing: border-box;
     position: absolute;
-    left: -10px;
+    right: 0;
     z-index: 2;
     background: #e6eaed;
     max-width: 340px;
-    width: 100%;
+    width: 320px;
 }
 .tab-popup__text {
     font-weight: 400;

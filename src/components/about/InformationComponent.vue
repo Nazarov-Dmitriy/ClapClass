@@ -62,7 +62,7 @@ import BtnComponent from '../btns/BtnComponent.vue'
     max-width: 1307px;
     margin: 0 auto;
 
-    @media(max-width: $sm){
+    @media (max-width: $sm) {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -97,8 +97,9 @@ import BtnComponent from '../btns/BtnComponent.vue'
     background-color: grey;
     object-fit: cover;
     aspect-ratio: 1 / 1;
-    height: calc(100% + 24px);
     border-radius: 24px;
+    height: calc(100% + 24px);
+    
     @media (max-width: $sm) {
         display: none;
     }
@@ -109,6 +110,7 @@ import BtnComponent from '../btns/BtnComponent.vue'
         }
     }
 }
+
 .info__info {
     display: flex;
     flex-direction: column;

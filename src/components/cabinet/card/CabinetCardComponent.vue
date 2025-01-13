@@ -1,30 +1,54 @@
 <template>
-    <div class="cabinet-card" @click="linkCard(cardInfo.title)">
+    <div
+        class="cabinet-card"
+        @click="linkCard(cardInfo.title)"
+    >
         <img
             v-if="Array.isArray(cardInfo.img) && cardInfo.img.length > 1"
             :src="cardInfo.img[0]"
             alt=""
             class="cabinet-card__img"
-        />
-        <img v-else :src="cardInfo.img" alt="" class="cabinet-card__img" />
+        >
+        <img
+            v-else
+            :src="cardInfo.img"
+            alt=""
+            class="cabinet-card__img"
+        >
 
         <div class="cabinet-card__info">
-            <h2 class="cabinet-card__info-title">{{ cardInfo.title }}</h2>
-            <p class="cabinet-card__info-text">{{ cardInfo.subtitle }}</p>
+            <h2 class="cabinet-card__info-title">
+                {{ cardInfo.title }}
+            </h2>
+            <p class="cabinet-card__info-text">
+                {{ cardInfo.subtitle }}
+            </p>
         </div>
         <div class="cabinet-card__footer">
             <div class="cabinet-card__footer-btns">
                 <div class="cabinet-card__footer-btn-views">
-                    <img :src="cardInfo.viewIcon" alt="" class="cabinet-card__footer-btn-img" />
+                    <img
+                        :src="cardInfo.viewIcon"
+                        alt=""
+                        class="cabinet-card__footer-btn-img"
+                    >
                     <span>{{ cardInfo.views }}</span>
                 </div>
                 <div class="cabinet-card__footer-btn-rating">
-                    <img :src="cardInfo.ratingIcon" alt="" class="cabinet-card__footer-btn-img" />
+                    <img
+                        :src="cardInfo.ratingIcon"
+                        alt=""
+                        class="cabinet-card__footer-btn-img"
+                    >
                     <span>{{ cardInfo.rating }}</span>
                 </div>
             </div>
             <div class="cabinet-card__footer-btn-time">
-                <img :src="cardInfo.timeIcon" alt="" class="cabinet-card__footer-btn-img" />
+                <img
+                    :src="cardInfo.timeIcon"
+                    alt=""
+                    class="cabinet-card__footer-btn-img"
+                >
                 <span>{{ cardInfo.time }}</span>
             </div>
         </div>
@@ -42,7 +66,7 @@ defineProps({
 })
 const router = useRouter()
 
-function linkCard(name) {
+function linkCard (name) {
     router.push(`/cabinet/showcase/${name}`)
 }
 </script>

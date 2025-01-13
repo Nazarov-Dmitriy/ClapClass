@@ -80,11 +80,48 @@
                 {{ cardInfo.description }}
             </p>
             <div class="card-page__btns">
-                <BtnComponentOrange>Оценить кейс</BtnComponentOrange>
-                <BtnComponentOrange>Задать вопрос</BtnComponentOrange>
-                <BtnComponentOrange>Оставить отзыв</BtnComponentOrange>
+                <BtnComponentOrange emit-name="action" @action="toggleRateModal"
+                    >Оценить кейс</BtnComponentOrange
+                >
+                <BtnComponentOrange emit-name="action" @action="toggleAskModal"
+                    >Задать вопрос</BtnComponentOrange
+                >
+                <BtnComponentOrange emit-name="action" @action="toggleFeedbackModal"
+                    >Оставить отзыв</BtnComponentOrange
+                >
             </div>
         </div>
+        <Teleport to="body">
+            <ModalComponent :visible="isAskModalVisible">
+                <template #header>
+                    <ModalHeader @closeModal="toggleAskModal">
+                        Задайте вопрос и команда клэппи свяжется с вами
+                    </ModalHeader>
+                </template>
+                <template #form>
+                    <div class="modal">
+                        <UiForm />
+                    </div>
+                </template>
+            </ModalComponent>
+            <ModalComponent :visible="isFeedbackModalVisible">
+                <template #header>
+                    <ModalHeader @closeModal="toggleFeedbackModal">
+                        Оставьте отзыв, это помогает улучшить разминку
+                    </ModalHeader>
+                </template>
+                <template #form>
+                    <div class="modal">
+                        <UiForm />
+                    </div>
+                </template>
+            </ModalComponent>
+            <ModalComponent :visible="isRateModalVisible">
+                <template #header>
+                    <RateModal @closeModal="toggleRateModal" />
+                </template>
+            </ModalComponent>
+        </Teleport>
     </div>
 </template>
 
@@ -96,7 +133,11 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+import ModalHeader from '/src/components/modal/ModalHeader.vue'
 import { onMounted, ref } from 'vue'
+import ModalComponent from '/src/components/modal/ModalComponent.vue'
+import UiForm from '/src/components/form/UiForm.vue'
+import RateModal from '/src/components/modal/cabinet/RateModal.vue'
 
 const props = defineProps({
     cardInfo: {
@@ -107,6 +148,9 @@ const props = defineProps({
 
 const activeIndex = ref(0)
 const swiperRef = ref(null)
+const isAskModalVisible = ref(false)
+const isFeedbackModalVisible = ref(false)
+const isRateModalVisible = ref(false)
 
 const navigationOptions = {
     nextEl: '.card-page__left-img-substrate-btn--right',
@@ -121,6 +165,16 @@ const paginationOptions = {
 
 function updateActiveIndex(swiper) {
     activeIndex.value = swiper.realIndex % props.cardInfo.img.length
+}
+
+function toggleAskModal() {
+    isAskModalVisible.value = !isAskModalVisible.value
+}
+function toggleFeedbackModal() {
+    isFeedbackModalVisible.value = !isFeedbackModalVisible.value
+}
+function toggleRateModal() {
+    isRateModalVisible.value = !isRateModalVisible.value
 }
 
 onMounted(() => {
@@ -138,6 +192,18 @@ onMounted(() => {
     width: 100%;
     @include flex-col-gap(24px);
 }
+.modal {
+    :deep(.form__form) {
+        background-color: $fonLight;
+    }
+    :deep(.form__label) {
+        color: $gray;
+    }
+    :deep(.form__error-wrapper) {
+        color: $gray;
+    }
+}
+
 .card-page__left-img-wrapper {
     position: relative;
     z-index: 1;

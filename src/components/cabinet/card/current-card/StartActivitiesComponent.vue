@@ -9,6 +9,7 @@
                 >
                     <img
                         v-if="isHovered"
+                        @click="toggleModal"
                         class="card-page__right-btn card-page__right-btn--orange"
                         src="/public/images/cabinet/card-page/button-hovered.png"
                         alt=""
@@ -94,12 +95,34 @@
             </div>
         </div>
         <slot />
+        <Teleport to="body">
+            <ModalComponent :visible="isModalVisible">
+                <template #header>
+                    <div>
+                        <ModalHeader @closeModal="toggleModal">
+                            Оставьте отзыв, это помогает улучшить разминку
+                        </ModalHeader>
+                    </div>
+                </template>
+                <template #form>
+                    <StartActivitiesModal />
+                </template>
+            </ModalComponent>
+        </Teleport>
     </div>
 </template>
 <script setup>
 import { ref } from 'vue'
 import BtnComponentOrange from '/src/components/btns/BtnComponentOrange.vue'
+import ModalComponent from '/src/components/modal/ModalComponent.vue'
+import ModalHeader from '/src/components/modal/ModalHeader.vue'
+import StartActivitiesModal from '/src/components/modal/cabinet/StartActivitiesModal.vue'
 const isHovered = ref(false)
+const isModalVisible = ref(false)
+
+function toggleModal() {
+    isModalVisible.value = !isModalVisible.value
+}
 </script>
 <style lang="scss" scoped>
 .card-page__right-options {
