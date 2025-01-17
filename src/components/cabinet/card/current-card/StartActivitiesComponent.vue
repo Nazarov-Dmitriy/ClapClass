@@ -67,12 +67,13 @@
                             Для проведения данного квеста вам понадобится изучить правила
                         </p>
                     </div>
-                    <div>
+                    <div class="flex flex-col gap-3">
                         <img
                             src="/public/icons/cabinet/card-page/rules-icon1.svg"
                             alt=""
                             class="card-page__right-rules-img"
                         />
+                        <span>Скачать</span>
                     </div>
                 </div>
                 <div class="card-page__right-rules">
@@ -82,11 +83,14 @@
                             Для проведения данного квеста вам понадобится распечатать материалы
                         </p>
                     </div>
-                    <img
-                        src="/public/icons/cabinet/card-page/rules-icon2.svg"
-                        alt=""
-                        class="card-page__right-rules-img"
-                    />
+                    <div class="flex flex-col gap-3">
+                        <img
+                            src="/public/icons/cabinet/card-page/rules-icon2.svg"
+                            alt=""
+                            class="card-page__right-rules-img"
+                        />
+                        <span>Скачать</span>
+                    </div>
                 </div>
                 <div class="card-page__right-rules-author">
                     <span>Автор</span>
