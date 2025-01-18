@@ -1,5 +1,4 @@
 import axios from 'axios'
-import cookie from 'cookiejs'
 
 const axiosR = axios.create({
     baseURL: import.meta.env.VITE_SERVER_URL,
@@ -13,14 +12,27 @@ const axiosR = axios.create({
 
 axiosR.interceptors.request.use(
     (config) => {
-        if (cookie.get('token')) {
-            config.headers['Authorization'] = `Bearer ${cookie.get('token')}`
-            config.headers['X-Requested-With'] = 'XMLHttpRequest'
+        if (localStorage.getItem('token')) {
+            config.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`
+            config.headers['X-Requested-With'] = `XMLHttpRequest`
         }
         return config
     },
     (error) => {
         return Promise.reject(error)
+    }
+)
+
+axiosR.interceptors.response.use(
+    (response) => {
+        return response
+    },
+    (error) => {
+        if (error.code === 'ERR_NETWORK' && window.location.pathname !== '/error') {
+            window.location.href = '/error'
+        }
+
+        return Promise.reject(error.response)
     }
 )
 
