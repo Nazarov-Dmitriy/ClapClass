@@ -94,8 +94,8 @@ import { computed, onMounted, ref, watch } from 'vue'
 import CabinetTabsComponent from '/src/components/cabinet/tabs/CabinetTabsComponent.vue'
 
 const cardsStore = useCardsStore()
-// const cardsInfo = computed(() => cardsStore.getCardInfo)
-const cardsInfo = []
+const cardsInfo = computed(() => cardsStore.getCardInfo)
+
 const renderList = ref([])
 
 function getRenderList(list) {
