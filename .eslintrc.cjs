@@ -5,8 +5,10 @@ module.exports = {
   root: true,
   'extends': [
     "eslint:recommended",
-    '@vue/eslint-config-prettier/skip-formatting',
+    // '@vue/eslint-config-prettier/skip-formatting',
     'plugin:vue/vue3-recommended',
+    "prettier"
+
     // "plugin:prettier/recommended"
   ],
   parserOptions: {

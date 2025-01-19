@@ -1,5 +1,5 @@
 <template>
-    <header class="header" ref="headerMobile">
+    <header ref="headerMobile" class="header">
         <Transition name="slide-fade">
             <div v-if="isVisible" class="header-mobile" :class="{ 'is-active': isVisible }">
                 <div class="header-mobile__wrapper">
@@ -33,8 +33,8 @@
                     >
                         <BtnComponent
                             emit-name="action"
-                            @action="toggleVisible"
                             class="header__btn"
+                            @action="toggleVisible"
                         >
                             Вход
                         </BtnComponent>
@@ -82,14 +82,14 @@
                     </ul>
                 </nav>
                 <div class="header__btn-wrapper">
-                    <BtnComponent emit-name="action" @action="toggleVisible" class="header__btn">
+                    <BtnComponent emit-name="action" class="header__btn" @action="toggleVisible">
                         Вход
                     </BtnComponent>
                 </div>
             </div>
             <Teleport to="body">
                 <RegisterComponent
-                    :isModalVisible="isModalVisible"
+                    :is-modal-visible="isModalVisible"
                     @close="isModalVisible = false"
                     @register="handleRegister"
                     @login="handleLogin"
@@ -158,6 +158,7 @@ onBeforeUnmount(() => {
         padding: 16px;
     }
 }
+
 .header {
     padding: 16px 64px;
     box-sizing: border-box;
@@ -181,6 +182,7 @@ onBeforeUnmount(() => {
     max-width: 1920px;
     margin: 0 auto;
 }
+
 .header__wrapper {
     display: flex;
     justify-content: space-between;
@@ -202,6 +204,7 @@ onBeforeUnmount(() => {
 
 .hamburger {
     display: none;
+
     @media (max-width: $lg) {
         display: flex;
         flex-direction: column;
@@ -225,6 +228,7 @@ onBeforeUnmount(() => {
 
 .is-active {
     display: none;
+
     @media (max-width: $lg) {
         display: grid !important;
     }
