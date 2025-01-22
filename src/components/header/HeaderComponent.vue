@@ -34,7 +34,7 @@
                         <BtnComponent
                             emit-name="action"
                             class="header__btn"
-                            @action="toggleVisible"
+                            @action="setModal('login')"
                         >
                             Вход
                         </BtnComponent>
@@ -82,31 +82,38 @@
                     </ul>
                 </nav>
                 <div class="header__btn-wrapper">
-                    <BtnComponent emit-name="action" class="header__btn" @action="toggleVisible">
+                    <BtnComponent
+                        emit-name="action"
+                        class="header__btn"
+                        @action="setModal('login')"
+                    >
                         Вход
                     </BtnComponent>
                 </div>
             </div>
             <Teleport to="body">
-                <RegisterComponent
-                    :is-modal-visible="isModalVisible"
-                    @close="isModalVisible = false"
-                    @register="handleRegister"
-                    @login="handleLogin"
-                />
+                <AuthComponent :modal="modal" @close="setModal('')" />
             </Teleport>
         </div>
     </header>
 </template>
 <script setup>
 import BtnComponent from '../btns/BtnComponent.vue'
-
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import RegisterComponent from '../modal/auth/RegisterComponent.vue'
+import AuthComponent from '../modal/auth/AuthComponent.vue'
 
 const isVisible = ref(false)
 const btnMenu = ref(false)
 const headerMobile = ref(null)
+const modal = ref('')
+
+onMounted(() => {
+    window.addEventListener('click', closeHeader)
+})
+
+onBeforeUnmount(() => {
+    window.removeEventListener('click', closeHeader)
+})
 
 function setMenuAcive() {
     btnMenu.value = !btnMenu.value
@@ -120,19 +127,9 @@ const closeHeader = (element) => {
     }
 }
 
-const isModalVisible = ref(false)
-
-function toggleVisible() {
-    isModalVisible.value = !isModalVisible.value
+function setModal(value) {
+    modal.value = value
 }
-
-onMounted(() => {
-    window.addEventListener('click', closeHeader)
-})
-
-onBeforeUnmount(() => {
-    window.removeEventListener('click', closeHeader)
-})
 </script>
 <style lang="scss">
 .header-mobile {

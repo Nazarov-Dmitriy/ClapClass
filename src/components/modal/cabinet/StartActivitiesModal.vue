@@ -30,6 +30,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 16px;
+    
     &:hover {
         background-color: #fff7ac;
     }
@@ -42,10 +43,11 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    width: 64px;
+    height: 64px;
+
     &:hover {
         background-image: url('/icons/cabinet/start-activities/start-active.svg');
     }
-    width: 64px;
-    height: 64px;
 }
 </style>

@@ -142,7 +142,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import BtnComponent from '../btns/BtnComponent.vue'
 import BtnComponentWhite from '../btns/BtnComponentWhite.vue'
-import RegisterComponent from '../modal/auth/RegisterComponent.vue'
+import RegisterComponent from '../modal/auth/LoginComponent.vue'
 
 const isModalVisible = ref(false)
 

@@ -65,3 +65,9 @@ body,
     font-family: 'Inter', sans-serif;
     box-sizing: border-box;
 }
+
+.error-text {
+    font-size: 16px;
+    line-height: 24px;
+    color: $red !important;
+}

@@ -1,47 +1,54 @@
 <template>
-    <ModalComponent v-esc="close" :visible="props.open">
+    <ModalComponent v-esc="close" :visible="open">
         <template #header>
             <ModalHeader @close-modal="close">
-                Регистрируйся и получи доступ к витрине кейсов
+                Приветствуем!
+                <template #subtitle>
+                    <p class="forgot-subtitle text-center">
+                        Введите данные для входа в личный кабинет
+                    </p>
+                </template>
             </ModalHeader>
         </template>
-
         <template #form>
             <form class="form__wrapper" @submit.prevent>
                 <div class="form__group">
                     <label for="email" class="form__label" :class="getError?.email && 'error'"
                     >E-mail</label
                     >
-                    <input
-                        id="email"
-                        v-model="inputData.email"
-                        class="form__input"
-                        placeholder="marina_ivanova@mail.ru"
-                        :class="getError?.email && 'error'"
-                    />
+                    <div class="flex w-full relative">
+                        <input
+                            v-model="inputData.email"
+                            type="text"
+                            class="form__input"
+                            :class="getError?.email && 'error'"
+                            placeholder="пароль"
+                        />
+                        <img
+                            class="input-icon"
+                            src="/public/icons/auth/inputs/input-mail.svg"
+                            alt=""
+                        />
+                    </div>
                     <p v-if="getError?.email" class="error-text">
                         {{ getError?.email }}
                     </p>
                 </div>
                 <div class="form__group">
-                    <label
-                        for="password"
-                        class="form__label"
-                        :class="(getError?.password || error?.repeatPassword) && 'error'"
-                    >Придумайте пароль</label
+                    <label for="password" class="form__label" :class="getError?.password && 'error'"
+                    >Пароль</label
                     >
                     <div class="flex w-full relative">
                         <input
                             id="password"
-                            ref="passwordInput"
                             v-model="inputData.password"
-                            :type="!passwordVisible.password ? 'password' : 'text'"
-                            :class="(getError?.password || error?.repeatPassword) && 'error'"
+                            placeholder="Введите пароль"
                             class="form__input"
-                            placeholder="пароль"
+                            :class="getError?.password && 'error'"
+                            :type="passwordVisible.password ? 'password' : 'text'"
                         />
                         <img
-                            v-if="!passwordVisible.password"
+                            v-if="passwordVisible.password"
                             class="input-icon"
                             src="/public/icons/auth/inputs/password-invisible.svg"
                             alt=""
@@ -55,61 +62,43 @@
                             @click="changeVisiblePassword('password')"
                         />
                     </div>
+
                     <p v-if="getError?.password" class="error-text">
                         {{ getError?.password }}
                     </p>
                 </div>
-                <div class="form__group">
-                    <label
-                        for="repeat-pass"
-                        class="form__label"
-                        :class="error?.repeatPassword && 'error'"
-                    >Повторите пароль</label
-                    >
-                    <div class="flex w-full relative">
-                        <div class="flex w-full relative">
-                            <input
-                                id="repeat-pass"
-                                ref="repeatPasswordInput"
-                                v-model="inputData.repeatPassword"
-                                :type="!passwordVisible.repeatPassword ? 'password' : 'text'"
-                                class="form__input"
-                                placeholder="повторите пароль"
-                                :class="error?.repeatPassword && 'error'"
-                            />
-                            <img
-                                v-if="!passwordVisible.repeatPassword"
-                                class="input-icon"
-                                src="/public/icons/auth/inputs/password-invisible.svg"
-                                alt=""
-                                @click="changeVisiblePassword('repeatPassword')"
-                            />
-                            <img
-                                v-else
-                                class="input-icon"
-                                src="/public/icons/auth/inputs/password-visible.svg"
-                                alt=""
-                                @click="changeVisiblePassword('repeatPassword')"
-                            />
+                <div class="form__login flex justify-between items-center">
+                    <div class="flex gap-2 cursor-pointer">
+                        <div
+                            v-if="isCheckboxActive"
+                            class="checkbox-filled flex justify-center items-center bg-[#fff7ac]"
+                            @click="toggleCheckbox"
+                        >
+                            <img src="/public/icons/auth/checkboxes/checkbox-filled.svg" alt="" />
                         </div>
-                    </div>
-                    <p v-if="error?.repeatPassword" class="error-text">Пароли не совпадают</p>
-                </div>
+                        <img
+                            v-else
+                            src="/public/icons/auth/checkboxes/checkbox-empty.svg"
+                            alt=""
+                            @click="toggleCheckbox"
+                        />
 
-                <div class="form__links">
-                    <p class="form__text">
-                        Нажимая кнопку, я соглашаюсь с
-                        <span>Политикой обработки персональных данных.</span>
-                    </p>
-                    <BtnComponent class="form__btn" emit-name="action" @action="registerUser">
-                        Зарегистрироваться
-                    </BtnComponent>
+                        <span class="checkbox-label" @click="toggleCheckbox">Запомнить меня</span>
+                    </div>
+                    <BtnComponent emit-name="action" @action="login"> Войти </BtnComponent>
                 </div>
-                <div class="form__footer">
-                    <p class="form__footer-text">Уже есть аккаунт?</p>
+                <div class="form__footer form__footer--login">
                     <div class="btn-wrapper">
-                        <button class="form__footer-link" @click="toggleModal('login')">
-                            Войти
+                        <button
+                            class="form__footer-link form__footer-link--black"
+                            @click="toggleModal('for-got-password')"
+                        >
+                            Забыли пароль?
+                        </button>
+                    </div>
+                    <div class="btn-wrapper">
+                        <button class="form__footer-link" @click.prevent="toggleModal('register')">
+                            Зарегистрироваться
                         </button>
                     </div>
                 </div>
@@ -119,11 +108,12 @@
 </template>
 
 <script setup>
-import { reactive, computed, watch } from 'vue'
+import { ref, onUnmounted, reactive, computed, watch } from 'vue'
 import ModalComponent from '../ModalComponent.vue'
 import BtnComponent from '../../btns/BtnComponent.vue'
 import ModalHeader from '../ModalHeader.vue'
 import { useUserStore } from '../../../stores/userStore'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
     open: {
@@ -135,55 +125,53 @@ const props = defineProps({
         default: () => {}
     }
 })
-
 const userStore = useUserStore()
-const getIsSuccess = computed(() => userStore.getIsSuccess)
-const getError = computed(() => userStore.getError)
-const error = reactive({
-    repeatPassword: ''
-})
-
 const emit = defineEmits(['change-modal'])
+const router = useRouter()
+const getError = computed(() => userStore.getError)
+const getIsSuccess = computed(() => userStore.getIsSuccess)
 
 const inputData = reactive({
     email: '',
-    password: '',
-    repeatPassword: ''
+    password: ''
 })
-
+const isCheckboxActive = ref(false)
 const passwordVisible = reactive({
-    password: false,
-    repeatPassword: false
+    password: true
 })
-
-function changeVisiblePassword(field) {
-    passwordVisible[field] = !passwordVisible[field]
-}
 
 const toggleModal = (value) => {
     emit('change-modal', value)
 }
 
-async function registerUser() {
-    validatePassword()
-    if (!error.repeatPassword) {
-        userStore.register({ email: inputData.email, password: inputData.password })
-    }
+function changeVisiblePassword(field) {
+    passwordVisible[field] = !passwordVisible[field]
 }
 
-function validatePassword() {
-    inputData.password !== inputData.repeatPassword
-        ? (error.repeatPassword = true)
-        : (error.repeatPassword = false)
+function toggleCheckbox() {
+    isCheckboxActive.value = !isCheckboxActive.value
+}
+
+function login() {
+    userStore.login(
+        { ...inputData, time_token: isCheckboxActive.value ? 'long' : 'short' },
+        isCheckboxActive.value
+    )
 }
 
 watch(getIsSuccess, (val) => {
-    console.log(555)
-
     if (val === true) {
-        emit('change-modal', 'login')
+        props.close()
+        router.push('/')
         userStore.setIsSuccess()
     }
+})
+
+onUnmounted(() => {
+    inputData.email = ''
+    inputData.password = ''
+    isCheckboxActive.value = false
+    userStore.setErrors()
 })
 </script>
 

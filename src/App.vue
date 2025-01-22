@@ -1,5 +1,7 @@
 <script setup>
-import {  RouterView } from 'vue-router'
+import { useUserStore } from './stores/userStore';
+const userStore = useUserStore()
+userStore.autoLogin()
 </script>
 
 <template>
@@ -10,10 +12,10 @@ import {  RouterView } from 'vue-router'
 
 <style lang="scss">
 #app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  margin: 0 auto;
-  height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    margin: 0 auto;
+    height: 100%;
 }
 </style>
