@@ -100,7 +100,7 @@
         text-align: center;
         color: #e05704;
         transform: rotate(-6deg) translate(-13px, -10px);
-        font-family: "CenturyGothic";
+        font-family: 'CenturyGothic';
 
         @media (max-width: $lg) {
             width: 420px;
@@ -124,7 +124,7 @@
         line-height: 150%;
         text-align: center;
         color: #fff;
-        font-family: "CenturyGothic";
+        font-family: 'CenturyGothic';
 
         @media (max-width: $lg) {
             width: 420px;

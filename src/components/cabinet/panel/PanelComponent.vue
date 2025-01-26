@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watchEffect, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 
 const translations = {
@@ -65,23 +65,26 @@ const translations = {
     showcase: 'Витрина кейсов',
     'my-cases': 'Мои кейсы',
     'my-article': 'Мои статьи',
-    profile: 'Профиль',
-    // Добавьте остальные переводы по мере необходимости
+    profile: 'Профиль'
 }
 
 const breadcrumbs = ref([])
-
 const search = ref('')
-
 const route = useRoute()
 
 function updateBreadcrumbs() {
-    const path = route.path.split('/').filter((p) => p)
-    // Преобразуем английские крошки в русские
-    breadcrumbs.value = path.map((segment) => translations[segment] || segment)
+    const path = route.path
+        .split('/')
+        .filter((p) => p)
+        .map((segment) => {
+            const decodedSegment = decodeURIComponent(segment)
+            return translations[decodedSegment] || decodedSegment
+        })
+
+    breadcrumbs.value = path
 }
 
-watch(route, () => {
+watchEffect(() => {
     updateBreadcrumbs()
 })
 
@@ -93,12 +96,11 @@ function searchAction() {
     console.log('Search for:', search.value)
 }
 
-onMounted(() => {
+onMounted(async () => {
+    await nextTick()
     updateBreadcrumbs()
-    console.log(route)
 })
 </script>
-
 
 <style scoped lang="scss">
 .panel {
