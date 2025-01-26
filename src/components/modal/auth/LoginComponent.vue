@@ -1,5 +1,5 @@
 <template>
-    <ModalComponent v-esc="close" :visible="open">
+    <ModalComponent v-esc="close" :visible="props.open">
         <template #header>
             <ModalHeader @close-modal="close">
                 Приветствуем!
@@ -160,10 +160,10 @@ function login() {
 }
 
 watch(getIsSuccess, (val) => {
-    if (val === true) {
-        props.close()
-        router.push('/')
+    if (val === 'login') {
         userStore.setIsSuccess()
+        router.push('/')
+        emit('change-modal', '')
     }
 })
 

@@ -4,16 +4,16 @@
             <div class="grid grid-cols-2 gap-6 item-center">
                 <div class="flex flex-col gap-4">
                     <div class="flex flex-col gap-2">
-                        <label for="fcs">ФИО</label>
+                        <label for="name">ФИО</label>
                         <input
-                            id="fcs"
-                            v-model="form.fcs"
+                            id="name"
+                            v-model="form.name"
                             type="text"
                             placeholder="Введите ФИО"
                             class="lk__main-personal-input"
                         />
-                        <p v-if="errors.fcs" class="error">
-                            {{ errors.fcs }}
+                        <p v-if="errors.name" class="error">
+                            {{ errors.name }}
                         </p>
                     </div>
 
@@ -21,7 +21,7 @@
                         <label for="phone">Телефон</label>
                         <input
                             id="phone"
-                            v-model="form.phone"
+                            v-model.trim="form.phone"
                             type="text"
                             placeholder="+7 (___) ___-__-__"
                             class="lk__main-personal-input"
@@ -66,27 +66,27 @@
                         <label for="work-place">Место работы</label>
                         <input
                             id="work-place"
-                            v-model="form.workPlace"
+                            v-model="form.place_work"
                             type="text"
                             placeholder="Введите место работы"
                             class="lk__main-personal-input"
                         />
-                        <p v-if="errors.workPlace" class="error">
-                            {{ errors.workPlace }}
+                        <p v-if="errors.place_work" class="error">
+                            {{ errors.place_work }}
                         </p>
                     </div>
 
                     <div class="flex flex-col gap-2">
-                        <label for="post">Должность</label>
+                        <label for="position">Должность</label>
                         <input
-                            id="post"
-                            v-model="form.post"
+                            id="position"
+                            v-model="form.position"
                             type="text"
                             placeholder="Введите вашу должность"
                             class="lk__main-personal-input"
                         />
-                        <p v-if="errors.post" class="error">
-                            {{ errors.post }}
+                        <p v-if="errors.position" class="error">
+                            {{ errors.position }}
                         </p>
                     </div>
                 </div>
@@ -95,24 +95,31 @@
     </div>
 </template>
 <script setup>
-import { reactive, computed } from 'vue'
+import { useUserStore } from '@/stores/userStore'
+import { reactive, computed, watch } from 'vue'
+
+const userStore = useUserStore()
+
+const getUser = computed(() => {
+    return userStore.getUser
+})
 
 const form = reactive({
-    fcs: '',
-    phone: '',
-    email: '',
-    city: '',
-    workPlace: '',
-    post: ''
+    name: getUser.value?.name,
+    phone: getUser.value?.phone,
+    email: getUser.value?.email,
+    city: getUser.value?.city,
+    place_work: getUser.value?.place_work,
+    position: getUser.value?.position
 })
 
 const errors = reactive({
-    fcs: '',
+    name: '',
     phone: '',
     email: '',
     city: '',
-    workPlace: '',
-    post: ''
+    place_work: '',
+    position: ''
 })
 
 const isFormValid = computed(() => {
@@ -120,15 +127,15 @@ const isFormValid = computed(() => {
 })
 
 function validateForm() {
-    validateField('fcs')
-    validateField('phone')
     validateField('email')
+    validateField('name')
+    validateField('phone')
     validateField('city')
-    validateField('workPlace')
-    validateField('post')
+    validateField('place_work')
+    validateField('position')
 
     if (isFormValid.value) {
-        console.log('Форма отправлена:', form)
+        userStore.updateUserInfo({ ...form, current_email: getUser.value.email })
     }
 }
 
@@ -136,25 +143,27 @@ function validateField(field) {
     const value = form[field]
 
     switch (field) {
-        case 'fcs':
-            errors.fcs = value.length === 0 ? 'Это поле обязательно' : ''
+        case 'name':
+            errors.name = value.length === 0 ? 'Это поле обязательно' : ''
             break
         case 'phone':
-            const phoneRegexp = /^\+7\(\d{3}\)\s?\d{3}-\d{2}-\d{2}$/
+            // eslint-disable-next-line no-case-declarations
+            const phoneRegexp = /^\+7 \(\d{3}\)\s?\d{3}-\d{2}-\d{2}$/
             errors.phone = !phoneRegexp.test(value) ? 'Неверный формат телефона' : ''
             break
         case 'email':
+            // eslint-disable-next-line no-case-declarations
             const emailRegexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
             errors.email = !emailRegexp.test(value) ? 'Неверный формат email' : ''
             break
         case 'city':
             errors.city = value.length === 0 ? 'Это поле обязательно' : ''
             break
-        case 'workPlace':
-            errors.workPlace = value.length === 0 ? 'Это поле обязательно' : ''
+        case 'place_work':
+            errors.place_work = value.length === 0 ? 'Это поле обязательно' : ''
             break
-        case 'post':
-            errors.post = value.length === 0 ? 'Это поле обязательно' : ''
+        case 'position':
+            errors.position = value.length === 0 ? 'Это поле обязательно' : ''
             break
         default:
             break
@@ -163,11 +172,30 @@ function validateField(field) {
 
 function onPhoneInput(event) {
     const target = event.target
-    let value = target.value.replace(/\D/g, '')
-    if (value.length > 10) value = value.slice(0, 10) 
-    const formattedPhone = value.replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, '+7($2) $3-$4-$5')
-    form.phone = formattedPhone
+    const x = target.value.replace(/\D/g, '').match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/)
+    x[1] = '+7'
+    target.value = !x[3]
+        ? x[1] + ' (' + x[2]
+        : x[1] + ' (' + x[2] + ') ' + x[3] + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '')
+    form.phone = target.value
 }
+
+watch(
+    getUser,
+    () => {
+        const user = {
+            name: getUser.value?.name,
+            phone: getUser.value?.phone,
+            email: getUser.value?.email,
+            city: getUser.value?.city,
+            place_work: getUser.value?.place_work,
+            position: getUser.value?.position
+        }
+        Object.assign(form, user)
+    },
+    { deep: true }
+)
+
 defineExpose({
     validateForm
 })

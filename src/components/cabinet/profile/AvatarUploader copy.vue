@@ -4,17 +4,12 @@
         <div
             class="profile__photo-img-wrapper"
             :class="{
-                'profile__photo-img-empty': !getUrl,
-                'profile__photo-img-loaded': getUrl
+                'profile__photo-img-empty': !imageUrl,
+                'profile__photo-img-loaded': imageUrl
             }"
             @click="triggerFileInput"
         >
-            <img
-                v-if="getUser?.avatar"
-                :src="getUrl"
-                alt="profile photo"
-                class="profile__photo-img"
-            />
+            <img v-if="imageUrl" :src="imageUrl" alt="profile photo" class="profile__photo-img" />
             <img
                 v-else
                 src="/images/cabinet/profile/profile-empty.png"
@@ -22,11 +17,11 @@
                 class="profile__photo-img"
             />
             <div class="profile__photo-hover">
-                <p class="profile__photo-hover-text z-10">
-                    {{ getUrl ? 'Сменить фото' : 'Добавить фото' }}
+                <p class="profile__photo-hover-text">
+                    {{ imageUrl ? 'Сменить фото' : 'Добавить фото' }}
                 </p>
                 <img
-                    v-if="getUrl"
+                    v-if="imageUrl"
                     src="/images/cabinet/profile/bucket.png"
                     alt="delete icon"
                     class="profile__photo-hover-delete"
@@ -45,8 +40,7 @@
 </template>
 
 <script setup>
-import { useUserStore } from '@/stores/userStore'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 
 const userStore = useUserStore()
 
@@ -55,6 +49,7 @@ const getUser = computed(() => {
 })
 
 const fileInput = ref(null)
+const imageUrl = ref(null)
 
 function triggerFileInput() {
     fileInput.value.click()
@@ -62,13 +57,12 @@ function triggerFileInput() {
 
 function onFileChange(event) {
     const file = event.target.files[0]
-    let formData = new FormData()
     if (file) {
-        if (file) {
-            formData.append('email', getUser?.value?.email)
-            formData.append('avatar', file)
-            userStore.userAddAvatar(formData)
+        const reader = new FileReader()
+        reader.onload = (e) => {
+            imageUrl.value = e.target.result
         }
+        reader.readAsDataURL(file)
     }
 }
 
@@ -80,6 +74,15 @@ const getUrl = computed(() => {
     return getUser.value?.avatar ? import.meta.env.VITE_SERVER_URL + getUser.value?.avatar : null
 })
 
+function onFileChange(event) {
+    const file = event.target.files[0]
+    let formData = new FormData()
+    if (file) {
+        formData.append('email', getUser?.value?.email)
+        formData.append('avatar', file)
+        userStore.userAddAvatar(formData)
+    }
+}
 </script>
 <style lang="scss" scoped>
 .lk__main-personal-img-title {
@@ -127,15 +130,14 @@ const getUrl = computed(() => {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: $white;
     border-radius: 50%;
     opacity: 0;
     transition: opacity 0.4s;
 }
 
 .profile__photo-img-wrapper:hover .profile__photo-hover {
-    opacity: 1;
-    background: linear-gradient(rgba(230, 234, 237, 0.75), rgba(230, 234, 237, 0.75));
-    z-index: 1;
+    opacity: 0.6;
 }
 
 .profile__photo-hover-text {
@@ -144,8 +146,6 @@ const getUrl = computed(() => {
     line-height: 32px;
     text-align: center;
     color: $orange;
-    z-index: 2;
-    // position: absolute;
 }
 
 .profile__photo-hover-delete {

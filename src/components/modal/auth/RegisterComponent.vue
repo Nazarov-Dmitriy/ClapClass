@@ -178,9 +178,7 @@ function validatePassword() {
 }
 
 watch(getIsSuccess, (val) => {
-    console.log(555)
-
-    if (val === true) {
+    if (val === 'register') {
         emit('change-modal', 'login')
         userStore.setIsSuccess()
     }

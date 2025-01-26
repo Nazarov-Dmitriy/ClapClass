@@ -83,29 +83,77 @@
                 </nav>
                 <div class="header__btn-wrapper">
                     <BtnComponent
+                        v-if="!getUser"
                         emit-name="action"
                         class="header__btn"
-                        @action="setModal('login')"
+                        @action="() => setModal('login')"
                     >
                         Вход
                     </BtnComponent>
+                    <button
+                        v-if="getAutotizationBtn === 'page'"
+                        class="btn__profile"
+                        @click="$router.push('/cabinet/profile')"
+                    >
+                        <img
+                            v-if="getUser?.avatar"
+                            :src="getUrl"
+                            alt="user"
+                            class="btn__profile-img w-12 h-12 rounded-full"
+                        />
+                        <img
+                            v-else
+                            src="@/assets/icons/header/user.svg"
+                            alt="user"
+                            class="btn__profile-img"
+                        />
+                    </button>
+
+                    <div
+                        v-if="getAutotizationBtn === 'cabinet'"
+                        class="flex gap-4 items-center px-2 py-1 cursor-pointer"
+                        @click="logout()"
+                    >
+                        <span :class="{ cabinet: activeLkClass }">Выход</span>
+                        <img class="w-5 h-5" src="@/assets/icons/header/exit.svg" alt="" />
+                    </div>
                 </div>
             </div>
             <Teleport to="body">
-                <AuthComponent :modal="modal" @close="setModal('')" />
+                <AuthComponent :modal="modal" @close="() => setModal('')" />
             </Teleport>
         </div>
     </header>
 </template>
 <script setup>
 import BtnComponent from '../btns/BtnComponent.vue'
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
 import AuthComponent from '../modal/auth/AuthComponent.vue'
+import { useUserStore } from '@/stores/userStore'
+import { useRoute, useRouter } from 'vue-router'
 
 const isVisible = ref(false)
 const btnMenu = ref(false)
 const headerMobile = ref(null)
 const modal = ref('')
+const userStore = useUserStore()
+const route = useRoute()
+const router = useRouter()
+
+const getUser = computed(() => {
+    return userStore.getUser
+})
+
+const getAutotizationBtn = computed(() => {
+    let path = route.path
+    if (userStore.getUser) {
+        return path.includes('/cabinet/') ? 'cabinet' : 'page'
+    } else {
+        return false
+    }
+})
+
+const getIsSuccess = computed(() => userStore.getIsSuccess)
 
 onMounted(() => {
     window.addEventListener('click', closeHeader)
@@ -127,9 +175,23 @@ const closeHeader = (element) => {
     }
 }
 
+const getUrl = computed(() => {
+    return getUser.value?.avatar ? import.meta.env.VITE_SERVER_URL + getUser.value?.avatar : null
+})
+
 function setModal(value) {
     modal.value = value
 }
+
+function logout() {
+    userStore.logout()
+}
+
+watch(getIsSuccess, (val) => {
+    if (val === 'logout') {
+        router.push('/')
+    }
+})
 </script>
 <style lang="scss">
 .header-mobile {

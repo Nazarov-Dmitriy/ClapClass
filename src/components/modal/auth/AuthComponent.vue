@@ -17,7 +17,6 @@
 
 <script setup>
 import { ref, onMounted, watch, onUnmounted } from 'vue'
-
 import ForGotPasswordComponent from './ForGotPasswordComponent.vue'
 import LoginComponent from './LoginComponent.vue'
 import RegisterComponent from './RegisterComponent.vue'

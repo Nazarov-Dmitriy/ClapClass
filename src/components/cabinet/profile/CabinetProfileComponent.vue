@@ -1,15 +1,3 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-import BtnComponentOrange from '../../btns/BtnComponentOrange.vue'
-import AvatarUploader from './AvatarUploader.vue'
-import PersonalInputs from './PersonalInputs.vue'
-const personalInputsRef = ref()
-
-function submitForm () {
-    personalInputsRef.value.validateForm()
-}
-</script>
-
 <template>
     <div class="lk__main">
         <div class="lk__main-personal">
@@ -17,16 +5,25 @@ function submitForm () {
                 <AvatarUploader />
                 <PersonalInputs ref="personalInputsRef" />
             </div>
-            <BtnComponentOrange
-                class="mx-auto mt-4"
-                emit-name="action"
-                @action="submitForm"
-            >
+            <BtnComponentOrange class="mx-auto mt-4" emit-name="action" @action="submitForm">
                 Сохранить изменения
             </BtnComponentOrange>
         </div>
     </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import BtnComponentOrange from '../../btns/BtnComponentOrange.vue'
+import AvatarUploader from './AvatarUploader.vue'
+import PersonalInputs from './PersonalInputs.vue'
+
+const personalInputsRef = ref()
+
+function submitForm() {
+    personalInputsRef.value.validateForm()
+}
+</script>
 
 <style lang="scss" scoped>
 .lk__main {

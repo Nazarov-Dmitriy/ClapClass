@@ -30,6 +30,7 @@
                     Отправить
                 </BtnComponent>
             </form>
+            S
         </template>
     </ModalComponent>
 </template>
@@ -40,7 +41,7 @@ import ModalComponent from '../ModalComponent.vue'
 import BtnComponent from '../../btns/BtnComponent.vue'
 import ModalHeader from '../ModalHeader.vue'
 import { useUserStore } from '@/stores/userStore'
-import { useRouter } from 'vue-router'
+import { toast } from "vue3-toastify";
 
 const props = defineProps({
     open: {
@@ -53,19 +54,22 @@ const props = defineProps({
     }
 })
 const userStore = useUserStore()
-const router = useRouter()
 const getError = computed(() => userStore.getError)
 const email = ref('')
 const getIsSuccess = computed(() => userStore.getIsSuccess)
 
-function forGotPassword () {
+
+function forGotPassword() {
     userStore.forGotPassword({ email: email.value })
 }
 
 watch(getIsSuccess, (val) => {
-    if (val) {
+    if (val == 'forGotPassword') {
         props.close()
-        router.push('/')
+        toast.success("Пароль отправлен на почту", {
+            autoClose: 3000,
+            dangerouslyHTMLString: true,
+        });
     }
 })
 </script>
@@ -80,17 +84,20 @@ watch(getIsSuccess, (val) => {
     flex-direction: column;
     gap: 24px;
 }
+
 .form__group {
     display: grid;
     gap: 8px;
     position: relative;
 }
+
 .form__label {
     font-weight: 500;
     font-size: 16px;
     line-height: 150%;
     color: $white;
 }
+
 .form__input {
     border: 2px solid $gray;
     border-radius: 24px;
@@ -103,6 +110,7 @@ watch(getIsSuccess, (val) => {
         border-color: $red;
     }
 }
+
 .input-icon {
     position: absolute;
     top: 50%;
@@ -117,12 +125,14 @@ watch(getIsSuccess, (val) => {
     justify-content: center;
     align-items: center;
 }
+
 .form__text {
     font-weight: 400;
     font-size: 16px;
     line-height: 150%;
     color: $black;
     text-align: center;
+
     & span {
         font-weight: 400;
         font-size: 16px;
@@ -134,9 +144,11 @@ watch(getIsSuccess, (val) => {
         display: block;
     }
 }
+
 .form__btn {
     margin: 0 auto;
 }
+
 .form__footer {
     &--login {
         display: flex;
@@ -144,6 +156,7 @@ watch(getIsSuccess, (val) => {
         gap: 24px;
     }
 }
+
 .form__footer-text {
     font-weight: 400;
     font-size: 16px;
@@ -151,6 +164,7 @@ watch(getIsSuccess, (val) => {
     text-align: center;
     color: $white;
 }
+
 .form__footer-link {
     font-weight: 400;
     font-size: 16px;
@@ -164,14 +178,17 @@ watch(getIsSuccess, (val) => {
         border-bottom: 1px solid $black;
     }
 }
+
 .btn-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .checkbox-label {
     color: $white;
 }
+
 .forgot-subtitle {
     font-weight: 400;
     font-size: 16px;
