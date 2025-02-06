@@ -10,59 +10,51 @@
             <div class="flex flex-col gap-2">
                 <label
                     class="font-medium text-base text-gray"
+                    :class="errors?.name && 'text-red'"
                     for="name"
-                >Название</label>
+                >Название</label
+                >
                 <input
                     id="name"
                     v-model="formData.name"
                     placeholder="Введите название"
-                    class="border-solid rounded-3xl border-fonLight p-4 box-border"
+                    class="border border-solid rounded-3xl border-fonLight p-4 box-border"
                     type="text"
-                >
-                <p
-                    v-if="errors.name"
-                    class="text-red text-sm"
-                >
+                    :class="errors?.name && 'border-red'"
+                />
+                <p v-if="errors?.name" class="text-red text-sm">
                     {{ errors.name }}
                 </p>
             </div>
             <div class="flex flex-col gap-2">
                 <label
                     class="font-medium text-base text-gray"
+                    :class="errors?.type && 'text-red'"
                     for="type"
-                >Тип разминки</label>
+                >Тип разминки</label
+                >
                 <input
                     id="type"
                     v-model="formData.type"
                     placeholder="Введите тип разминки"
-                    class="border-solid rounded-3xl border-fonLight p-4 box-border"
+                    class="border border-solid rounded-3xl border-fonLight p-4 box-border"
                     type="text"
-                >
-                <p
-                    v-if="errors.type"
-                    class="text-red text-sm"
-                >
-                    {{ errors.type }}
+                    :class="errors?.type && 'border-red'"
+                />
+                <p v-if="errors?.type" class="text-red text-sm">
+                    {{ errors?.type }}
                 </p>
             </div>
         </div>
         <div>
-            <p class="font-medium text-[16px] leading-[20px] text-gray">
-                Загрузите файл
-            </p>
+            <p class="font-medium text-[16px] leading-[20px] text-gray">Загрузите файл</p>
             <div
                 class="border border-dashed border-gray rounded-[20px] p-[8px_16px] box-border flex flex-col justify-center items-center gap-2"
                 @dragover.prevent="onDragOver"
                 @drop.prevent="onFileDrop"
             >
-                <div
-                    class="flex gap-4 justify-center items-end cursor-pointer"
-                    @click="addFile"
-                >
-                    <img
-                        src="/public/icons/cabinet/profile/download.svg"
-                        alt="download icon"
-                    >
+                <div class="flex gap-4 justify-center items-end cursor-pointer" @click="addFile">
+                    <img src="/public/icons/cabinet/profile/download.svg" alt="download icon" />
                     <h3 class="font-normal text-[20px] leading-[150%] text-orange">
                         Выберите файл
                     </h3>
@@ -70,14 +62,11 @@
                         ref="fileInput"
                         type="file"
                         class="hidden"
-                        accept=".pdf,.docx,.png,.jpg"
+                        accept=".pdf,.docx,.png,.jpg,.zip,.rar,.7zip"
                         @change="onFileChange"
-                    >
+                    />
                 </div>
-                <p
-                    v-if="file"
-                    class="font-normal text-[14px] leading-[150%] text-center text-gray"
-                >
+                <p v-if="file" class="font-normal text-[14px] leading-[150%] text-center text-gray">
                     Выбран файл: {{ file.name }}
                 </p>
                 <p class="font-normal text-[14px] leading-[150%] text-center text-gray">
@@ -85,13 +74,26 @@
                     окно.
                 </p>
                 <p class="font-normal text-[14px] leading-[150%] text-center text-gray">
-                    Максимальный размер файлов 125 MB
+                    Максимальный размер файлов 35 MB
                 </p>
             </div>
+            <div class="w-full flex items-center justify-center mt-1">
+                <PulseLoader
+                    :loading="fileLoad"
+                    :color="'#e05704'"
+                    :size="'24px'"
+                    class=""
+                ></PulseLoader>
+            </div>
+
+            <p v-if="errors?.size" class="text-red text-sm">
+                {{ errors.size }}
+            </p>
         </div>
         <BtnComponentOrange
             emit-name="action"
             class="mx-auto"
+            :disable="fileLoad || sendForm"
             @action="validateAndSubmit"
         >
             Предложить кейс
@@ -100,12 +102,22 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import PulseLoader from 'vue-spinner/src/ClipLoader.vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import BtnComponentOrange from '../../btns/BtnComponentOrange.vue'
-import TitleComponent from '../../UI/TitleComponent.vue'
+import TitleComponent from '../../ui/TitleComponent.vue'
+import { useSendMessageStore } from '@/stores/sendMessageStore'
+import { useUserStore } from '@/stores/userStore'
+
+const sendMessageStore = useSendMessageStore()
+const userStore = useUserStore()
+const getIsSuccess = computed(() => sendMessageStore.getIsSuccess)
+const getUser = computed(() => userStore.getUser)
 
 const fileInput = ref(null)
 const file = ref(null)
+const fileLoad = ref(false)
+const sendForm = ref(false)
 
 const formData = ref({
     name: '',
@@ -113,36 +125,67 @@ const formData = ref({
 })
 const errors = ref({
     name: '',
-    type: ''
+    type: '',
+    size: ''
 })
 
-function addFile () {
+onMounted(() => {
+    sendMessageStore.setIsSuccess(null)
+})
+
+function addFile() {
     fileInput.value.click()
 }
 
-function onFileChange (event) {
+function onFileChange(event) {
+    const reader = new FileReader()
     const selectedFile = event.target.files[0]
-    if (selectedFile && selectedFile.size <= 125 * 1024 * 1024) {
+    if (selectedFile && selectedFile.size <= 36 * 1024 * 1024) {
         file.value = selectedFile
+        errors.value.size = null
+        fileLoad.value = true
+        chanfeListenersFile(reader)
+        reader.readAsArrayBuffer(selectedFile)
     } else {
-        alert('Файл слишком большой. Максимальный размер 125 MB.')
+        errors.value.size = 'Файл слишком большой. Максимальный размер 35 MB.'
     }
 }
 
-function onFileDrop (event) {
+function chanfeListenersFile(reader) {
+    reader.addEventListener('load', handleEvent)
+    reader.addEventListener('error', handleEvent)
+    reader.addEventListener('abort', handleEvent)
+}
+
+function handleEvent(event) {
+    if (event.type === 'load') {
+        setTimeout(() => {
+            fileLoad.value = false
+        }, 5000)
+    } else if (event.type === 'error' || event.type === 'abort') {
+        errors.value.size = 'Ошибка'
+    }
+}
+
+function onFileDrop(event) {
+    const reader = new FileReader()
     const droppedFile = event.dataTransfer.files[0]
-    if (droppedFile && droppedFile.size <= 125 * 1024 * 1024) {
+    if (droppedFile && droppedFile.size <= 36 * 1024 * 1024) {
         file.value = droppedFile
+        errors.value.size = null
+        fileLoad.value = true
+        chanfeListenersFile(reader)
+        reader.readAsArrayBuffer(droppedFile)
     } else {
-        alert('Файл слишком большой. Максимальный размер 125 MB.')
+        errors.value.size = 'Файл слишком большой. Максимальный размер 35 MB.'
     }
 }
 
-function onDragOver (event) {
+function onDragOver(event) {
     event.dataTransfer.dropEffect = 'copy'
 }
 
-function validateForm () {
+function validateForm() {
     let isValid = true
     errors.value.name = ''
     errors.value.type = ''
@@ -159,11 +202,32 @@ function validateForm () {
     return isValid
 }
 
-function validateAndSubmit () {
+function resetForm() {
+    file.value = null
+    fileLoad.value = false
+    formData.value.name = ''
+    formData.value.type = ''
+    sendForm.value = false
+}
+
+function validateAndSubmit() {
     if (validateForm()) {
-        alert('Кейс отправлен')
-        console.log('Данные формы:', formData.value)
-        console.log('Выбранный файл:', file.value)
+        let resFormData = new FormData()
+        if (file.value) {
+            resFormData.append('name', getUser?.value?.name)
+            resFormData.append('email', getUser?.value?.email)
+            resFormData.append('title', formData.value.name)
+            resFormData.append('type', formData.value.type)
+            resFormData.append('file', file.value)
+            sendMessageStore.sendOfferMaterial(resFormData)
+            sendForm.value = true
+        }
     }
 }
+
+watch(getIsSuccess, (val) => {
+    if (val === 'send-case') {
+        resetForm()
+    }
+})
 </script>

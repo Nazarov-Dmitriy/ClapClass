@@ -25,6 +25,11 @@
                                     Блог
                                 </router-link>
                             </li>
+                            <li v-if="getUser" class="header__list-item">
+                                <router-link to="/admin" class="header__list-link">
+                                    Админстрирование
+                                </router-link>
+                            </li>
                         </ul>
                     </nav>
                     <div
@@ -78,6 +83,11 @@
                         </li>
                         <li class="header__list-item">
                             <router-link to="/blog" class="header__list-link"> Блог </router-link>
+                        </li>
+                        <li v-if="getUser" class="header__list-item">
+                            <router-link to="/admin" class="header__list-link">
+                                Админстрирование
+                            </router-link>
                         </li>
                     </ul>
                 </nav>

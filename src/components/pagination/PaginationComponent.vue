@@ -165,7 +165,6 @@ const showNext = computed(() => {
 })
 
 onMounted(() => {
-    console.log(props);
     document.documentElement.style.setProperty('--piganation-main', props.color.main);
     document.documentElement.style.setProperty('--piganation-hover', props.color.hover);
 

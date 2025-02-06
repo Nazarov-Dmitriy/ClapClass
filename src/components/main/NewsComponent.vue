@@ -18,25 +18,31 @@
                     </BtnComponent>
                 </div>
                 <div class="news__cards">
-                    <div
-                        v-for="(news, index) in limitedNewsItems"
-                        :key="index"
-                        class="news__card"
-                        @click="linkArticle(news.id)"
-                    >
-                        <div class="news__card-info">
-                            <div class="news__card-info-hash">
-                                <span v-for="tag in news.tags" :key="tag">{{ tag }}</span>
+                    <template v-if="!!props.data.length > 0">
+                        <div
+                            v-for="(news, index) in props.data"
+                            :key="index"
+                            class="news__card"
+                            @click="linkArticle(news.id)"
+                        >
+                            <div class="news__card-info">
+                                <div class="news__card-info-hash">
+                                    <span>{{ news.type === 'article' ? 'статья' : 'видео' }}</span>
+                                </div>
+                                <p class="news__card-text line-clamp-3">
+                                    {{ news.title }}
+                                </p>
                             </div>
-                            <p class="news__card-text">
-                                {{ news.title }}
-                            </p>
+                            <div class="news__card-date">
+                                <span>{{ news.createdAt }}</span>
+                            </div>
                         </div>
-                        <div class="news__card-date">
-                            <span>{{ news.publication_date }}</span>
-                        </div>
-                    </div>
-                    <div class="news__card--subscribe">
+                    </template>
+                    <template v-else>
+                        <div class="col-span-3">Новости появится в ближайшее время</div>
+                    </template>
+
+                    <div class="news__card--subscribe lg:col-start-4">
                         <div class="news__card-img-wrapper">
                             <img
                                 src="../../assets/images/main/news/news-hero.png"
@@ -52,12 +58,13 @@
                                 />
                             </div>
                         </div>
-                        <div class="news__card-info news__card-info--subscribe">
+                        <div class="news__card-info news__card-info--subscribe h-full">
                             <form
+                                v-if="!subscribe"
                                 action="#"
                                 class="news__card-form"
-                                @submit.prevent="sendMail"
-                                @keypress.enter.prevent="sendMail"
+                                @submit.prevent
+                                @keypress.enter.prevent="addSubscribe"
                             >
                                 <input
                                     v-model="email"
@@ -73,7 +80,11 @@
                                 <div>
                                     <div class="news__card-info-wrapper">
                                         <div class="news__card-btn-wrapper">
-                                            <BtnComponent class="news__card-form-btn">
+                                            <BtnComponent
+                                                emit-name="action"
+                                                class="news__card-form-btn"
+                                                @action="addSubscribe"
+                                            >
                                                 Подписаться
                                             </BtnComponent>
                                         </div>
@@ -88,6 +99,9 @@
                                     </div>
                                 </div>
                             </form>
+                            <div v-else class="flex items-center justify-center h-full -mt-2">
+                                <p class="news__card-text">Вы уже подписаны</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -97,9 +111,10 @@
 </template>
 
 <script setup>
-import { ref, defineProps, watch, computed } from 'vue'
+import { ref, defineProps, watch, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import BtnComponent from '../btns/BtnComponent.vue'
+import { useUserStore } from '@/stores/userStore'
 
 const props = defineProps({
     data: {
@@ -108,38 +123,41 @@ const props = defineProps({
     }
 })
 
-const email = ref('')
-const showDangerBlock = ref(false)
-const newsItems = ref([])
+const userStore = useUserStore()
 
+const getUser = computed(() => {
+    return userStore.getUser
+})
+
+const isSuccess = computed(() => {
+    return userStore.isSuccess
+})
+
+const email = ref('')
+const subscribe = ref(false)
+const showDangerBlock = ref(false)
 const router = useRouter()
 
 function linkArticle(id) {
     router.push(`/blog/${id}`)
 }
 
-watch(
-    () => props.data,
-    (newData) => {
-        newsItems.value = newData.map((news, index) => ({
-            id: news.id ?? index,
-            ...news
-        }))
-    },
-    { immediate: true }
-)
+onMounted(() => {
+    if (getUser.value) {
+        console.log(typeof getUser.value.subscribe);
 
-const limitedNewsItems = computed(() => {
-    return newsItems.value.slice(0, 3)
+        subscribe.value = getUser.value.subscribe
+    }
 })
 
 function goToBlog() {
     router.push('/blog')
 }
 
-function sendMail() {
+function addSubscribe() {
     if (validateEmail(email.value)) {
         showDangerBlock.value = false
+        userStore.addSubscribe({ email: email.value })
         email.value = ''
     } else {
         showDangerBlock.value = true
@@ -150,6 +168,18 @@ function validateEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return re.test(email)
 }
+
+watch(
+    getUser,
+    () => {
+        subscribe.value = getUser.value.subscribe
+    },
+    { deep: true }
+)
+
+watch(isSuccess, () => {
+    subscribe.value = true
+})
 </script>
 
 <style lang="scss" scoped>
@@ -289,6 +319,7 @@ function validateEmail(email) {
     font-size: 20px;
     line-height: 1.5;
     color: $orange;
+    color: white;
 }
 
 .news__card-date {

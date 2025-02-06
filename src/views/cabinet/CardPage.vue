@@ -37,7 +37,7 @@ import SidebarComponent from '/src/components/cabinet/sidebar/SidebarComponent.v
 import CabinetLayout from '/src/layouts/CabinetLayout.vue'
 import CardHeaderComponent from '/src/components/cabinet/card/current-card/CardHeaderComponent.vue'
 import StartActivitiesComponent from '/src/components/cabinet/card/current-card/StartActivitiesComponent.vue'
-import TitleComponent from '/src/components/UI/TitleComponent.vue'
+import TitleComponent from '/src/components/ui/TitleComponent.vue'
 import CabinetCardComponent from '/src/components/cabinet/card/CabinetCardComponent.vue'
 
 const route = useRoute()

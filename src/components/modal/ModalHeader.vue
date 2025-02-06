@@ -1,7 +1,7 @@
 <template>
     <div class="modal__header">
         <div class="modal-close-wrapper">
-            <span @click="closeModal" class="modal-close">
+            <span class="modal-close" @click="closeModal">
                 <svg
                     width="24"
                     height="24"

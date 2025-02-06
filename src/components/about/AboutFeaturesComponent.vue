@@ -11,8 +11,8 @@
                 :space-between="2000"
                 :loop="true"
                 :autoplay="autoplayOptions"
-                @slide-change="updateActiveIndex"
                 class="slider__wrapper"
+                @slide-change="updateActiveIndex"
             >
                 <SwiperSlide v-for="(slide, index) in slidesData" :key="index">
                     <div class="slider">
@@ -85,13 +85,13 @@
 </template>
 
 <script setup>
-import TitleComponent from '../UI/TitleComponent.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { onMounted, ref } from 'vue'
+import TitleComponent from '../ui/TitleComponent.vue'
 
 const slidesData = ref([
     {

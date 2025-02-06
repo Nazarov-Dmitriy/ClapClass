@@ -1,12 +1,33 @@
 <template>
     <div class="blog-article__card">
-        <div v-if="props.data.img" class="blog-article__cover">
-            <img :src="props.data.img" alt="image article" class="blog-article__img" />
+        <div v-if="editing" class="flex justify-between p-2 bg-white">
+            <button
+                class="ml-2 border border-[#656d75] hover:border-[#e05704] hover:text-[#e05704] rounded-xl px-4 py-2"
+            >
+                <span class="hidden sm:block" @click="(e) => edit(e, props.data.id)">
+                    Редактировать</span
+                >
+                <EditSvg class="w-6 h-6 sm:hidden" />
+            </button>
+            <button
+                class="mr-2 border border-[#656d75] hover:border-[#e05704] hover:text-[#e05704] rounded-xl px-4 py-2"
+            >
+                <span class="hidden sm:block" @click="(e) => remove(e, props.data.id)">
+                    Удалить</span
+                >
+                <RemoveSvg class="w-6 h-6 sm:hidden" />
+            </button>
+        </div>
+        <div
+            v-if="props.data.file && props.data.type === 'article' && validUrl(props.data.file)"
+            class="blog-article__cover"
+        >
+            <img :src="getUrl(props.data.file)" alt="image article" class="blog-article__img" />
         </div>
         <div v-else class="blog-article__cover default">
             <img src="/images/stub.png" alt="image article" class="blog-article__img" />
         </div>
-        <div class="blog-article__tag">
+        <div class="blog-article__tag" :class="props.editing && '!top-[60px] !left-[18px]'">
             <p v-if="props.data.type === 'article'" class="blog-article__tag-text">Статья</p>
             <p v-else class="blog-article__tag-text video">Видео</p>
         </div>
@@ -23,23 +44,23 @@
                             class="blog-article__icon"
                         />
                         <div class="blog-article__count">
-                            {{ props.data.like }}
+                            {{ props.data.likes }}
                         </div>
                     </div>
                     <div class="blog-article__btns">
                         <div class="blog-article__btn">
                             <img
-                                src="@/assets/icons/blog/show.svg"
+                                src="@/assets/icons/blog/show.svg?url"
                                 alt="like"
                                 class="blog-article__icon"
                             />
                             <div class="blog-article__count">
-                                {{ props.data.show }}
+                                {{ props.data.shows }}
                             </div>
                         </div>
                     </div>
                     <p class="blog-article__date">
-                        {{ props.data.publication_date }}
+                        {{ props.data.createdAt }}
                     </p>
                 </div>
             </div>
@@ -47,12 +68,48 @@
     </div>
 </template>
 <script setup>
+import { useArticleStore } from '@/stores/articleStore'
+import EditSvg from '../../assets/icons/blog/edit.svg?component'
+import RemoveSvg from '../../assets/icons/blog/remove.svg?component'
+import { useRouter } from 'vue-router'
+
 const props = defineProps({
     data: {
         type: Object,
         default: () => {}
+    },
+    editing: {
+        type: Boolean,
+        default: false
     }
 })
+
+const articleStore = useArticleStore()
+
+const router = useRouter()
+
+function validUrl(url) {
+    try {
+        new URL(getUrl(url))
+        return true
+    } catch (e) {
+        return false
+    }
+}
+
+function getUrl(url) {
+    return import.meta.env.VITE_SERVER_URL + url
+}
+
+const edit = (e, id) => {
+    e.stopPropagation()
+    router.push({ name: 'edit-article', params: { id: id } })
+}
+
+const remove = (e, id) => {
+    e.stopPropagation()
+    articleStore.remove(id)
+}
 </script>
 <style lang="scss">
 .blog-article__card {

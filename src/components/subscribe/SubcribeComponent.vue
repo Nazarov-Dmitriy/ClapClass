@@ -18,7 +18,7 @@
                 alt="hero"
             />
         </div>
-        <form class="subscribe__form" @submit.prevent @keypress.enter.prevent>
+        <form v-if="!subscribe" class="subscribe__form" @submit.prevent @keypress.enter.prevent>
             <div class="subscribe__group" :class="{ error: formField.emailError }">
                 <input
                     v-model="formField.email"
@@ -30,7 +30,7 @@
                 />
                 <div v-if="formField.emailError" class="input-error">
                     <img src="../../assets/images/main/news/news-error-icon.svg" alt="" />
-                    <span>Поле заполненно некорректно</span>
+                    <span class="text-error">Поле заполненно некорректно</span>
                 </div>
             </div>
             <div class="subscribe__info">
@@ -38,31 +38,57 @@
                     emit-name="subscribe"
                     class="subscribe__btn"
                     :color="subscribe__btn"
-                    @subscribe="validateForm()"
+                    @subscribe="addSubscribe()"
                 >
                     <span>Подписаться</span>
                 </BtnComponentWhite>
                 <p class="subscribe__text">
                     Нажимая кнопку “Подписаться” вы соглашаетесь с
                     <span
-                        ><a class="subscribe__text-link" href="#"
-                            >политикой обработки персональных данных</a
-                        ></span
+                    ><a class="subscribe__text-link" href="#"
+                    >политикой обработки персональных данных</a
+                    ></span
                     >
                 </p>
             </div>
         </form>
+        <div
+            v-else
+            class="subscribe__form flex items-center justify-center h-full -mt-2 min-h-[200px]"
+        >
+            <p class="subscribe__card-text">Вы уже подписаны</p>
+        </div>
     </div>
 </template>
 <script setup>
-import { reactive } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import BtnComponentWhite from '../btns/BtnComponentWhite.vue'
+import { useUserStore } from '@/stores/userStore'
+
+const userStore = useUserStore()
+
+const getUser = computed(() => {
+    return userStore.getUser
+})
+
+const isSuccess = computed(() => {
+    return userStore.isSuccess
+})
+
+const subscribe = ref(false)
 
 const formField = reactive({
     email: '',
-    emailError: false,
-    validateSubscribe: false
+    emailError: false
 })
+
+function addSubscribe() {
+    validateField(formField.email, 'validate')
+    if (!formField.emailError) {
+        userStore.addSubscribe({ email: formField.email })
+        formField.email = ''
+    }
+}
 
 function validateField(param, event) {
     let target
@@ -79,7 +105,6 @@ function validateField(param, event) {
 }
 
 function changeEmail(event) {
-    console.log(222)
     let target = event.target
     let x = target.value.match(
         /([a-zA-Z]{1})([a-zA-Z0-9._-]{0,19})([@]{0,1})([a-zA-Z0-9._-]{0,10})([.]{0,1})([a-zA-Z0-9._-]{0,5})/
@@ -88,9 +113,17 @@ function changeEmail(event) {
     formField.email = target.value
 }
 
-function validateForm() {
-    validateField(formField.email, 'validate')
-}
+watch(
+    getUser,
+    () => {
+        subscribe.value = getUser.value.subscribe
+    },
+    { deep: true }
+)
+
+watch(isSuccess, () => {
+    subscribe.value = true
+})
 </script>
 <style lang="scss" scoped>
 .subscribe {
@@ -241,5 +274,12 @@ function validateForm() {
 .subscribe__text-link {
     color: $white;
     text-decoration: underline;
+}
+
+.subscribe__card-text {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.5;
+    color: white;
 }
 </style>

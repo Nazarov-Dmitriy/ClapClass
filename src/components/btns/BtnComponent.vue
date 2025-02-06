@@ -1,5 +1,10 @@
 <template>
-    <button class="btn-orange" :class="{ active: value }" @click="submitEmit">
+    <button
+        class="btn-orange"
+        :class="{ active: value }"
+        :disabled="props.disable"
+        @click="submitEmit"
+    >
         <span class="btn-orange__text" :class="props.currentClass">
             <slot />
         </span>
@@ -16,7 +21,12 @@ const props = defineProps({
         type: Boolean
     },
     currentClass: {
-        type: String
+        type: String,
+        default: ''
+    },
+    disable: {
+        type: Boolean,
+        default: false
     }
 })
 const emit = defineEmits(['action'])
@@ -55,6 +65,21 @@ function submitEmit() {
         box-shadow: 0 16px 2px 0 rgba(14, 8, 6, 0.15);
         background: $red;
         transform: translateY(-5px);
+    }
+
+    &:disabled {
+        border: 2px solid $gray;
+        background: $gray;
+        box-shadow: none;
+
+        .btn-orange__text {
+            color: $white;
+        }
+
+        &:hover {
+            border: 2px solid $gray;
+            transform: none;
+        }
     }
 }
 

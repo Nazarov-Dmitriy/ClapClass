@@ -1,14 +1,12 @@
 <template>
     <button
         class="btn-orange"
-        :class="{ 'active': value }"
-        :style="{borderColor: props.color}"
+        :class="{ active: value }"
+        :style="{ borderColor: props.color }"
+        :disabled="props.disable"
         @click="submitEmit"
     >
-        <span
-            class="btn-orange__text"
-            :style="{color: props.color}"
-        >
+        <span class="btn-orange__text" :style="{ color: props.color }">
             <slot />
         </span>
     </button>
@@ -21,20 +19,22 @@ const props = defineProps({
         default: null
     },
     value: {
-        type: Boolean,
+        type: Boolean
     },
-    color:{
+    color: {
         type: String,
         default: null
+    },
+    disable: {
+        type: Boolean,
+        default: false
     }
 })
 const emit = defineEmits(['action'])
 
-
-function submitEmit () {
+function submitEmit() {
     emit(props.emitName)
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -69,7 +69,14 @@ function submitEmit () {
         .btn-orange__text {
             color: $black;
         }
-    } 
+    }
+    &:disabled {
+        border: 2px solid $gray;
+
+        .btn-orange__text {
+            color: $gray;
+        }
+    }
 }
 
 .btn-orange__text {

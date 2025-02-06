@@ -207,7 +207,7 @@ watch(getIsSuccess, (val) => {
     color: $white;
 
     &.error {
-        color: $red;
+        color: $yellowy;
     }
 }
 
@@ -221,7 +221,7 @@ watch(getIsSuccess, (val) => {
     width: 100%;
 
     &.error {
-        border-color: $red;
+        border-color: $yellowy;
     }
 }
 .input-icon {

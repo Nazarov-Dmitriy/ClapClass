@@ -10,8 +10,8 @@
                     :slides-per-view="1"
                     :space-between="5000"
                     :loop="true"
-                    @slide-change="updateActiveIndex"
                     class="slider use__slide"
+                    @slide-change="updateActiveIndex"
                 >
                     <SwiperSlide v-for="(slide, index) in slidesCards" :key="index">
                         <div class="use__slider">
@@ -100,7 +100,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import BtnComponent from '../btns/BtnComponent.vue'
-import TitleComponent from '../UI/TitleComponent.vue'
+import TitleComponent from '../ui/TitleComponent.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination } from 'swiper/modules'
 import 'swiper/css'
@@ -194,7 +194,6 @@ const paginationOptions = {
 
 function updateActiveIndex(swiper) {
     activeIndex.value = swiper.realIndex
-    console.log('Current active index:', activeIndex.value)
 }
 
 onMounted(() => {
@@ -227,7 +226,6 @@ onMounted(() => {
 .user__wrapper {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
-    // grid-template-columns: repeat(2, 1fr);
     justify-content: center;
     align-items: center;
     gap: 84px;

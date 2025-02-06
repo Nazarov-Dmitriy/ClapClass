@@ -203,15 +203,12 @@ import BtnComponent from '../btns/BtnComponent.vue'
         }
     }
 
-    @media (max-width: $lg) {
-        // margin-top: 170px;
-    }
+
     @media (max-width: $lg) {
         margin-top: 0;
     }
 }
 .support__offer-img {
-    // position: absolute;
 }
 .support__offer-img--coin {
     transform: translate(0, 25px);

@@ -2,10 +2,10 @@
     <div
         ref="dropDown"
         class="dropdown-wrapper"
-        :class="{ 'active': isDropDownVisible }"
+        :class="{ active: isDropDownVisible, erorr: props.error }"
         @click="isDropDownVisible = !isDropDownVisible"
     >
-        <div class="dropdown-selected ">
+        <div class="dropdown-selected">
             <p class="dropdown-selected-text">
                 {{ selectedOption || defaultValue }}
             </p>
@@ -26,19 +26,10 @@
             </svg>
         </div>
         <transition name="slide-fade">
-            <div
-                v-if="isDropDownVisible"
-                class="option-wrapper"
-            >
-                <template
-                    v-for="(option, ind) in props.options"
-                    :key="ind"
-                >
-                    <div
-                        class="option "
-                        @click="toggleOptionSelect(option)"
-                    >
-                        {{ option }}
+            <div v-if="isDropDownVisible" class="option-wrapper" :class="optionsClass">
+                <template v-for="(option, ind) in props.options" :key="ind">
+                    <div class="option" @click="toggleOptionSelect(option)">
+                        {{ option.label }}
                     </div>
                 </template>
             </div>
@@ -47,7 +38,7 @@
 </template>
 
 <script setup>
-import { defineProps, ref, computed, defineEmits, onMounted, onBeforeUnmount } from "vue"
+import { defineProps, ref, computed, defineEmits, onMounted, onBeforeUnmount, watch } from 'vue'
 
 const dropDown = ref(null)
 
@@ -60,20 +51,36 @@ const props = defineProps({
         type: String,
         default: null
     },
+    placeholder: {
+        type: String,
+        default: 'Выберите'
+    },
+    error: {
+        type: Boolean,
+        default: false
+    },
+    modelValue: {
+        type: String,
+        default: ''
+    },
+    optionsClass: {
+        type: String,
+        default: ''
+    }
 })
-const emit = defineEmits(['select'])
+const emit = defineEmits(['update:modelValue', 'select'])
 
 const selectedOption = ref(null)
 
 const isDropDownVisible = ref(false)
 
-
 const toggleOptionSelect = (option) => {
-    console.log(option);
-    selectedOption.value = option;
-    emit('select', option);
+    selectedOption.value = option.label
+    emit('select', option)
+    emit('update:modelValue', option.value)
+
     setTimeout(() => {
-        isDropDownVisible.value = false;
+        isDropDownVisible.value = false
     }, 100)
 }
 
@@ -84,18 +91,26 @@ const closeDropDown = (element) => {
 }
 
 const defaultValue = computed(() => {
-    return props.options[0]
+    return props.options[0]?.label
 })
-
 
 onMounted(() => {
     window.addEventListener('click', closeDropDown)
+    selectedOption.value = props.options?.filter((el) => el.value === props.modelValue)[0]?.label
 })
 
 onBeforeUnmount(() => {
     window.removeEventListener('click', closeDropDown)
 })
 
+watch(
+    () => props.modelValue,
+    () => {
+        selectedOption.value = props.options?.filter(
+            (el) => el.value === props.modelValue
+        )[0]?.label
+    }
+)
 </script>
 
 <style lang="scss" scoped>
@@ -117,13 +132,15 @@ onBeforeUnmount(() => {
     &:hover {
         .dropdown-selected-text {
             color: $orange;
-
         }
 
         .dropdown-icon path {
             fill: $orange;
-
         }
+    }
+
+    &.erorr {
+        border: 1px solid $red;
     }
 }
 
@@ -146,18 +163,28 @@ onBeforeUnmount(() => {
 
 .option-wrapper {
     position: absolute;
-    width: 101%;
+    width: calc(100% + 4px);
     background-color: $white;
     border: 1px solid $gray;
     top: 43px;
     left: -2px;
     z-index: 10;
+    border-radius: 0 0 24px 24px;
 }
 
 .option {
     padding: 8px 16px;
     color: $gray;
     border-top: 1px solid $gray;
+
+}
+
+.option:first-child {
+    border-top: none;
+}
+
+.option:last-child {
+    border-radius: 0 0 24px 24px;
 }
 
 .dropdown-icon {

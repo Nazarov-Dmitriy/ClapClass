@@ -1,6 +1,6 @@
 <template>
     <Transition name="modal">
-        <div v-if="props.visible" class="modal-wrapper" @click="activateEmit" v-esc="activateEmit">
+        <div v-if="props.visible" v-esc="activateEmit" class="modal-wrapper" @click="activateEmit">
             <div class="modal" @click.stop>
                 <slot name="header" />
                 <slot name="form" />

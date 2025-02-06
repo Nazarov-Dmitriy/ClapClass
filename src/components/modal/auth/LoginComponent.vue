@@ -197,7 +197,7 @@ onUnmounted(() => {
     color: $white;
 
     &.error {
-        color: $red;
+        color: $yellowy;
     }
 }
 
@@ -211,7 +211,7 @@ onUnmounted(() => {
     width: 100%;
 
     &.error {
-        border-color: $red;
+        border-color: $yellowy;
     }
 }
 .input-icon {

@@ -20,7 +20,6 @@ import FooterComponent from '../components/main/FooterComponent.vue'
 <style scoped lang="scss">
 .page {
     min-height: 100vh;
-    // overflow: hidden;
     margin: 0 auto;
 }
 </style>

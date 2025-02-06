@@ -107,7 +107,7 @@ watch(getIsSuccess, (val) => {
     color: $gray;
 
     &.error {
-        border-color: $red;
+        border-color: $yellowy;
     }
 }
 

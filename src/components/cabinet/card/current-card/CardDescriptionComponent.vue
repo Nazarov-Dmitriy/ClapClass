@@ -127,7 +127,7 @@
 
 <script setup>
 import BtnComponentOrange from '/src/components/btns/BtnComponentOrange.vue'
-import TitleComponent from '/src/components/UI/TitleComponent.vue'
+import TitleComponent from '/src/components/ui/TitleComponent.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/css'

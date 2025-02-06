@@ -1,38 +1,81 @@
 <template>
-    <div class="subscribe">
+    <div class="subscribe h-full">
         <div class="subscribe__img-container">
             <TitleComponent class="text-center"> Подписка на новости ClapClass </TitleComponent>
             <p class="font-normal text-base leading-[150%] text-center text-gray">
                 Узнавай первым о новых кейсах, статьсях и обновлениях платформы
             </p>
-
             <img class="subscribe__hero" src="../../assets/images/article/hero.png" alt="hero" />
         </div>
-        <div class="subscribe__form">
-            <div class="subscribe__info">
-                <BtnComponentWhite
-                    emit-name="subscribe"
-                    class="subscribe__btn"
-                    :color="subscribe__btn"
-                    @subscribe="validateForm()"
-                >
-                    <span>Подписаться</span>
-                </BtnComponentWhite>
-                <p class="subscribe__text">
-                    Нажимая кнопку “Подписаться” вы соглашаетесь с
-                    <span
-                        ><a class="subscribe__text-link" href="#"
-                            >политикой обработки персональных данных</a
-                        ></span
+        <div class="subscribe__form grow">
+            <TransitionGroup  name="list">
+                <div v-if="subscribe" class="flex items-center justify-center h-full">
+                    <p class="subscribe__card-text">Вы уже подписаны</p>
+                </div>
+                <div v-else class="subscribe__info">
+                    <BtnComponentWhite
+                        emit-name="subscribe"
+                        class="subscribe__btn"
+                        :color="subscribe__btn"
+                        @subscribe="addSubscribe()"
                     >
-                </p>
-            </div>
+                        <span>Подписаться</span>
+                    </BtnComponentWhite>
+                    <p class="subscribe__text">
+                        Нажимая кнопку “Подписаться” вы соглашаетесь с
+                        <span
+                        ><a class="subscribe__text-link" href="#"
+                        >политикой обработки персональных данных</a
+                        ></span
+                        >
+                    </p>
+                </div>
+            </TransitionGroup >
         </div>
     </div>
 </template>
 <script setup>
+import { useUserStore } from '@/stores/userStore'
 import BtnComponentWhite from '/src/components/btns/BtnComponentWhite.vue'
-import TitleComponent from '/src/components/UI/TitleComponent.vue'
+import TitleComponent from '/src/components/ui/TitleComponent.vue'
+import { computed, onMounted, ref, watch } from 'vue'
+const userStore = useUserStore()
+
+const getUser = computed(() => {
+    return userStore.getUser
+})
+
+const isSuccess = computed(() => {
+    return userStore.isSuccess
+})
+
+const subscribe = ref(false)
+
+function addSubscribe() {
+    userStore.addSubscribe({ email: getUser.value.email })
+}
+
+onMounted(() => {
+    if (getUser.value) {
+        subscribe.value = getUser.value.subscribe
+    }
+})
+
+watch(
+    getUser,
+    (val) => {
+        if (val) {
+            subscribe.value = getUser.value.subscribe
+        }
+    },
+    { deep: true }
+)
+
+watch(isSuccess, (val) => {
+    if (val == 'subscribe') {
+        subscribe.value = true
+    }
+})
 </script>
 <style lang="scss" scoped>
 .subscribe {
@@ -92,5 +135,22 @@ import TitleComponent from '/src/components/UI/TitleComponent.vue'
 .subscribe__text-link {
     color: $white;
     text-decoration: underline;
+}
+
+.subscribe__card-text {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.5;
+    color: white;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.2s ease;
+  opacity: 1;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
 }
 </style>

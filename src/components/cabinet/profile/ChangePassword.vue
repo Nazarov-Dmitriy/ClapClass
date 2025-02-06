@@ -55,7 +55,7 @@
                             :type="!passwordVisible.new_password ? 'password' : 'text'"
                             class="form__input"
                             placeholder="Введите новый пароль"
-                            :class="(error?.new_password || getError?.new_password) && 'error'"
+                            :class="(error?.new_password || getError?.new_password) && 'error'  "
                         />
                         <img
                             v-if="!passwordVisible.new_password"
@@ -127,7 +127,7 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/userStore'
 import BtnComponentOrange from '../../btns/BtnComponentOrange.vue'
-import TitleComponent from '../../UI/TitleComponent.vue'
+import TitleComponent from '../../ui/TitleComponent.vue'
 import { computed, reactive, watch } from 'vue'
 const userStore = useUserStore()
 const getIsSuccess = computed(() => userStore.getIsSuccess)
@@ -214,6 +214,10 @@ watch(getIsSuccess, (val) => {
     &.error {
         color: $red;
     }
+}
+
+.error-text {
+    color: $red !important;
 }
 
 .form__input {

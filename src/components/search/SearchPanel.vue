@@ -8,7 +8,8 @@
                 placeholder="Поиск"
                 @input="emit('update:search', $event.target.value)"
                 @keypress.enter="$emit('search')"
-            >
+                @blur="$emit('search')"
+            />
             <svg
                 class="blog__search-icon"
                 width="24"
@@ -34,19 +35,12 @@
                 </g>
                 <defs>
                     <clipPath id="clip0_3001_8774">
-                        <rect
-                            width="24"
-                            height="24"
-                            fill="white"
-                        />
+                        <rect width="24" height="24" fill="white" />
                     </clipPath>
                 </defs>
             </svg>
         </div>
-        <div
-            class="blog__btns"
-            :class="{ 'active': showMenu }"
-        >
+        <div class="blog__btns" :class="{ active: showMenu }">
             <DropdownComponent
                 :sort="props.sort"
                 :options="props.option"
@@ -56,16 +50,16 @@
             <BtnComponentOrange
                 class="blog__btn-panel"
                 emit-name="action"
-                :value="article"
-                @action="emit('update:article', !props.article)"
+                :value="props.type === 'article'"
+                @action="emit('update:type', props.type === 'article' ? null : 'article')"
             >
                 Только статьи
             </BtnComponentOrange>
             <BtnComponentOrange
                 class="blog__btn-panel"
                 emit-name="action"
-                :value="video"
-                @action="emit('update:video', !props.video)"
+                :value="props.type === 'video'"
+                @action="emit('update:type', props.type === 'video' ? null : 'video')"
             >
                 Только видео
             </BtnComponentOrange>
@@ -75,17 +69,16 @@
                 src="../../assets/icons/blog/menu.svg"
                 alt="menu-icon"
                 @click="showMenu = !showMenu"
-            >
+            />
         </button>
     </section>
 </template>
 <script setup>
-import { ref } from 'vue';
-import DropdownComponent from '../dropdown/DropdownComponent.vue';
-import BtnComponentOrange from '../btns/BtnComponentOrange.vue';
+import { ref } from 'vue'
+import BtnComponentOrange from '../btns/BtnComponentOrange.vue'
+import DropdownComponent from '../ui/dropdown/DropdownComponent.vue'
 
-
-const emit = defineEmits(['update:search', 'update:sort', 'update:video', 'update:article', 'search'])
+const emit = defineEmits(['update:search', 'update:sort', 'update:type', 'search'])
 
 const props = defineProps({
     option: {
@@ -100,23 +93,17 @@ const props = defineProps({
         type: String,
         default: ''
     },
-    video: {
-        type: Boolean,
-        default: false
-    },
-    article: {
-        type: Boolean,
-        default: false
+    type: {
+        type: String,
+        default: ''
     }
 })
 
-const showMenu = ref(false);
+const showMenu = ref(false)
 
-
-function change (select) {
-    emit('update:sort', select);
+function change(select) {
+    emit('update:sort', select.value)
 }
-
 </script>
 <style lang="scss">
 .blog__panel {
@@ -125,7 +112,7 @@ function change (select) {
     align-items: center;
     position: relative;
 
-    @media (max-width : $lg) {
+    @media (max-width: $lg) {
         gap: 24px;
     }
 }
@@ -134,7 +121,7 @@ function change (select) {
     position: relative;
     flex-basis: 192px;
 
-    @media (max-width : $lg) {
+    @media (max-width: $lg) {
         flex-basis: 100%;
     }
 }
@@ -144,7 +131,7 @@ function change (select) {
     gap: 16px;
     width: 100%;
 
-    @media (max-width : $lg) {
+    @media (max-width: $lg) {
         display: none;
 
         &.active {
@@ -154,7 +141,7 @@ function change (select) {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            background: rgba($color: #ffffff, $alpha: .8);
+            background: rgba($color: #ffffff, $alpha: 0.8);
             z-index: 10;
         }
     }
@@ -163,13 +150,13 @@ function change (select) {
 .blog__dropdown {
     max-width: 256px;
 
-    @media (max-width : $lg) {
+    @media (max-width: $lg) {
         max-width: 208px;
     }
 }
 
 .blog__btn-panel {
-    @media (max-width : $lg) {
+    @media (max-width: $lg) {
         min-width: 173px;
     }
 }
@@ -193,7 +180,7 @@ function change (select) {
     &:focus {
         background: $yellowy;
 
-        &+.blog__search-icon path {
+        & + .blog__search-icon path {
             fill: $orange;
             stroke: $orange;
         }
@@ -216,7 +203,7 @@ function change (select) {
     background: none;
     cursor: pointer;
 
-    @media (max-width : $lg) {
+    @media (max-width: $lg) {
         display: block;
     }
 }

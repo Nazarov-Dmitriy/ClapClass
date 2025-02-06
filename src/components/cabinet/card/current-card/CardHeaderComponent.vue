@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-import TitleComponent from '/src/components/UI/TitleComponent.vue'
+import TitleComponent from '/src/components/ui/TitleComponent.vue'
 
 const props = defineProps({
     cardInfo: {

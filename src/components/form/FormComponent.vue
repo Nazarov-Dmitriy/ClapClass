@@ -2,7 +2,7 @@
     <div class="form">
         <div class="form__container container">
             <h2 class="form__hero-title form__hero-title--mobile">Остались вопросы?</h2>
-            <div class="form__wrapper" :class="{ success: formField.success }">
+            <div class="form__wrapper" :class="{ success: getIsSuccess }">
                 <div class="form__hero">
                     <h2 class="form__hero-title">Остались вопросы?</h2>
                     <div class="form__hero-img-wrapper">
@@ -22,21 +22,21 @@
                             alt=""
                         />
                         <img
-                            src="../../assets/images/form/form-hero-img.png"
+                            src="../../assets/images/form/form-hero-img.svg"
                             alt=""
                             class="form__hero-img"
                         />
                     </div>
                 </div>
                 <div class="form__info">
-                    <div v-if="formField.success" class="form__success">
+                    <div v-if="getIsSuccess" class="form__success">
                         <h2 class="form__success-title">Сообщение отправлено</h2>
                     </div>
                     <form
-                        v-if="!formField.success"
-                        @submit.prevent="handleSubmit"
-                        @keypress.enter.prevent="validateForm"
+                        v-if="!getIsSuccess"
                         class="form__form"
+                        @submit.prevent
+                        @keypress.enter.prevent="validateForm"
                     >
                         <div class="form__fields">
                             <label
@@ -47,11 +47,11 @@
                                 Как вас зовут?
                             </label>
                             <input
-                                type="text"
                                 id="name"
+                                v-model="formField.name"
+                                type="text"
                                 class="form__input form__input--name"
                                 :class="{ 'form__input--error': formField.nameError }"
-                                v-model="formField.name"
                                 placeholder="Мария Ивановна"
                                 @keypress.enter="validateField($event, 'event', 'name')"
                             />
@@ -65,15 +65,15 @@
                             <div class="form__form-input-wrapper">
                                 <label for="phone" class="form__label">
                                     <span :class="{ form__error: formField.phoneError }"
-                                        >Телефон</span
+                                    >Телефон</span
                                     >
 
                                     <input
-                                        type="text"
                                         id="phone"
+                                        v-model="formField.phone"
+                                        type="text"
                                         class="form__input form__input--phone"
                                         :class="{ 'form__input--error': formField.phoneError }"
-                                        v-model="formField.phone"
                                         placeholder="+7 (912) 234-56-78"
                                         @input="changePhone($event)"
                                         @keypress.enter="validateField($event, 'event', 'phone')"
@@ -95,14 +95,14 @@
                                     :class="{ form__error: formField.emailError }"
                                 >
                                     <span :class="{ form__error: formField.phoneError }"
-                                        >E-mail</span
+                                    >E-mail</span
                                     >
                                     <input
-                                        type="text"
                                         id="email"
+                                        v-model="formField.email"
+                                        type="text"
                                         class="form__input form__input--email"
                                         :class="{ 'form__input--error': formField.emailError }"
-                                        v-model="formField.email"
                                         placeholder="marina_ivanova@mail.ru"
                                         @input="changeEmail($event)"
                                         @keypress.enter="validateField($event, 'event', 'email')"
@@ -127,11 +127,11 @@
                             </label>
                             <textarea
                                 id="question"
+                                v-model="formField.textarea"
                                 cols="30"
                                 rows="10"
                                 class="form__textarea"
                                 :class="{ 'form__textarea--error': formField.textareaError }"
-                                v-model="formField.textarea"
                                 placeholder="Напишите ваш вопрос"
                                 @input="changeTextarea($event)"
                             ></textarea>
@@ -170,8 +170,13 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { computed, onMounted, reactive, watch } from 'vue'
 import BtnComponent from '../btns/BtnComponent.vue'
+import { useSendMessageStore } from '@/stores/sendMessageStore'
+
+const sendMessageStore = useSendMessageStore()
+
+const getIsSuccess = computed(() => sendMessageStore.getIsSuccess)
 
 const formField = reactive({
     name: '',
@@ -181,8 +186,11 @@ const formField = reactive({
     nameError: false,
     phoneError: false,
     emailError: false,
-    textareaError: false,
-    success: false
+    textareaError: false
+})
+
+onMounted(() => {
+    sendMessageStore.setIsSuccess(null)
 })
 
 function validateField(param, event, nameParam) {
@@ -232,7 +240,7 @@ function changeTextarea(event) {
     let target = event.target
     event.target.scrollBy(target.scrollHeight, 100)
 
-    if (formField.textareaError && target.value.length > 3) {
+    if (formField.textareaError && target.value.length > 1) {
         formField.textareaError = false
     }
 }
@@ -250,8 +258,12 @@ function validateForm() {
         !formField.emailError &&
         !formField.textareaError
     ) {
-        formField.success = true
-        resetForm()
+        sendMessageStore.sendFaq({
+            name: formField.name,
+            phone: formField.phone,
+            email: formField.email,
+            question: formField.textarea
+        })
     }
 }
 
@@ -262,9 +274,11 @@ function resetForm() {
     formField.textarea = ''
 }
 
-function handleSubmit() {
-    validateForm()
-}
+watch(getIsSuccess, (val) => {
+    if (val === true) {
+        resetForm()
+    }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -337,27 +351,32 @@ function handleSubmit() {
         }
     }
 }
+
 .form__hero-img-wrapper {
     display: flex;
     flex-direction: column;
     align-items: end;
     position: relative;
 }
+
 .form__hero-question-img {
     position: absolute;
     top: 110px;
     left: 20px;
+
     &--center {
         top: 30px;
         left: 60%;
         transform: translate(-50%) rotate(45deg);
     }
+
     &--right {
         top: 260px;
         left: 85%;
         transform: translate(-50%) rotate(60deg);
     }
 }
+
 .form__hero-img {
     width: 100%;
     max-width: 654px;
@@ -365,6 +384,7 @@ function handleSubmit() {
         max-width: 604px;
     }
 }
+
 .form__success-title {
     font-family: 'CenturyGothic';
     font-weight: 700;
@@ -421,17 +441,20 @@ function handleSubmit() {
     &:focus {
         background-color: $white;
     }
+
     &--name {
         background-image: url('../../assets/images/form/form-name-svg.svg');
         background-repeat: no-repeat;
         background-position: calc(100% - 16px);
     }
+
     &--phone {
         background-image: url('../../assets/images/form/form-number-svg.svg');
         background-repeat: no-repeat;
         background-position: calc(100% - 16px);
         margin-top: 8px;
     }
+
     &--email {
         background-image: url('../../assets/images/form/form-mail-svg.svg');
         background-repeat: no-repeat;

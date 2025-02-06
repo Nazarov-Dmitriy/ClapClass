@@ -1,20 +1,16 @@
 <template>
     <div class="blog-article__container">
-        <div
-            v-if="renderList.length > 0"
-            class="blog-article__list"
-        >
-            <CardComponent 
+        <div v-if="renderList.length > 0" class="blog-article__list">
+            <CardComponent
                 v-for="el in renderList"
                 :key="el.id"
                 :data="el"
+                :editing="props.editing"
                 @click="linkArticle(el.id)"
             />
         </div>
         <div v-else>
-            <h2 class="no-result">
-                По запросу {{ search }} ничего не найдено.
-            </h2>
+            <h2 class="no-result">По запросу {{ search }} ничего не найдено.</h2>
         </div>
         <PaginationComponent
             :perpage="12"
@@ -25,11 +21,10 @@
     </div>
 </template>
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import PaginationComponent from '../pagination/PaginationComponent.vue';
-import CardComponent from './CardComponent.vue';
-
+import PaginationComponent from '../pagination/PaginationComponent.vue'
+import CardComponent from './CardComponent.vue'
 
 const props = defineProps({
     data: {
@@ -40,22 +35,27 @@ const props = defineProps({
         type: String,
         default: ''
     },
+    editing: {
+        type: Boolean,
+        default: false
+    }
 })
 
 const router = useRouter()
 const renderList = ref([])
 
-function getRenderList (list) {
+function getRenderList(list) {
     renderList.value = list
 }
 
-function linkArticle (id) {
+function linkArticle(id) {
     router.push(`/blog/${id}`)
 }
 
-watch(() => props.data, () => {
-})
-
+watch(
+    () => props.data,
+    () => {}
+)
 </script>
 <style lang="scss">
 .blog-article__container {
@@ -69,14 +69,12 @@ watch(() => props.data, () => {
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
 
-    @media(max-width: $lg) {
+    @media (max-width: $lg) {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    @media(max-width: $sm) {
+    @media (max-width: $sm) {
         grid-template-columns: 1fr;
     }
 }
-
-
 </style>

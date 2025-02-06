@@ -98,8 +98,7 @@ export const useUserStore = defineStore('userStore', {
                     .then((res) => {
                         this.user = res.data
                     })
-                    .catch((e) => {
-                        console.log(e);
+                    .catch(() => {
                         localStorage.removeItem('token')
                         window.location.reload();
                     })
@@ -141,8 +140,11 @@ export const useUserStore = defineStore('userStore', {
                         this.isSuccess = 'logout'
                     }
                 })
-                .catch((error) => {
-                    console.dir(error)
+                .catch(() => {
+                    toast.success("Ошибка", {
+                        autoClose: 3000,
+                        dangerouslyHTMLString: true,
+                    });
                 })
         },
         userAddAvatar(data) {
@@ -185,6 +187,21 @@ export const useUserStore = defineStore('userStore', {
                 })
                 .catch((err) => {
                     this.error = err.data
+                })
+        },
+        addSubscribe(email) {
+            this.errors = null
+            this.isSuccess = ''
+            axiosR
+                .post('/user/subscribe',  email )
+                .then((res) => {
+                    if (res.status === 200) {
+                        this.isSuccess = 'subscribe'
+                        this.user.subscribe = res.data
+                    }
+                })
+                .catch((err) => {
+                    this.errors = err.response.data
                 })
         },
     }

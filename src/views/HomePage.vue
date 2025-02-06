@@ -15,7 +15,7 @@
     </div>
 </template>
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import HeaderComponent from '../components/header/HeaderComponent.vue'
 import AboutComponent from '../components/main/AboutComponent.vue'
 import ObjectiveComponent from '../components/main/ObjectiveComponent.vue'
@@ -28,16 +28,21 @@ import FaqComponent from '../components/main/FaqComponent.vue'
 import FormComponent from '../components/form/FormComponent.vue'
 import SliderComponent from '../components/main/SliderComponent.vue'
 import FooterComponent from '../components/main/FooterComponent.vue'
-import { getAll } from '../db/db.js';
+import { useArticleStore } from '@/stores/articleStore'
 
-const dataAll = ref([])
+const articleStore = useArticleStore()
 const data = ref([])
 
-
-onMounted(() => {
-    dataAll.value = [...getAll()]
-    data.value = dataAll.value
+const getArticleList = computed(() => {
+    return articleStore.getArticleList
 })
 
+onMounted(() => {
+    articleStore.getArticleListDb({ limit: 3, sort: 'DESC' })
+})
+
+watch(getArticleList, () => {
+    data.value = getArticleList.value
+})
 </script>
 <style lang="scss"></style>

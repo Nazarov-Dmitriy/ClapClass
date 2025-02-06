@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import TitleComponent from '../UI/TitleComponent.vue'
+import TitleComponent from '../ui/TitleComponent.vue';
+
+
 </script>
 
 <template>
@@ -18,7 +20,7 @@ import TitleComponent from '../UI/TitleComponent.vue'
                         class="format__img format__img--mobile"
                     />
                     <div class="format__info-texts">
-                        <TitleComponent class="format__info-title">
+                        <TitleComponent  class="format__info-title">
                             Аркадный формат
                         </TitleComponent>
                         <p class="format__info-text">

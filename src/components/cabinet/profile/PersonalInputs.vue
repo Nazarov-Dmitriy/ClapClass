@@ -4,88 +4,102 @@
             <div class="grid grid-cols-2 gap-6 item-center">
                 <div class="flex flex-col gap-4">
                     <div class="flex flex-col gap-2">
-                        <label for="name">ФИО</label>
+                        <label class="label" for="name" :class="errors?.name && 'error'">ФИО</label>
                         <input
                             id="name"
                             v-model="form.name"
                             type="text"
                             placeholder="Введите ФИО"
                             class="lk__main-personal-input"
+                            :class="errors?.name && 'error'"
                         />
-                        <p v-if="errors.name" class="error">
+                        <p v-if="errors.name" class="error-text">
                             {{ errors.name }}
                         </p>
                     </div>
 
                     <div class="flex flex-col gap-2">
-                        <label for="phone">Телефон</label>
+                        <label class="label" for="phone" :class="errors?.phone && 'error'"
+                        >Телефон</label
+                        >
                         <input
                             id="phone"
                             v-model.trim="form.phone"
                             type="text"
                             placeholder="+7 (___) ___-__-__"
                             class="lk__main-personal-input"
+                            :class="errors?.phone && 'error'"
                             @input="onPhoneInput"
                         />
-                        <p v-if="errors.phone" class="error">
+                        <p v-if="errors.phone" class="error-text">
                             {{ errors.phone }}
                         </p>
                     </div>
 
                     <div class="flex flex-col gap-2">
-                        <label for="email">email*</label>
+                        <label class="label" for="email" :class="errors?.email && 'error'"
+                        >email*</label
+                        >
                         <input
                             id="email"
                             v-model="form.email"
                             type="text"
                             placeholder="maria@mail.ru"
                             class="lk__main-personal-input"
+                            :class="errors?.email && 'error'"
                         />
-                        <p v-if="errors.email" class="error">
-                            {{ errors.email }}
-                        </p>
+                        <p v-if="errors.email" class="error-text">2 {{ errors.email }}</p>
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-4">
                     <div class="flex flex-col gap-2">
-                        <label for="city">Город</label>
+                        <label class="label" for="city" :class="errors?.city && 'error'"
+                        >Город</label
+                        >
                         <input
                             id="city"
                             v-model="form.city"
                             type="text"
                             placeholder="Выберите город"
                             class="lk__main-personal-input"
+                            :class="errors?.city && 'error'"
                         />
-                        <p v-if="errors.city" class="error">
+                        <p v-if="errors.city" class="error-text">
                             {{ errors.city }}
                         </p>
                     </div>
 
                     <div class="flex flex-col gap-2">
-                        <label for="work-place">Место работы</label>
+                        <label class="label" for="work-place" :class="errors?.place_work && 'error'"
+                        >Место работы</label
+                        >
                         <input
                             id="work-place"
                             v-model="form.place_work"
                             type="text"
                             placeholder="Введите место работы"
                             class="lk__main-personal-input"
+                            :class="errors?.place_work && 'error'"
                         />
-                        <p v-if="errors.place_work" class="error">
+                        <p v-if="errors.place_work" class="error-text">
                             {{ errors.place_work }}
                         </p>
                     </div>
 
                     <div class="flex flex-col gap-2">
-                        <label for="position">Должность</label>
+                        <label class="label" for="position" :class="errors?.position && 'error'"
+                        >Должность</label
+                        >
                         <input
                             id="position"
                             v-model="form.position"
                             type="text"
                             placeholder="Введите вашу должность"
                             class="lk__main-personal-input"
+                            :class="errors?.position && 'error'"
                         />
-                        <p v-if="errors.position" class="error">
+                        <p v-if="errors.position" class="error-text">
                             {{ errors.position }}
                         </p>
                     </div>
@@ -216,10 +230,20 @@ defineExpose({
     font-size: 16px;
     line-height: 24px;
     width: 100%;
+
+    &.error {
+        border: 1px solid red;
+        font-size: 16px;
+        line-height: 24px;
+    }
 }
-.error {
+
+.label.error {
     color: red;
+}
+
+.error-text {
+    color: $red !important;
     font-size: 12px;
-    margin-top: 4px;
 }
 </style>

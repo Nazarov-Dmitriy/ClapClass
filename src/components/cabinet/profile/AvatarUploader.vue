@@ -64,11 +64,9 @@ function onFileChange(event) {
     const file = event.target.files[0]
     let formData = new FormData()
     if (file) {
-        if (file) {
-            formData.append('email', getUser?.value?.email)
-            formData.append('avatar', file)
-            userStore.userAddAvatar(formData)
-        }
+        formData.append('email', getUser?.value?.email)
+        formData.append('avatar', file)
+        userStore.userAddAvatar(formData)
     }
 }
 
@@ -145,7 +143,6 @@ const getUrl = computed(() => {
     text-align: center;
     color: $orange;
     z-index: 2;
-    // position: absolute;
 }
 
 .profile__photo-hover-delete {

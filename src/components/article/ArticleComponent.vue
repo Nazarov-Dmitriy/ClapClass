@@ -1,36 +1,42 @@
 <template>
     <div class="article">
-        <img
-            v-if="props.article?.img"
-            :src="props.article?.img"
-            alt="atricle image"
-            class="article__img"
-        >
-        <img
-            v-else
-            src="/images/stub.png"
-            alt="image article"
-            class="article__img"
-        >
+        <template v-if="article?.type === 'video'">
+            <video-player
+                :src="getUrl(article?.file)"
+                controls
+                :loop="true"
+                :volume="0.6"
+                class="w-full aspect-square"
+                aspect-ratio="16:9"
+            />
+        </template>
+        <template v-else>
+            <img
+                v-if="!getUrl(article?.file)"
+                src="/images/stub.png"
+                alt="image article"
+                class="article__img"
+            />
+            <img v-else :src="getUrl(article?.file)" alt="atricle image" class="article__img" />
+        </template>
         <div class="article-layout">
             <div class="article__container">
                 <div class="article__navigation">
-                    <p
-                        class="article__back"
-                        @click="$router.push('/blog')"
-                    >
+                    <p class="article__back" @click="$router.push('/blog')">
                         &#8592; Вернуться в "Блог"
                     </p>
                     <div class="article__selection">
                         <p
-                            class="article__prev" 
-                            @click="$router.push(`/blog/${navigation.prevId}`)"
+                            class="article__prev"
+                            :class="!sublingId?.prev && 'hover:!text-[#656d75] !cursor-not-allowed'"
+                            @click="sublingId?.prev && $router.push(`/blog/${sublingId.prev}`)"
                         >
                             &lt; <span class="article__next-text">Предыдущая статья</span>
                         </p>
                         <p
                             class="article__next"
-                            @click="$router.push(`/blog/${navigation.nextId}`)"
+                            :class="!sublingId?.next && 'hover:!text-[#656d75] !cursor-not-allowed'"
+                            @click="sublingId?.next && $router.push(`/blog/${sublingId.next}`)"
                         >
                             <span class="article__next-text">Cледующая статья</span> &gt;
                         </p>
@@ -40,14 +46,11 @@
                     <div class="article__block">
                         <div class="article__header">
                             <h1 class="article__title">
-                                {{ article.title }}
+                                {{ article?.title }}
                             </h1>
                         </div>
 
-                        <div
-                            class="article__contnent"
-                            v-html="getContnent"
-                        />
+                        <div class="article__contnent" v-html="props.article?.article" />
                         <div class="article__btns">
                             <div class="article__btns-wraper">
                                 <div class="article__raiting">
@@ -55,26 +58,30 @@
                                         src="@/assets/icons/article/up.svg"
                                         alt="up"
                                         class="article__btns-icon"
-                                    >
-                                    {{ article.show }}
+                                        @click="setLike('add')"
+                                    />
+                                    {{ props.article?.likes }}
                                     <img
                                         src="@/assets/icons/article/down.svg"
                                         alt="down"
                                         class="article__btns-icon"
-                                    >
+                                        @click="setLike('dis')"
+                                    />
                                 </div>
-                                <ShareComponent
-                                    :article="article"
-                                    class="article__share"
-                                />
+                                <ShareComponent :article="article" class="article__share" />
                             </div>
                             <div
+                                v-if="user"
                                 class="article__favorites"
-                                :class="{ 'active': favorites }"
-                                @click="favorites = !favorites"
+                                :class="{ active: favorites.active }"
+                                @click="favoritesChange()"
                             >
                                 <p class="article__favorites-text">
-                                    Добавить в избранное
+                                    {{
+                                        favorites.active
+                                            ? 'Удалить из избранного'
+                                            : 'Добавить в избранное'
+                                    }}
                                 </p>
                                 <svg
                                     width="24"
@@ -91,7 +98,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="article__sidebar">
                         <OtherArticle :other-atricle="otherAtricle" />
                     </div>
@@ -101,12 +107,12 @@
     </div>
 </template>
 <script setup>
-import { computed, ref, watch } from 'vue';
-import ShareComponent from './ShareComponent.vue';
-import OtherArticle from './OtherArticle.vue';
+import { computed, reactive, ref, watch } from 'vue'
+import ShareComponent from './ShareComponent.vue'
+import OtherArticle from './OtherArticle.vue'
+import { useArticleStore } from '@/stores/articleStore'
 
-const favorites = ref(false)
-
+const articleStore = useArticleStore()
 const props = defineProps({
     article: {
         type: Array,
@@ -120,22 +126,89 @@ const props = defineProps({
         type: Object,
         default: () => {}
     },
-
-})
-
-const getContnent = computed(() => {
-    let content = '';
-    if (props.article?.content) {
-        props.article?.content.forEach(el => {
-            content += el
-        });
+    sublingId: {
+        type: Object,
+        default: () => {}
+    },
+    user: {
+        type: Object,
+        default: () => {}
     }
-    return content
 })
 
-watch(() => props.article, () => {
+const activeLike = ref(null)
+const initialValueLike = ref(null)
+const getFavoriteArticle = computed(() => {
+    return articleStore.getFavoriteArticle
 })
 
+const favorites = reactive({
+    active: getFavoriteArticle,
+    disabled: false
+})
+
+function setLike(param) {
+    if (param === 'add') {
+        if (activeLike.value !== 'add') {
+            articleStore.setLike({
+                id: props.article.id,
+                like: activeLike.value === 'dis' && !!initialValueLike.value ? 2 : 1
+            })
+        }
+        activeLike.value = 'add'
+    } else {
+        if (activeLike.value !== 'dis') {
+            articleStore.setLike({
+                id: props.article.id,
+                dislike: activeLike.value ? 2 : 1
+            })
+        }
+        activeLike.value = 'dis'
+    }
+}
+
+function getUrl(path) {
+    if (!path) {
+        return false
+    }
+    let url = import.meta.env.VITE_SERVER_URL + path
+    try {
+        new URL(url)
+        return url
+    } catch (e) {
+        return false
+    }
+}
+
+async function favoritesChange() {
+    if (favorites.disabled) {
+        return
+    }
+    favorites.disabled = true
+    let params = { article_id: props.article?.id, user_id: props.user?.id }
+
+    getFavoriteArticle.value
+        ? articleStore.removeFavorite(params)
+        : articleStore.addFavorite(params)
+}
+
+watch(
+    () => props.isFavorite,
+    (newVal) => {
+        favorites.active = newVal
+    }
+)
+
+watch(
+    () => props.article,
+    (val) => {
+        initialValueLike.value === null ? (initialValueLike.value = val.likes) : null
+    }
+)
+
+watch(getFavoriteArticle, () => {
+    favorites.disabled = false
+})
 </script>
 <style lang="scss">
 .article {
@@ -143,7 +216,6 @@ watch(() => props.article, () => {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    margin-top: 95px;
 }
 
 .article__img {
@@ -168,8 +240,6 @@ watch(() => props.article, () => {
     @media (max-width: $sm) {
         aspect-ratio: 1.6 /1;
     }
-
-
 }
 
 .article__container {
@@ -185,7 +255,7 @@ watch(() => props.article, () => {
 
     @media (max-width: $sm) {
         gap: 28px;
-        padding: 24px ;
+        padding: 24px;
     }
 }
 
@@ -201,7 +271,7 @@ watch(() => props.article, () => {
 
     @media (max-width: $sm) {
         justify-content: space-between;
-        .article__next-text{
+        .article__next-text {
             display: none;
         }
     }
@@ -239,7 +309,6 @@ watch(() => props.article, () => {
         text-decoration: underline;
     }
 }
-
 
 .article__main {
     display: flex;
@@ -293,7 +362,6 @@ watch(() => props.article, () => {
     }
 }
 
-
 .article__contnent {
     font-size: 20px;
     line-height: 30px;
@@ -326,13 +394,13 @@ watch(() => props.article, () => {
     }
 }
 
-.article__btns-wraper{
+.article__btns-wraper {
     display: flex;
     gap: 40px;
 
     @media (max-width: $sm) {
-       width: 100%;
-    }    
+        width: 100%;
+    }
 }
 
 .article__btns-icon {
@@ -385,7 +453,7 @@ watch(() => props.article, () => {
 
     @media (max-width: $sm) {
         flex: 0 0 auto;
-    }   
+    }
 }
 
 .article__share {
@@ -399,7 +467,6 @@ watch(() => props.article, () => {
     display: block;
 }
 
-
 .article__sidebar {
     display: flex;
     gap: 40px;
@@ -412,7 +479,6 @@ watch(() => props.article, () => {
         gap: 48px;
     }
 }
-
 
 .article-layout {
     position: relative;

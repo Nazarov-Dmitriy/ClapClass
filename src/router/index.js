@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
-import BlogPage from '../views/BlogPage.vue'
-import ArticlePage from '../views/ArticlePage.vue'
+import BlogPage from '../views/blog/BlogPage.vue'
+import ArticlePage from '../views/blog/ArticlePage.vue'
 import CooperationPage from '../views/CooperationPage.vue'
 import ServicesPage from '../views/ServicesPage.vue'
 import AboutView from '../views/AboutView.vue'
@@ -10,6 +10,8 @@ import MyCasesView from '../views/cabinet/MyCasesView.vue'
 import MyArticleView from '../views/cabinet/MyArticleView.vue'
 import CardPage from '../views/cabinet/CardPage.vue'
 import ProfileView from '../views/cabinet/ProfileView.vue'
+import EditArticle from '@/views/blog/edit/EditArticle.vue'
+import AdminPage from '@/views/AdminPage.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +28,16 @@ const router = createRouter({
                     path: '',
                     name: 'blog',
                     component: BlogPage
+                },
+                {
+                    path: 'create',
+                    name: 'create-article',
+                    component: EditArticle
+                },
+                {
+                    path: 'edit/:id',
+                    name: 'edit-article',
+                    component: EditArticle
                 },
                 {
                     path: ':id',
@@ -48,6 +60,11 @@ const router = createRouter({
             path: '/about',
             name: 'about',
             component: AboutView
+        },
+        {
+            path: '/admin',
+            name: 'admin-page',
+            component: AdminPage
         },
         {
             path: '/cabinet',

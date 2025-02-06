@@ -48,7 +48,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import TitleComponent from '../UI/TitleComponent.vue'
+import TitleComponent from '../ui/TitleComponent.vue'
 
 const cards = ref([
     {
