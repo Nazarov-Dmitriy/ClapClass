@@ -168,8 +168,6 @@ export const useArticleStore = defineStore('userArticle', {
                 })
         },
         addFavorite(params) {
-            console.log(params);
-            
             axiosR
                 .get('/article/add-favorite', {
                     params: params

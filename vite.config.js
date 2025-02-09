@@ -20,7 +20,7 @@ export default defineConfig({
         preprocessorOptions: {
             scss: {
                 api: 'modern',
-                additionalData: `@use  "/src/assets/styles/_entry.scss" as *;`
+                additionalData: `@use "/src/assets/styles/_entry.scss" as *;`
             }
         }
     }

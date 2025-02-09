@@ -46,8 +46,8 @@
 import { computed, onMounted, ref } from 'vue'
 const props = defineProps({
     article: {
-        type: Array,
-        default: () => []
+        type: Object,
+        default: () => {}
     }
 })
 

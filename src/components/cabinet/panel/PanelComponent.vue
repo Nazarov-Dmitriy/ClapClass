@@ -93,7 +93,6 @@ function updateSearch(event) {
 }
 
 function searchAction() {
-    console.log('Search for:', search.value)
 }
 
 onMounted(async () => {

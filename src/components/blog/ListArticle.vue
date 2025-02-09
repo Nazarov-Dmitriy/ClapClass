@@ -6,7 +6,7 @@
                 :key="el.id"
                 :data="el"
                 :editing="props.editing"
-                @click="linkArticle(el.id)"
+                @link="linkArticle(el.id)"
             />
         </div>
         <div v-else>

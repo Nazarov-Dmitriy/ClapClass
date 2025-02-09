@@ -1,5 +1,5 @@
 <template>
-    <div class="blog-article__card">
+    <div class="blog-article__card" @click="$emit('link')">
         <div v-if="editing" class="flex justify-between p-2 bg-white">
             <button
                 class="ml-2 border border-[#656d75] hover:border-[#e05704] hover:text-[#e05704] rounded-xl px-4 py-2"
@@ -65,14 +65,14 @@
                 </div>
             </div>
         </div>
+        <Teleport to="body">
+            <ModalConfirm :show="modalShow" @remove="removeArticle" @close="toggleDialog(null)">
+                <template #body> <p class="text-xl font-medium">Удалить статью ?</p> </template>
+            </ModalConfirm>
+        </Teleport>
     </div>
-
-    <Teleport to="body">
-        <ModalConfirm :show="modalShow" @remove="removeArticle" @close="toggleDialog(null)">
-            <template #body> <p class="text-xl font-medium">Удалить статью ?</p> </template>
-        </ModalConfirm>
-    </Teleport>
 </template>
+
 <script setup>
 import { useArticleStore } from '@/stores/articleStore'
 import EditSvg from '../../assets/icons/blog/edit.svg?component'
@@ -91,6 +91,8 @@ const props = defineProps({
         default: false
     }
 })
+
+defineEmits(['link'])
 
 const articleStore = useArticleStore()
 const modalShow = ref(false)

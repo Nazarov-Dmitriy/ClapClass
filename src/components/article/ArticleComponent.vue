@@ -99,7 +99,7 @@
                         </div>
                     </div>
                     <div class="article__sidebar">
-                        <OtherArticle :other-atricle="otherAtricle" />
+                        <OtherArticle :other-atricle="props.otherAtricle" />
                     </div>
                 </div>
             </div>
@@ -115,8 +115,8 @@ import { useArticleStore } from '@/stores/articleStore'
 const articleStore = useArticleStore()
 const props = defineProps({
     article: {
-        type: Array,
-        default: () => []
+        type: Object,
+        default: () => {}
     },
     otherAtricle: {
         type: Array,

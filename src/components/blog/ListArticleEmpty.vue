@@ -18,9 +18,12 @@ const props = defineProps({
 
 const items = ref(new Array(props.size).fill(null).map((_, idx) => idx + 1))
 
-watch(props.size, (val) => {
-    items.value = ref(new Array(val).fill(null).map((_, idx) => idx + 1))
-})
+watch(
+    () => props.size,
+    (val) => {
+        items.value = ref(new Array(val).fill(null).map((_, idx) => idx + 1))
+    }
+)
 </script>
 <style lang="scss">
 .blog-article__container {

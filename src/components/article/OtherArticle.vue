@@ -1,8 +1,6 @@
 <template>
     <div class="article__other">
-        <h2 class="article__other-title">
-            Это интересно
-        </h2>
+        <h2 class="article__other-title">Это интересно</h2>
         <div class="article__other-container">
             <div class="article__other-list">
                 <CardComponent
@@ -10,7 +8,7 @@
                     :key="item.id"
                     class="article__other-item"
                     :data="item"
-                    @click="article(item.id)"
+                    @link="article(item.id)"
                 />
             </div>
             <Subcribe class="article__other-subscribe" />
@@ -18,9 +16,9 @@
     </div>
 </template>
 <script setup>
-import { useRouter } from 'vue-router';
-import CardComponent from '../blog/CardComponent.vue';
-import Subcribe from '../subscribe/SubcribeComponent.vue';
+import { useRouter } from 'vue-router'
+import CardComponent from '../blog/CardComponent.vue'
+import Subcribe from '../subscribe/SubcribeComponent.vue'
 
 const router = useRouter()
 
@@ -28,13 +26,12 @@ const props = defineProps({
     otherAtricle: {
         type: Array,
         default: () => []
-    },
+    }
 })
 
-function article (id) {
+function article(id) {
     router.push({ path: `/blog/${id}` })
 }
-
 </script>
 <style lang="scss">
 .article__other {
@@ -45,7 +42,7 @@ function article (id) {
 }
 
 .article__other-title {
-    font-family: "CenturyGothic";
+    font-family: 'CenturyGothic';
     font-size: 36px;
     line-height: 48px;
     color: $gray;
@@ -91,7 +88,7 @@ function article (id) {
     @media (max-width: $xl) {
         flex-direction: row;
         flex-wrap: wrap;
-        width: calc(100% /2 - 8px);
+        width: calc(100% / 2 - 8px);
     }
 
     @media (max-width: $md) {
@@ -114,5 +111,4 @@ function article (id) {
 .article__other-subscribe {
     width: 100%;
 }
-
 </style>

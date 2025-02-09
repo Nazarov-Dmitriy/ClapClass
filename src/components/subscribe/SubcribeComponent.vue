@@ -37,7 +37,6 @@
                 <BtnComponentWhite
                     emit-name="subscribe"
                     class="subscribe__btn"
-                    :color="subscribe__btn"
                     @subscribe="addSubscribe()"
                 >
                     <span>Подписаться</span>

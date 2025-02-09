@@ -144,8 +144,6 @@ function linkArticle(id) {
 
 onMounted(() => {
     if (getUser.value) {
-        console.log(typeof getUser.value.subscribe);
-
         subscribe.value = getUser.value.subscribe
     }
 })
