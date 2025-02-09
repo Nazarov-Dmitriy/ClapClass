@@ -34,7 +34,7 @@
     box-sizing: border-box;
     background:
         url('../../assets/images/cooperation/article/article-bg.png'),
-        url('/public/images/cooperation/article/bg-img.png') no-repeat;
+        url('/images/cooperation/article/bg-img.png') no-repeat;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: bottom;

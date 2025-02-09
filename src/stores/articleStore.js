@@ -69,6 +69,7 @@ export const useArticleStore = defineStore('userArticle', {
                 .put(`/article/edit`, data)
                 .then((res) => {
                     if (res.status === 200) {
+                        this.article = res.data
                         this.error = null
                         this.isSuccess = 'edit'
                         toast.success('Статья сохранена', {

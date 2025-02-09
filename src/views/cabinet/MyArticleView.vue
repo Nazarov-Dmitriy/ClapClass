@@ -20,7 +20,7 @@
                         <div class="flex justify-center">
                             <div class="w-max">
                                 <img
-                                    src="/public/images/cabinet/article/article-hero.png"
+                                    src="/images/cabinet/article/article-hero.png"
                                     alt="hero"
                                 />
                             </div>
@@ -34,7 +34,7 @@
                                         Перейдите в верхнем меню в раздел
                                         <span
                                             class="text-orange underline underline-offset-4 decoration-1"
-                                            >«Блог»</span
+                                        >«Блог»</span
                                         >
                                         откройте понравившуюся статью и нажмите внизу статьи кнопку
                                         «Добавить в избранное»
@@ -42,7 +42,7 @@
                                 </div>
                                 <img
                                     class="absolute top-[87px] left-[-21px] z-[2]"
-                                    src="/public/images/cabinet/article/article-hero-text.png"
+                                    src="/images/cabinet/article/article-hero-text.png"
                                     alt=""
                                 />
                             </div>

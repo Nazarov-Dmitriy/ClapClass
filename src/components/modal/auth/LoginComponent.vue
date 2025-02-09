@@ -26,7 +26,7 @@
                         />
                         <img
                             class="input-icon"
-                            src="/public/icons/auth/inputs/input-mail.svg"
+                            src="/icons/auth/inputs/input-mail.svg"
                             alt=""
                         />
                     </div>
@@ -50,14 +50,14 @@
                         <img
                             v-if="passwordVisible.password"
                             class="input-icon"
-                            src="/public/icons/auth/inputs/password-invisible.svg"
+                            src="/icons/auth/inputs/password-invisible.svg"
                             alt=""
                             @click="changeVisiblePassword('password')"
                         />
                         <img
                             v-else
                             class="input-icon"
-                            src="/public/icons/auth/inputs/password-visible.svg"
+                            src="/icons/auth/inputs/password-visible.svg"
                             alt=""
                             @click="changeVisiblePassword('password')"
                         />
@@ -74,11 +74,11 @@
                             class="checkbox-filled flex justify-center items-center bg-[#fff7ac]"
                             @click="toggleCheckbox"
                         >
-                            <img src="/public/icons/auth/checkboxes/checkbox-filled.svg" alt="" />
+                            <img src="/icons/auth/checkboxes/checkbox-filled.svg" alt="" />
                         </div>
                         <img
                             v-else
-                            src="/public/icons/auth/checkboxes/checkbox-empty.svg"
+                            src="/icons/auth/checkboxes/checkbox-empty.svg"
                             alt=""
                             @click="toggleCheckbox"
                         />

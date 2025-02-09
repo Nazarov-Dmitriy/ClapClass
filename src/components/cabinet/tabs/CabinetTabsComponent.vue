@@ -37,18 +37,18 @@ const slidesData = ref([
     },
     {
         tab: 'Подвижные разминки',
-        icon: '/public/images/cabinet/card/tabs-img.png',
+        icon: '/images/cabinet/card/tabs-img.png',
         popupText: `Раздел помогает поддерживать необходимую двигательную  активность через динамические игры, гимнастику, танцевальные флешмобы`
     },
     {
         tab: 'Ритм-разминки',
-        icon: '/public/images/cabinet/card/tabs-img.png',
+        icon: '/images/cabinet/card/tabs-img.png',
         popupText:
             'Раздел помогает активировать внимание и концентрацию через  ритмические игры, координационные упражнения, музыкальные челленджи'
     },
     {
         tab: 'Конгитивные разминки',
-        icon: '/public/images/cabinet/card/tabs-img.png',
+        icon: '/images/cabinet/card/tabs-img.png',
         popupText: `Раздел помогает эффективно начать основное занятие через когнитивные тренировки, логические игры, упражнения брейн-фитнеса`
     }
 ])

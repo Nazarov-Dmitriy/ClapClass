@@ -1,8 +1,8 @@
 <template>
     <div class="ck-editor-wrapper" :class="{ error: props.error }">
         <ckeditor v-model="model" :editor="editor" :config="editorConfig" />
-        <p v-if="getErrors?.article" class="error-text">
-            {{ props.error }}
+        <p v-if="props?.error" class="error-text mt-2">
+            {{ props.errorText }}
         </p>
     </div>
 </template>
@@ -139,7 +139,11 @@ const props = defineProps({
         default: 'Выберите'
     },
     error: {
-        type: String || Boolean,
+        type: Boolean,
+        default: null
+    },
+    errorText: {
+        type: String ,
         default: null
     }
 })

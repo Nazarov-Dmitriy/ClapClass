@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import BtnComponent from '../btns/BtnComponent.vue'
 </script>
 
@@ -36,9 +36,9 @@ import BtnComponent from '../btns/BtnComponent.vue'
                     </div>
                     <BtnComponent
                         emit-name="action"
-                        @action="$router.push('/blog')"
                         class="info__texts-btn"
-                        >Блог проекта</BtnComponent
+                        @action="$router.push('/blog')"
+                    >Блог проекта</BtnComponent
                     >
                 </div>
             </div>

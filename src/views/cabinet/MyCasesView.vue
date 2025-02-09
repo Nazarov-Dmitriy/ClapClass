@@ -17,7 +17,7 @@
                 <div v-else class="w-full flex justify-center bg-[url('/images/servecies/warm-up/bg-img.png')] bg-no-repeat bg-cover bg-center p-[41px_17px_72px_17px]">
                     <div class="p-[100px_0_0_0]">
                         <img 
-                            src="/public/images/cabinet/case/case-paw-mark.png" 
+                            src="/images/cabinet/case/case-paw-mark.png" 
                             class="max-[1439px]:hidden"
                             alt="case-paw-mark"
                         >
@@ -38,14 +38,14 @@
                                 </p>
                                 <img
                                     class="absolute top-0 left-[28px]" 
-                                    src="/public/images/cabinet/case/case-flag-heart.png" 
+                                    src="/images/cabinet/case/case-flag-heart.png" 
                                     alt="hero"
                                 >
                             </div>
                             <div>
                                 <img
                                     class="max-w-none" 
-                                    src="/public/images/cabinet/case/case-cards.png" 
+                                    src="/images/cabinet/case/case-cards.png" 
                                     alt="hero"
                                 >
                             </div>
@@ -61,19 +61,19 @@
                                 </p>
                                 <img
                                     class="absolute top-0 left-[28px]" 
-                                    src="/public/images/cabinet/case/case-flag-lightning.png" 
+                                    src="/images/cabinet/case/case-flag-lightning.png" 
                                     alt="hero"
                                 >
                             </div>
                         </div>
                         <div class="relative flex justify-center items-center">
                             <img 
-                                src="/public/images/cabinet/case/case-hero-think.png" 
+                                src="/images/cabinet/case/case-hero-think.png" 
                                 alt="hero"
                             >
                             <img
                                 class="absolute bottom-[96px] left-[-64px] max-[995px]:left-[-24px]"
-                                src="/public/images/cabinet/case/case-paw-mark-right.png" 
+                                src="/images/cabinet/case/case-paw-mark-right.png" 
                                 alt="hero"
                             >
                         </div>

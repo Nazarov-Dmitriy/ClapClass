@@ -6,25 +6,25 @@
                 alt=""
                 class="card-page__header-img"
             />
-            <TitleComponent class="card-page__header-title" v-if="props.cardInfo?.title">
+            <TitleComponent v-if="props.cardInfo?.title" class="card-page__header-title">
                 {{ props.cardInfo.title }}
             </TitleComponent>
         </div>
         <div class="card-page__header-right">
             <img
-                src="/public/images/cabinet/card/rating.png"
+                src="/images/cabinet/card/rating.png"
                 alt=""
                 class="card-page__header-right-img"
             />
             <span>{{ props.cardInfo.rating }}</span>
             <img
-                src="/public/images/cabinet/card/views.png"
+                src="/images/cabinet/card/views.png"
                 alt=""
                 class="card-page__header-right-img"
             />
             <span>{{ props.cardInfo.views }}</span>
             <img
-                src="/public/icons/cabinet/card/time-icon.svg"
+                src="/icons/cabinet/card/time-icon.svg"
                 alt=""
                 class="card-page__header-right-img"
             />

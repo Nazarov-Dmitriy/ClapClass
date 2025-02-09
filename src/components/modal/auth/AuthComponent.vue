@@ -20,6 +20,7 @@ import { ref, onMounted, watch, onUnmounted } from 'vue'
 import ForGotPasswordComponent from './ForGotPasswordComponent.vue'
 import LoginComponent from './LoginComponent.vue'
 import RegisterComponent from './RegisterComponent.vue'
+import { useUserStore } from '@/stores/userStore'
 
 const props = defineProps({
     modal: {
@@ -28,6 +29,7 @@ const props = defineProps({
     }
 })
 
+const userStore = useUserStore()
 const currentModal = ref('')
 const emit = defineEmits(['close'])
 
@@ -40,6 +42,7 @@ onUnmounted(() => {
 })
 
 const toggleModal = (value) => {
+    userStore.setErrors()
     currentModal.value = value
 }
 
@@ -51,6 +54,7 @@ function closeModal() {
 watch(
     () => props.modal,
     (val) => {
+        userStore.setErrors()
         currentModal.value = val
     }
 )

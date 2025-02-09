@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import TitleComponent from '../ui/TitleComponent.vue';
-
-
+import TitleComponent from '../ui/TitleComponent.vue'
 </script>
 
 <template>
@@ -20,7 +18,7 @@ import TitleComponent from '../ui/TitleComponent.vue';
                         class="format__img format__img--mobile"
                     />
                     <div class="format__info-texts">
-                        <TitleComponent  class="format__info-title">
+                        <TitleComponent class="format__info-title">
                             Аркадный формат
                         </TitleComponent>
                         <p class="format__info-text">
@@ -41,7 +39,7 @@ import TitleComponent from '../ui/TitleComponent.vue';
                             Проект предоставляет централизованный доступ к библиотеке приложений
                             помогая быстро найти подходящий запросу инструмент. Мы позаботились о
                             вашем комфорте, собрав все необходимые инструкции, рекомендации и
-                            раздаточные материалы в одном месте.  Начните разминку одним кликом, а
+                            раздаточные материалы в одном месте. Начните разминку одним кликом, а
                             объяснение правил предоставьте Клэппи.
                         </p>
                     </div>
@@ -102,22 +100,24 @@ import TitleComponent from '../ui/TitleComponent.vue';
 }
 .format__img {
     transform: translate(50px, 0);
+
     &--mobile {
         display: none;
-    }
-    @media (max-width: $lg) {
-        display: none;
 
-        &--mobile {
+        @media (max-width: $lg) {
             display: block;
             transform: translate(0, 0);
         }
-    }
 
-    @media (max-width: $sm) {
-        &--mobile {
+        @media (max-width: $sm) {
             display: none;
         }
+    }
+    @media (max-width: $lg) {
+        display: none;
+    }
+
+    @media (max-width: $sm) {     
         display: block;
         transform: translate(0, 0);
     }
@@ -130,7 +130,7 @@ import TitleComponent from '../ui/TitleComponent.vue';
     background: #fff7ac;
     position: relative;
     z-index: -1;
-    &::after{
+    &::after {
         content: '';
         position: absolute;
         background-color: $yellowy;
@@ -138,7 +138,7 @@ import TitleComponent from '../ui/TitleComponent.vue';
         width: 200%;
         z-index: -1;
 
-        @media(max-width: $lg){
+        @media (max-width: $lg) {
             display: none;
         }
     }
@@ -161,8 +161,7 @@ import TitleComponent from '../ui/TitleComponent.vue';
     flex-direction: column;
     gap: 24px;
 }
-.format__info-title {
-}
+
 .format__info-text {
     font-weight: 400;
     font-size: 20px;
@@ -182,7 +181,8 @@ import TitleComponent from '../ui/TitleComponent.vue';
     justify-content: space-between;
     align-items: center;
     position: relative;
-    &::after{
+
+    &::after {
         content: '';
         position: absolute;
         background-color: #e6eaed;
@@ -191,7 +191,7 @@ import TitleComponent from '../ui/TitleComponent.vue';
         z-index: -1;
         left: -200%;
 
-        @media(max-width: $lg){
+        @media (max-width: $lg) {
             display: none;
         }
     }
@@ -212,8 +212,7 @@ import TitleComponent from '../ui/TitleComponent.vue';
 .game__title {
     text-align: right;
 }
-.game__text {
-}
+
 .game__img-wrapper {
     @media (max-width: $sm) {
         display: flex;
@@ -223,31 +222,34 @@ import TitleComponent from '../ui/TitleComponent.vue';
         order: -1;
     }
 }
+
 .game__img {
     display: block;
     transform: translate(-100px, 0);
 
-    &--mobile {
-        display: none;
-    }
-
     @media (max-width: $lg) {
         display: none;
-        &--mobile {
-            display: block;
-            transform: translate(0);
-            width: 326px;
-        }
     }
 
     @media (max-width: $sm) {
-        &--mobile {
-            display: none;
-        }
         display: block;
         width: 280px;
         transform: translate(0);
         order: -1;
+    }
+
+    &--mobile {
+        display: none;
+
+        @media (max-width: $lg) {
+            display: block;
+            transform: translate(0);
+            width: 326px;
+        }
+
+        @media (max-width: $sm) {
+            display: none;
+        }
     }
 }
 </style>

@@ -97,7 +97,7 @@
     </section>
 </template>
 
-<script setup lang="ts">
+<script setup >
 import { onMounted, ref } from 'vue'
 import BtnComponent from '../btns/BtnComponent.vue'
 import TitleComponent from '../ui/TitleComponent.vue'

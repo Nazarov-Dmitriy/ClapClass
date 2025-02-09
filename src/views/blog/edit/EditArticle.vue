@@ -9,29 +9,21 @@
             </h1>
             <div class="flex flex-col gap-4">
                 <div class="flex flex-col gap-2">
-                    <label
-                        for="title"
-                        class="field__label"
-                        :class="{ error: getErrors?.title || dataArticleError?.title }"
-                    >Заголовок материала</label
+                    <LabelField for="title" :error="getErrors?.title || dataArticleError?.title"
+                    >Заголовок материала</LabelField
                     >
-                    <input
-                        id="title"
+                    <InputField
                         v-model="dataArticle.title"
+                        input-id="title"
                         placeholder="Заголовок материала"
                         type="text"
-                        class="field__input"
-                        :class="{ error: getErrors?.title || dataArticleError?.title }"
-                    />
-                    <p v-if="getErrors?.title || dataArticleError?.title" class="error-text">
-                        {{ getErrors?.title || 'Обязательное поле' }}
-                    </p>
+                        :error="getErrors?.title || dataArticleError?.title"
+                        :error-text="getErrors?.title || 'Обязательное поле'"
+                    ></InputField>
                 </div>
                 <div class="flex flex-col gap-2 w-full">
-                    <label
-                        class="field__label"
-                        :class="{ error: getErrors?.type || dataArticleError?.type }"
-                    >Тип статьи</label
+                    <LabelField :error="getErrors?.type || dataArticleError?.type"
+                    >Тип статьи</LabelField
                     >
                     <DropdownComponent
                         v-model:model-value="dataArticle.type"
@@ -44,82 +36,29 @@
                     </p>
                 </div>
                 <div class="flex flex-col gap-2">
-                    <label
-                        class="field__label"
-                        :class="{ error: getErrors?.article || dataArticleError?.article }"
-                    >Статья</label
+                    <LabelField :error="getErrors?.article || dataArticleError?.article"
+                    >Статья</LabelField
                     >
                     <TextEditor
                         v-model="dataArticle.article"
                         :error="getErrors?.article || dataArticleError?.article"
+                        :error-text="getErrors?.article || 'Обязательное поле'"
                     >
                     </TextEditor>
-                    <p v-if="getErrors?.article || dataArticleError?.article" class="error-text">
-                        {{ getErrors?.article || 'Обязательное поле' }}
-                    </p>
                 </div>
-
-                <div class="flex flex-col gap-2">
-                    <div class="flex gap-2 items-center">
-                        <label
-                            class="field__label file"
-                            for="input_file"
-                            :class="{ error: getErrors?.file || dataArticleError?.file }"
-                        >Фаил</label
-                        >
-                        <div v-if="dataArticle.file && !fileLoad" class="flex gap-2">
-                            <p>{{ getFileName }}</p>
-                            <button
-                                v-if="typeof dataArticle.file == 'object'"
-                                class="w-5 h-5 hover:text-[#e05704]"
-                                @click="removeFile()"
-                            >
-                                <svg
-                                    width="auto"
-                                    height="auto"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M4.92969 5L19.0718 19.1421"
-                                        stroke="currentColor"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                    />
-                                    <path
-                                        d="M5 19.4102L19.1421 5.26802"
-                                        stroke="currentColor"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                        <div v-else class="">
-                            <PulseLoader
-                                :loading="fileLoad"
-                                :color="'#e05704'"
-                                :size="'24px'"
-                                class=""
-                            ></PulseLoader>
-                        </div>
-                    </div>
-                    <input
-                        id="input_file"
-                        ref="inputFile"
-                        type="file"
-                        class="visuallyhidden"
-                        :accept="dataArticle.type === 'article' ? 'image/*' : 'video/*'"
-                        @change="onFileChange"
-                    />
-                    <p v-if="getErrors?.file || dataArticleError?.file" class="error-text">
-                        {{ getErrors?.file || 'Обязательное поле' }}
-                    </p>
-                </div>
+                <FileField
+                    label="Фаил"
+                    :accept-material="dataArticle.type === 'article' ? 'image/*' : 'video/*'"
+                    :error="getErrors?.file || dataArticleError?.file"
+                    :error-text="getErrors?.file || 'Обязательное поле'"
+                    :page-type="pageType"
+                    :file-name="dataArticle?.file"
+                    @file-change="fileChange"
+                ></FileField>
                 <BtnComponent
                     emit-name="action"
                     class="header__btn w-fit"
+                    current-class="flex gap-2 items-center"
                     :disable="saveArticle"
                     @action="pageType ? edit() : save()"
                 >
@@ -128,7 +67,7 @@
                         :loading="saveArticle"
                         :color="'#e05704'"
                         :size="'24px'"
-                        class=""
+                        class="flex items-center"
                     ></PulseLoader>
                 </BtnComponent>
             </div>
@@ -150,14 +89,15 @@ import TextEditor from '@/components/ui/form/text-editor/TextEditor.vue'
 import BtnComponent from '@/components/btns/BtnComponent.vue'
 import * as yup from 'yup'
 import Loader from '@/components/loader/Loader.vue'
+import LabelField from '@/components/ui/form/label/LabelField.vue'
+import InputField from '@/components/ui/form/input/InputField.vue'
+import FileField from '@/components/ui/form/file/FileField.vue'
 
 const userStore = useUserStore()
 const articleStore = useArticleStore()
 const route = useRoute()
-const fileLoad = ref(false)
 const saveArticle = ref(false)
 const pageType = ref(null)
-const inputFile = ref(null)
 const isLoad = ref(true)
 
 const formShema = yup.object({
@@ -173,7 +113,7 @@ const dataArticle = reactive({
     article: '',
     type: 'article',
     file: null,
-    author: 17
+    author: null
 })
 
 const dataArticleError = reactive({
@@ -195,15 +135,9 @@ const getErrors = computed(() => {
 const getIsSuccess = computed(() => {
     return articleStore.getIsSuccess
 })
+
 const getArticle = computed(() => {
     return articleStore.getArticle
-})
-
-const getFileName = computed(() => {
-    if (typeof dataArticle.file == 'object') {
-        return dataArticle.file.name
-    }
-    return dataArticle.file.split('/')[dataArticle.file.split('/').length - 1]
 })
 
 const typeOptions = [
@@ -212,12 +146,21 @@ const typeOptions = [
 ]
 
 onMounted(() => {
+    setUser()
     if (route.name === 'edit-article') {
         pageType.value = 'edit'
         articleStore.getArticleDb(route.params.id)
         isLoad.value = false
     }
 })
+
+function fileChange(file) {
+    if (!file) {
+        dataArticle.file = pageType.value === 'edit' ? getArticle.value.file : null
+    } else {
+        dataArticle.file = file
+    }
+}
 
 async function save() {
     await formShema
@@ -232,6 +175,7 @@ async function save() {
             { abortEarly: false }
         )
         .then(async () => {
+            saveArticle.value = true
             let formData = new FormData()
             formData.append('title', dataArticle.title)
             formData.append('article', dataArticle.article)
@@ -273,6 +217,7 @@ async function edit() {
             { abortEarly: false }
         )
         .then(async () => {
+            saveArticle.value = true
             let formData = new FormData()
             formData.append('title', dataArticle.title)
             formData.append('id', getArticle.value.id)
@@ -313,56 +258,42 @@ function resetError() {
 function resetData() {
     dataArticle.title = null
     dataArticle.article = ''
-    dataArticle.type = null
+    dataArticle.type = 'article'
     dataArticle.file = null
-    dataArticle.author = null
-    inputFile.value.value = ''
 }
 
-function onFileChange(e) {
-    const file = e.target.files[0]
-    let reader = new FileReader()
-    if (file) {
-        fileLoad.value = true
-        dataArticle.file = file
-        reader.onload = () => (fileLoad.value = false)
-        reader.readAsArrayBuffer(file)
-    }
-}
-
-function removeFile() {
-    pageType.value === 'edit'
-        ? (dataArticle.file = getArticle.value.file)
-        : (dataArticle.file = null)
-    inputFile.value.value = ''
-}
-
-watch(getUser, () => {
+function setUser() {
     if (pageType.value === 'edit') {
-        // if (getUser.value?.id == getArticle.value?.author?.id) {
-        //     dataNews.author = getUser.value?.id
-        // } else {
-        //     dataNews.author = getArticle.value?.author?.id
-        // }
+        if (getUser.value?.id == getArticle.value?.author?.id) {
+            dataArticle.author = getUser.value?.id
+        } else {
+            dataArticle.author = getArticle.value?.author?.id
+        }
     } else {
         dataArticle.author = getUser.value?.id
     }
+}
+
+watch(getUser, () => {
+    setUser()
 })
 
 watch(getIsSuccess, (val) => {
-    if (val === 'add') {
-        saveArticle.value = false
-        resetData()
-    }
+    saveArticle.value = false
+    val === 'add' && resetData()
 })
-watch(getArticle, () => {
-    isLoad.value = true
-    dataArticle.title = getArticle.value.title
-    dataArticle.article = getArticle.value.article
-    dataArticle.type = getArticle.value.type
-    dataArticle.file = getArticle.value.file
-    dataArticle.author = getArticle.value.author.id
-})
+watch(
+    getArticle,
+    () => {
+        isLoad.value = true
+        dataArticle.title = getArticle.value.title
+        dataArticle.article = getArticle.value.article
+        dataArticle.type = getArticle.value.type
+        dataArticle.file = getArticle.value.file
+        dataArticle.author = getArticle.value.author.id
+    },
+    { deep: true }
+)
 </script>
 <style lang="scss" scoped>
 .edit {
@@ -382,61 +313,6 @@ watch(getArticle, () => {
     @media (max-width: $sm) {
         padding: 16px;
     }
-}
-
-.field__label {
-    font-weight: 500;
-    color: $gray;
-    &.error {
-        color: red;
-    }
-
-    &.file {
-        box-shadow:
-            0 2px 4px 0 rgba(21, 15, 13, 0.1),
-            0 8px 8px 0 rgba(21, 15, 13, 0.09);
-        background: rgba(255, 255, 255, 0.8);
-        border: 2px solid #ffffff;
-        border-radius: 24px;
-        padding: 6px 24px;
-        background: $orange;
-        cursor: pointer;
-        transition: 0.4s;
-        display: block;
-        width: fit-content;
-        color: white;
-
-        &.error {
-            background: $red;
-        }
-    }
-}
-
-.field__input {
-    border: 2px solid $gray;
-    border-radius: 24px;
-    padding: 10px 16px;
-    background: $white;
-    font-size: 16px;
-    line-height: 24px;
-    width: 100%;
-
-    &.error {
-        border: 1px solid red;
-        font-size: 16px;
-        line-height: 24px;
-    }
-}
-
-.visuallyhidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
 }
 
 .error-text {

@@ -12,7 +12,7 @@
             <button
                 class="mr-2 border border-[#656d75] hover:border-[#e05704] hover:text-[#e05704] rounded-xl px-4 py-2"
             >
-                <span class="hidden sm:block" @click="(e) => remove(e, props.data.id)">
+                <span class="hidden sm:block" @click.stop="toggleDialog(props.data.id)">
                     Удалить</span
                 >
                 <RemoveSvg class="w-6 h-6 sm:hidden" />
@@ -66,12 +66,20 @@
             </div>
         </div>
     </div>
+
+    <Teleport to="body">
+        <ModalConfirm :show="modalShow" @remove="removeArticle" @close="toggleDialog(null)">
+            <template #body> <p class="text-xl font-medium">Удалить статью ?</p> </template>
+        </ModalConfirm>
+    </Teleport>
 </template>
 <script setup>
 import { useArticleStore } from '@/stores/articleStore'
 import EditSvg from '../../assets/icons/blog/edit.svg?component'
 import RemoveSvg from '../../assets/icons/blog/remove.svg?component'
 import { useRouter } from 'vue-router'
+import { ref } from 'vue'
+import ModalConfirm from '../modal/ModalConfirm.vue'
 
 const props = defineProps({
     data: {
@@ -85,7 +93,8 @@ const props = defineProps({
 })
 
 const articleStore = useArticleStore()
-
+const modalShow = ref(false)
+const removeId = ref(null)
 const router = useRouter()
 
 function validUrl(url) {
@@ -106,9 +115,14 @@ const edit = (e, id) => {
     router.push({ name: 'edit-article', params: { id: id } })
 }
 
-const remove = (e, id) => {
-    e.stopPropagation()
-    articleStore.remove(id)
+function toggleDialog(id) {
+    modalShow.value = !modalShow.value
+    id ? (removeId.value = id) : (removeId.value = null)
+}
+
+function removeArticle() {
+    modalShow.value = !modalShow.value
+    articleStore.remove(removeId.value)
 }
 </script>
 <style lang="scss">

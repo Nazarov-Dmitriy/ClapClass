@@ -13,9 +13,115 @@
                         <div class="reviews__cards-inner">
                             <div class="reviews__cards-group">
                                 <div
+                                    v-for="(review, index) in getReviewsList"
+                                    :key="index"
                                     class="reviews__card"
+                                >
+                                    <div class="reviews__card-header">
+                                        <img
+                                            :src="getUrl(review.filePath)"
+                                            alt=""
+                                            class="reviews__card-img"
+                                        />
+                                        <div class="reviews__card-header-text">
+                                            <span>{{ review.author }}</span>
+                                            <span>{{ review.date }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="reviews__card-body">
+                                        <p class="reviews__card-text">
+                                            {{ review.description }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="reviews__cards-group">
+                                <div
+                                    v-for="(review, index) in reviews"
+                                    :key="index + reviews.length"
+                                    class="reviews__card"
+                                >
+                                    <div class="reviews__card-header">
+                                        <img :src="review.img" alt="" class="reviews__card-img" />
+                                        <div class="reviews__card-header-text">
+                                            <span>{{ review.name }}</span>
+                                            <span>{{ review.date }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="reviews__card-body">
+                                        <p class="reviews__card-text">
+                                            {{ review.text }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reviews__cards-group">
+                                <div
+                                    v-for="(review, index) in reviews"
+                                    :key="index + reviews.length"
+                                    class="reviews__card"
+                                >
+                                    <div class="reviews__card-header">
+                                        <img :src="review.img" alt="" class="reviews__card-img" />
+                                        <div class="reviews__card-header-text">
+                                            <span>{{ review.name }}</span>
+                                            <span>{{ review.date }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="reviews__card-body">
+                                        <p class="reviews__card-text">
+                                            {{ review.text }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reviews__cards-group">
+                                <div
+                                    v-for="(review, index) in reviews"
+                                    :key="index + reviews.length"
+                                    class="reviews__card"
+                                >
+                                    <div class="reviews__card-header">
+                                        <img :src="review.img" alt="" class="reviews__card-img" />
+                                        <div class="reviews__card-header-text">
+                                            <span>{{ review.name }}</span>
+                                            <span>{{ review.date }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="reviews__card-body">
+                                        <p class="reviews__card-text">
+                                            {{ review.text }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reviews__cards-group">
+                                <div
+                                    v-for="(review, index) in reviews"
+                                    :key="index + reviews.length"
+                                    class="reviews__card"
+                                >
+                                    <div class="reviews__card-header">
+                                        <img :src="review.img" alt="" class="reviews__card-img" />
+                                        <div class="reviews__card-header-text">
+                                            <span>{{ review.name }}</span>
+                                            <span>{{ review.date }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="reviews__card-body">
+                                        <p class="reviews__card-text">
+                                            {{ review.text }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                        <!-- <div class="reviews__cards-inner">
+                            <div class="reviews__cards-group">
+                                <div
                                     v-for="(review, index) in reviews"
                                     :key="index"
+                                    class="reviews__card"
                                 >
                                     <div class="reviews__card-header">
                                         <img :src="review.img" alt="" class="reviews__card-img" />
@@ -33,9 +139,9 @@
                             </div>
                             <div class="reviews__cards-group">
                                 <div
-                                    class="reviews__card"
                                     v-for="(review, index) in reviews"
                                     :key="index + reviews.length"
+                                    class="reviews__card"
                                 >
                                     <div class="reviews__card-header">
                                         <img :src="review.img" alt="" class="reviews__card-img" />
@@ -53,9 +159,9 @@
                             </div>
                             <div class="reviews__cards-group">
                                 <div
-                                    class="reviews__card"
                                     v-for="(review, index) in reviews"
                                     :key="index + reviews.length"
+                                    class="reviews__card"
                                 >
                                     <div class="reviews__card-header">
                                         <img :src="review.img" alt="" class="reviews__card-img" />
@@ -73,9 +179,9 @@
                             </div>
                             <div class="reviews__cards-group">
                                 <div
-                                    class="reviews__card"
                                     v-for="(review, index) in reviews"
                                     :key="index + reviews.length"
+                                    class="reviews__card"
                                 >
                                     <div class="reviews__card-header">
                                         <img :src="review.img" alt="" class="reviews__card-img" />
@@ -93,31 +199,9 @@
                             </div>
                             <div class="reviews__cards-group">
                                 <div
-                                    class="reviews__card"
                                     v-for="(review, index) in reviews"
                                     :key="index + reviews.length"
-                                >
-                                    <div class="reviews__card-header">
-                                        <img :src="review.img" alt="" class="reviews__card-img" />
-                                        <div class="reviews__card-header-text">
-                                            <span>{{ review.name }}</span>
-                                            <span>{{ review.date }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="reviews__card-body">
-                                        <p class="reviews__card-text">
-                                            {{ review.text }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="reviews__cards-inner">
-                            <div class="reviews__cards-group">
-                                <div
                                     class="reviews__card"
-                                    v-for="(review, index) in reviews"
-                                    :key="index"
                                 >
                                     <div class="reviews__card-header">
                                         <img :src="review.img" alt="" class="reviews__card-img" />
@@ -133,87 +217,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="reviews__cards-group">
-                                <div
-                                    class="reviews__card"
-                                    v-for="(review, index) in reviews"
-                                    :key="index + reviews.length"
-                                >
-                                    <div class="reviews__card-header">
-                                        <img :src="review.img" alt="" class="reviews__card-img" />
-                                        <div class="reviews__card-header-text">
-                                            <span>{{ review.name }}</span>
-                                            <span>{{ review.date }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="reviews__card-body">
-                                        <p class="reviews__card-text">
-                                            {{ review.text }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="reviews__cards-group">
-                                <div
-                                    class="reviews__card"
-                                    v-for="(review, index) in reviews"
-                                    :key="index + reviews.length"
-                                >
-                                    <div class="reviews__card-header">
-                                        <img :src="review.img" alt="" class="reviews__card-img" />
-                                        <div class="reviews__card-header-text">
-                                            <span>{{ review.name }}</span>
-                                            <span>{{ review.date }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="reviews__card-body">
-                                        <p class="reviews__card-text">
-                                            {{ review.text }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="reviews__cards-group">
-                                <div
-                                    class="reviews__card"
-                                    v-for="(review, index) in reviews"
-                                    :key="index + reviews.length"
-                                >
-                                    <div class="reviews__card-header">
-                                        <img :src="review.img" alt="" class="reviews__card-img" />
-                                        <div class="reviews__card-header-text">
-                                            <span>{{ review.name }}</span>
-                                            <span>{{ review.date }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="reviews__card-body">
-                                        <p class="reviews__card-text">
-                                            {{ review.text }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="reviews__cards-group">
-                                <div
-                                    class="reviews__card"
-                                    v-for="(review, index) in reviews"
-                                    :key="index + reviews.length"
-                                >
-                                    <div class="reviews__card-header">
-                                        <img :src="review.img" alt="" class="reviews__card-img" />
-                                        <div class="reviews__card-header-text">
-                                            <span>{{ review.name }}</span>
-                                            <span>{{ review.date }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="reviews__card-body">
-                                        <p class="reviews__card-text">
-                                            {{ review.text }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -222,29 +226,22 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import BtnComponent from '../btns/BtnComponent.vue'
+import { useReviewsStore } from '@/stores/reviewsStore'
 
-const reviews = ref([
-    {
-        img: '/images/main/reviews/reviews-hero1.png',
-        name: 'Марина И1',
-        date: '00.00.0000',
-        text: 'Равным образом реализация намеченных плановых заданий требуют определения и уточнения позиций, занимаемых участниками в отношении поставленных задач. Равным образом новая модель организационной деятельности в значительной степени обуславливает создание форм развития. Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации модели развития. Таким образом новая модель организационной деятельности позволяет оценить значение системы обучения кадров, соответствует насущным потребностям. Таким образом рамки и место обучения кадров способствует подготовки и реализации модели развития. Равным образом постоянное информационно-пропагандистское обеспечение нашей деятельности требуют определения и уточнения направлений прогрессивного развития.'
-    },
-    {
-        img: '/images/main/reviews/reviews-hero2.png',
-        name: 'Марина И2',
-        date: '00.00.0000',
-        text: 'Равным образом реализация намеченных плановых заданий требуют определения и уточнения позиций, занимаемых участниками в отношении поставленных задач. Равным образом новая модель организационной деятельности в значительной степени обуславливает создание форм развития. Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации модели развития. Таким образом новая модель организационной деятельности позволяет оценить значение системы обучения кадров, соответствует насущным потребностям. Таким образом рамки и место обучения кадров способствует подготовки и реализации модели развития. Равным образом постоянное информационно-пропагандистское обеспечение нашей деятельности требуют определения и уточнения направлений прогрессивного развития.'
-    },
-    {
-        img: '/images/main/reviews/reviews-hero3.png',
-        name: 'Марина И3',
-        date: '00.00.0000',
-        text: 'Равным образом реализация намеченных плановых заданий требуют определения и уточнения позиций, занимаемых участниками в отношении поставленных задач. Равным образом новая модель организационной деятельности в значительной степени обуславливает создание форм развития. Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации модели развития. Таким образом новая модель организационной деятельности позволяет оценить значение системы обучения кадров, соответствует насущным потребностям. Таким образом рамки и место обучения кадров способствует подготовки и реализации модели развития. Равным образом постоянное информационно-пропагандистское обеспечение нашей деятельности требуют определения и уточнения направлений прогрессивного развития.'
-    }
-])
+const reviewsStore = useReviewsStore()
+
+const getReviewsList = computed(() => {
+    return reviewsStore.getReviewsList
+})
+onMounted(() => {
+    reviewsStore.getListDb()
+})
+
+function getUrl(url) {
+    return import.meta.env.VITE_SERVER_URL + url
+}
 </script>
 <style lang="scss">
 .reviews {
@@ -380,9 +377,16 @@ const reviews = ref([
     color: $black;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    line-clamp: 6;
     -webkit-line-clamp: 6;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.reviews__card-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
 }
 
 @keyframes slide {

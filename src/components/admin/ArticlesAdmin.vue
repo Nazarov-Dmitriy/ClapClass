@@ -1,5 +1,12 @@
 <template>
     <div class="flex flex-col gap-4 mb-12">
+        <BtnComponentOrange
+            class="blog__btn-panel w-fit"
+            emit-name="action"
+            @action="$router.push('/blog/create')"
+        >
+            Добавить статью
+        </BtnComponentOrange>
         <SearchPanel
             v-model:search="panel.search"
             v-model:sort="panel.sort"
@@ -17,6 +24,7 @@ import SearchPanel from '../search/SearchPanel.vue'
 import ListArticleEmpty from '../blog/ListArticleEmpty.vue'
 import ListArticle from '../blog/ListArticle.vue'
 import { useArticleStore } from '@/stores/articleStore'
+import BtnComponentOrange from '../btns/BtnComponentOrange.vue'
 
 const articleStore = useArticleStore()
 const panel = reactive({

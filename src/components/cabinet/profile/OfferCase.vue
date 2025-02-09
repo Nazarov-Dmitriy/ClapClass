@@ -54,7 +54,7 @@
                 @drop.prevent="onFileDrop"
             >
                 <div class="flex gap-4 justify-center items-end cursor-pointer" @click="addFile">
-                    <img src="/public/icons/cabinet/profile/download.svg" alt="download icon" />
+                    <img src="/icons/cabinet/profile/download.svg" alt="download icon" />
                     <h3 class="font-normal text-[20px] leading-[150%] text-orange">
                         Выберите файл
                     </h3>

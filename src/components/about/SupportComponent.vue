@@ -8,7 +8,7 @@ import BtnComponent from '../btns/BtnComponent.vue'
             <div class="support__wrapper">
                 <div class="support__hero">
                     <img
-                        src="/public/images/about/support/hero.png"
+                        src="/images/about/support/hero.png"
                         alt="hero"
                         class="support__hero-img"
                     />
@@ -22,12 +22,12 @@ import BtnComponent from '../btns/BtnComponent.vue'
             </div>
             <div class="support__offer">
                 <img
-                    src="/public/images/about/support/coin.png"
+                    src="/images/about/support/coin.png"
                     alt="coin img"
                     class="support__offer-img support__offer-img--coin"
                 />
                 <img
-                    src="/public/images/about/support/offer-hero.png"
+                    src="/images/about/support/offer-hero.png"
                     alt="offer hero img"
                     class="support__offer-img support__offer-img--hero"
                 />

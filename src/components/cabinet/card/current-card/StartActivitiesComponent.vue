@@ -9,15 +9,14 @@
                 >
                     <img
                         v-if="isHovered"
-                        @click="toggleModal"
                         class="card-page__right-btn card-page__right-btn--orange"
-                        src="/public/images/cabinet/card-page/button-hovered.png"
-                        alt=""
+                        src="/images/cabinet/card-page/button-hovered.png"
+                        @click="toggleModal"
                     />
                     <img
                         v-else
                         class="card-page__right-btn card-page__right-btn--orange"
-                        src="/public/images/cabinet/card-page/button.png"
+                        src="/images/cabinet/card-page/button.png"
                         alt=""
                     />
                 </div>
@@ -69,7 +68,7 @@
                     </div>
                     <div class="flex flex-col gap-3">
                         <img
-                            src="/public/icons/cabinet/card-page/rules-icon1.svg"
+                            src="/icons/cabinet/card-page/rules-icon1.svg"
                             alt=""
                             class="card-page__right-rules-img"
                         />
@@ -85,7 +84,7 @@
                     </div>
                     <div class="flex flex-col gap-3">
                         <img
-                            src="/public/icons/cabinet/card-page/rules-icon2.svg"
+                            src="/icons/cabinet/card-page/rules-icon2.svg"
                             alt=""
                             class="card-page__right-rules-img"
                         />
@@ -103,7 +102,7 @@
             <ModalComponent :visible="isModalVisible">
                 <template #header>
                     <div>
-                        <ModalHeader @closeModal="toggleModal">
+                        <ModalHeader @close-modal="toggleModal">
                             Оставьте отзыв, это помогает улучшить разминку
                         </ModalHeader>
                     </div>

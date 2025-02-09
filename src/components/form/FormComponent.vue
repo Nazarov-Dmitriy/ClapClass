@@ -337,8 +337,10 @@ watch(getIsSuccess, (val) => {
     @media (max-width: $xl) {
         display: none;
     }
+
     &--mobile {
         display: none;
+
         @media (max-width: $xl) {
             display: block;
             text-align: center;

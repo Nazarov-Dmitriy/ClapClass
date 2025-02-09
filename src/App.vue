@@ -1,14 +1,14 @@
-<script setup>
-import { useUserStore } from './stores/userStore';
-const userStore = useUserStore()
-userStore.autoLogin()
-</script>
-
 <template>
     <div id="app">
         <router-view />
     </div>
 </template>
+
+<script setup>
+import { useUserStore } from './stores/userStore'
+const userStore = useUserStore()
+userStore.autoLogin()
+</script>
 
 <style lang="scss">
 #app {

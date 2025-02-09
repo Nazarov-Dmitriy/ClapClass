@@ -319,7 +319,6 @@ watch(isSuccess, () => {
     font-size: 20px;
     line-height: 1.5;
     color: $orange;
-    color: white;
 }
 
 .news__card-date {

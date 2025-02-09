@@ -30,7 +30,7 @@
 
             <img
                 v-if="isSubmit"
-                src="/public/images/cabinet/rate-modal/stars-bg.png"
+                src="/images/cabinet/rate-modal/stars-bg.png"
                 class="absolute inset-0 w-full h-full object-cover z-10 opacity-80 pointer-events-none"
                 alt="Stars Background"
             />
@@ -45,7 +45,7 @@
                 <h2 v-else class="font-bold text-[36px] leading-[48px] text-center text-orange">
                     Спасибо!
                 </h2>
-                <img src="/public/images/cabinet/rate-modal/rate-modal-hero.png" alt="modal hero" />
+                2222222222    <img src="/images/cabinet/rate-modal/rate-modal-hero.png" alt="modal hero" />
                 <span
                     v-if="!isSubmit"
                     class="font-bold text-[20px] leading-[150%] text-center text-[#413e3d]"

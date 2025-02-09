@@ -22,14 +22,14 @@
                         <img
                             v-if="!passwordVisible.password"
                             class="input-icon"
-                            src="/public/icons/auth/inputs/password-invisible.svg"
+                            src="/icons/auth/inputs/password-invisible.svg"
                             alt=""
                             @click="changeVisiblePassword('password')"
                         />
                         <img
                             v-else
                             class="input-icon"
-                            src="/public/icons/auth/inputs/password-visible.svg"
+                            src="/icons/auth/inputs/password-visible.svg"
                             alt=""
                             @click="changeVisiblePassword('password')"
                         />
@@ -60,14 +60,14 @@
                         <img
                             v-if="!passwordVisible.new_password"
                             class="input-icon"
-                            src="/public/icons/auth/inputs/password-invisible.svg"
+                            src="/icons/auth/inputs/password-invisible.svg"
                             alt=""
                             @click="changeVisiblePassword('new_password')"
                         />
                         <img
                             v-else
                             class="input-icon"
-                            src="/public/icons/auth/inputs/password-visible.svg"
+                            src="/icons/auth/inputs/password-visible.svg"
                             alt=""
                             @click="changeVisiblePassword('new_password')"
                         />
@@ -98,14 +98,14 @@
                         <img
                             v-if="!passwordVisible.repeatPassword"
                             class="input-icon"
-                            src="/public/icons/auth/inputs/password-invisible.svg"
+                            src="/icons/auth/inputs/password-invisible.svg"
                             alt=""
                             @click="changeVisiblePassword('repeatPassword')"
                         />
                         <img
                             v-else
                             class="input-icon"
-                            src="/public/icons/auth/inputs/password-visible.svg"
+                            src="/icons/auth/inputs/password-visible.svg"
                             alt=""
                             @click="changeVisiblePassword('repeatPassword')"
                         />
@@ -124,7 +124,7 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup >
 import { useUserStore } from '@/stores/userStore'
 import BtnComponentOrange from '../../btns/BtnComponentOrange.vue'
 import TitleComponent from '../../ui/TitleComponent.vue'

@@ -4,12 +4,12 @@
             <h2 class="achievements__title">Ачивки Clap Class</h2>
             <div class="achievements__img-wrapper">
                 <img
-                    src="/public/images/about/achievement/img1.svg"
+                    src="/images/about/achievement/img1.svg"
                     alt="image 1"
                     class="achievements__img"
                 />
                 <img
-                    src="/public/images/about/achievement/img2.png"
+                    src="/images/about/achievement/img2.png"
                     alt="image 2"
                     class="achievements__img"
                 />

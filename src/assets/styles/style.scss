@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @font-face {
     font-family: 'Inter';
     src:
@@ -69,5 +70,5 @@ body,
 .error-text {
     font-size: 16px;
     line-height: 24px;
-    color: $yellowy !important;
+    color: $yellowy;
 }

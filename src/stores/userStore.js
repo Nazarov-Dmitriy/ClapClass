@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia'
 import axiosR from '../api/http'
-import { toast } from "vue3-toastify";
-import 'vue3-toastify/dist/index.css';
-
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 
 export const useUserStore = defineStore('userStore', {
     state: () => ({
@@ -10,7 +9,6 @@ export const useUserStore = defineStore('userStore', {
         token: '',
         error: null,
         isSuccess: '',
-        isAuthenticated: false,
         isSuccessUpdate: false
     }),
 
@@ -26,9 +24,6 @@ export const useUserStore = defineStore('userStore', {
         },
         getIsSuccess(state) {
             return state.isSuccess
-        },
-        isAuthenticated(state) {
-            return !!state.token
         }
     },
 
@@ -80,10 +75,10 @@ export const useUserStore = defineStore('userStore', {
                     if (res.status === 200) {
                         this.error = null
                         this.isSuccess = 'register'
-                        toast.success("Пользователь успешно зарегистрирован", {
+                        toast.success('Пользователь успешно зарегистрирован', {
                             autoClose: 3000,
-                            dangerouslyHTMLString: true,
-                        });
+                            dangerouslyHTMLString: true
+                        })
                     }
                 })
                 .catch((err) => {
@@ -100,23 +95,26 @@ export const useUserStore = defineStore('userStore', {
                     })
                     .catch(() => {
                         localStorage.removeItem('token')
-                        window.location.reload();
+                        window.location.reload()
                     })
             }
         },
         updateUserInfo(data) {
-            this.isSuccess = '';
-            const time_token = localStorage.getItem('remember') ? localStorage.getItem('remember') === true ? 'long' : "short" : false
+            this.isSuccess = ''
+            const time_token = localStorage.getItem('remember')
+                ? localStorage.getItem('remember') === true
+                    ? 'long'
+                    : 'short'
+                : false
 
             axiosR
                 .post(`/user/info`, { ...data, time_token: time_token })
                 .then((res) => {
                     if (res.status === 200) {
-
-                        toast.success("Изменения сохранены", {
+                        toast.success('Изменения сохранены', {
                             autoClose: 3000,
-                            dangerouslyHTMLString: true,
-                        });
+                            dangerouslyHTMLString: true
+                        })
                         this.user = res.data.user
 
                         if (res.data.token !== '') {
@@ -141,10 +139,10 @@ export const useUserStore = defineStore('userStore', {
                     }
                 })
                 .catch(() => {
-                    toast.success("Ошибка", {
+                    toast.success('Ошибка', {
                         autoClose: 3000,
-                        dangerouslyHTMLString: true,
-                    });
+                        dangerouslyHTMLString: true
+                    })
                 })
         },
         userAddAvatar(data) {
@@ -171,18 +169,22 @@ export const useUserStore = defineStore('userStore', {
         },
         changePassword(data) {
             this.isSuccess = ''
-            const time_token = localStorage.getItem('remember') ? localStorage.getItem('remember') === true ? 'long' : "short" : false
+            const time_token = localStorage.getItem('remember')
+                ? localStorage.getItem('remember') === true
+                    ? 'long'
+                    : 'short'
+                : false
 
             axiosR
-                .post(`/user/change-password`, {...data,time_token: time_token} )
+                .post(`/user/change-password`, { ...data, time_token: time_token })
                 .then((res) => {
                     if (res.status === 200) {
                         this.isSuccess = 'changePassword'
                         localStorage.setItem('token', res.data)
-                        toast.success("Пароль успешно изменен", {
+                        toast.success('Пароль успешно изменен', {
                             autoClose: 3000,
-                            dangerouslyHTMLString: true,
-                        });
+                            dangerouslyHTMLString: true
+                        })
                     }
                 })
                 .catch((err) => {
@@ -193,7 +195,7 @@ export const useUserStore = defineStore('userStore', {
             this.errors = null
             this.isSuccess = ''
             axiosR
-                .post('/user/subscribe',  email )
+                .post('/user/subscribe', email)
                 .then((res) => {
                     if (res.status === 200) {
                         this.isSuccess = 'subscribe'
@@ -203,6 +205,6 @@ export const useUserStore = defineStore('userStore', {
                 .catch((err) => {
                     this.errors = err.response.data
                 })
-        },
+        }
     }
 })
