@@ -11,11 +11,11 @@
                 <label
                     class="font-medium text-base text-gray"
                     :class="errors?.name && 'text-red'"
-                    for="name"
+                    for="offerName"
                 >Название</label
                 >
                 <input
-                    id="name"
+                    id="offerName"
                     v-model="formData.name"
                     placeholder="Введите название"
                     class="border border-solid rounded-3xl border-fonLight p-4 box-border"

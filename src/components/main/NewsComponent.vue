@@ -264,6 +264,7 @@ watch(isSuccess, () => {
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
     justify-content: space-between;
+    min-height: 234px;
 
     @media (max-width: $lg) {
         grid-template-columns: 1fr;

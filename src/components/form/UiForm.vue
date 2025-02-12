@@ -10,12 +10,12 @@
             class="form__form"
         >
             <div class="form__fields">
-                <label for="name" class="form__label" :class="{ form__error: formField.nameError }">
+                <label for="username" class="form__label" :class="{ form__error: formField.nameError }">
                     Как вас зовут?
                 </label>
                 <input
                     type="text"
-                    id="name"
+                    id="username"
                     class="form__input form__input--name"
                     :class="{ 'form__input--error': formField.nameError }"
                     v-model="formField.name"
@@ -52,14 +52,14 @@
                     </label>
 
                     <label
-                        for="email"
+                        for="fieldEmail"
                         class="form__label"
                         :class="{ form__error: formField.emailError }"
                     >
                         <span :class="{ form__error: formField.phoneError }">E-mail</span>
                         <input
                             type="text"
-                            id="email"
+                            id="fieldEmail"
                             class="form__input form__input--email"
                             :class="{ 'form__input--error': formField.emailError }"
                             v-model="formField.email"

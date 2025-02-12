@@ -4,9 +4,9 @@
             <div class="grid grid-cols-2 gap-6 item-center">
                 <div class="flex flex-col gap-4">
                     <div class="flex flex-col gap-2">
-                        <label class="label" for="name" :class="errors?.name && 'error'">ФИО</label>
+                        <label class="label" for="personalName" :class="errors?.name && 'error'">ФИО</label>
                         <input
-                            id="name"
+                            id="personalName"
                             v-model="form.name"
                             type="text"
                             placeholder="Введите ФИО"
@@ -37,11 +37,11 @@
                     </div>
 
                     <div class="flex flex-col gap-2">
-                        <label class="label" for="email" :class="errors?.email && 'error'"
+                        <label class="label" for="personalEmail" :class="errors?.email && 'error'"
                         >email*</label
                         >
                         <input
-                            id="email"
+                            id="personalEmail"
                             v-model="form.email"
                             type="text"
                             placeholder="maria@mail.ru"

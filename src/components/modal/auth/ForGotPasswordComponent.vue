@@ -12,7 +12,7 @@
             <form class="form__wrapper" @submit.prevent>
                 <div class="form__group">
                     <input
-                        id="email"
+                        id="forgotEmail"
                         v-model="email"
                         placeholder="marina_ivanova@mail.ru"
                         :class="getError?.email && 'error'"

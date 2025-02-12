@@ -12,7 +12,7 @@ export const useCardsStore = defineStore('cardsStore', {
                 views: '100',
                 rating: '100',
                 time: '2-5 мин',
-                timeIcon: '/public/icons/cabinet/card/time-icon.svg',
+                timeIcon: '/icons/cabinet/card/time-icon.svg',
                 description: `Пары кореньев, шёпотки соли и котла с кипятком недостаточно для приготовления
                 снадобья. Искусство зельеварения требует глубоких знаний о свойствах каждого
                 ингредиента, пропорций и правильной последовательностью введения. Выступите
@@ -34,7 +34,7 @@ export const useCardsStore = defineStore('cardsStore', {
                 views: '100',
                 rating: '100',
                 time: '2-5 мин',
-                timeIcon: '/public/icons/cabinet/card/time-icon.svg',
+                timeIcon: '/icons/cabinet/card/time-icon.svg',
                 description: `2Пары кореньев, шёпотки соли и котла с кипятком недостаточно для приготовления
                 снадобья. Искусство зельеварения требует глубоких знаний о свойствах каждого
                 ингредиента, пропорций и правильной последовательностью введения. Выступите
@@ -56,7 +56,7 @@ export const useCardsStore = defineStore('cardsStore', {
                 views: '100',
                 rating: '100',
                 time: '2-5 мин',
-                timeIcon: '/public/icons/cabinet/card/time-icon.svg',
+                timeIcon: '/icons/cabinet/card/time-icon.svg',
                 description: `Пары кореньев, шёпотки соли и котла с кипятком недостаточно для приготовления
                 снадобья. Искусство зельеварения требует глубоких знаний о свойствах каждого
                 ингредиента, пропорций и правильной последовательностью введения. Выступите
@@ -78,7 +78,7 @@ export const useCardsStore = defineStore('cardsStore', {
                 views: '100',
                 rating: '100',
                 time: '2-5 мин',
-                timeIcon: '/public/icons/cabinet/card/time-icon.svg',
+                timeIcon: '/icons/cabinet/card/time-icon.svg',
                 description: `Пары кореньев, шёпотки соли и котла с кипятком недостаточно для приготовления
                 снадобья. Искусство зельеварения требует глубоких знаний о свойствах каждого
                 ингредиента, пропорций и правильной последовательностью введения. Выступите
@@ -100,7 +100,7 @@ export const useCardsStore = defineStore('cardsStore', {
                 views: '100',
                 rating: '100',
                 time: '2-5 мин',
-                timeIcon: '/public/icons/cabinet/card/time-icon.svg',
+                timeIcon: '//icons/cabinet/card/time-icon.svg',
                 description: `Пары кореньев, шёпотки соли и котла с кипятком недостаточно для приготовления
                 снадобья. Искусство зельеварения требует глубоких знаний о свойствах каждого
                 ингредиента, пропорций и правильной последовательностью введения. Выступите
@@ -122,7 +122,7 @@ export const useCardsStore = defineStore('cardsStore', {
                 views: '100',
                 rating: '100',
                 time: '2-5 мин',
-                timeIcon: '/public/icons/cabinet/card/time-icon.svg',
+                timeIcon: '/icons/cabinet/card/time-icon.svg',
                 description: `Пары кореньев, шёпотки соли и котла с кипятком недостаточно для приготовления
                 снадобья. Искусство зельеварения требует глубоких знаний о свойствах каждого
                 ингредиента, пропорций и правильной последовательностью введения. Выступите
@@ -144,7 +144,7 @@ export const useCardsStore = defineStore('cardsStore', {
                 views: '100',
                 rating: '100',
                 time: '2-5 мин',
-                timeIcon: '/public/icons/cabinet/card/time-icon.svg',
+                timeIcon: '/icons/cabinet/card/time-icon.svg',
                 description: `Пары кореньев, шёпотки соли и котла с кипятком недостаточно для приготовления
                 снадобья. Искусство зельеварения требует глубоких знаний о свойствах каждого
                 ингредиента, пропорций и правильной последовательностью введения. Выступите
@@ -166,7 +166,7 @@ export const useCardsStore = defineStore('cardsStore', {
                 views: '100',
                 rating: '100',
                 time: '2-5 мин',
-                timeIcon: '/public/icons/cabinet/card/time-icon.svg',
+                timeIcon: '/icons/cabinet/card/time-icon.svg',
                 description: `Пары кореньев, шёпотки соли и котла с кипятком недостаточно для приготовления
                 снадобья. Искусство зельеварения требует глубоких знаний о свойствах каждого
                 ингредиента, пропорций и правильной последовательностью введения. Выступите
@@ -188,7 +188,7 @@ export const useCardsStore = defineStore('cardsStore', {
                 views: '100',
                 rating: '100',
                 time: '2-5 мин',
-                timeIcon: '/public/icons/cabinet/card/time-icon.svg',
+                timeIcon: '/icons/cabinet/card/time-icon.svg',
                 description: `Пары кореньев, шёпотки соли и котла с кипятком недостаточно для приготовления
                 снадобья. Искусство зельеварения требует глубоких знаний о свойствах каждого
                 ингредиента, пропорций и правильной последовательностью введения. Выступите
@@ -210,7 +210,7 @@ export const useCardsStore = defineStore('cardsStore', {
                 views: '100',
                 rating: '100',
                 time: '2-5 мин',
-                timeIcon: '/public/icons/cabinet/card/time-icon.svg',
+                timeIcon: '/icons/cabinet/card/time-icon.svg',
                 description: `Пары кореньев, шёпотки соли и котла с кипятком недостаточно для приготовления
                 снадобья. Искусство зельеварения требует глубоких знаний о свойствах каждого
                 ингредиента, пропорций и правильной последовательностью введения. Выступите
@@ -232,7 +232,7 @@ export const useCardsStore = defineStore('cardsStore', {
                 views: '100',
                 rating: '100',
                 time: '2-5 мин',
-                timeIcon: '/public/icons/cabinet/card/time-icon.svg',
+                timeIcon: '/icons/cabinet/card/time-icon.svg',
                 description: `Пары кореньев, шёпотки соли и котла с кипятком недостаточно для приготовления
                 снадобья. Искусство зельеварения требует глубоких знаний о свойствах каждого
                 ингредиента, пропорций и правильной последовательностью введения. Выступите
@@ -254,7 +254,7 @@ export const useCardsStore = defineStore('cardsStore', {
                 views: '150',
                 rating: '95',
                 time: '3-7 мин',
-                timeIcon: '/public/icons/cabinet/card/time-icon.svg',
+                timeIcon: '/icons/cabinet/card/time-icon.svg',
                 description: `Пары кореньев, шёпотки соли и котла с кипятком недостаточно для приготовления
                 снадобья. Искусство зельеварения требует глубоких знаний о свойствах каждого
                 ингредиента, пропорций и правильной последовательностью введения. Выступите
@@ -276,7 +276,7 @@ export const useCardsStore = defineStore('cardsStore', {
                 views: '200',
                 rating: '98',
                 time: '5-10 мин',
-                timeIcon: '/public/icons/cabinet/card/time-icon.svg',
+                timeIcon: '/icons/cabinet/card/time-icon.svg',
                 description: `2Пары кореньев, шёпотки соли и котла с кипятком недостаточно для приготовления
                 снадобья. Искусство зельеварения требует глубоких знаний о свойствах каждого
                 ингредиента, пропорций и правильной последовательностью введения. Выступите

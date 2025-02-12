@@ -24,8 +24,6 @@
                         :pagination="paginationOptions"
                         :slides-per-view="1"
                         :space-between="5000"
-                        mousewheel="true"
-                        simulate-touch="true"
                         :loop="true"
                         :autoplay="autoplayOptions"
                         @slide-change="updateActiveIndex"
@@ -114,7 +112,7 @@
                         <BtnComponentWhite
                             class="slider__info-btn"
                             emit-name="action"
-                            @action="toggleVisible"
+                            @action="setModal('register')"
                         >
                             Регистрация
                         </BtnComponentWhite>
@@ -123,12 +121,7 @@
             </div>
         </div>
         <Teleport to="body">
-            <RegisterComponent
-                :isModalVisible="isModalVisible"
-                @close="isModalVisible = false"
-                @register="handleRegister"
-                @login="handleLogin"
-            />
+            <AuthComponent :modal="modal" @close="() => setModal('')" />
         </Teleport>
     </section>
 </template>
@@ -142,9 +135,13 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import BtnComponent from '../btns/BtnComponent.vue'
 import BtnComponentWhite from '../btns/BtnComponentWhite.vue'
-import RegisterComponent from '../modal/auth/LoginComponent.vue'
+import AuthComponent from '../modal/auth/AuthComponent.vue'
 
 const isModalVisible = ref(false)
+const modal = ref('')
+function setModal(value) {
+    modal.value = value
+}
 
 function toggleVisible() {
     isModalVisible.value = !isModalVisible.value
@@ -203,7 +200,6 @@ function updateActiveIndex(swiper) {
 
 function handleTabClick(index) {
     activeIndex.value = index
-    swiperRef.value.swiper.slideTo(index)
 }
 
 onMounted(() => {

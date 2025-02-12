@@ -9,11 +9,11 @@
         <template #form>
             <form class="form__wrapper" @submit.prevent>
                 <div class="form__group">
-                    <label for="email" class="form__label" :class="getError?.email && 'error'"
+                    <label for="registerEmail" class="form__label" :class="getError?.email && 'error'"
                     >E-mail</label
                     >
                     <input
-                        id="email"
+                        id="registerEmail"
                         v-model="inputData.email"
                         class="form__input"
                         placeholder="marina_ivanova@mail.ru"

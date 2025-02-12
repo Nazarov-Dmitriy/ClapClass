@@ -45,7 +45,7 @@
                 <h2 v-else class="font-bold text-[36px] leading-[48px] text-center text-orange">
                     Спасибо!
                 </h2>
-                2222222222    <img src="/images/cabinet/rate-modal/rate-modal-hero.png" alt="modal hero" />
+                <img src="/images/cabinet/rate-modal/rate-modal-hero.png" alt="modal hero" />
                 <span
                     v-if="!isSubmit"
                     class="font-bold text-[20px] leading-[150%] text-center text-[#413e3d]"
@@ -90,8 +90,8 @@ function closeModal() {
 const rating = ref(0)
 const isSubmit = ref(false)
 
-const activeStar = '/public/icons/cabinet/rate-modal/star-active.svg'
-const inactiveStar = '/public/icons/cabinet/rate-modal/star.svg'
+const activeStar = '/icons/cabinet/rate-modal/star-active.svg'
+const inactiveStar = '/icons/cabinet/rate-modal/star.svg'
 
 function setRating(index) {
     rating.value = index
@@ -103,7 +103,7 @@ function ratingSubmit() {
 
 <style lang="scss" scoped>
 .rate-wrapper {
-    background: url('/public/images/cabinet/rate-modal/bg-img.png');
+    background: url('/images/cabinet/rate-modal/bg-img.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
