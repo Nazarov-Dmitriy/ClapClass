@@ -57,7 +57,7 @@ const props = defineProps({
         default: 'add'
     },
     fileName: {
-        type: [File, String] ,
+        type: [File, String],
         default: 'article'
     },
     error: {
@@ -101,7 +101,12 @@ function removeFile() {
 
 watch(
     () => props,
-    () => {}
+    (val) => {
+        if (!val.fileName) {
+            inputFile.value.value = ''
+        }
+    },
+    { deep: true }
 )
 </script>
 <style lang="scss" scoped>
