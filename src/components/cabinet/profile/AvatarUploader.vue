@@ -75,7 +75,7 @@ function removeImage() {
 }
 
 const getUrl = computed(() => {
-    return getUser.value?.avatar ? import.meta.env.VITE_SERVER_URL + getUser.value?.avatar : null
+    return getUser.value?.avatar ? import.meta.env.VITE_S3_URL + getUser.value?.avatar : null
 })
 
 </script>

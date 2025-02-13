@@ -171,7 +171,7 @@ function getUrl(path) {
     if (!path) {
         return false
     }
-    let url = import.meta.env.VITE_SERVER_URL + path
+    let url = import.meta.env.VITE_S3_URL + path
     try {
         new URL(url)
         return url
