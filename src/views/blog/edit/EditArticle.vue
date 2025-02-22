@@ -163,6 +163,7 @@ function fileChange(file) {
 }
 
 async function save() {
+    saveArticle.value = true
     await formShema
         .validate(
             {
@@ -175,7 +176,6 @@ async function save() {
             { abortEarly: false }
         )
         .then(async () => {
-            saveArticle.value = true
             let formData = new FormData()
             formData.append('title', dataArticle.title)
             formData.append('article', dataArticle.article)
@@ -186,6 +186,7 @@ async function save() {
             resetError()
         })
         .catch((e) => {
+            saveArticle.value = false
             e.errors.includes('title')
                 ? (dataArticleError.title = true)
                 : (dataArticleError.title = false)
@@ -205,6 +206,7 @@ async function save() {
 }
 
 async function edit() {
+    saveArticle.value = true
     await formShema
         .validate(
             {
@@ -217,7 +219,6 @@ async function edit() {
             { abortEarly: false }
         )
         .then(async () => {
-            saveArticle.value = true
             let formData = new FormData()
             formData.append('title', dataArticle.title)
             formData.append('id', getArticle.value.id)
@@ -229,6 +230,7 @@ async function edit() {
             resetError()
         })
         .catch((e) => {
+            saveArticle.value = false
             e.errors.includes('title')
                 ? (dataArticleError.title = true)
                 : (dataArticleError.title = false)
@@ -279,9 +281,19 @@ watch(getUser, () => {
 })
 
 watch(getIsSuccess, (val) => {
-    saveArticle.value = false
-    val === 'add' && resetData()
+    if (val === 'add') {
+        setTimeout(() => {
+            saveArticle.value = false
+        }, 300)
+        resetData()
+    }
+    if (val === 'edit') {
+        setTimeout(() => {
+            saveArticle.value = false
+        }, 300)
+    }
 })
+
 watch(
     getArticle,
     () => {

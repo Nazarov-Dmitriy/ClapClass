@@ -24,11 +24,7 @@
                             :class="getError?.email && 'error'"
                             placeholder="пароль"
                         />
-                        <img
-                            class="input-icon"
-                            src="/icons/auth/inputs/input-mail.svg"
-                            alt=""
-                        />
+                        <img class="input-icon" src="/icons/auth/inputs/input-mail.svg" alt="" />
                     </div>
                     <p v-if="getError?.email" class="error-text">
                         {{ getError?.email }}
@@ -289,5 +285,9 @@ onUnmounted(() => {
     line-height: 150%;
     text-align: center;
     color: $gray;
+}
+
+.error-text {
+    color: $yellowy;
 }
 </style>

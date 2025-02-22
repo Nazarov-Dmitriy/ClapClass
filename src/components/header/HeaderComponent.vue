@@ -86,7 +86,7 @@
                         </li>
                         <li v-if="getUser" class="header__list-item">
                             <router-link to="/admin" class="header__list-link">
-                                Админстрирование
+                                Администрирование
                             </router-link>
                         </li>
                     </ul>

@@ -18,6 +18,7 @@
 <script setup>
 import ArticlesAdmin from '@/components/admin/ArticlesAdmin.vue'
 import ReviewsAdmin from '@/components/admin/reviews/ReviewsAdmin.vue'
+import SocialAdmin from '@/components/admin/social/SocialAdmin.vue'
 import DropdownComponent from '@/components/ui/dropdown/DropdownComponent.vue'
 import ContnentLayout from '@/layouts/ContnentLayout.vue'
 import { useUserStore } from '@/stores/userStore'
@@ -25,7 +26,8 @@ import { computed, ref, watch } from 'vue'
 
 const contentArr = [
     { label: 'Статья', value: 'article' },
-    { label: 'Отзывы', value: 'reviews' }
+    { label: 'Отзывы', value: 'reviews' },
+    { label: 'соц. сети', value: 'social' },
 ]
 
 const component = computed(() => {
@@ -37,6 +39,10 @@ const component = computed(() => {
         case 'reviews':
             currentComponent = ReviewsAdmin
             break
+        case 'social':
+            currentComponent = SocialAdmin
+            break
+
         default:
             ArticlesAdmin
     }
