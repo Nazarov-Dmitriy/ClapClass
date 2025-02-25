@@ -5,9 +5,12 @@
 </template>
 
 <script setup>
+import { useSocialStore } from './stores/socialStore';
 import { useUserStore } from './stores/userStore'
 const userStore = useUserStore()
+const socialStore = useSocialStore()
 userStore.autoLogin()
+socialStore.getListDb()
 </script>
 
 <style lang="scss">

@@ -12,6 +12,7 @@ import CardPage from '../views/cabinet/CardPage.vue'
 import ProfileView from '../views/cabinet/ProfileView.vue'
 import EditArticle from '@/views/blog/edit/EditArticle.vue'
 import AdminPage from '@/views/AdminPage.vue'
+import { useUserStore } from '@/stores/userStore'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -64,7 +65,8 @@ const router = createRouter({
         {
             path: '/admin',
             name: 'admin-page',
-            component: AdminPage
+            component: AdminPage,
+            meta: { protected: true }
         },
         {
             path: '/cabinet',
@@ -98,7 +100,7 @@ const router = createRouter({
             ]
         }
     ],
-    scrollBehavior(to, from, savedPosition) {
+    scrollBehavior(_, __, savedPosition) {
         if (savedPosition) {
             return savedPosition
         } else {
@@ -107,6 +109,28 @@ const router = createRouter({
                 behavior: 'smooth'
             }
         }
+    }
+})
+
+router.beforeEach((to, _, next) => {
+    const user = useUserStore()
+    if (to.matched.some((route) => route.meta.protected && route.meta.admin)) {
+        if (
+            localStorage.getItem('token') &&
+            (user.getUser?.role === 'ROLE_ADMIN' || user.getUser?.role === 'ROLE_MODERATOR')
+        ) {
+            next()
+            return
+        }
+        next('/')
+    } else if (to.matched.some((route) => route.meta.protected)) {
+        if (localStorage.getItem('token')) {
+            next()
+            return
+        }
+        next('/')
+    } else {
+        next()
     }
 })
 

@@ -3,18 +3,16 @@
         <div v-if="editing" class="flex justify-between p-2 bg-white">
             <button
                 class="ml-2 border border-[#656d75] hover:border-[#e05704] hover:text-[#e05704] rounded-xl px-4 py-2"
+                @click="(e) => edit(e, props.data.id)"
             >
-                <span class="hidden sm:block" @click="(e) => edit(e, props.data.id)">
-                    Редактировать</span
-                >
+                <span class="hidden sm:block"> Редактировать</span>
                 <EditSvg class="w-6 h-6 sm:hidden" />
             </button>
             <button
                 class="mr-2 border border-[#656d75] hover:border-[#e05704] hover:text-[#e05704] rounded-xl px-4 py-2"
+                @click.stop="toggleDialog(props.data.id)"
             >
-                <span class="hidden sm:block" @click.stop="toggleDialog(props.data.id)">
-                    Удалить</span
-                >
+                <span class="hidden sm:block"> Удалить</span>
                 <RemoveSvg class="w-6 h-6 sm:hidden" />
             </button>
         </div>
@@ -109,7 +107,7 @@ function validUrl(url) {
 }
 
 function getUrl(url) {
-    return import.meta.env.VITE_SERVER_URL + url
+    return import.meta.env.VITE_S3_URL + url
 }
 
 const edit = (e, id) => {

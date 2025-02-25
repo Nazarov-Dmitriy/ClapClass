@@ -196,4 +196,8 @@ watch(getIsSuccess, (val) => {
     text-align: center;
     color: $gray;
 }
+
+.error-text {
+    color: $yellowy;
+}
 </style>

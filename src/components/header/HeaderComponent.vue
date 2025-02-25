@@ -6,27 +6,47 @@
                     <nav class="header__nav header__nav--mobile">
                         <ul class="header__list">
                             <li class="header__list-item">
-                                <router-link to="/services" class="header__list-link">
+                                <router-link
+                                    active-class="active"
+                                    to="/services"
+                                    class="header__list-link"
+                                >
                                     Сервисы
                                 </router-link>
                             </li>
                             <li class="header__list-item">
-                                <router-link class="header__list-link" to="/about">
+                                <router-link
+                                    active-class="active"
+                                    class="header__list-link"
+                                    to="/about"
+                                >
                                     О проекте
                                 </router-link>
                             </li>
                             <li class="header__list-item">
-                                <router-link to="/cooperation" class="header__list-link">
+                                <router-link
+                                    active-class="active"
+                                    to="/cooperation"
+                                    class="header__list-link"
+                                >
                                     Сотрудничество
                                 </router-link>
                             </li>
                             <li class="header__list-item">
-                                <router-link to="/blog" class="header__list-link">
+                                <router-link
+                                    active-class="active"
+                                    to="/blog"
+                                    class="header__list-link"
+                                >
                                     Блог
                                 </router-link>
                             </li>
                             <li v-if="getUser" class="header__list-item">
-                                <router-link to="/admin" class="header__list-link">
+                                <router-link
+                                    active-class="active"
+                                    to="/admin"
+                                    class="header__list-link"
+                                >
                                     Админстрирование
                                 </router-link>
                             </li>
@@ -67,26 +87,44 @@
                 <nav class="header__nav">
                     <ul class="header__list">
                         <li class="header__list-item">
-                            <router-link to="/services" class="header__list-link">
+                            <router-link
+                                to="/services"
+                                class="header__list-link"
+                                active-class="active"
+                            >
                                 Сервисы
                             </router-link>
                         </li>
                         <li class="header__list-item">
-                            <router-link class="header__list-link" to="/about">
+                            <router-link
+                                class="header__list-link"
+                                to="/about"
+                                active-class="active"
+                            >
                                 О проекте
                             </router-link>
                         </li>
                         <li class="header__list-item">
-                            <router-link to="/cooperation" class="header__list-link">
+                            <router-link
+                                to="/cooperation"
+                                class="header__list-link"
+                                active-class="active"
+                            >
                                 Сотрудничество
                             </router-link>
                         </li>
                         <li class="header__list-item">
-                            <router-link to="/blog" class="header__list-link"> Блог </router-link>
+                            <router-link to="/blog" class="header__list-link" active-class="active">
+                                Блог
+                            </router-link>
                         </li>
                         <li v-if="getUser" class="header__list-item">
-                            <router-link to="/admin" class="header__list-link">
-                                Админстрирование
+                            <router-link
+                                to="/admin"
+                                class="header__list-link"
+                                active-class="active"
+                            >
+                                Администрирование
                             </router-link>
                         </li>
                     </ul>
@@ -186,7 +224,7 @@ const closeHeader = (element) => {
 }
 
 const getUrl = computed(() => {
-    return getUser.value?.avatar ? import.meta.env.VITE_SERVER_URL + getUser.value?.avatar : null
+    return getUser.value?.avatar ? import.meta.env.VITE_S3_URL + getUser.value?.avatar : null
 })
 
 function setModal(value) {
@@ -361,7 +399,8 @@ watch(getIsSuccess, (val) => {
         border-bottom: 1px solid $red;
     }
 
-    &:active {
+    &:active,
+    &.active {
         font-family: var(--font-family);
         font-weight: 500;
         font-size: 20px;

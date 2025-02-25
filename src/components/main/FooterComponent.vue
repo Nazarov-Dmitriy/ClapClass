@@ -7,31 +7,29 @@
                     alt="logo"
                     class="footer__logo"
                     @click="$router.push('/')"
-                >
+                />
                 <div class="footer__contact-networks">
-                    <img
-                        src="@/assets/icons/footer/youtube.svg"
-                        alt="logo"
-                        class="footer__youtube"
-                    >
-                    <img
-                        src="@/assets/icons/footer/vk.svg"
-                        alt="logo"
-                        class="footer__vk"
-                    >
-                    <img
-                        src="@/assets/icons/footer/telegram.svg"
-                        alt="logo"
-                        class="footer__telegram"
-                    >
+                    <a :href="getLinkSocial('youtube')" class="w-[60px]"  target="_blank">
+                        <img
+                            src="@/assets/icons/footer/youtube.svg"
+                            alt="logo"
+                            class="footer__youtube"
+                        />
+                    </a>
+                    <a :href="getLinkSocial('vk')" class="w-[40px]"  target="_blank">
+                        <img src="@/assets/icons/footer/vk.svg" alt="logo" class="footer__vk" />
+                    </a>
+                    <a :href="getLinkSocial('telegram')" class="w-[40px]"  target="_blank">
+                        <img
+                            src="@/assets/icons/footer/telegram.svg"
+                            alt="logo"
+                            class="footer__telegram"
+                        />
+                    </a>
                 </div>
             </div>
             <div class="footer__menu">
-                <div
-                    v-for="(section, index) in sections"
-                    :key="index"
-                    class="footer__menu-section"
-                >
+                <div v-for="(section, index) in sections" :key="index" class="footer__menu-section">
                     <div class="footer__list-top">
                         <h3 class="footer__list-header">
                             {{ section.header }}
@@ -40,95 +38,58 @@
                             src="@/assets/icons/footer/menu-arrow.svg"
                             alt="logo"
                             class="footer__menu-arrow"
-                            :class="{'active': menuIndex.includes(index)}"
+                            :class="{ active: menuIndex.includes(index) }"
                             @click="activeMenu(index)"
-                        >
+                        />
                     </div>
                     <ul
                         class="footer__list"
-                        :class="{'footer__list-active': menuIndex.includes(index)}"
+                        :class="{ 'footer__list-active': menuIndex.includes(index) }"
                     >
                         <li
                             v-for="(item, number) in section.items"
                             :key="number"
                             class="footer__list-item"
                         >
-                            <router-link
-                                :to="item.url"
-                                class="footer__link"
-                            >
-                                {{ item.description }} 
-                            </router-link>                            
+                            <router-link :to="item.url" class="footer__link">
+                                {{ item.description }}
+                            </router-link>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="footer__copyright">               
-                <a
-                    href="https://grant.obr.so/"
-                    target="_blank"
-                    class="footer__copyright-cot"
-                >                
-                    <img
-                        src="@/assets/icons/footer/cot.svg"
-                        alt="cot"
-                        class="footer__cot"
-                    >
+            <div class="footer__copyright">
+                <a href="https://grant.obr.so/" target="_blank" class="footer__copyright-cot">
+                    <img src="@/assets/icons/footer/cot.svg" alt="cot" class="footer__cot" />
                     <div>
-                        <p class="footer__cot-text">
-                            Победитель конкурса СОТ-2023»
-                        </p>
+                        <p class="footer__cot-text">Победитель конкурса СОТ-2023»</p>
                         <p class="footer__cot-text">
                             Номинация: «Особые образовательные потребности»
                         </p>
                     </div>
                 </a>
-                <a
-                    href="#"
-                    target="_blank"
-                    class="footer__copyright-sosh"
-                >                
-                    <img
-                        src="@/assets/icons/footer/sosh34.svg"
-                        alt="cot"
-                        class="footer__sosh"
-                    >
+                <a href="#" target="_blank" class="footer__copyright-sosh">
+                    <img src="@/assets/icons/footer/sosh34.svg" alt="cot" class="footer__sosh" />
                     <div>
                         <p class="footer__cot-text footer__cot-firsttext">
                             МАОУ СОШ №34 им. героя СССР Кожевникова А.Л., г. Красноярск»
                         </p>
-                        <p class="footer__cot-subtext">
-                            МАОУ СОШ №34, г. Красноярск
-                        </p>
-                        <p class="footer__cot-text">
-                            Автор проекта: Войнов Александр Витальевич»
-                        </p>
+                        <p class="footer__cot-subtext">МАОУ СОШ №34, г. Красноярск</p>
+                        <p class="footer__cot-text">Автор проекта: Войнов Александр Витальевич»</p>
                     </div>
                 </a>
 
                 <div class="footer__copyright-madein">
-                    <p class="footer__madein-text">
-                        Сделано в:
-                    </p>
-                    <a
-                        href="https://xn--g1ani7c.xn--p1ai/"
-                        target="_blank"
-                        class="footer__1t"
-                    >
-                        <img
-                            src="@/assets/icons/footer/logo1t.svg"
-                            alt="1T"
-                        >
+                    <p class="footer__madein-text">Сделано в:</p>
+                    <a href="https://xn--g1ani7c.xn--p1ai/" target="_blank" class="footer__1t">
+                        <img src="@/assets/icons/footer/logo1t.svg" alt="1T" />
                     </a>
                     <a
                         href="https://bitwizarts.smartspecs.nl/"
                         target="_blank"
                         class="footer__logobwa"
                     >
-                        <img
-                            src="@/assets/icons/footer/logoBWA.svg"
-                            alt="logoBWA"
-                        >
+                        <img src="@/assets/icons/footer/logoBWA.svg" alt="logoBWA" />
                     </a>
                 </div>
             </div>
@@ -136,10 +97,13 @@
     </section>
 </template>
 <script setup>
-import { ref } from 'vue'
-const menuIndex =ref([]);
+import { useSocialStore } from '@/stores/socialStore'
+import { computed, ref } from 'vue'
 
-function activeMenu (index){
+const menuIndex = ref([])
+const socialStore = useSocialStore()
+
+function activeMenu(index) {
     if (!menuIndex.value.includes(index)) {
         menuIndex.value.push(index)
     } else {
@@ -147,40 +111,47 @@ function activeMenu (index){
     }
 }
 
+const getSocial = computed(() => {
+    return socialStore.getSocial
+})
+
 const sections = ref([
     {
         header: 'О проекте',
         items: [
-            {description: 'О проекте', url : '/'},
-            {description: 'Блог', url : '/blog'}
+            { description: 'О проекте', url: '/' },
+            { description: 'Блог', url: '/blog' }
         ]
     },
     {
         header: 'Сервисы',
         items: [
-            {description: 'Подвижные разминки', url : '/'},
-            {description: 'Ритм-разминки', url : '/'},
-            {description: 'Конгитивные разминки', url : '/'},
-            {description: 'Витрина кейсов', url : '/'},
+            { description: 'Подвижные разминки', url: '/' },
+            { description: 'Ритм-разминки', url: '/' },
+            { description: 'Конгитивные разминки', url: '/' },
+            { description: 'Витрина кейсов', url: '/' }
         ]
     },
     {
         header: 'Сотрудничество',
         items: [
-            {description: 'Партнерская программа', url : '/'},
-            {description: 'Поддержать проект', url : '/'}
-
+            { description: 'Партнерская программа', url: '/' },
+            { description: 'Поддержать проект', url: '/' }
         ]
     },
     {
         header: 'Документы',
         items: [
-            {description: 'Пользовательское соглашение', url : '/'},
-            {description: 'Политика обработки данных', url : '/'},
-            {description: 'Разработано Freepic', url : '/'},
+            { description: 'Пользовательское соглашение', url: '/' },
+            { description: 'Политика обработки данных', url: '/' },
+            { description: 'Разработано Freepic', url: '/' }
         ]
     }
 ])
+
+function getLinkSocial(name) {
+    return getSocial.value?.filter((el) => el.name === name)[0].link
+}
 </script>
 <style lang="scss">
 .footer {
@@ -201,7 +172,7 @@ const sections = ref([
     }
 }
 
-.footer__contact{
+.footer__contact {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -250,13 +221,13 @@ const sections = ref([
         cursor: pointer;
     }
 
-    &.active{
+    &.active {
         transform: rotate(180deg);
     }
 }
 
 .arrow_ative {
-    transform: rotate(180deg)
+    transform: rotate(180deg);
 }
 
 .footer__menu-section {
@@ -269,12 +240,12 @@ const sections = ref([
     @media (max-width: $md) {
         display: flex;
         justify-content: space-between;
-        border-bottom: 1px solid $gray
+        border-bottom: 1px solid $gray;
     }
 }
 
 .footer__list-header {
-    font-family: "CenturyGothic";
+    font-family: 'CenturyGothic';
     font-weight: 700;
     font-size: 24px;
     line-height: 36px;
@@ -303,13 +274,12 @@ const sections = ref([
 }
 
 .footer__link {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
     color: $gray;
-
 
     &:hover {
         color: $red;
@@ -337,13 +307,13 @@ const sections = ref([
     grid-template-areas:
         'cot madein'
         'sosh sosh';
-        @media (max-width: $md) {
-            grid-template-areas:
+    @media (max-width: $md) {
+        grid-template-areas:
             'cot'
             'sosh'
             'madein';
-            border: none;
-    }   
+        border: none;
+    }
 }
 
 .footer__copyright-cot,
@@ -356,11 +326,11 @@ const sections = ref([
 }
 
 .footer__copyright-cot {
-    grid-area: cot
+    grid-area: cot;
 }
 
 .footer__copyright-sosh {
-    grid-area: sosh
+    grid-area: sosh;
 }
 
 .footer__cot,
@@ -398,14 +368,14 @@ const sections = ref([
     display: none;
     @media (max-width: $md) {
         display: inline;
-        content: "666";
+        content: '666';
     }
     @media (max-width: 390px) {
         display: none;
     }
 }
 
-.footer__copyright-madein{
+.footer__copyright-madein {
     grid-area: madein;
     display: flex;
     justify-content: flex-end;

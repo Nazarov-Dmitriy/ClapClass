@@ -200,7 +200,7 @@ onMounted(() => {
 })
 
 function getPath(img) {
-    return import.meta.env.VITE_SERVER_URL + img
+    return import.meta.env.VITE_S3_URL + img
 }
 function saveReviews() {
     const data = new FormData()
