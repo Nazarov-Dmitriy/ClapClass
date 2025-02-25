@@ -29,7 +29,7 @@
                         </div>
                         <div class="slider__slide-arrow-btn-wrapper">
                             <button
-                                class="slider__slide-arrow-btn about-btn-left slider__slide-arrow-btn--left use-slide-btn-left"
+                                class="about-btn about-btn--feature-left"
                                 @click="swiperRef.value.swiper.slidePrev()"
                             >
                                 <svg
@@ -49,7 +49,7 @@
                                 </svg>
                             </button>
                             <button
-                                class="slider__slide-arrow-btn about-btn-right slider__slide-arrow-btn--right use-slide-btn-right"
+                                class="about-btn about-btn--feature-right"
                                 @click="swiperRef.value.swiper.slideNext()"
                             >
                                 <svg
@@ -125,8 +125,8 @@ const activeIndex = ref(0)
 const swiperRef = ref(null)
 
 const navigationOptions = {
-    nextEl: '.about-btn-right',
-    prevEl: '.about-btn-left'
+    nextEl: '.about-btn--feature-right',
+    prevEl: '.about-btn--feature-left'
 }
 
 const paginationOptions = {
@@ -265,18 +265,51 @@ onMounted(() => {
         display: block;
     }
 }
-.slider__slide-arrow-btn--right {
-    right: -70px;
+// .slider__slide-arrow-btn--right {
+//     right: -70px;
 
-    @media (max-width: $lg) {
-        right: -30px;
+//     @media (max-width: $lg) {
+//         right: -30px;
+//     }
+// }
+// .slider__slide-arrow-btn--left {
+//     left: -70;
+
+//     @media (max-width: $lg) {
+//         left: -30px;
+//     }
+// }
+
+.about-btn {
+    border: 2px solid $orange;
+    border-radius: 100px;
+    background: $yellowy;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: $red;
+
+        & > svg path {
+            stroke: $white;
+        }
     }
-}
-.slider__slide-arrow-btn--left {
-    left: -70;
-
+    &--feature-left {
+        left: -60px;
+    }
+    &--feature-right {
+        right: -60px;
+        transform: rotate(180deg);
+    }
     @media (max-width: $lg) {
-        left: -30px;
+        display: block;
     }
 }
 .slider__slide-tabs--about {
