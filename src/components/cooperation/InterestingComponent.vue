@@ -13,9 +13,9 @@
         <div class="interesting__container">
             <div class="interesting__cards">
                 <div
-                    class="interesting__card"
                     v-for="(card, index) in cardsInfoArr"
                     :key="index"
+                    class="interesting__card"
                     :class="{ active: openIndex === index }"
                 >
                     <div class="card__wrapper">
@@ -72,9 +72,9 @@
                                         </a>
                                         <BtnComponentWhite
                                             emit-name="action"
-                                            @action="toggleModalVisible"
                                             :custom-class="'custom-btn'"
-                                            >{{ answer.btnText }}</BtnComponentWhite
+                                            @action="toggleModalVisible"
+                                        >{{ answer.btnText }}</BtnComponentWhite
                                         >
                                     </div>
                                 </div>
@@ -99,13 +99,13 @@
                                         <div class="card__carusel-answer-btns">
                                             <BtnComponentWhite
                                                 emit-name="action"
-                                                @action="toggleModalVisible"
                                                 :custom-class="'custom-btn'"
-                                                >{{ answer.btnText }}</BtnComponentWhite
+                                                @action="toggleModalVisible"
+                                            >{{ answer.btnText }}</BtnComponentWhite
                                             >
                                             <BtnComponent
-                                                :currentСlass="'card__carusel-answer-btn'"
-                                                >{{ answer.btnText2 }}</BtnComponent
+                                                :currentсlass="'card__carusel-answer-btn'"
+                                            >{{ answer.btnText2 }}</BtnComponent
                                             >
                                         </div>
                                     </div>
@@ -121,8 +121,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import BtnComponent from '../btns/BtnComponent.vue'
-import BtnComponentWhite from '../btns/BtnComponentWhite.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
+import BtnComponentWhite from '@/components/ui/btns/BtnComponentWhite.vue'
 import ModalComponent from '../modal/ModalComponent.vue'
 import ModalHeader from '../modal/ModalHeader.vue'
 import UiForm from '../form/UiForm.vue'

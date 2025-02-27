@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import BtnComponent from '../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 
 const props = defineProps({
     featuresCardInfo: {

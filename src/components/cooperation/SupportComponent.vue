@@ -13,26 +13,32 @@
                     <div class="support__info-btn-wrapper">
                         <BtnComponent>Сделайте пожертвование</BtnComponent>
                         <BtnComponentWhite
-                            emitName="toggleModal"
-                            @toggleModal="toggleModal"
+                            emit-name="toggleModal"
                             :custom-class="'custom-btn'"
-                            >Свяжитесь с нами</BtnComponentWhite
+                            @toggle-modal="toggleModal"
+                        >Свяжитесь с нами</BtnComponentWhite
                         >
                     </div>
 
                     <div class="support__networks-wrapper">
                         <span>Присоединяйтесь</span>
-                        <img
-                            src="@/assets/icons/footer/youtube.svg"
-                            alt="logo"
-                            class="footer__youtube"
-                        />
-                        <img src="@/assets/icons/footer/vk.svg" alt="logo" class="footer__vk" />
-                        <img
-                            src="@/assets/icons/footer/telegram.svg"
-                            alt="logo"
-                            class="footer__telegram"
-                        />
+                        <a :href="getLinkSocial('youtube')" class="w-[60px]" target="_blank">
+                            <img
+                                src="@/assets/icons/footer/youtube.svg"
+                                alt="logo"
+                                class="footer__youtube"
+                            />
+                        </a>
+                        <a :href="getLinkSocial('vk')" class="w-[40px]" target="_blank">
+                            <img src="@/assets/icons/footer/vk.svg" alt="logo" class="footer__vk" />
+                        </a>
+                        <a :href="getLinkSocial('telegram')" class="w-[40px]" target="_blank">
+                            <img
+                                src="@/assets/icons/footer/telegram.svg"
+                                alt="logo"
+                                class="footer__telegram"
+                            />
+                        </a>
                     </div>
                     <div class="support__share">
                         <ShareComponent>
@@ -56,35 +62,29 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import BtnComponent from '../btns/BtnComponent.vue'
-import BtnComponentWhite from '../btns/BtnComponentWhite.vue'
+import { computed, ref } from 'vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
+import BtnComponentWhite from '@/components/ui/btns/BtnComponentWhite.vue'
 import UiForm from '../form/UiForm.vue'
 import ModalComponent from '../modal/ModalComponent.vue'
 import ModalHeader from '../modal/ModalHeader.vue'
 import ShareComponent from '../article/ShareComponent.vue'
+import { useSocialStore } from '@/stores/socialStore'
 
+const socialStore = useSocialStore()
 const isModalVisible = ref(false)
+
+const getSocial = computed(() => {
+    return socialStore.getSocial
+})
 
 function toggleModal() {
     isModalVisible.value = !isModalVisible.value
 }
 
-function getScrollbarWidth() {
-    return window.innerWidth - document.documentElement.clientWidth;
+function getLinkSocial(name) {
+    return getSocial.value?.filter((el) => el.name === name)[0].link
 }
-
-function openModal() {
-    const scrollbarWidth = getScrollbarWidth();
-    document.body.style.paddingRight = `${scrollbarWidth}px`;
-    document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-    document.body.style.paddingRight = '';
-    document.body.style.overflow = '';
-}
-
 </script>
 
 <style lang="scss" scoped>

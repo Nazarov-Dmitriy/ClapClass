@@ -35,7 +35,7 @@
 </template>
 <script setup>
 import { useUserStore } from '@/stores/userStore'
-import BtnComponentWhite from '/src/components/btns/BtnComponentWhite.vue'
+import BtnComponentWhite from '@/components/ui/btns/BtnComponentWhite.vue'
 import TitleComponent from '/src/components/ui/TitleComponent.vue'
 import { computed, onMounted, ref, watch } from 'vue'
 const userStore = useUserStore()

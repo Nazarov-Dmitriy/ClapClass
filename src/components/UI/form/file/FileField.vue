@@ -1,9 +1,12 @@
 <template>
     <div class="flex flex-col gap-2">
         <div class="flex gap-2 items-center">
-            <LabelField class="file" for="input_file" :error="props.error">{{
-                props.label
-            }}</LabelField>
+            <LabelField
+                class="file"
+                :for="props.fieldId ? props.fieldId : 'input_file'"
+                :error="props.error"
+            >{{ props.label }}</LabelField
+            >
             <div v-if="props.fileName && !fileLoad" class="flex gap-2">
                 <p>{{ getFileName }}</p>
                 <button
@@ -24,16 +27,15 @@
             </div>
         </div>
         <input
-            id="input_file"
+            :id="props.fieldId ? props.fieldId : 'input_file'"
             ref="inputFile"
             type="file"
             class="visuallyhidden"
             :accept="props.acceptMaterial"
             @change="onFileChange"
         />
-
         <p v-if="props.error" class="error-text">
-            {{ props.errorText }}
+            <ErrorSvg clip="w-5 h-5"></ErrorSvg> {{ props.errorText }}
         </p>
     </div>
 </template>
@@ -42,6 +44,7 @@ import LabelField from '../label/LabelField.vue'
 import PulseLoader from 'vue-spinner/src/ClipLoader.vue'
 import CloseSvg from '@/assets/icons/close.svg?component'
 import { computed, ref, watch } from 'vue'
+import ErrorSvg from '@/assets/icons/error.svg?component'
 
 const props = defineProps({
     label: {
@@ -58,13 +61,17 @@ const props = defineProps({
     },
     fileName: {
         type: [File, String],
-        default: 'article'
+        default: ''
     },
     error: {
         type: Boolean,
         default: false
     },
     errorText: {
+        type: String,
+        default: ''
+    },
+    fieldId: {
         type: String,
         default: ''
     }
@@ -128,6 +135,8 @@ watch(
 
 .error-text {
     color: $red;
+    display: flex;
+    gap: 4px;
 }
 
 .visuallyhidden {

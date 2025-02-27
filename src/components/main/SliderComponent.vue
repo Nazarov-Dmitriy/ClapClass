@@ -133,8 +133,8 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import BtnComponent from '../btns/BtnComponent.vue'
-import BtnComponentWhite from '../btns/BtnComponentWhite.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
+import BtnComponentWhite from '@/components/ui/btns/BtnComponentWhite.vue'
 import AuthComponent from '../modal/auth/AuthComponent.vue'
 
 const isModalVisible = ref(false)

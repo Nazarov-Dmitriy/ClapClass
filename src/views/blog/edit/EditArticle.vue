@@ -86,12 +86,12 @@ import { useRoute } from 'vue-router'
 import PulseLoader from 'vue-spinner/src/ClipLoader.vue'
 import DropdownComponent from '@/components/ui/dropdown/DropdownComponent.vue'
 import TextEditor from '@/components/ui/form/text-editor/TextEditor.vue'
-import BtnComponent from '@/components/btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import * as yup from 'yup'
-import Loader from '@/components/loader/Loader.vue'
 import LabelField from '@/components/ui/form/label/LabelField.vue'
 import InputField from '@/components/ui/form/input/InputField.vue'
 import FileField from '@/components/ui/form/file/FileField.vue'
+import Loader from '@/components/ui/loader/Loader.vue'
 
 const userStore = useUserStore()
 const articleStore = useArticleStore()

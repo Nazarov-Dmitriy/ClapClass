@@ -1,5 +1,35 @@
+<template>
+    <div class="services__banner">
+        <div class="services__title-block">
+            <img :src="props.information.img" alt="" class="services__img" />
+            <div class="services__titles">
+                <h2 class="services__title services__title--white">
+                    {{ props.information.titleWhite }}
+                </h2>
+                <h2 class="services__title services__title--orange">
+                    {{ props.information.titleOrange }}
+                </h2>
+            </div>
+        </div>
+        <div class="services__info">
+            <h2 class="services__info-title">{{ props.information.title }}</h2>
+            <p class="services__info-text">
+                {{ props.information.text }}
+            </p>
+            <BtnComponent class="services__info-btn" emit-name="click" @click="() => setModal('register')">
+                Регистрация
+            </BtnComponent>
+        </div>
+        <Teleport to="body">
+            <AuthComponent :modal="modal" @close="() => setModal('')" />
+        </Teleport>
+    </div>
+</template>
+
 <script setup>
-import BtnComponent from '../btns/BtnComponent.vue'
+import { ref } from 'vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
+import AuthComponent from '../modal/auth/AuthComponent.vue'
 
 const props = defineProps({
     information: {
@@ -7,28 +37,13 @@ const props = defineProps({
         required: true
     }
 })
-</script>
 
-<template>
-    <div class="services__banner">
-        <div class="services__title-block">
-            <img :src="information.img" alt="" class="services__img" />
-            <div class="services__titles">
-                <h2 class="services__title services__title--white">{{ information.titleWhite }}</h2>
-                <h2 class="services__title services__title--orange">
-                    {{ information.titleOrange }}
-                </h2>
-            </div>
-        </div>
-        <div class="services__info">
-            <h2 class="services__info-title">{{ information.title }}</h2>
-            <p class="services__info-text">
-                {{ information.text }}
-            </p>
-            <BtnComponent class="services__info-btn"> Регистрация </BtnComponent>
-        </div>
-    </div>
-</template>
+const modal = ref('')
+
+function setModal(value) {
+    modal.value = value
+}
+</script>
 
 <style lang="scss" scoped>
 .services__banner {

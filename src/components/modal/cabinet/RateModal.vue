@@ -80,7 +80,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import BtnComponent from '../../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 
 const emit = defineEmits(['closeModal'])
 

@@ -4,54 +4,63 @@
             <PanelComponent />
             <div class="wrapper">
                 <SidebarComponent />
-                <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-4 w-full">
                     <CabinetTabsComponent />
                     <div class="cards-container">
-                        <CabinetCardComponent
-                            v-for="(card, index) in renderList"
-                            :key="index"
-                            :card-info="card"
-                        />
+                        <ListCaseEmpty v-if="!data"></ListCaseEmpty>
+                        <CaseList v-else :data="data" />
                     </div>
                 </div>
             </div>
-            <PaginationComponent
-                :perpage="12"
-                :data="cardsInfo"
-                :color="{ main: '#0E0806', hover: '#E05704' }"
-                @set-list="getRenderList"
-            />
+     
         </div>
     </CabinetLayout>
 </template>
 <script setup>
 import PanelComponent from '../../components/cabinet/panel/PanelComponent.vue'
 import CabinetLayout from '/src/layouts/CabinetLayout.vue'
-import PaginationComponent from '/src/components/pagination/PaginationComponent.vue'
-import { computed, ref, watch, onMounted } from 'vue'
-import CabinetCardComponent from '/src/components/cabinet/card/CabinetCardComponent.vue'
+import { computed, ref, watch, onMounted, reactive } from 'vue'
 import SidebarComponent from '/src/components/cabinet/sidebar/SidebarComponent.vue'
 import CabinetTabsComponent from '/src/components/cabinet/tabs/CabinetTabsComponent.vue'
-import { useCardsStore } from '/src/stores/cabinetCardsStore'
+import ListCaseEmpty from '@/components/cabinet/case/empty/ListCaseEmpty.vue'
+import CaseList from '@/components/cabinet/case/list/CaseList.vue'
+import { useBriefcaseStore } from '@/stores/briefcaseStore'
 
-const cardsStore = useCardsStore()
-const cardsInfo = computed(() => cardsStore.getCardInfo)
-const renderList = ref([])
+const briefcaseStore = useBriefcaseStore()
 
-function getRenderList(list) {
-    renderList.value = list
-}
+const data = ref()
+const panel = reactive({
+    search: '',
+    type: null
+})
 
-watch(
-    () => cardsInfo.value,
-    (newCardsInfo) => {
-        getRenderList(newCardsInfo)
-    },
-    { immediate: true }
-)
+const getListBriefcase = computed(() => {
+    return briefcaseStore.getListBriefcase
+})
 
 onMounted(() => {
-    getRenderList(cardsInfo.value)
+    briefcaseStore.getCaseListDb({ search: panel.search, type: panel.type })
+})
+
+watch(
+    () => panel.search,
+    (newVal) => {
+        if (newVal.trim() == '') {
+            briefcaseStore.getCaseListDb({
+                search: panel.search,
+                type: panel.type
+            })
+        }
+    },
+    { deep: true }
+)
+
+watch(getListBriefcase, () => {
+    data.value = getListBriefcase.value
+})
+
+watch([() => panel.type], () => {
+    briefcaseStore.getCaseListDb({ search: panel.search, type: panel.type })
 })
 </script>
 <style scoped lang="scss">
@@ -63,11 +72,10 @@ onMounted(() => {
 .wrapper {
     display: flex;
     height: 100%;
-
 }
 .cards-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
     gap: 16px;
     padding: 16px;
     width: 100%;

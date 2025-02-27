@@ -5,40 +5,40 @@
         </div>
         <form
             v-if="!formField.success"
-            @submit.prevent="handleSubmit"
-            @keypress.enter.prevent="validateForm"
             class="form__form"
+            @submit.prevent=""
+            @keypress.enter.prevent="validateForm"
         >
             <div class="form__fields">
-                <label for="username" class="form__label" :class="{ form__error: formField.nameError }">
-                    Как вас зовут?
-                </label>
-                <input
-                    type="text"
-                    id="username"
-                    class="form__input form__input--name"
-                    :class="{ 'form__input--error': formField.nameError }"
+                <LabelField
+                    for="Мария"
+                    class="form__label"
+                    :error="formField.nameError"
+                    error-class="error-yellowy"
+                >
+                    Как вас зовут?</LabelField
+                >
+                <InputField
                     v-model="formField.name"
+                    input-id="name"
                     placeholder="Мария Ивановна"
-                    @keypress.enter="validateField($event, 'event', 'name')"
-                />
-                <span v-if="formField.nameError" class="form__error">
-                    <div class="form__error-wrapper">
-                        <img src="../../assets/images/form/form-error-svg.svg" alt="" />
-                        <span>Поле заполнено некорректно</span>
-                    </div>
-                </span>
+                    type="text"
+                    class="form__input form__input--name"
+                    :error="formField.nameError"
+                    error-text="Поле заполнено некорректно"
+                    error-class="!text-yellowy"
+                ></InputField>
 
                 <div class="form__form-input-wrapper">
                     <label for="phone" class="form__label">
                         <span :class="{ form__error: formField.phoneError }">Телефон</span>
 
                         <input
-                            type="text"
                             id="phone"
+                            v-model="formField.phone"
+                            type="text"
                             class="form__input form__input--phone"
                             :class="{ 'form__input--error': formField.phoneError }"
-                            v-model="formField.phone"
                             placeholder="+7 (912) 234-56-78"
                             @input="changePhone($event)"
                             @keypress.enter="validateField($event, 'event', 'phone')"
@@ -58,11 +58,11 @@
                     >
                         <span :class="{ form__error: formField.phoneError }">E-mail</span>
                         <input
-                            type="text"
                             id="fieldEmail"
+                            v-model="formField.email"
+                            type="text"
                             class="form__input form__input--email"
                             :class="{ 'form__input--error': formField.emailError }"
-                            v-model="formField.email"
                             placeholder="marina_ivanova@mail.ru"
                             @input="changeEmail($event)"
                             @keypress.enter="validateField($event, 'event', 'email')"
@@ -76,7 +76,6 @@
                     </label>
                 </div>
 
-                <!-- Added Message Field -->
                 <label
                     for="message"
                     class="form__label"
@@ -85,11 +84,11 @@
                     Ваше сообщение
                 </label>
                 <input
-                    type="text"
                     id="message"
+                    v-model="formField.message"
+                    type="text"
                     class="form__input form__input--message"
                     :class="{ 'form__input--error': formField.messageError }"
-                    v-model="formField.message"
                     placeholder="Введите тему сообщения"
                     @input="changeMessage($event)"
                     @keypress.enter="validateField($event, 'event', 'message')"
@@ -103,11 +102,11 @@
 
                 <textarea
                     id="question"
+                    v-model="formField.textarea"
                     cols="30"
                     rows="10"
                     class="form__textarea"
                     :class="{ 'form__textarea--error': formField.textareaError }"
-                    v-model="formField.textarea"
                     placeholder="Введите ваше сообщение"
                     @input="changeTextarea($event)"
                 ></textarea>
@@ -139,14 +138,20 @@
     </div>
 </template>
 <script setup>
-import { reactive } from 'vue'
-import BtnComponent from '../btns/BtnComponent.vue'
+import { computed, reactive, watch } from 'vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
+import LabelField from '../ui/form/label/LabelField.vue'
+import InputField from '../ui/form/input/InputField.vue'
+import { useSendMessageStore } from '@/stores/sendMessageStore'
+
+const sendMessageStore = useSendMessageStore()
+const getIsSuccess = computed(() => sendMessageStore.getIsSuccess)
 
 const formField = reactive({
     name: '',
     phone: '',
     email: '',
-    message: '', // Added field
+    message: '',
     textarea: '',
     nameError: false,
     phoneError: false,
@@ -234,8 +239,13 @@ function validateForm() {
         !formField.messageError &&
         !formField.textareaError
     ) {
-        formField.success = true
-        resetForm()
+        sendMessageStore.sendContactUs({
+            name: formField.name,
+            phone: formField.phone,
+            email: formField.email,
+            message: formField.message,
+            textarea: formField.textarea
+        })
     }
 }
 
@@ -247,10 +257,58 @@ function resetForm() {
     formField.textarea = ''
 }
 
-function handleSubmit() {
-    validateForm()
-}
+watch(getIsSuccess, (val) => {
+    if (val === 'send-us') {
+        formField.success = true
+        resetForm()
+    }
+})
 </script>
+
+<style lang="scss">
+.form__info .form__input {
+    border: 2px solid $gray;
+    border-radius: 24px;
+    padding: 14px 16px;
+    width: 100%;
+    background: $white;
+    box-sizing: border-box;
+    position: relative;
+    transition: 0.4s;
+    font-size: 16px;
+    font-family: 'Inter';
+    color: #656d75;
+
+    &:hover {
+        background-color: #e6eaed;
+    }
+
+    &:focus {
+        background-color: $white;
+    }
+    &--name {
+        background-image: url('../../assets/images/form/form-name-svg.svg');
+        background-repeat: no-repeat;
+        background-position: calc(100% - 16px);
+    }
+    &--phone {
+        background-image: url('../../assets/images/form/form-number-svg.svg');
+        background-repeat: no-repeat;
+        background-position: calc(100% - 16px);
+        margin-top: 8px;
+    }
+    &--email {
+        background-image: url('../../assets/images/form/form-mail-svg.svg');
+        background-repeat: no-repeat;
+        background-position: calc(100% - 16px);
+        margin-top: 8px;
+    }
+
+    &.error {
+        border-color: $yellowy;
+    }
+}
+</style>
 
 <style lang="scss" scoped>
 .form__success-title {
@@ -287,44 +345,7 @@ function handleSubmit() {
     color: $white;
     width: 100%;
 }
-.form__input {
-    border: 2px solid $gray;
-    border-radius: 24px;
-    padding: 16px;
-    width: 100%;
-    background: $white;
-    box-sizing: border-box;
-    position: relative;
-    transition: 0.4s;
-    font-size: 16px;
-    font-family: 'Inter';
-    color: #656d75;
 
-    &:hover {
-        background-color: #e6eaed;
-    }
-
-    &:focus {
-        background-color: $white;
-    }
-    &--name {
-        background-image: url('../../assets/images/form/form-name-svg.svg');
-        background-repeat: no-repeat;
-        background-position: calc(100% - 16px);
-    }
-    &--phone {
-        background-image: url('../../assets/images/form/form-number-svg.svg');
-        background-repeat: no-repeat;
-        background-position: calc(100% - 16px);
-        margin-top: 8px;
-    }
-    &--email {
-        background-image: url('../../assets/images/form/form-mail-svg.svg');
-        background-repeat: no-repeat;
-        background-position: calc(100% - 16px);
-        margin-top: 8px;
-    }
-}
 .form__input--error {
     border: 2px solid $yellowy !important;
 }

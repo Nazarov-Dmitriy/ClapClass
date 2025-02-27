@@ -67,7 +67,7 @@
 
 <script setup>
 import { computed, onMounted } from 'vue'
-import BtnComponent from '../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import { useReviewsStore } from '@/stores/reviewsStore'
 
 const reviewsStore = useReviewsStore()

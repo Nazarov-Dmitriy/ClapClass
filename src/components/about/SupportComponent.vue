@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import BtnComponent from '../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
+
 </script>
 
 <template>
@@ -202,7 +203,6 @@ import BtnComponent from '../btns/BtnComponent.vue'
             width: 100%;
         }
     }
-
 
     @media (max-width: $lg) {
         margin-top: 0;

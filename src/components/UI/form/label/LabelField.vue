@@ -1,5 +1,9 @@
 <template>
-    <label :for="props.for" class="field__label" :class="{ error: props.error }">
+    <label
+        :for="props.for"
+        class="field__label"
+        :class="[{ error: props.error }, error && props.errorClass]"
+    >
         <slot></slot>
     </label>
 </template>
@@ -12,6 +16,10 @@ const props = defineProps({
     error: {
         type: Boolean,
         default: false
+    },
+    errorClass: {
+        type: String,
+        default: ''
     }
 })
 </script>

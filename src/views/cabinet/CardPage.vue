@@ -13,11 +13,7 @@
                                 <TitleComponent class="recommend-title">
                                     Также рекомендуем
                                 </TitleComponent>
-                                <CabinetCardComponent
-                                    v-for="(card, index) in recommendedList"
-                                    :key="index"
-                                    :card-info="card"
-                                />
+                              
                             </div>
                         </StartActivitiesComponent>
                     </div>
@@ -30,7 +26,7 @@
 <script setup>
 import { useRoute } from 'vue-router'
 import { computed, watch } from 'vue'
-import { useCardsStore } from '/src/stores/cabinetCardsStore'
+// import { useCardsStore } from '/src/stores/cabinetCardsStore'
 import CardDescriptionComponent from '/src/components/cabinet/card/current-card/CardDescriptionComponent.vue'
 import PanelComponent from '/src/components/cabinet/panel/PanelComponent.vue'
 import SidebarComponent from '/src/components/cabinet/sidebar/SidebarComponent.vue'
@@ -38,26 +34,24 @@ import CabinetLayout from '/src/layouts/CabinetLayout.vue'
 import CardHeaderComponent from '/src/components/cabinet/card/current-card/CardHeaderComponent.vue'
 import StartActivitiesComponent from '/src/components/cabinet/card/current-card/StartActivitiesComponent.vue'
 import TitleComponent from '/src/components/ui/TitleComponent.vue'
-import CabinetCardComponent from '/src/components/cabinet/card/CabinetCardComponent.vue'
 
 const route = useRoute()
 const cardName = computed(() => route.params.name)
 
-const cardsStore = useCardsStore()
+// const cardsStore = useCardsStore()
 const cardInfo = computed(() => {
-    const card = cardsStore.getCardInfo.find((card) => card.title === cardName.value)
-    return card || {}
+    return  {}
 })
 
-const cardsInfo = computed(() => cardsStore.getCardInfo)
+// const cardsInfo = computed(() => cardsStore.getCardInfo)
 const recommendedList = computed(() => {
-    return cardsStore.getCardInfo.filter((card) => card.title !== cardName.value)
+    return []
 })
 
 watch(
-    () => cardsInfo.value,
-    (newCardsInfo) => {},
-    { immediate: true }
+    // () => cardsInfo.value,
+    // (newCardsInfo) => {},
+    // { immediate: true }
 )
 </script>
 

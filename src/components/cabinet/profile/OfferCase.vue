@@ -89,6 +89,9 @@
             <p v-if="errors?.size" class="text-red text-sm">
                 {{ errors.size }}
             </p>
+            <p v-if="errors.file" class="error-text flex gap-1">
+                <ErrorSvg clip="w-5 h-5"></ErrorSvg> {{ errors.file }}
+            </p>
         </div>
         <BtnComponentOrange
             emit-name="action"
@@ -103,8 +106,9 @@
 
 <script setup>
 import PulseLoader from 'vue-spinner/src/ClipLoader.vue'
+import ErrorSvg from '@/assets/icons/error.svg?component'
 import { computed, onMounted, ref, watch } from 'vue'
-import BtnComponentOrange from '../../btns/BtnComponentOrange.vue'
+import BtnComponentOrange from '@/components/ui/btns/BtnComponentOrange.vue'
 import TitleComponent from '../../ui/TitleComponent.vue'
 import { useSendMessageStore } from '@/stores/sendMessageStore'
 import { useUserStore } from '@/stores/userStore'
@@ -126,7 +130,8 @@ const formData = ref({
 const errors = ref({
     name: '',
     type: '',
-    size: ''
+    size: '',
+    file: ''
 })
 
 onMounted(() => {
@@ -189,6 +194,7 @@ function validateForm() {
     let isValid = true
     errors.value.name = ''
     errors.value.type = ''
+    errors.value.file = ''
 
     if (!formData.value.name.trim()) {
         errors.value.name = 'Название обязательно для заполнения.'
@@ -196,6 +202,10 @@ function validateForm() {
     }
     if (!formData.value.type.trim()) {
         errors.value.type = 'Тип разминки обязателен для заполнения.'
+        isValid = false
+    }
+    if (!file.value) {
+        errors.value.file = 'Обязательное поле'
         isValid = false
     }
 

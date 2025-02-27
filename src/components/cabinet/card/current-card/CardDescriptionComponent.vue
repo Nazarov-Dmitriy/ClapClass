@@ -9,8 +9,8 @@
                 :slides-per-view="1"
                 :space-between="5000"
                 :loop="true"
-                @slide-change="updateActiveIndex"
                 class="slider"
+                @slide-change="updateActiveIndex"
             >
                 <SwiperSlide
                     v-for="(img, imgIndex) in Array.isArray(cardInfo.img)
@@ -81,20 +81,20 @@
             </p>
             <div class="card-page__btns">
                 <BtnComponentOrange emit-name="action" @action="toggleRateModal"
-                    >Оценить кейс</BtnComponentOrange
+                >Оценить кейс</BtnComponentOrange
                 >
                 <BtnComponentOrange emit-name="action" @action="toggleAskModal"
-                    >Задать вопрос</BtnComponentOrange
+                >Задать вопрос</BtnComponentOrange
                 >
                 <BtnComponentOrange emit-name="action" @action="toggleFeedbackModal"
-                    >Оставить отзыв</BtnComponentOrange
+                >Оставить отзыв</BtnComponentOrange
                 >
             </div>
         </div>
         <Teleport to="body">
             <ModalComponent :visible="isAskModalVisible">
                 <template #header>
-                    <ModalHeader @closeModal="toggleAskModal">
+                    <ModalHeader @close-modal="toggleAskModal">
                         Задайте вопрос и команда клэппи свяжется с вами
                     </ModalHeader>
                 </template>
@@ -106,7 +106,7 @@
             </ModalComponent>
             <ModalComponent :visible="isFeedbackModalVisible">
                 <template #header>
-                    <ModalHeader @closeModal="toggleFeedbackModal">
+                    <ModalHeader @close-modal="toggleFeedbackModal">
                         Оставьте отзыв, это помогает улучшить разминку
                     </ModalHeader>
                 </template>
@@ -118,7 +118,7 @@
             </ModalComponent>
             <ModalComponent :visible="isRateModalVisible">
                 <template #header>
-                    <RateModal @closeModal="toggleRateModal" />
+                    <RateModal @close-modal="toggleRateModal" />
                 </template>
             </ModalComponent>
         </Teleport>
@@ -126,7 +126,7 @@
 </template>
 
 <script setup>
-import BtnComponentOrange from '/src/components/btns/BtnComponentOrange.vue'
+import BtnComponentOrange from '@/components/ui/btns/BtnComponentOrange.vue'
 import TitleComponent from '/src/components/ui/TitleComponent.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'

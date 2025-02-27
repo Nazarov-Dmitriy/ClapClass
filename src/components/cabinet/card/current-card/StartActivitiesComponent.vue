@@ -116,7 +116,7 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import BtnComponentOrange from '/src/components/btns/BtnComponentOrange.vue'
+import BtnComponentOrange from '@/components/ui/btns/BtnComponentOrange.vue'
 import ModalComponent from '/src/components/modal/ModalComponent.vue'
 import ModalHeader from '/src/components/modal/ModalHeader.vue'
 import StartActivitiesModal from '/src/components/modal/cabinet/StartActivitiesModal.vue'

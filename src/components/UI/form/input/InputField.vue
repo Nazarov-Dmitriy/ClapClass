@@ -6,12 +6,16 @@
             :placeholder="props.placeholder"
             :type="props.type"
             class="field__input"
-            :class="{ error: props.error }"
+            :class="[{ error: props.error }, props.class, `border-${props.errorColor}`]"
         />
-        <p v-if="props.error" class="error-text">{{ props.errorText }}</p>
+        <p v-if="props.error" class="error-text" :class="props.error && props.errorClass">
+            <ErrorSvg clip="w-5 h-5"></ErrorSvg> {{ props.errorText }}
+        </p>
     </div>
 </template>
 <script setup>
+import ErrorSvg from '@/assets/icons/error.svg?component'
+
 const props = defineProps({
     inputId: {
         type: String,
@@ -30,6 +34,14 @@ const props = defineProps({
         default: false
     },
     errorText: {
+        type: String,
+        default: ''
+    },
+    class: {
+        type: String,
+        default: ''
+    },
+    errorClass: {
         type: String,
         default: ''
     }
@@ -56,5 +68,7 @@ const model = defineModel({ type: String })
 
 .error-text {
     color: $red;
+    display: flex;
+    gap: 4px;
 }
 </style>

@@ -13,6 +13,9 @@ import ProfileView from '../views/cabinet/ProfileView.vue'
 import EditArticle from '@/views/blog/edit/EditArticle.vue'
 import AdminPage from '@/views/AdminPage.vue'
 import { useUserStore } from '@/stores/userStore'
+import ErrorPage from '@/views/error/ErrorPage.vue'
+import AddCase from '@/components/admin/case/AddCase.vue'
+import EditCase from '@/components/admin/case/EditCase.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,17 +36,36 @@ const router = createRouter({
                 {
                     path: 'create',
                     name: 'create-article',
-                    component: EditArticle
+                    component: EditArticle,
+                    meta: { protected: true }
                 },
                 {
                     path: 'edit/:id',
                     name: 'edit-article',
-                    component: EditArticle
+                    component: EditArticle,
+                    meta: { protected: true }
                 },
                 {
                     path: ':id',
                     name: 'blog-articke',
                     component: ArticlePage
+                }
+            ]
+        },
+        {
+            path: '/case',
+            children: [
+                {
+                    path: 'create',
+                    name: 'create-article',
+                    component: AddCase,
+                    meta: { protected: true }
+                },
+                {
+                    path: 'edit/:id',
+                    name: 'edit-case',
+                    component: AddCase,
+                    meta: { protected: true }
                 }
             ]
         },
@@ -77,7 +99,7 @@ const router = createRouter({
                     component: CabinetView
                 },
                 {
-                    path: 'showcase/:name/',
+                    path: 'showcase/:id/',
                     props: true,
                     name: 'card-page',
                     component: CardPage
@@ -98,6 +120,11 @@ const router = createRouter({
                     component: ProfileView
                 }
             ]
+        },
+        {
+            path: '/error',
+            name: 'error',
+            component: ErrorPage
         }
     ],
     scrollBehavior(_, __, savedPosition) {

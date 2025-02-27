@@ -18,7 +18,7 @@
                 :slides-per-view="1"
                 :space-between="500"
                 @swiper="onSwiper"
-                @slideChange="onSlideChange"
+                @slide-change="onSlideChange"
             >
                 <swiper-slide>
                     <div class="services__components-wrapper">
@@ -34,7 +34,7 @@
                             :information="slidesData[activeIndex].content.important"
                         />
                         <FeaturesComponent
-                            :featuresCardInfo="slidesData[activeIndex].content.featuresCardInfo"
+                            :features-card-info="slidesData[activeIndex].content.featuresCardInfo"
                         />
                     </div>
                 </swiper-slide>
@@ -247,12 +247,10 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.services {
-}
 .services__wrapper {
     position: relative;
 }
-.services__components-wrapper{
+.services__components-wrapper {
     overflow: hidden;
 }
 .services__tabs {
@@ -268,6 +266,5 @@ onMounted(() => {
         gap: 16px;
     }
 }
-.services__item {
-}
+
 </style>

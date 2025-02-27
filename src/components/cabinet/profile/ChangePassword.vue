@@ -126,7 +126,7 @@
 
 <script setup >
 import { useUserStore } from '@/stores/userStore'
-import BtnComponentOrange from '../../btns/BtnComponentOrange.vue'
+import BtnComponentOrange from '@/components/ui/btns/BtnComponentOrange.vue'
 import TitleComponent from '../../ui/TitleComponent.vue'
 import { computed, reactive, watch } from 'vue'
 const userStore = useUserStore()

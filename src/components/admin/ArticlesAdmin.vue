@@ -24,7 +24,7 @@ import SearchPanel from '../search/SearchPanel.vue'
 import ListArticleEmpty from '../blog/ListArticleEmpty.vue'
 import ListArticle from '../blog/ListArticle.vue'
 import { useArticleStore } from '@/stores/articleStore'
-import BtnComponentOrange from '../btns/BtnComponentOrange.vue'
+import BtnComponentOrange from '@/components/ui/btns/BtnComponentOrange.vue'
 
 const articleStore = useArticleStore()
 const panel = reactive({

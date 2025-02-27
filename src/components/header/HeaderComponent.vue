@@ -174,7 +174,7 @@
     </header>
 </template>
 <script setup>
-import BtnComponent from '../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
 import AuthComponent from '../modal/auth/AuthComponent.vue'
 import { useUserStore } from '@/stores/userStore'

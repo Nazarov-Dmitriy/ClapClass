@@ -99,7 +99,7 @@
 
 <script setup >
 import { onMounted, ref } from 'vue'
-import BtnComponent from '../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import TitleComponent from '../ui/TitleComponent.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination } from 'swiper/modules'

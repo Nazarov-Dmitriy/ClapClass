@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import axiosR from '@/api/http'
-import { toast } from "vue3-toastify";
-import 'vue3-toastify/dist/index.css';
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 
 export const useSendMessageStore = defineStore('sendMessageStore', {
     state: () => ({
@@ -14,7 +14,7 @@ export const useSendMessageStore = defineStore('sendMessageStore', {
         }
     },
     actions: {
-        setIsSuccess(val){
+        setIsSuccess(val) {
             this.isSuccess = val
         },
         sendFaq(params) {
@@ -24,7 +24,7 @@ export const useSendMessageStore = defineStore('sendMessageStore', {
                 .then((res) => {
                     if (res.status === 200) {
                         this.isSuccess = true
-                        this.errors - null
+                        this.errors = null
                     }
                 })
                 .catch((err) => {
@@ -38,12 +38,12 @@ export const useSendMessageStore = defineStore('sendMessageStore', {
                 .then((res) => {
                     if (res.status === 200) {
                         this.status = 200
-                        this.errors - null
+                        this.errors = null
                         this.isSuccess = 'send-case'
-                        toast.success("Данные успешно отправлены", {
+                        toast.success('Данные успешно отправлены', {
                             autoClose: 3000,
-                            dangerouslyHTMLString: true,
-                        });
+                            dangerouslyHTMLString: true
+                        })
                     }
                 })
                 .catch((err) => {
@@ -52,6 +52,25 @@ export const useSendMessageStore = defineStore('sendMessageStore', {
         },
         setStatusNull() {
             this.status = null
+        },
+        sendContactUs(data) {
+            this.isSuccess = ''
+            axiosR
+                .post('/send-mail/contact-us', data)
+                .then((res) => {
+                    if (res.status === 200) {
+                        this.status = 200
+                        this.errors = null
+                        this.isSuccess = 'send-us'
+                        toast.success('Данные успешно отправлены', {
+                            autoClose: 3000,
+                            dangerouslyHTMLString: true
+                        })
+                    }
+                })
+                .catch((err) => {
+                    this.errors = err.response.data
+                })
         }
     }
 })

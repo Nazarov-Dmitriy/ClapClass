@@ -38,7 +38,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import ModalComponent from '../ModalComponent.vue'
-import BtnComponent from '../../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import ModalHeader from '../ModalHeader.vue'
 import { useUserStore } from '@/stores/userStore'
 import { toast } from "vue3-toastify";

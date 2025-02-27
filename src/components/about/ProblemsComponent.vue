@@ -4,7 +4,7 @@
             <div class="problems__wrapper">
                 <div class="problems__info">
                     <TitleComponent class="problems__info-title"
-                        >Решаем актуальные проблемы</TitleComponent
+                    >Решаем актуальные проблемы</TitleComponent
                     >
                     <p class="problems__info-text">
                         Учеба не должна перегружать младшеклассников, лишая естественной потребности
@@ -17,9 +17,9 @@
                     </p>
                     <BtnComponent
                         emit-name="action"
-                        @action="$router.push('/services')"
                         class="problems__info-btn"
-                        >Сервисы</BtnComponent
+                        @action="$router.push('/services')"
+                    >Сервисы</BtnComponent
                     >
                 </div>
                 <div class="problems__cards">
@@ -35,7 +35,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import BtnComponent from '../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import TitleComponent from '../ui/TitleComponent.vue'
 
 const cards = ref([

@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import BtnComponentOrange from '../../btns/BtnComponentOrange.vue'
+import BtnComponentOrange from '@/components/ui/btns/BtnComponentOrange.vue'
 import AvatarUploader from './AvatarUploader.vue'
 import PersonalInputs from './PersonalInputs.vue'
 

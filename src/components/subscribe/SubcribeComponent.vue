@@ -60,8 +60,8 @@
     </div>
 </template>
 <script setup>
-import { computed, reactive, ref, watch } from 'vue'
-import BtnComponentWhite from '../btns/BtnComponentWhite.vue'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
+import BtnComponentWhite from '@/components/ui/btns/BtnComponentWhite.vue'
 import { useUserStore } from '@/stores/userStore'
 
 const userStore = useUserStore()
@@ -88,6 +88,12 @@ function addSubscribe() {
         formField.email = ''
     }
 }
+
+onMounted(() => {
+    if (getUser.value) {
+        subscribe.value = getUser.value.subscribe
+    }
+})
 
 function validateField(param, event) {
     let target

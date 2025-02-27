@@ -75,7 +75,7 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import BtnComponentOrange from '../btns/BtnComponentOrange.vue'
+import BtnComponentOrange from '@/components/ui/btns/BtnComponentOrange.vue'
 import DropdownComponent from '../ui/dropdown/DropdownComponent.vue'
 
 const emit = defineEmits(['update:search', 'update:sort', 'update:type', 'search'])

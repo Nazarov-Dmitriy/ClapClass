@@ -113,7 +113,7 @@
 <script setup>
 import { ref, defineProps, watch, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import BtnComponent from '../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import { useUserStore } from '@/stores/userStore'
 
 const props = defineProps({

@@ -17,6 +17,7 @@
 </template>
 <script setup>
 import ArticlesAdmin from '@/components/admin/ArticlesAdmin.vue'
+import CaseAdmin from '@/components/admin/case/CaseAdmin.vue'
 import ReviewsAdmin from '@/components/admin/reviews/ReviewsAdmin.vue'
 import SocialAdmin from '@/components/admin/social/SocialAdmin.vue'
 import DropdownComponent from '@/components/ui/dropdown/DropdownComponent.vue'
@@ -28,6 +29,7 @@ const contentArr = [
     { label: 'Статья', value: 'article' },
     { label: 'Отзывы', value: 'reviews' },
     { label: 'соц. сети', value: 'social' },
+    { label: 'кейсы', value: 'case' },
 ]
 
 const component = computed(() => {
@@ -42,6 +44,9 @@ const component = computed(() => {
         case 'social':
             currentComponent = SocialAdmin
             break
+        case 'case':
+            currentComponent = CaseAdmin
+            break
 
         default:
             ArticlesAdmin
@@ -49,7 +54,7 @@ const component = computed(() => {
     return currentComponent
 })
 
-const contentPage = ref('article')
+const contentPage = ref('case')
 
 const userStore = useUserStore()
 const getUser = computed(() => {

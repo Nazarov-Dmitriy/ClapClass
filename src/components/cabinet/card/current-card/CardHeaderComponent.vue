@@ -11,23 +11,11 @@
             </TitleComponent>
         </div>
         <div class="card-page__header-right">
-            <img
-                src="/images/cabinet/card/rating.png"
-                alt=""
-                class="card-page__header-right-img"
-            />
+            <RaitingSvg class="card-page__header-right-img"></RaitingSvg>
             <span>{{ props.cardInfo.rating }}</span>
-            <img
-                src="/images/cabinet/card/views.png"
-                alt=""
-                class="card-page__header-right-img"
-            />
+            <ViewSvg class="card-page__header-right-img"></ViewSvg>
             <span>{{ props.cardInfo.views }}</span>
-            <img
-                src="/icons/cabinet/card/time-icon.svg"
-                alt=""
-                class="card-page__header-right-img"
-            />
+            <TimeSvg class="card-page__header-right-img"></TimeSvg>
             <span>{{ props.cardInfo.time }}</span>
         </div>
     </div>
@@ -35,6 +23,9 @@
 
 <script setup>
 import TitleComponent from '/src/components/ui/TitleComponent.vue'
+import RaitingSvg from '../../../../assets/icons/case/raiting.svg?component'
+import ViewSvg from '../../../../assets/icons/case/view.svg?component'
+import TimeSvg from '../../../../assets/icons/case/time-icon.svg?component'
 
 const props = defineProps({
     cardInfo: {
@@ -43,8 +34,6 @@ const props = defineProps({
     }
 })
 </script>
-
-
 
 <style lang="scss" scoped>
 .card-page__header {
@@ -67,8 +56,7 @@ const props = defineProps({
     box-sizing: border-box;
     background: $white;
 }
-.card-page__header-title {
-}
+
 .card-page__header-right {
     display: flex;
     gap: 10px;
