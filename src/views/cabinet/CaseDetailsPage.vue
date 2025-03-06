@@ -1,28 +1,26 @@
 <template>
     <CabinetLayout>
-        <div class="page">
-            <PanelComponent />
-            <div class="flex">
-                <SidebarComponent />
-                <div class="card-page">
-                    <CaseCardHeaderComponent :data="data" />
-                    <div class="card-page__main">
-                        <CardDescriptionComponent :data="data" />
-                        <StartActivitiesComponent :data="data">
-                            <div class="recommend">
-                                <TitleComponent class="recommend-title">
-                                    Также рекомендуем
-                                </TitleComponent>
-                                <div class="flex flex-col gap-4">
-                                    <CaseCard
-                                        v-for="el in listRandom"
-                                        :key="el.id"
-                                        :data="el"
-                                    />
-                                </div>
+        <PanelComponent />
+        <div class="flex">
+            <SidebarComponent />
+            <div class="card-page">
+                <CaseCardHeaderComponent :data="data" />
+                <div class="card-page__main">
+                    <CardDescriptionComponent :data="data" />
+                    <StartActivitiesComponent :data="data">
+                        <div class="recommend">
+                            <TitleComponent class="recommend-title">
+                                Также рекомендуем
+                            </TitleComponent>
+                            <div class="flex flex-col gap-4">
+                                <CaseCard
+                                    v-for="el in listRandom"
+                                    :key="el.id"
+                                    :data="el"
+                                />
                             </div>
-                        </StartActivitiesComponent>
-                    </div>
+                        </div>
+                    </StartActivitiesComponent>
                 </div>
             </div>
         </div>
@@ -86,9 +84,7 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-.page {
-    @include max-width;
-}
+
 .card-page {
     width: 100%;
 }
