@@ -13,7 +13,7 @@ import FooterComponent from '../components/main/FooterComponent.vue'
     </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .page-container {
     width: 100%;
     height: 100%;

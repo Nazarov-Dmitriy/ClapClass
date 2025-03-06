@@ -1,18 +1,15 @@
 <template>
     <CabinetLayout>
-        <div class="page">
-            <PanelComponent />
-            <div class="wrapper">
-                <SidebarComponent />
-                <div class="flex flex-col gap-4 w-full">
-                    <CabinetTabsComponent />
-                    <div class="cards-container">
-                        <ListCaseEmpty v-if="!data"></ListCaseEmpty>
-                        <CaseList v-else :data="data" />
-                    </div>
+        <PanelComponent />
+        <div class="wrapper">
+            <SidebarComponent />
+            <div class="flex flex-col gap-4 w-full">
+                <CabinetTabsComponent v-model:tabs="tabs" />
+                <div class="cards-container">
+                    <ListCaseEmpty v-if="!data"></ListCaseEmpty>
+                    <CaseList v-else :data="data" />
                 </div>
             </div>
-     
         </div>
     </CabinetLayout>
 </template>
@@ -21,14 +18,15 @@ import PanelComponent from '../../components/cabinet/panel/PanelComponent.vue'
 import CabinetLayout from '/src/layouts/CabinetLayout.vue'
 import { computed, ref, watch, onMounted, reactive } from 'vue'
 import SidebarComponent from '/src/components/cabinet/sidebar/SidebarComponent.vue'
-import CabinetTabsComponent from '/src/components/cabinet/tabs/CabinetTabsComponent.vue'
 import ListCaseEmpty from '@/components/cabinet/case/empty/ListCaseEmpty.vue'
 import CaseList from '@/components/cabinet/case/list/CaseList.vue'
 import { useBriefcaseStore } from '@/stores/briefcaseStore'
+import CabinetTabsComponent from '@/components/cabinet/case/tabs/CabinetTabsComponent.vue'
 
 const briefcaseStore = useBriefcaseStore()
 
 const data = ref()
+const tabs = ref('')
 const panel = reactive({
     search: '',
     type: null
@@ -65,13 +63,13 @@ watch([() => panel.type], () => {
 </script>
 <style scoped lang="scss">
 .page {
-    max-width: 1920px;
+    width: 100%;
     margin: 0 auto;
-    height: 100%;
 }
 .wrapper {
     display: flex;
     height: 100%;
+    flex-grow: 1;
 }
 .cards-container {
     display: grid;

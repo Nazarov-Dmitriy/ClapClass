@@ -31,8 +31,8 @@ const props = defineProps({
         default: ''
     },
     error: {
-        type: String,
-        default: ''
+        type: Boolean,
+        default: false
     },
     errorText: {
         type: String,

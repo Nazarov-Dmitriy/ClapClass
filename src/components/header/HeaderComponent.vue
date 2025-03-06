@@ -162,7 +162,7 @@
                         class="flex gap-4 items-center px-2 py-1 cursor-pointer"
                         @click="logout()"
                     >
-                        <span :class="{ cabinet: activeLkClass }">Выход</span>
+                        <span>Выход</span>
                         <img class="w-5 h-5" src="@/assets/icons/header/exit.svg" alt="" />
                     </div>
                 </div>

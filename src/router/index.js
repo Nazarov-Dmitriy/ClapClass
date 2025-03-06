@@ -8,14 +8,14 @@ import AboutView from '../views/AboutView.vue'
 import CabinetView from '../views/cabinet/ShowcaseView.vue'
 import MyCasesView from '../views/cabinet/MyCasesView.vue'
 import MyArticleView from '../views/cabinet/MyArticleView.vue'
-import CardPage from '../views/cabinet/CardPage.vue'
+import CaseDetailsPage from '../views/cabinet/CaseDetailsPage.vue'
 import ProfileView from '../views/cabinet/ProfileView.vue'
 import EditArticle from '@/views/blog/edit/EditArticle.vue'
 import AdminPage from '@/views/AdminPage.vue'
 import { useUserStore } from '@/stores/userStore'
 import ErrorPage from '@/views/error/ErrorPage.vue'
-import AddCase from '@/components/admin/case/AddCase.vue'
 import EditCase from '@/components/admin/case/EditCase.vue'
+// import EditCase from '@/components/admin/case/EditCase.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,14 +57,14 @@ const router = createRouter({
             children: [
                 {
                     path: 'create',
-                    name: 'create-article',
-                    component: AddCase,
+                    name: 'create-case',
+                    component: EditCase,
                     meta: { protected: true }
                 },
                 {
                     path: 'edit/:id',
                     name: 'edit-case',
-                    component: AddCase,
+                    component: EditCase,
                     meta: { protected: true }
                 }
             ]
@@ -99,10 +99,9 @@ const router = createRouter({
                     component: CabinetView
                 },
                 {
-                    path: 'showcase/:id/',
-                    props: true,
+                    path: 'showcase/:id',
                     name: 'card-page',
-                    component: CardPage
+                    component: CaseDetailsPage
                 },
                 {
                     path: 'my-cases',

@@ -13,7 +13,7 @@
             <SearchIcon class="blog__search-icon"></SearchIcon>
         </div>
         <div class="blog__btns" :class="{ active: showMenu }">
-            <DropdownComponent :options="props.option" class="blog__dropdown" @select="change" />
+            <DropdownComponent :options="props.option" class="blog__dropdown z-100" @select="change" />
             <DropdownComponent
                 :sort="props.type"
                 :options="props.optionCaseType"

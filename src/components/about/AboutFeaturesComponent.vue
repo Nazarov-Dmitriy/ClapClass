@@ -139,10 +139,6 @@ function updateActiveIndex(swiper) {
     activeIndex.value = swiper.realIndex % slidesData.value.length
 }
 
-function handleTabClick(index) {
-    activeIndex.value = index
-    swiperRef.value.swiper.slideTo(index)
-}
 
 onMounted(() => {
     const bullet = document.querySelectorAll('.swiper-pagination-bullet')

@@ -64,6 +64,13 @@ const model = defineModel({ type: String })
         font-size: 16px;
         line-height: 24px;
     }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+        -webkit-box-shadow:0 0 0 50px white inset; /* Change the color to your own background color */
+    }
 }
 
 .error-text {

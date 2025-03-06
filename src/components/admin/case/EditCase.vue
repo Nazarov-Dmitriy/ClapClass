@@ -1,295 +1,420 @@
 <template>
-    <div class="flex flex-col relative">
-        <Teleport to="body">
-            <ModalConfirm :show="modalShow" @remove="removeReviews" @close="toggleDialog(null)">
-                <template #body> <p class="text-xl font-medium">Удалить отзыв ?</p> </template>
-            </ModalConfirm>
-        </Teleport>
+    <ContnentLayout>
+        <section class="case__contaner">
+            <button
+                class="py-2 px-4 rounded-xl w-fit mt-2 hover:text-orange"
+                @click="$router.go(-1)"
+            >
+                &lt; назад
+            </button>
+            <div class="flex flex-col gap-6">
+                <div class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-2">
+                        <p class="text-gray text-lg font-semibold">Основные данные</p>
+
+                        <div class="flex flex-col gap-2">
+                            <LabelField for="title" :error="!!getErrors?.title"
+                            >Название
+                            </LabelField>
+                            <InputField
+                                v-model="caseData.title"
+                                input-id="title"
+                                placeholder="Название"
+                                type="text"
+                                :error="!!getErrors?.title"
+                                :error-text="getErrors?.title || 'Обязательное поле'"
+                            ></InputField>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <LabelField for="annotation" :error="!!getErrors?.annotation"
+                            >Краткое описание
+                            </LabelField>
+                            <TextareaField
+                                v-model="caseData.annotation"
+                                input-id="annotation"
+                                placeholder="Описание кейса"
+                                type="text"
+                                :error="!!getErrors?.annotation"
+                                :error-text="getErrors?.annotation || 'Обязательное поле'"
+                            ></TextareaField>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <LabelField for="description" :error="!!getErrors?.description"
+                            >Полное описание
+                            </LabelField>
+                            <TextEditor
+                                v-model="caseData.description"
+                                :error="!!getErrors?.description"
+                                :error-text="getErrors?.description || 'Обязательное поле'"
+                            >
+                            </TextEditor>
+                        </div>
+                        <div class="flex gap-2">
+                            <div class="flex flex-col gap-2 w-1/2">
+                                <LabelField :error="getErrors?.type">Тип кейса</LabelField>
+                                <DropdownComponent
+                                    v-model:model-value="caseData.type"
+                                    :options="optionCase"
+                                    :placeholder="'Выберите тип'"
+                                    :error="getErrors?.type"
+                                />
+                                <p v-if="getErrors?.type" class="error-text">
+                                    {{ getErrors?.type || 'Обязательное поле' }}
+                                </p>
+                            </div>
+                            <div class="flex flex-col gap-2 w-1/2">
+                                <LabelField for="author" :error="!!getErrors?.author"
+                                >Автор
+                                </LabelField>
+                                <InputField
+                                    v-model="caseData.author"
+                                    input-id="author"
+                                    placeholder="Автор"
+                                    type="text"
+                                    :error="!!getErrors?.author"
+                                    :error-text="getErrors?.author || 'Обязательное поле'"
+                                ></InputField>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <div class="flex flex-col gap-2 w-1/2">
+                                <LabelField for="duration" :error="!!getErrors?.duration"
+                                >Время прохождения
+                                </LabelField>
+                                <InputField
+                                    v-model="caseData.duration"
+                                    input-id="duration"
+                                    placeholder="Время прохождения"
+                                    type="text"
+                                    :error="!!getErrors?.duration"
+                                    :error-text="getErrors?.duration || 'Обязательное поле'"
+                                ></InputField>
+                            </div>
+                            <div class="flex flex-col gap-2 w-1/2"></div>
+                        </div>
+                        <div class="flex gap-2 flex-col">
+                            <LabelField for="preview_img" :error="!!getErrors?.preview_img"
+                            >Обложка кейса
+                            </LabelField>
+                            <FileField
+                                field-id="preview_img"
+                                label="загрузить"
+                                label-class="btn-orange"
+                                :accept-material="'image/*'"
+                                :error="!!getErrors?.preview_img"
+                                :error-text="'Обязательное поле'"
+                                :page-type="pageType"
+                                :file-name="caseData?.preview_img"
+                                @file-change="(file) => fileChange(file, 'preview_img')"
+                            ></FileField>
+                        </div>
+                        <div class="flex gap-2 flex-col">
+                            <LabelField for="rules" :error="!!getErrors?.rules"
+                            >Правила
+                            </LabelField>
+                            <FileField
+                                field-id="rules"
+                                label="загрузить"
+                                label-class="btn-orange"
+                                :accept-material="'application/pdf'"
+                                :error="!!getErrors?.rules"
+                                :error-text="'Обязательное поле'"
+                                :page-type="pageType"
+                                :file-name="caseData?.rules"
+                                @file-change="(file) => fileChange(file, 'rules')"
+                            ></FileField>
+                        </div>
+                        <div class="flex gap-2 flex-col">
+                            <LabelField for="material" :error="!!getErrors?.material"
+                            >Материал
+                            </LabelField>
+                            <FileField
+                                field-id="material"
+                                label="загрузить"
+                                label-class="btn-orange"
+                                :accept-material="'application/pdf'"
+                                :error="!!getErrors?.material"
+                                :error-text="'Обязательное поле'"
+                                :page-type="pageType"
+                                :file-name="caseData?.material"
+                                @file-change="(file) => fileChange(file, 'material')"
+                            ></FileField>
+                        </div>
+                    </div>
+                    <BtnComponent
+                        emit-name="action"
+                        class="w-fit"
+                        :disable="changeDate || getDisableRequest"
+                        @action="pageType === 'edit' || changeDate ? edit() : save()"
+                    >{{ pageType === 'edit' || changeDate ? 'Редактировать' : 'Сохранить' }}
+                    </BtnComponent>
+                </div>
+
+                <UploadSlider
+                    v-if="caseData.id"
+                    :id="caseData.id"
+                    :slider-data="caseDataSlider.images_slider"
+                ></UploadSlider>
+                <AddRulseVideo
+                    v-if="caseData.id"
+                    :id="caseData.id"
+                    v-model:description="caseDataVideoRules.rules_video_description"
+                    v-model:file="caseDataVideoRules.rules_video"
+                    :page-type="pageType"
+                    :change-data="changeVideoRules"
+                    :edit-block="editBlock.caseDataVideoRules"
+                    :data="getBriefcase"
+                ></AddRulseVideo>
+                <LevelCase
+                    v-if="caseData.id"
+                    :id="caseData.id"
+                    :data="getBriefcase?.levels"
+                ></LevelCase>
+            </div>
+
+            <BtnComponent
+                v-if="caseData.id && !pageType === 'edit'"
+                evel-case
+                emit-name="action"
+                class="w-fit mt-4"
+                @action="newCase()"
+            >Создать новый кейс
+            </BtnComponent>
+        </section>
         <Teleport to="body">
             <Loader v-if="!isLoad" />
         </Teleport>
-    </div>
+    </ContnentLayout>
+
 </template>
 <script setup>
-import EditSvg from '@/assets/icons/blog/edit.svg?component'
-import RemoveSvg from '@/assets/icons/blog/remove.svg?component'
-import { useReviewsStore } from '@/stores/reviewsStore'
-import { computed, onMounted, reactive, ref, watch } from 'vue'
-import VueDatePicker from '@vuepic/vue-datepicker'
-import '@vuepic/vue-datepicker/dist/main.css'
-import ModalConfirm from '@/components/modal/ModalConfirm.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
+import DropdownComponent from '@/components/ui/dropdown/DropdownComponent.vue'
+import FileField from '@/components/ui/form/file/FileField.vue'
 import InputField from '@/components/ui/form/input/InputField.vue'
+import LabelField from '@/components/ui/form/label/LabelField.vue'
+import TextEditor from '@/components/ui/form/text-editor/TextEditor.vue'
 import TextareaField from '@/components/ui/form/textarea/TextareaField.vue'
+import { useBriefcaseStore } from '@/stores/briefcaseStore'
+import '@vuepic/vue-datepicker/dist/main.css'
+import { computed, nextTick, onMounted, reactive, ref, watch } from 'vue'
+import { CaseType } from './typy-article/typeArticle'
+import { useRoute } from 'vue-router'
+import ContnentLayout from '@/layouts/ContnentLayout.vue'
+import UploadSlider from './upload-slider/UploadSlider.vue'
+import AddRulseVideo from './add-rules-video/AddRulseVideo.vue'
+import LevelCase from './level-case/LevelCase.vue'
 import Loader from '@/components/ui/loader/Loader.vue'
 
-const reviewsStore = useReviewsStore()
-const isLoad = ref(false)
-const edit = ref(null)
-const modalShow = ref(false)
-const removeId = ref(null)
-const previewImage = ref(null)
+const briefcaseStore = useBriefcaseStore()
+const isLoad = ref(true)
 
-const getReviewsList = computed(() => {
-    return reviewsStore.getReviewsList
+const getIsSuccess = computed(() => {
+    return briefcaseStore.getIsSuccess
 })
 
-const getSuccess = computed(() => {
-    return reviewsStore.getSuccess
+const changeDate = ref(false)
+const changeVideoRules = ref(false)
+
+const getBriefcase = computed(() => {
+    return briefcaseStore.getBriefcase
 })
 
-function toggleDialog(id) {
-    modalShow.value = !modalShow.value
-    id ? (removeId.value = id) : (removeId.value = null)
-}
-
-function removeReviews() {
-    modalShow.value = !modalShow.value
-    reviewsStore.removeReviews(removeId.value)
-}
-
-const reviewsEdit = reactive({
-    description: null,
-    date: null,
-    author: null,
-    file: null
+const getDisableRequest = computed(() => {
+    return briefcaseStore.getDisableRequest
 })
-const editImg = ref(null)
 
-const getPreviewPath = computed(() => {
-    if (previewImage.value?.includes('base64')) {
-        return previewImage.value
-    }
-    return null
+const getErrors = computed(() => {
+    return briefcaseStore.getError
+})
+const route = useRoute()
+const pageType = ref('add')
+
+const editBlock = reactive({
+    caseData: false,
+    caseDataVideoRules: false,
+})
+
+const caseData = reactive({
+    id: null,
+    title: '',
+    description: '',
+    author: '',
+    annotation: '',
+    duration: '',
+    preview_img: null,
+    type: 'moving',
+    rules: null,
+    material: null
+})
+
+const caseDataSlider = reactive({
+    images_slider: null
+})
+
+const caseDataVideoRules = reactive({
+    rules_video_description: '',
+    rules_video: null
 })
 
 onMounted(() => {
-    reviewsStore.getListDb()
+    if (route.name === 'edit-case') {
+        pageType.value = 'edit'
+        briefcaseStore.getBriefcaseStoreDb(route.params.id)
+        isLoad.value = false
+    }
+
+    setTimeout(() => {
+        isLoad.value = true
+    }, 10000)
 })
 
-function getPath(img) {
-    return import.meta.env.VITE_S3_URL + img
-}
-function saveReviews() {
+function save() {
     const data = new FormData()
-    for (const key in reviewsEdit) {
-        if (reviewsEdit[key] === null) {
-            data.append(key, '')
-        } else {
-            data.append(key, reviewsEdit[key])
+    for (const key in caseData) {
+        if (caseData[key] !== null) {
+            data.append(key, caseData[key])
         }
     }
-    data.append('id', edit.value)
-    reviewsStore.ediReviews(data)
+    briefcaseStore.add(data)
 }
 
-function editReviews(item) {
-    let date = item.date.split('.')
-    edit.value = item.id
-    reviewsEdit.description = item.description
-    reviewsEdit.date = `${date[2]}-${date[1]}-${date[0]}`
-    reviewsEdit.author = item.author
-}
+function edit() {
+    changeDate.value = !changeDate.value
 
-function resetEditReviews() {
-    edit.value = null
-    previewImage.value = null
-    reviewsEdit.description = null
-    reviewsEdit.date = null
-    reviewsEdit.author = null
-    reviewsEdit.file = null
-}
-
-function editImage() {
-    editImg.value.click()
-}
-
-function onFileChange(e) {
-    const file = e.target.files[0]
-    reviewsEdit.file = file
-    if (file && file.type.startsWith('image/')) {
-        const reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onload = (e) => {
-            previewImage.value = e.target.result
+    const data = new FormData()
+    for (const key in caseData) {
+        if (
+            (key === 'preview_img' || key === 'rules' || key === 'material') &&
+            typeof caseData[key] !== 'object'
+        ) {
+            continue
+        } else if (caseData[key] !== null) {
+            data.append(key, caseData[key])
         }
-    } else {
-        reviewsEdit.file = null
     }
+    briefcaseStore.edit(data)
 }
 
-watch(getReviewsList, () => {
-    isLoad.value = true
+function newCase() {
+    editBlock.caseData = false
+    editBlock.caseDataVideoRules = false
+
+    pageType.value = 'add'
+    caseData.id = null
+    caseData.title = ''
+    caseData.description = ''
+    caseData.author = ''
+    caseData.annotation = ''
+    caseData.duration = ''
+    caseData.preview_img = null
+    caseData.type = 'moving'
+    caseData.rules = null
+    caseData.material = null
+
+    caseDataSlider.images_slider = null
+
+    caseDataVideoRules.rules_video_description = ''
+    caseDataVideoRules.rules_video = null
+}
+
+const optionCase = Object.entries(CaseType).map(([, val]) => {
+    return { label: val.name, value: val.value }
 })
 
-watch(getSuccess, () => {
-    resetEditReviews()
-    reviewsStore.getListDb()
-    isLoad.value = false
+function fileChange(file, field) {
+    switch (field) {
+        case 'preview_img':
+            if (!file) {
+                caseData.preview_img = getBriefcase.value.preview_img
+                    ? getBriefcase.value.preview_img.path
+                    : null
+            } else {
+                caseData.preview_img = file
+            }
+            break
+        case 'rules':
+            if (!file) {
+                caseData.rules = getBriefcase.value.rules.path
+                    ? getBriefcase.value.rules.path
+                    : null
+            } else {
+                caseData.rules = file
+            }
+            break
+        case 'material':
+            if (!file) {
+                caseData.material = getBriefcase.value.material
+                    ? getBriefcase.value.material.path
+                    : null
+            } else {
+                caseData.material = file
+            }
+            break
+    }
+}
+
+watch(
+    () => ({ ...caseData }),
+    () => {
+        changeDate.value = false
+    },
+    { deep: true }
+)
+
+watch(
+    () => ({ ...caseDataVideoRules }),
+    () => {
+        changeVideoRules.value = false
+    },
+    { deep: true }
+)
+
+watch(
+    getBriefcase,
+    async () => {
+        isLoad.value = true
+        caseData.id = getBriefcase.value.id
+        caseData.title = getBriefcase.value.title
+        caseData.description = getBriefcase.value.description
+        caseData.author = getBriefcase.value.author
+        caseData.annotation = getBriefcase.value.annotation
+        caseData.duration = getBriefcase.value.duration
+        caseData.type = getBriefcase.value.type
+        caseData.preview_img = getBriefcase.value.preview_img?.path
+        caseData.rules = getBriefcase.value.rules?.path
+        caseData.material = getBriefcase.value.material?.path
+        caseDataSlider.images_slider = getBriefcase.value.images_slider
+        caseDataVideoRules.rules_video = getBriefcase.value.rules_video?.path
+        caseDataVideoRules.rules_video_description = getBriefcase.value?.rules_video_description
+        await nextTick()
+        changeDate.value = true
+    },
+    { deep: true }
+)
+
+watch(getIsSuccess, async (val) => {
+    if (val === 'add') {
+        await nextTick()
+        changeDate.value = true
+    } else if (val === 'video-rules') {
+        editBlock.caseDataVideoRules = true
+        changeVideoRules.value = true
+        await nextTick()
+        changeVideoRules.value = true
+    }
 })
 </script>
+
 <style lang="scss" scoped>
-.reviews-admin__cards {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    width: 100%;
-
-    @media (max-width: $lg) {
-        grid-template-columns: 100%;
-    }
-}
-.reviews-admin__card {
-    border: 2px solid $orange;
-    border-radius: 32px;
-    min-height: 200px;
-    width: 100%;
-    min-width: 0;
-
-    @media (max-width: $sm) {
-        border-radius: 32px;
-    }
-}
-.reviews-admin__card-header {
-    display: flex;
-    justify-content: space-between;
-    border-radius: 30px 30px 0 0;
-    padding: 2px 2px 2px 2px;
-    background: $yellowy;
-
-    @media (max-width: $sm) {
-        padding: 8px;
-    }
-}
-.reviews-admin__card-header-person {
-    display: flex;
-    gap: 16px;
-    justify-content: flex-start;
-    width: 100%;
-    @media (max-width: $lg) {
-        gap: 8px;
-    }
-
-    @media (max-width: $sm) {
-        flex-direction: column;
-        align-items: start;
-    }
-}
-.reviews-admin__header-info {
+.case__contaner {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    width: 100%;
-}
-
-.reviews-admin__card-header-person-img-wrapper {
-    width: 150px;
-    height: 150px;
-    border-radius: 100%;
-    overflow: hidden;
-    flex-shrink: 0;
-
-    & img {
-        width: 100%;
-        height: 100%;
-    }
-}
-
-.reviews-admin__card-header-person-info {
-    display: flex;
     gap: 16px;
-}
-.reviews-admin__header-person-text {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.5;
-    color: $orange;
-    @media (max-width: $lg) {
-        font-size: 20px;
-        line-height: 1.2;
-    }
-    span {
-        display: block;
-    }
-}
-.reviews-admin__card-header-date {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.5;
-    color: $orange;
-    @media (max-width: $lg) {
-        font-size: 14px;
-        line-height: 1.4;
-    }
-    @media (max-width: $sm) {
-    }
-
-    &.edit {
-        color: $black;
-        padding-right: 10px;
-    }
+    padding-bottom: 20px;
 }
 
-.reviews-admin__card-footer-text {
-    padding: 16px;
-    @media (max-width: $sm) {
-        font-size: 14px;
-        line-height: 20px;
-    }
-}
-
-.btn {
-    box-shadow:
-        0 2px 4px 0 rgba(21, 15, 13, 0.1),
-        0 8px 8px 0 rgba(21, 15, 13, 0.09);
-    background: rgba(255, 255, 255, 0.8);
-    border: 2px solid #ffffff;
-    border-radius: 24px;
-    padding: 6px 24px;
-    background: $orange;
-    cursor: pointer;
-    transition: 0.4s;
-    display: block;
-    width: fit-content;
-    color: white;
-
-    @media (max-width: $md) {
-        // background: blue;
-        padding: 6px 12px;
-    }
-}
-
-.data-picker {
-    --dp-input-padding: 10px 16px;
-    --dp-border-radius: 32px;
-    --dp-border-color: none;
-    --dp-font-size: 16px;
-    --dp-text-color: $black;
-    --dp-icon-color: $black;
-    --dp-menu-min-width: 300px;
-    --dp-action-row-padding: 12px 20px;
-
-    :deep(.dp__input_wrap) {
-        &:hover,
-        &:active,
-        &:focus {
-            border: 2px solid $gray;
-        }
-    }
-
-    :deep(.dp__pointer) {
-        height: 48px;
-    }
-
-    &.error {
-        :deep(.dp__input_wrap) {
-            border: 2px solid red;
-            border-radius: 32px;
-        }
-    }
-
-    :deep(.dp__input_wrap) {
-        border: 2px solid $gray;
-        border-radius: 32px;
-    }
+.error-text {
+    color: $red !important;
 }
 </style>

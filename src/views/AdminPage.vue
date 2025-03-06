@@ -54,7 +54,7 @@ const component = computed(() => {
     return currentComponent
 })
 
-const contentPage = ref('case')
+const contentPage = ref('article')
 
 const userStore = useUserStore()
 const getUser = computed(() => {

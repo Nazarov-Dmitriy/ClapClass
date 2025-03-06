@@ -5,8 +5,8 @@
                 v-for="(item, index) in slidesData"
                 :key="index"
                 class="tabs-list-item"
-                :class="{ 'active-tab': activeIndex === index }"
-                @click="handleTabClick(index)"
+                :class="{ 'active-tab': tabs === item.value }"
+                @click="handleTabClick(item.value)"
             >
                 <span>{{ item.tab }}</span>
                 <img
@@ -33,30 +33,34 @@ const hoveredTab = ref(null)
 const slidesData = ref([
     {
         tab: 'Все кейсы',
-        icon: ''
+        icon: '',
+        value: 'all'
     },
     {
         tab: 'Подвижные разминки',
         icon: '/images/cabinet/card/tabs-img.png',
-        popupText: `Раздел помогает поддерживать необходимую двигательную  активность через динамические игры, гимнастику, танцевальные флешмобы`
+        popupText: `Раздел помогает поддерживать необходимую двигательную  активность через динамические игры, гимнастику, танцевальные флешмобы`,
+        value: 'moving'
     },
     {
         tab: 'Ритм-разминки',
         icon: '/images/cabinet/card/tabs-img.png',
         popupText:
-            'Раздел помогает активировать внимание и концентрацию через  ритмические игры, координационные упражнения, музыкальные челленджи'
+            'Раздел помогает активировать внимание и концентрацию через  ритмические игры, координационные упражнения, музыкальные челленджи',
+        value: 'rhythm'
     },
     {
         tab: 'Конгитивные разминки',
         icon: '/images/cabinet/card/tabs-img.png',
-        popupText: `Раздел помогает эффективно начать основное занятие через когнитивные тренировки, логические игры, упражнения брейн-фитнеса`
+        popupText: `Раздел помогает эффективно начать основное занятие через когнитивные тренировки, логические игры, упражнения брейн-фитнеса`,
+        value: 'cognitive'
     }
 ])
 
-const activeIndex = ref()
+const tabs = defineModel({ type: String, default: 'all' })
 
 function handleTabClick(index) {
-    activeIndex.value = index
+    tabs.value = index
 }
 
 function showPopup(index) {

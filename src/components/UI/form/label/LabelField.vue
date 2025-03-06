@@ -50,5 +50,24 @@ const props = defineProps({
             background: $red;
         }
     }
+
+    &.btn-orange {
+        box-shadow:
+            0 2px 4px 0 rgba(21, 15, 13, 0.1),
+            0 8px 8px 0 rgba(21, 15, 13, 0.09);
+        border: 2px solid #e05704;
+        border-radius: 24px;
+        padding: 6px 16px;
+        background: none;
+        cursor: pointer;
+        transition: 0.4s;
+        display: block;
+        color: $orange;
+
+        &.error {
+            background: $red;
+            color: $white;
+        }
+    }
 }
 </style>

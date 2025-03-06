@@ -3,7 +3,7 @@
         <div class="card-page__right-options">
             <div class="card-page__right-btns">
                 <div
-                    class="card-page__right-btns-img"
+                    class="card-page__right-btns-img h-[84px]"
                     @mouseenter="isHovered = true"
                     @mouseleave="isHovered = false"
                 >
@@ -23,77 +23,49 @@
 
                 <BtnComponentOrange class="card-page__right-btn card-page__right-btn--white">
                     <div class="card-page__right-btn-wrapper">
-                        <svg
-                            width="23"
-                            height="23"
-                            viewBox="0 0 23 23"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                d="M11.5 21.0117C17.0475 21.0117 21.5 16.6039 21.5 11.0564C21.5 5.50886 17.0475 1.01172 11.5 1.01172C5.9525 1.01172 1.5 5.50886 1.5 11.0564C1.5 16.6039 5.9525 21.0117 11.5 21.0117Z"
-                                stroke="#DE4700"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                            <path
-                                d="M6.5 11.0117H16.5"
-                                stroke="#DE4700"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                            <path
-                                d="M11.5 16.0822V6.01172"
-                                stroke="#DE4700"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                        </svg>
+                        <AddSvg></AddSvg>
                         <span>Добавить в мои кейсы</span>
                     </div>
                 </BtnComponentOrange>
             </div>
             <div class="card-page__right-info">
-                <div class="card-page__right-rules">
+                <div v-if="props.data?.rules.path" class="card-page__right-rules">
                     <div class="card-page__right-rules-texts">
                         <h3 class="card-page__right-rules-title">Изучите правила</h3>
                         <p class="card-page__right-rules-subtitle">
                             Для проведения данного квеста вам понадобится изучить правила
                         </p>
                     </div>
-                    <div class="flex flex-col gap-3">
-                        <img
-                            src="/icons/cabinet/card-page/rules-icon1.svg"
-                            alt=""
-                            class="card-page__right-rules-img"
-                        />
+                    <div
+                        class="flex flex-col gap-3 cursor-pointer"
+                        @click="downloadFile(props.data?.rules.path, props.data?.rules.name)"
+                    >
+                        <RulesSvg class="card-page__right-rules-img w-[56px] h-[56px]"></RulesSvg>
+
                         <span>Скачать</span>
                     </div>
                 </div>
-                <div class="card-page__right-rules">
+                <div v-if="props.data?.material?.path" class="card-page__right-rules">
                     <div class="card-page__right-rules-texts">
                         <h3 class="card-page__right-rules-title">Требуется подготовка</h3>
                         <p class="card-page__right-rules-subtitle">
                             Для проведения данного квеста вам понадобится распечатать материалы
                         </p>
                     </div>
-                    <div class="flex flex-col gap-3">
-                        <img
-                            src="/icons/cabinet/card-page/rules-icon2.svg"
-                            alt=""
-                            class="card-page__right-rules-img"
-                        />
+                    <div
+                        class="flex flex-col gap-3 cursor-pointer"
+                        @click="downloadFile(props.data?.material.path, props.data?.material.name)"
+                    >
+                        <MaterialSvg
+                            class="card-page__right-rules-img w-[56px] h-[56px]"
+                        ></MaterialSvg>
+
                         <span>Скачать</span>
                     </div>
                 </div>
                 <div class="card-page__right-rules-author">
                     <span>Автор</span>
-                    <span>Александр Войнов</span>
+                    <span>{{ props.data?.author }}</span>
                 </div>
             </div>
         </div>
@@ -108,7 +80,7 @@
                     </div>
                 </template>
                 <template #form>
-                    <StartActivitiesModal />
+                    <StartActivitiesModal :data="props.data" />
                 </template>
             </ModalComponent>
         </Teleport>
@@ -116,12 +88,46 @@
 </template>
 <script setup>
 import { ref } from 'vue'
+import AddSvg from '@/assets/icons/add.svg?component'
+import RulesSvg from '@/assets/icons/case/rules.svg?component'
+import MaterialSvg from '@/assets/icons/case/materail-download.svg?component'
 import BtnComponentOrange from '@/components/ui/btns/BtnComponentOrange.vue'
 import ModalComponent from '/src/components/modal/ModalComponent.vue'
 import ModalHeader from '/src/components/modal/ModalHeader.vue'
 import StartActivitiesModal from '/src/components/modal/cabinet/StartActivitiesModal.vue'
+import axiosFileS3 from '@/api/httpS3'
+
 const isHovered = ref(false)
 const isModalVisible = ref(false)
+
+const props = defineProps({
+    data: {
+        type: Object,
+        default: () => {}
+    }
+})
+
+async function downloadFile(path, name) {
+    axiosFileS3
+        .get(path)
+        .then((res) => res.data)
+        .then((data) => {
+            const url = URL.createObjectURL(data)
+            const link = document.createElement('a')
+            link.href = url
+            link.download = name
+            link.target = '_blank'
+            link.click()
+
+            setTimeout(() => {
+                link.remove()
+                URL.revokeObjectURL(url)
+            }, 100)
+        })
+        .catch((err) => {
+            this.error = err.data
+        })
+}
 
 function toggleModal() {
     isModalVisible.value = !isModalVisible.value

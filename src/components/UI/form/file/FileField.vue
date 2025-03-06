@@ -3,6 +3,7 @@
         <div class="flex gap-2 items-center">
             <LabelField
                 class="file"
+                :class="props.labelClass"
                 :for="props.fieldId ? props.fieldId : 'input_file'"
                 :error="props.error"
             >{{ props.label }}</LabelField
@@ -72,6 +73,10 @@ const props = defineProps({
         default: ''
     },
     fieldId: {
+        type: String,
+        default: ''
+    },
+    labelClass: {
         type: String,
         default: ''
     }

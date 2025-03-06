@@ -2,6 +2,7 @@
     <div class="card-page__left">
         <div class="card-page__left-img-wrapper">
             <Swiper
+                v-if="props.data"
                 ref="swiperRef"
                 :modules="[Navigation, Pagination, Autoplay]"
                 :navigation="navigationOptions"
@@ -12,17 +13,12 @@
                 class="slider"
                 @slide-change="updateActiveIndex"
             >
-                <SwiperSlide
-                    v-for="(img, imgIndex) in Array.isArray(cardInfo.img)
-                        ? cardInfo.img
-                        : [cardInfo.img]"
-                    :key="imgIndex"
-                >
-                    <img :src="img" alt="" class="card-page__left-img" />
+                <SwiperSlide v-for="(img, index) in props.data?.images_slider" :key="index">
+                    <img :src="getUrl(img.path)" alt="" class="card-page__left-img" />
                     <div class="card-page__left-img-substrate">
                         <div class="card-page__left-img-substrate-btns">
                             <button
-                                class="card-page__left-img-substrate-btn card-page__left-img-substrate-btn--left"
+                                class="card-page__left-img-substrate-btn card-page__left-img-substrate-btn--left z-10"
                             >
                                 <svg
                                     width="33"
@@ -62,23 +58,23 @@
                         </div>
                         <div class="slider__slide-tabs">
                             <span
-                                v-for="(img, index) in Array.isArray(cardInfo.img)
-                                    ? cardInfo.img
-                                    : [cardInfo.img]"
-                                :key="index"
+                                v-for="(_, ind) in props.data?.images_slider"
+                                :key="ind"
                                 class="slider__slide-tabs-span"
-                                :class="{ active: activeIndex === index }"
+                                :class="{ active: activeIndex === ind }"
                             />
                         </div>
                     </div>
                 </SwiperSlide>
             </Swiper>
+            <div v-else class="slider_empty animate-pulse bg-amber-400">
+                <div alt="" class="card-page__left-img -z-1"></div>
+            </div>
         </div>
         <div class="card-page__left-info">
             <TitleComponent class="card-page__left-title">Описание</TitleComponent>
-            <p class="card-page__left-text">
-                {{ cardInfo.description }}
-            </p>
+            <div class="card-page__left-text" v-html="props.data?.description" />
+
             <div class="card-page__btns">
                 <BtnComponentOrange emit-name="action" @action="toggleRateModal"
                 >Оценить кейс</BtnComponentOrange
@@ -138,14 +134,12 @@ import { onMounted, ref } from 'vue'
 import ModalComponent from '/src/components/modal/ModalComponent.vue'
 import UiForm from '/src/components/form/UiForm.vue'
 import RateModal from '/src/components/modal/cabinet/RateModal.vue'
-
 const props = defineProps({
-    cardInfo: {
+    data: {
         type: Object,
         default: () => {}
     }
 })
-
 const activeIndex = ref(0)
 const swiperRef = ref(null)
 const isAskModalVisible = ref(false)
@@ -164,17 +158,31 @@ const paginationOptions = {
 }
 
 function updateActiveIndex(swiper) {
-    activeIndex.value = swiper.realIndex % props.cardInfo.img.length
+    activeIndex.value = swiper.realIndex
 }
 
 function toggleAskModal() {
     isAskModalVisible.value = !isAskModalVisible.value
 }
+
 function toggleFeedbackModal() {
     isFeedbackModalVisible.value = !isFeedbackModalVisible.value
 }
 function toggleRateModal() {
     isRateModalVisible.value = !isRateModalVisible.value
+}
+
+function getUrl(path) {
+    if (!path) {
+        return false
+    }
+    let url = import.meta.env.VITE_S3_URL + path
+    try {
+        new URL(url)
+        return url
+    } catch (e) {
+        return false
+    }
 }
 
 onMounted(() => {
@@ -186,7 +194,9 @@ onMounted(() => {
         })
     })
 })
+
 </script>
+
 <style lang="scss" scoped>
 .card-page__left {
     width: 100%;
@@ -310,6 +320,12 @@ onMounted(() => {
     @media (max-width: $sm) {
         transform: translateY(-5px);
     }
+}
+
+.slider_empty {
+    max-height: 376px;
+    height: 100%;
+    border-radius: 24px;
 }
 
 .slider__slide-tabs-span {

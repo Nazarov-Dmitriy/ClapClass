@@ -1,36 +1,33 @@
 <template>
     <div class="card-page__header">
         <div class="card-page__header-left">
-            <img
-                src="/icons/cabinet/card-page/title-icon.svg"
-                alt=""
-                class="card-page__header-img"
-            />
-            <TitleComponent v-if="props.cardInfo?.title" class="card-page__header-title">
-                {{ props.cardInfo.title }}
+            <CaseCardIcon :type="props.data?.type" class="w-[56px] h-[56px]" ></CaseCardIcon>
+            <TitleComponent v-if="props.data?.title" class="card-page__header-title">
+                {{ props.data.title }}
             </TitleComponent>
         </div>
         <div class="card-page__header-right">
             <RaitingSvg class="card-page__header-right-img"></RaitingSvg>
-            <span>{{ props.cardInfo.rating }}</span>
+            <span>{{ props.data?.rating || 0 }}</span>
             <ViewSvg class="card-page__header-right-img"></ViewSvg>
-            <span>{{ props.cardInfo.views }}</span>
+            <span>{{ props.data?.shows || 0 }}</span>
             <TimeSvg class="card-page__header-right-img"></TimeSvg>
-            <span>{{ props.cardInfo.time }}</span>
+            <span>{{ props.data?.duration || ""}}</span>
         </div>
     </div>
 </template>
 
 <script setup>
 import TitleComponent from '/src/components/ui/TitleComponent.vue'
-import RaitingSvg from '../../../../assets/icons/case/raiting.svg?component'
-import ViewSvg from '../../../../assets/icons/case/view.svg?component'
-import TimeSvg from '../../../../assets/icons/case/time-icon.svg?component'
+import RaitingSvg from '@/assets/icons/case/raiting.svg?component'
+import ViewSvg from '@/assets/icons/case/view.svg?component'
+import TimeSvg from '@/assets/icons/case/time-icon.svg?component'
+import CaseCardIcon from '../../case/card/CaseCardIcon.vue'
 
 const props = defineProps({
-    cardInfo: {
-        type: Array,
-        default: () => []
+    data: {
+        type: Object  ,
+        default: () => {}
     }
 })
 </script>

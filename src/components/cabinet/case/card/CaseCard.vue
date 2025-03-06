@@ -2,7 +2,7 @@
     <div class="cabinet-card relative" @click="(e) => linkCard(e, props.data.id)">
         <div
             v-if="editing"
-            class="flex justify-between p-2 bg-white absolute top-0 w-full !bg-transparent"
+            class="flex justify-between p-2 bg-white absolute top-0 w-full !bg-transparent z-[1]"
         >
             <button
                 class="ml-2 border border-[#656d75] hover:border-[#e05704] hover:text-[#e05704] rounded-xl px-4 py-2 bg-white"
@@ -19,13 +19,30 @@
                 <RemoveSvg class="w-6 h-6 sm:hidden" />
             </button>
         </div>
-        <img
-            v-if="props.data.preview_img?.path && validUrl(data.preview_img.path)"
-            :src="getUrl(props.data.preview_img.path)"
-            alt=""
-            class="cabinet-card__img"
-        />
-        <div v-else class="cabinet-card__img cabinet-card__img-empty"></div>
+
+        <div class="cabinet-card__img relative">
+            <img
+                v-if="props.data.preview_img?.path && validUrl(data.preview_img.path)"
+                :src="getUrl(props.data.preview_img.path)"
+                alt=""
+                class="w-full h-full object-cover"
+            />
+            <div v-else class="w-full h-full cabinet-card__img-empty"></div>
+            <div v-if="!editing" class="absolute left-4 bottom-3 flex gap-2">
+                <CaseCardIcon
+                    v-if="props.data.type"
+                    :type="props.data.type"
+                    class="w-16 h-16"
+                ></CaseCardIcon>
+                <CaseCardIcon
+                    v-if="props.data.material"
+                    type="material"
+                    class="w-16 h-16"
+                ></CaseCardIcon>
+      
+                
+            </div>
+        </div>
 
         <div class="cabinet-card__info">
             <h2 class="cabinet-card__info-title">
@@ -35,6 +52,7 @@
                 {{ props.data.annotation }}
             </p>
         </div>
+        
         <div class="cabinet-card__footer">
             <div class="cabinet-card__footer-btns">
                 <div class="cabinet-card__footer-btn-views">
@@ -69,6 +87,7 @@ import ViewSvg from '../../../../assets/icons/case/view.svg?component'
 import RaitingSvg from '../../../../assets/icons/case/raiting.svg?component'
 import TimeSvg from '../../../../assets/icons/case/time-icon.svg?component'
 import ModalConfirm from '@/components/modal/ModalConfirm.vue'
+import CaseCardIcon from './CaseCardIcon.vue'
 const router = useRouter()
 
 const props = defineProps({
