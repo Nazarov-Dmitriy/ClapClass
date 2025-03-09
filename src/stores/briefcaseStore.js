@@ -10,7 +10,8 @@ export const useBriefcaseStore = defineStore('userBriefcase', {
         randomList: null,
         error: null,
         disableRequest: false,
-        isSuccess: ''
+        isSuccess: '',
+        currentRating: 0
     }),
 
     getters: {
@@ -31,6 +32,9 @@ export const useBriefcaseStore = defineStore('userBriefcase', {
         },
         getDisableRequest(state) {
             return state.disableRequest
+        },
+        getCurrentRating(state) {
+            return state.currentRating
         }
     },
 
@@ -41,6 +45,10 @@ export const useBriefcaseStore = defineStore('userBriefcase', {
         setIsSuccess() {
             this.isSuccess = ''
         },
+        clearBriefcase() {
+            this.briefcase = null
+        },
+
         add(data) {
             this.isSuccess = ''
             axiosR
@@ -91,12 +99,24 @@ export const useBriefcaseStore = defineStore('userBriefcase', {
                     this.error = err.data
                 })
         },
+        getCaseFavoriteListDb(params) {
+            axiosR
+                .get(`/briefcase/list/favorite`, { params })
+                .then((res) => {
+                    if (res.status === 200) {
+                        this.list = res.data
+                    }
+                })
+                .catch((err) => {
+                    this.error = err.data
+                })
+        },
         getBriefcaseStoreDb(id) {
             axiosR
                 .get(`/briefcase/${id}`)
                 .then((res) => {
                     if (res.status === 200) {
-                        this.briefcase = res.data
+                        this.briefcase = { ...this.briefcase, ...res.data }
                     }
                 })
                 .catch((err) => {
@@ -278,74 +298,77 @@ export const useBriefcaseStore = defineStore('userBriefcase', {
                 .catch((err) => {
                     this.error = err?.data
                 })
+        },
+        setShow(id) {
+            axiosR.get(`/briefcase/show/${id}`).catch((err) => {
+                this.error = err.data
+            })
+        },
+        addFavorite(params) {
+            this.isSuccess = ''
+            axiosR
+                .get('/briefcase/favorite/add', {
+                    params: params
+                })
+                .then((res) => {
+                    if (res.status == 200) {
+                        this.isSuccess = 'favorite-change'
+                        this.briefcase = { ...this.briefcase, favorite: true }
+                    }
+                })
+        },
+        getFavorite(params) {
+            axiosR
+                .get('/briefcase/favorite', {
+                    params: params
+                })
+                .then((res) => {
+                    if (res.status == 200) {
+                        this.briefcase = { ...this.briefcase, favorite: res.data }
+                    }
+                })
+                .catch((err) => {
+                    this.error = err.data
+                })
+        },
+        removeFavorite(params) {
+            this.isSuccess = ''
+            axiosR
+                .get('/briefcase/favorite/remove', {
+                    params: params
+                })
+                .then((res) => {
+                    if (res.status == 200) {
+                        this.isSuccess = 'favorite-change'
+                        this.briefcase = { ...this.briefcase, favorite: false }
+                    }
+                })
+        },
+        addRating(params) {
+            this.isSuccess = ''
+            axiosR
+                .get('/briefcase/rating/add', {
+                    params: params
+                })
+                .then((res) => {
+                    if (res.status == 200) {
+                        this.currentRating = res.data
+                    }
+                })
+        },
+        getRating(params) {
+            axiosR
+                .get('/briefcase/rating', {
+                    params: params
+                })
+                .then((res) => {
+                    if (res.status == 200) {
+                        this.currentRating = res.data
+                    }
+                })
+                .catch((err) => {
+                    this.error = err.data
+                })
         }
-        // setShow(id) {
-        //     axiosR.get(`/article/show/${id}`).catch((err) => {
-        //         this.error = err.data
-        //     })
-        // },
-        // setLike(params) {
-        //     axiosR
-        //         .get('/article/like', {
-        //             params
-        //         })
-        //         .then((res) => {
-        //             if (res.status === 200) {
-        //                 this.article = { ...this.article, likes: res.data }
-        //             }
-        //         })
-        //         .catch((err) => {
-        //             this.error = err.data
-        //         })
-        // },
-        // getArticleSiblingIdDb(id) {
-        //     this.sublingId = null
-        //     axiosR
-        //         .get(`/article/sibling-id/${id}`)
-        //         .then((res) => {
-        //             if (res.status === 200) {
-        //                 this.sublingId = res.data
-        //             }
-        //         })
-        //         .catch((err) => {
-        //             this.error = err.data
-        //         })
-        // },
-
-        // addFavorite(params) {
-        //     axiosR
-        //         .get('/article/add-favorite', {
-        //             params: params
-        //         })
-        //         .then((res) => {
-        //             if (res.status == 200) {
-        //                 this.favoriteArticle = true
-        //             }
-        //         })
-        // },
-        // removeFavorite(params) {
-        //     axiosR
-        //         .get('/article/remove-favorite', {
-        //             params: params
-        //         })
-        //         .then((res) => {
-        //             if (res.status == 200) {
-        //                 this.favoriteArticle = false
-        //             }
-        //         })
-        // },
-        // getFavorite(params) {
-        //     this.favoriteArticle = false
-
-        //     axiosR
-        //         .get('/article/favorite', {
-        //             params: params
-        //         })
-        //         .then((res) => {
-        //             if (res.status == 200) {
-        //                 this.favoriteArticle = res.data
-        //             }
-        //         })
-        // }
     }
 })

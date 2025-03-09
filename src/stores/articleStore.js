@@ -106,6 +106,18 @@ export const useArticleStore = defineStore('userArticle', {
                     this.error = err.data
                 })
         },
+        getArticleFavoriteListDb(params) {
+            axiosR
+                .get(`/article/list/favorite`, { params })
+                .then((res) => {
+                    if (res.status === 200) {
+                        this.list = res.data
+                    }
+                })
+                .catch((err) => {
+                    this.error = err.data
+                })
+        },
         remove(id) {
             this.isSuccess = ''
             axiosR

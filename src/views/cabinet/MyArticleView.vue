@@ -1,10 +1,10 @@
 <template>
     <CabinetLayout>
-        <PanelComponent />
+        <PanelComponent v-model:search="panel.search" @search="search()" />
         <div class="flex grow">
             <SidebarComponent />
-            <div v-if="cardsInfo.length">
-                Нужно написать, если список "Мои статья" не пустой
+            <div v-if="data" class="cards-container">
+                <ListArticle :data="data" class="22" />
             </div>
             <div v-else class="article-container">
                 <div class="flex flex-col gap-14">
@@ -18,10 +18,7 @@
                     </div>
                     <div class="flex justify-center">
                         <div class="w-max">
-                            <img
-                                src="/images/cabinet/article/article-hero.png"
-                                alt="hero"
-                            />
+                            <img src="/images/cabinet/article/article-hero.png" alt="hero" />
                         </div>
                         <div class="relative z-[1]">
                             <div
@@ -31,10 +28,12 @@
                                     class="font-normal text-[20px] leading-[150%] text-center text-black relative z-[3]"
                                 >
                                     Перейдите в верхнем меню в раздел
-                                    <span
+                                    <router-link
+                                        to="/blog"
                                         class="text-orange underline underline-offset-4 decoration-1"
-                                    >«Блог»</span
+                                        >«Блог»</router-link
                                     >
+
                                     откройте понравившуюся статью и нажмите внизу статьи кнопку
                                     «Добавить в избранное»
                                 </p>
@@ -56,8 +55,64 @@
 import PanelComponent from '/src/components/cabinet/panel/PanelComponent.vue'
 import CabinetLayout from '/src/layouts/CabinetLayout.vue'
 import SidebarComponent from '/src/components/cabinet/sidebar/SidebarComponent.vue'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { useArticleStore } from '@/stores/articleStore'
+import { useUserStore } from '@/stores/userStore'
+import ListArticle from '@/components/blog/ListArticle.vue'
 
-const cardsInfo = []
+const articleStore = useArticleStore()
+const userStore = useUserStore()
+const data = ref()
+const panel = reactive({
+    search: ''
+})
+
+const getUser = computed(() => {
+    return userStore.getUser
+})
+
+const getArticleList = computed(() => {
+    return articleStore.getArticleList
+})
+
+onMounted(() => {
+    if (getUser.value) {
+        articleStore.getArticleFavoriteListDb({
+            search: panel.search,
+            user_id: getUser?.value.id
+        })
+    }
+})
+
+function search() {
+    articleStore.getArticleFavoriteListDb({
+        search: panel.search,
+        user_id: getUser?.value.id
+    })
+}
+
+watch(
+    () => panel.search,
+    (newVal) => {
+        if (newVal.trim() == '') {
+            articleStore.getArticleFavoriteListDb({
+                search: panel.search,
+                user_id: getUser?.value.id
+            })
+        }
+    }
+)
+
+watch(getArticleList, () => {
+    data.value = getArticleList.value
+})
+
+watch(getUser, () => {
+    articleStore.getArticleFavoriteListDb({
+        search: panel.search,
+        user_id: getUser?.value.id
+    })
+})
 </script>
 
 <style lang="scss" scoped>
@@ -71,4 +126,17 @@ const cardsInfo = []
     background-size: cover;
     background-position: top center;
 }
+
+.cards-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 16px;
+    width: 100%;
+}
+
+:deep(.blog-article__list){
+    grid-template-columns: repeat(4, 1fr) ;
+}
+
 </style>

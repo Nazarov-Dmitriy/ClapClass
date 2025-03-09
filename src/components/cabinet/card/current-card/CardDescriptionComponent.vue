@@ -3,7 +3,6 @@
         <div class="card-page__left-img-wrapper">
             <Swiper
                 v-if="props.data"
-                ref="swiperRef"
                 :modules="[Navigation, Pagination, Autoplay]"
                 :navigation="navigationOptions"
                 :pagination="paginationOptions"
@@ -12,6 +11,7 @@
                 :loop="true"
                 class="slider"
                 @slide-change="updateActiveIndex"
+                @swiper="getRef"
             >
                 <SwiperSlide v-for="(img, index) in props.data?.images_slider" :key="index">
                     <img :src="getUrl(img.path)" alt="" class="card-page__left-img" />
@@ -77,13 +77,13 @@
 
             <div class="card-page__btns">
                 <BtnComponentOrange emit-name="action" @action="toggleRateModal"
-                >Оценить кейс</BtnComponentOrange
+                    >Оценить кейс</BtnComponentOrange
                 >
                 <BtnComponentOrange emit-name="action" @action="toggleAskModal"
-                >Задать вопрос</BtnComponentOrange
+                    >Задать вопрос</BtnComponentOrange
                 >
                 <BtnComponentOrange emit-name="action" @action="toggleFeedbackModal"
-                >Оставить отзыв</BtnComponentOrange
+                    >Оставить отзыв</BtnComponentOrange
                 >
             </div>
         </div>
@@ -114,7 +114,11 @@
             </ModalComponent>
             <ModalComponent :visible="isRateModalVisible">
                 <template #header>
-                    <RateModal @close-modal="toggleRateModal" />
+                    <RateModal
+                        :current-rating="props.currentRating"
+                        @close-modal="toggleRateModal"
+                        @set-rating="setRating"
+                    />
                 </template>
             </ModalComponent>
         </Teleport>
@@ -130,18 +134,29 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import ModalHeader from '/src/components/modal/ModalHeader.vue'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import ModalComponent from '/src/components/modal/ModalComponent.vue'
 import UiForm from '/src/components/form/UiForm.vue'
 import RateModal from '/src/components/modal/cabinet/RateModal.vue'
+import { useBriefcaseStore } from '@/stores/briefcaseStore'
+
 const props = defineProps({
     data: {
         type: Object,
         default: () => {}
+    },
+    currentRating: {
+        type: Number,
+        default: () => 0
+    },
+    user: {
+        type: Object,
+        default: () => {}
     }
 })
+const briefcaseStore = useBriefcaseStore()
 const activeIndex = ref(0)
-const swiperRef = ref(null)
+const swiper = ref(null)
 const isAskModalVisible = ref(false)
 const isFeedbackModalVisible = ref(false)
 const isRateModalVisible = ref(false)
@@ -155,6 +170,28 @@ const paginationOptions = {
     el: '.swiper-pagination',
     type: 'bullets',
     clickable: true
+}
+
+onMounted(() => {
+    if (props.data?.images_slider?.lenght > 0) {
+        swiper.value.updateSlides()
+    }
+    const bullet = document.querySelectorAll('.swiper-pagination-bullet')
+    const tabs = document.querySelectorAll('.slider__tabs-list-item')
+    tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => {
+            bullet[index].click()
+        })
+    })
+})
+
+function setRating(val) {
+    let params = { briefcase_id: props.data?.id, user_id: props.user?.id, rating: val }
+    briefcaseStore.addRating(params)
+}
+
+function getRef(swiperInstance) {
+    swiper.value = swiperInstance
 }
 
 function updateActiveIndex(swiper) {
@@ -185,16 +222,19 @@ function getUrl(path) {
     }
 }
 
-onMounted(() => {
-    const bullet = document.querySelectorAll('.swiper-pagination-bullet')
-    const tabs = document.querySelectorAll('.slider__tabs-list-item')
-    tabs.forEach((tab, index) => {
-        tab.addEventListener('click', () => {
-            bullet[index].click()
-        })
-    })
-})
+watch(
+    () => props.data,
+    () => {
+        if (props.data?.images_slider?.lenght > 0) {
+            swiper.value.updateSlides()
+        }
+    }
+)
 
+watch(
+    () => props.currentRating,
+    () => {}
+)
 </script>
 
 <style lang="scss" scoped>

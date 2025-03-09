@@ -386,7 +386,6 @@ watch(getSuccess, () => {
     color: white;
 
     @media (max-width: $md) {
-        // background: blue;
         padding: 6px 12px;
     }
 }

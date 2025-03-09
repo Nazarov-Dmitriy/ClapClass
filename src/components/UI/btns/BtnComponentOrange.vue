@@ -30,7 +30,7 @@ const props = defineProps({
         default: false
     }
 })
-const emit = defineEmits(['action'])
+const emit = defineEmits(['action', 'click'])
 
 function submitEmit() {
     emit(props.emitName)

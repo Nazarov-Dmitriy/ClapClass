@@ -183,7 +183,6 @@ const itemInfo = ref([
         left: -80px;
     }
     @media (max-width: $xl) {
-        // font-size: 16px;
         padding-bottom: 0;
         padding-top: 0;
     }

@@ -53,15 +53,15 @@ export const useSendMessageStore = defineStore('sendMessageStore', {
         setStatusNull() {
             this.status = null
         },
-        sendContactUs(data) {
+        sendFormTheme(data) {
             this.isSuccess = ''
             axiosR
-                .post('/send-mail/contact-us', data)
+                .post('/send-mail/theme', data)
                 .then((res) => {
                     if (res.status === 200) {
                         this.status = 200
                         this.errors = null
-                        this.isSuccess = 'send-us'
+                        this.isSuccess = 'send-form'
                         toast.success('Данные успешно отправлены', {
                             autoClose: 3000,
                             dangerouslyHTMLString: true

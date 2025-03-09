@@ -1,10 +1,10 @@
 <template>
     <CabinetLayout>
-        <PanelComponent />
+        <PanelComponent v-model:search="panel.search" @search="search()" />
         <div class="wrapper">
             <SidebarComponent />
             <div class="flex flex-col gap-4 w-full">
-                <CabinetTabsComponent v-model:tabs="tabs" />
+                <CabinetTabsComponent v-model:type="panel.type" />
                 <div class="cards-container">
                     <ListCaseEmpty v-if="!data"></ListCaseEmpty>
                     <CaseList v-else :data="data" />
@@ -26,10 +26,9 @@ import CabinetTabsComponent from '@/components/cabinet/case/tabs/CabinetTabsComp
 const briefcaseStore = useBriefcaseStore()
 
 const data = ref()
-const tabs = ref('')
 const panel = reactive({
     search: '',
-    type: null
+    type: ''
 })
 
 const getListBriefcase = computed(() => {
@@ -39,6 +38,10 @@ const getListBriefcase = computed(() => {
 onMounted(() => {
     briefcaseStore.getCaseListDb({ search: panel.search, type: panel.type })
 })
+
+function search() {
+    briefcaseStore.getCaseListDb({ search: panel.search, type: panel.type })
+}
 
 watch(
     () => panel.search,

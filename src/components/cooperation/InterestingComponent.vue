@@ -6,7 +6,7 @@
                     <ModalHeader @close-modal="toggleModalVisible" />
                 </template>
                 <template #form>
-                    <UiForm> </UiForm>
+                    <UiForm > </UiForm>
                 </template>
             </ModalComponent>
         </Teleport>
@@ -74,7 +74,7 @@
                                             emit-name="action"
                                             :custom-class="'custom-btn'"
                                             @action="toggleModalVisible"
-                                        >{{ answer.btnText }}</BtnComponentWhite
+                                            >{{ answer.btnText }}</BtnComponentWhite
                                         >
                                     </div>
                                 </div>
@@ -101,11 +101,11 @@
                                                 emit-name="action"
                                                 :custom-class="'custom-btn'"
                                                 @action="toggleModalVisible"
-                                            >{{ answer.btnText }}</BtnComponentWhite
+                                                >{{ answer.btnText }}</BtnComponentWhite
                                             >
                                             <BtnComponent
                                                 :currentсlass="'card__carusel-answer-btn'"
-                                            >{{ answer.btnText2 }}</BtnComponent
+                                                >{{ answer.btnText2 }}</BtnComponent
                                             >
                                         </div>
                                     </div>

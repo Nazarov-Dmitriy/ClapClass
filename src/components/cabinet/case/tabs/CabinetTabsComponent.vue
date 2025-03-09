@@ -5,7 +5,7 @@
                 v-for="(item, index) in slidesData"
                 :key="index"
                 class="tabs-list-item"
-                :class="{ 'active-tab': tabs === item.value }"
+                :class="{ 'active-tab': type === item.value }"
                 @click="handleTabClick(item.value)"
             >
                 <span>{{ item.tab }}</span>
@@ -34,7 +34,7 @@ const slidesData = ref([
     {
         tab: 'Все кейсы',
         icon: '',
-        value: 'all'
+        value: ''
     },
     {
         tab: 'Подвижные разминки',
@@ -57,10 +57,10 @@ const slidesData = ref([
     }
 ])
 
-const tabs = defineModel({ type: String, default: 'all' })
+const type = defineModel('type', { type: String, default: '' })
 
 function handleTabClick(index) {
-    tabs.value = index
+    type.value = index
 }
 
 function showPopup(index) {

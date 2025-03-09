@@ -57,7 +57,7 @@
             <div class="cabinet-card__footer-btns">
                 <div class="cabinet-card__footer-btn-views">
                     <ViewSvg class="cabinet-card__footer-btn-img"></ViewSvg>
-                    <span>{{ props.data.views || 0 }}</span>
+                    <span>{{ props.data.showsцц || 0 }}</span>
                 </div>
                 <div class="cabinet-card__footer-btn-rating">
                     <RaitingSvg class="cabinet-card__footer-btn-img"></RaitingSvg>

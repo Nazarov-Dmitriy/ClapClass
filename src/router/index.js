@@ -15,7 +15,6 @@ import AdminPage from '@/views/AdminPage.vue'
 import { useUserStore } from '@/stores/userStore'
 import ErrorPage from '@/views/error/ErrorPage.vue'
 import EditCase from '@/components/admin/case/EditCase.vue'
-// import EditCase from '@/components/admin/case/EditCase.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),

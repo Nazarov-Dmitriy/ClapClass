@@ -1,16 +1,12 @@
 <template>
     <CabinetLayout>
-        <PanelComponent />
+        <PanelComponent v-model:search="panel.search" @search="search()" />
         <div class="flex grow">
             <SidebarComponent />
-            <div v-if="renderList.length" class="flex flex-col gap-6">
-                <CabinetTabsComponent />
+            <div v-if="data" class="flex flex-col gap-6 grow">
+                <CabinetTabsComponent v-model:type="panel.type" />
                 <div class="cards-container">
-                    <!-- <CabinetCardComponent
-                            v-for="(card, index) in renderList"
-                            :key="index"
-                            :card-info="card"
-                        /> -->
+                    <CaseList :data="data" />
                 </div>
             </div>
             <div
@@ -39,12 +35,13 @@
                                 class="font-normal text-[20px] leading-[150%] text-center text-black"
                             >
                                 Перейдите во вкладку
-                                <span
+                                <router-link
+                                    to="/cabinet/showcase"
                                     class="text-orange underline underline-offset-4 decoration-1"
-                                >«Витрина кейсов»</span
+                                    >«Витрина кейсов»</router-link
                                 >
-                                откройте понравившийся кейс и нажмите кнопку «Добавить в мои
-                                кейсы»
+
+                                откройте понравившийся кейс и нажмите кнопку «Добавить в мои кейсы»
                             </p>
                             <img
                                 class="absolute top-0 left-[28px]"
@@ -102,31 +99,87 @@
 import PanelComponent from '/src/components/cabinet/panel/PanelComponent.vue'
 import CabinetLayout from '/src/layouts/CabinetLayout.vue'
 import SidebarComponent from '/src/components/cabinet/sidebar/SidebarComponent.vue'
-import { onMounted, ref} from 'vue'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
 import CabinetTabsComponent from '@/components/cabinet/case/tabs/CabinetTabsComponent.vue'
+import { useBriefcaseStore } from '@/stores/briefcaseStore'
+import CaseList from '@/components/cabinet/case/list/CaseList.vue'
+import { useUserStore } from '@/stores/userStore'
 
-const renderList = ref([])
+const briefcaseStore = useBriefcaseStore()
+const userStore = useUserStore()
+const data = ref()
+const panel = reactive({
+    search: '',
+    type: ''
+})
 
-function getRenderList(list) {
-    renderList.value = list
-}
+const getUser = computed(() => {
+    return userStore.getUser
+})
+
+const getListBriefcase = computed(() => {
+    return briefcaseStore.getListBriefcase
+})
 
 onMounted(() => {
-    getRenderList([])
+    if (getUser.value) {
+        briefcaseStore.getCaseFavoriteListDb({
+            search: panel.search,
+            type: panel.type,
+            user_id: getUser?.value.id
+        })
+    }
+})
+
+function search() {
+    briefcaseStore.getCaseFavoriteListDb({
+        search: panel.search,
+        type: panel.type,
+        user_id: getUser?.value.id
+    })
+}
+
+watch(
+    () => panel.search,
+    (newVal) => {
+        if (newVal.trim() == '') {
+            briefcaseStore.getCaseFavoriteListDb({
+                search: panel.search,
+                type: panel.type,
+                user_id: getUser?.value.id
+            })
+        }
+    },
+    { deep: true }
+)
+
+watch([() => panel.type], () => {
+    briefcaseStore.getCaseFavoriteListDb({
+        search: panel.search,
+        type: panel.type,
+        user_id: getUser?.value.id
+    })
+})
+
+watch(getListBriefcase, () => {
+    data.value = getListBriefcase.value
+})
+
+watch(getUser, () => {
+    briefcaseStore.getCaseFavoriteListDb({
+        search: panel.search,
+        type: panel.type,
+        user_id: getUser?.value.id
+    })
 })
 </script>
 
 <style lang="scss" scoped>
-
 .cards-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
     gap: 16px;
-    padding: 24px 64px;
+    padding: 16px;
     width: 100%;
-    background-image: url(/images/servecies/warm-up/bg-img.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: top center;
 }
 </style>

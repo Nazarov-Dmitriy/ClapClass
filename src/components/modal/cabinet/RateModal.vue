@@ -79,10 +79,17 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 
-const emit = defineEmits(['closeModal'])
+const props = defineProps({
+    currentRating: {
+        type: Number,
+        default: () => 0
+    }
+})
+
+const emit = defineEmits(['closeModal', 'setRating'])
 
 function closeModal() {
     emit('closeModal')
@@ -90,14 +97,20 @@ function closeModal() {
 const rating = ref(0)
 const isSubmit = ref(false)
 
+onMounted(() => {
+    rating.value = props.currentRating
+})
+
 const activeStar = '/icons/cabinet/rate-modal/star-active.svg'
 const inactiveStar = '/icons/cabinet/rate-modal/star.svg'
 
 function setRating(index) {
+    isSubmit.value = false
     rating.value = index
 }
 function ratingSubmit() {
     isSubmit.value = true
+    emit('setRating', rating.value)
 }
 </script>
 

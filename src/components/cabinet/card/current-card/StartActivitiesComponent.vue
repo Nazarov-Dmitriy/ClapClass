@@ -21,15 +21,23 @@
                     />
                 </div>
 
-                <BtnComponentOrange class="card-page__right-btn card-page__right-btn--white">
+                <BtnComponentOrange
+                    class="card-page__right-btn card-page__right-btn--white"
+                    emit-name="click"
+                    @click="changeFavorite()"
+                >
                     <div class="card-page__right-btn-wrapper">
                         <AddSvg></AddSvg>
-                        <span>Добавить в мои кейсы</span>
+                        <span
+                            >{{
+                                props.data?.favorite ? 'Удалить из кейсов' : 'Добавить в мои кейсы'
+                            }}
+                        </span>
                     </div>
                 </BtnComponentOrange>
             </div>
             <div class="card-page__right-info">
-                <div v-if="props.data?.rules.path" class="card-page__right-rules">
+                <div v-if="props.data?.rules?.path" class="card-page__right-rules">
                     <div class="card-page__right-rules-texts">
                         <h3 class="card-page__right-rules-title">Изучите правила</h3>
                         <p class="card-page__right-rules-subtitle">
@@ -38,7 +46,7 @@
                     </div>
                     <div
                         class="flex flex-col gap-3 cursor-pointer"
-                        @click="downloadFile(props.data?.rules.path, props.data?.rules.name)"
+                        @click="downloadFile(props.data?.rules?.path, props.data?.rules.name)"
                     >
                         <RulesSvg class="card-page__right-rules-img w-[56px] h-[56px]"></RulesSvg>
 
@@ -87,7 +95,7 @@
     </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import AddSvg from '@/assets/icons/add.svg?component'
 import RulesSvg from '@/assets/icons/case/rules.svg?component'
 import MaterialSvg from '@/assets/icons/case/materail-download.svg?component'
@@ -96,7 +104,9 @@ import ModalComponent from '/src/components/modal/ModalComponent.vue'
 import ModalHeader from '/src/components/modal/ModalHeader.vue'
 import StartActivitiesModal from '/src/components/modal/cabinet/StartActivitiesModal.vue'
 import axiosFileS3 from '@/api/httpS3'
+import { useBriefcaseStore } from '@/stores/briefcaseStore'
 
+const briefcaseStore = useBriefcaseStore()
 const isHovered = ref(false)
 const isModalVisible = ref(false)
 
@@ -104,8 +114,18 @@ const props = defineProps({
     data: {
         type: Object,
         default: () => {}
+    },
+    user: {
+        type: Object,
+        default: () => {}
     }
 })
+
+const getIsSuccess = computed(() => {
+    return briefcaseStore.getIsSuccess
+})
+
+const favoritesDisable = ref(false)
 
 async function downloadFile(path, name) {
     axiosFileS3
@@ -132,6 +152,21 @@ async function downloadFile(path, name) {
 function toggleModal() {
     isModalVisible.value = !isModalVisible.value
 }
+
+function changeFavorite() {
+    if (favoritesDisable.value) {
+        return
+    }
+    favoritesDisable.value = true
+    let params = { briefcase_id: props.data?.id, user_id: props.user?.id }
+    props.data?.favorite ? briefcaseStore.removeFavorite(params) : briefcaseStore.addFavorite(params)
+}
+
+watch(getIsSuccess, (val) => {
+    if (val === 'favorite-change') {
+        favoritesDisable.value = false
+    }
+})
 </script>
 <style lang="scss" scoped>
 .card-page__right-options {

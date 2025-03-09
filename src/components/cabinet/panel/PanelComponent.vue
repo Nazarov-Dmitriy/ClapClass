@@ -15,12 +15,13 @@
         <div class="panel__search">
             <div class="blog__search">
                 <input
-                    :value="search"
+                    :value="props.search"
                     type="text"
                     class="blog__search-input"
                     placeholder="Поиск"
-                    @input="updateSearch"
-                    @keypress.enter="searchAction"
+                    @input="emit('update:search', $event.target.value)"
+                    @keypress.enter="$emit('search')"
+                    @blur="$emit('search')"
                 />
                 <svg
                     class="blog__search-icon"
@@ -60,6 +61,13 @@
 import { onMounted, ref, watchEffect, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 
+const props = defineProps({
+    search: {
+        type: String,
+        default: ''
+    }
+})
+
 const translations = {
     cabinet: 'Кабинет',
     showcase: 'Витрина кейсов',
@@ -68,9 +76,15 @@ const translations = {
     profile: 'Профиль'
 }
 
+const emit = defineEmits(['update:search', 'search'])
+
 const breadcrumbs = ref([])
-const search = ref('')
 const route = useRoute()
+
+onMounted(async () => {
+    await nextTick()
+    updateBreadcrumbs()
+})
 
 function updateBreadcrumbs() {
     const path = route.path
@@ -85,18 +99,6 @@ function updateBreadcrumbs() {
 }
 
 watchEffect(() => {
-    updateBreadcrumbs()
-})
-
-function updateSearch(event) {
-    search.value = event.target.value
-}
-
-function searchAction() {
-}
-
-onMounted(async () => {
-    await nextTick()
     updateBreadcrumbs()
 })
 </script>

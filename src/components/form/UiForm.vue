@@ -77,23 +77,23 @@
                 </div>
 
                 <label
-                    for="message"
+                    for="theme"
                     class="form__label"
-                    :class="{ form__error: formField.messageError }"
+                    :class="{ form__error: formField.themeError }"
                 >
                     Ваше сообщение
                 </label>
                 <input
-                    id="message"
-                    v-model="formField.message"
+                    id="theme"
+                    v-model="formField.theme"
                     type="text"
-                    class="form__input form__input--message"
-                    :class="{ 'form__input--error': formField.messageError }"
+                    class="form__input form__input--theme"
+                    :class="{ 'form__input--error': formField.themeError }"
                     placeholder="Введите тему сообщения"
                     @input="changeMessage($event)"
-                    @keypress.enter="validateField($event, 'event', 'message')"
+                    @keypress.enter="validateField($event, 'event', 'theme')"
                 />
-                <span v-if="formField.messageError" class="form__error">
+                <span v-if="formField.themeError" class="form__error">
                     <div class="form__error-wrapper">
                         <img src="../../assets/images/form/form-error-svg.svg" alt="" />
                         <span>Поле заполнено некорректно</span>
@@ -151,12 +151,12 @@ const formField = reactive({
     name: '',
     phone: '',
     email: '',
-    message: '',
+    theme: '',
     textarea: '',
     nameError: false,
     phoneError: false,
     emailError: false,
-    messageError: false, // Added field
+    themeError: false,
     textareaError: false,
     success: false
 })
@@ -180,8 +180,8 @@ function validateField(param, event, nameParam) {
             /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
         formField.emailError = !email_regexp.test(String(target).toLowerCase())
     }
-    if (nameParam === 'message') {
-        formField.messageError = target.length < 3
+    if (nameParam === 'theme') {
+        formField.themeError = target.length < 3
     }
     if (nameParam === 'textarea') {
         formField.textareaError = target.length < 3
@@ -209,10 +209,10 @@ function changeEmail(event) {
 
 function changeMessage(event) {
     let target = event.target
-    formField.message = target.value
+    formField.theme = target.value
 
-    if (formField.messageError && target.value.length >= 3) {
-        formField.messageError = false
+    if (formField.themeError && target.value.length >= 3) {
+        formField.themeError = false
     }
 }
 
@@ -226,7 +226,7 @@ function changeTextarea(event) {
 }
 
 function validateForm() {
-    let validateFieldArr = ['name', 'phone', 'email', 'message', 'textarea']
+    let validateFieldArr = ['name', 'phone', 'email', 'theme', 'textarea']
 
     validateFieldArr.forEach((item) => {
         validateField(formField[item], 'validate', item)
@@ -236,14 +236,14 @@ function validateForm() {
         !formField.nameError &&
         !formField.phoneError &&
         !formField.emailError &&
-        !formField.messageError &&
+        !formField.themeError &&
         !formField.textareaError
     ) {
-        sendMessageStore.sendContactUs({
+        sendMessageStore.sendFormTheme({
             name: formField.name,
             phone: formField.phone,
             email: formField.email,
-            message: formField.message,
+            theme: formField.theme,
             textarea: formField.textarea
         })
     }
@@ -253,12 +253,12 @@ function resetForm() {
     formField.name = ''
     formField.phone = ''
     formField.email = ''
-    formField.message = ''
+    formField.theme = ''
     formField.textarea = ''
 }
 
 watch(getIsSuccess, (val) => {
-    if (val === 'send-us') {
+    if (val === 'send-form') {
         formField.success = true
         resetForm()
     }
@@ -306,6 +306,17 @@ watch(getIsSuccess, (val) => {
 
     &.error {
         border-color: $yellowy;
+    }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 50px white inset; /* Change the color to your own background color */
+    }
+
+    &:-webkit-autofill:hover {
+        -webkit-box-shadow: 0 0 0 50px #e6eaed inset; /* Change the color to your own background color */
     }
 }
 </style>

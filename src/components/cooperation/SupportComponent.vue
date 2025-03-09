@@ -54,7 +54,7 @@
                     <ModalHeader @close-modal="toggleModal" />
                 </template>
                 <template #form>
-                    <UiForm> </UiForm>
+                    <UiForm  > </UiForm>
                 </template>
             </ModalComponent>
         </Teleport>

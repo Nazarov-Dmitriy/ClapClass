@@ -71,6 +71,10 @@ const model = defineModel({ type: String })
     &:-webkit-autofill:active {
         -webkit-box-shadow:0 0 0 50px white inset; /* Change the color to your own background color */
     }
+
+    &:-webkit-autofill:hover {
+        -webkit-box-shadow: 0 0 0 50px #e6eaed inset; /* Change the color to your own background color */
+    }
 }
 
 .error-text {
