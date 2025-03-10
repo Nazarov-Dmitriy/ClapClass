@@ -1,7 +1,7 @@
 <template>
     <div class="modal__header">
         <div class="modal-close-wrapper">
-            <span class="modal-close" @click="closeModal">
+            <span class="modal-close relative z-10" @click="closeModal">
                 <svg
                     width="24"
                     height="24"
@@ -30,7 +30,7 @@
             </p>
             <slot name="subtitle" />
         </div>
-        <div class="modal__header-hero">
+        <div class="modal__header-hero shrink-0">
             <img
                 src="../../assets/images/form/form-hero-img.svg"
                 alt=""
@@ -87,19 +87,23 @@ function closeModal() {
 }
 
 .modal__header-hero {
+    width: 226px;
+    height: 171px;
+
     @media (max-width: $lg) {
         display: none;
     }
 }
 .modal__header-hero-img {
-    width: 226px;
+    width: 100%;
+    height: 100%;
     transform: translate(0, -5px);
 }
 
 .modal-close-wrapper {
     position: absolute;
-    top: 24px;
-    right: 24px;
+    top: 16px;
+    right: 18px;
 
     @media (max-width: $lg) {
         top: 10px;

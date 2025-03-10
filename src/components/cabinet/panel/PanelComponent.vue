@@ -7,7 +7,10 @@
                     :key="index"
                     class="panel__links-list-item"
                 >
-                    <span>{{ crumb }}</span>
+                    <router-link v-if="crumb.title" :to="crumb.url && crumb.url">{{
+                        crumb.title
+                    }}</router-link>
+                    <span v-else> {{ crumb }}</span>
                     <span v-if="index < breadcrumbs.length - 1">/</span>
                 </li>
             </ul>
@@ -69,11 +72,11 @@ const props = defineProps({
 })
 
 const translations = {
-    cabinet: 'Кабинет',
-    showcase: 'Витрина кейсов',
-    'my-cases': 'Мои кейсы',
-    'my-article': 'Мои статьи',
-    profile: 'Профиль'
+    cabinet: { title: 'Кабинет', url: '/cabinet/profile' },
+    showcase: { title: 'Витрина кейсов', url: '/cabinet/showcase' },
+    'my-cases': { title: 'Мои кейсы', url: '/cabinet/my-cases' },
+    'my-article': { title: 'Мои статьи', url: '/cabinet/my-article' },
+    profile: { title: 'Профиль', url: '/cabinet/profile' }
 }
 
 const emit = defineEmits(['update:search', 'search'])

@@ -24,6 +24,7 @@
                     </StartActivitiesComponent>
                 </div>
             </div>
+            
         </div>
     </CabinetLayout>
     <Teleport to="body">
@@ -55,6 +56,7 @@ const briefcaseId = ref()
 const data = computed(() => {
     return briefcaseStore.getBriefcase
 })
+
 
 const listRandom = computed(() => {
     return briefcaseStore.getListBriefcaseRandom

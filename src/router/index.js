@@ -108,6 +108,11 @@ const router = createRouter({
                     component: MyCasesView
                 },
                 {
+                    path: 'my-cases/:id',
+                    name: 'card-page__favorite',
+                    component: CaseDetailsPage
+                },
+                {
                     path: 'my-article',
                     name: 'my-article',
                     component: MyArticleView

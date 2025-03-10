@@ -1,8 +1,7 @@
 <template>
     <div class="wrapper">
-        <div class="wrapper-btn">
+        <div v-if="props.data?.rules_video" class="wrapper-btn">
             <a
-                v-if="props.data?.rules_video"
                 class="flex gap-4 items-center"
                 :href="getUrl(props.data?.rules_video?.path)"
                 target="_blank"
@@ -21,7 +20,7 @@
         <template v-if="props.data?.levels">
             <div v-for="level in props.data?.levels" :key="level.id" class="wrapper-btn">
                 <a
-                    v-if="props.data?.rules_video"
+                    v-if="props.data?.levels.length > 0"
                     class="flex gap-4 items-center w-full"
                     :href="getUrl(level.file?.path)"
                     target="_blank"
@@ -40,6 +39,9 @@
                 </a>
             </div>
         </template>
+        <div v-if="props.data?.levels.length === 0 && !props.data?.rules_video">
+            <span class="font-normal text-xl leading-[150%] text-black text-center">Загрузите видео правили и уровни кейса</span>
+        </div>
     </div>
 </template>
 <script setup>

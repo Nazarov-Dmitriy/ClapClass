@@ -1,18 +1,18 @@
 <template>
     <div class="card-page__header">
         <div class="card-page__header-left">
-            <CaseCardIcon :type="props.data?.type" class="w-[56px] h-[56px]" ></CaseCardIcon>
+            <CaseCardIcon :type="props.data?.type" class="w-[56px] h-[56px]"></CaseCardIcon>
             <TitleComponent v-if="props.data?.title" class="card-page__header-title">
                 {{ props.data.title }}
             </TitleComponent>
         </div>
         <div class="card-page__header-right">
             <RaitingSvg class="card-page__header-right-img"></RaitingSvg>
-            <span>{{ props.data?.rating || 0 }}</span>
+            <span>{{ !props.data?.rating == 0 ? props.data.rating.toFixed(1) : 0 }}</span>
             <ViewSvg class="card-page__header-right-img"></ViewSvg>
             <span>{{ props.data?.shows || 0 }}</span>
             <TimeSvg class="card-page__header-right-img"></TimeSvg>
-            <span>{{ props.data?.duration || ""}}</span>
+            <span>{{ props.data?.duration || '' }}</span>
         </div>
     </div>
 </template>
@@ -26,7 +26,7 @@ import CaseCardIcon from '../../case/card/CaseCardIcon.vue'
 
 const props = defineProps({
     data: {
-        type: Object  ,
+        type: Object,
         default: () => {}
     }
 })

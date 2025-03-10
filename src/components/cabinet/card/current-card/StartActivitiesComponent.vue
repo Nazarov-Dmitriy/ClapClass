@@ -82,8 +82,8 @@
             <ModalComponent :visible="isModalVisible">
                 <template #header>
                     <div>
-                        <ModalHeader @close-modal="toggleModal">
-                            Оставьте отзыв, это помогает улучшить разминку
+                        <ModalHeader class="modal-header__start" @close-modal="toggleModal">
+                            Выберите необходимый уровень, посмотрите правила и запустите разминку
                         </ModalHeader>
                     </div>
                 </template>
@@ -159,7 +159,9 @@ function changeFavorite() {
     }
     favoritesDisable.value = true
     let params = { briefcase_id: props.data?.id, user_id: props.user?.id }
-    props.data?.favorite ? briefcaseStore.removeFavorite(params) : briefcaseStore.addFavorite(params)
+    props.data?.favorite
+        ? briefcaseStore.removeFavorite(params)
+        : briefcaseStore.addFavorite(params)
 }
 
 watch(getIsSuccess, (val) => {
@@ -252,5 +254,16 @@ watch(getIsSuccess, (val) => {
             color: $gray;
         }
     }
+}
+
+.modal-header__start{
+    padding: 16px 24px 0px 24px;
+    justify-content: space-between;
+    height: 187px;
+}
+
+:deep(.modal__header-info){
+    max-width:670px;
+    width: 100%;
 }
 </style>

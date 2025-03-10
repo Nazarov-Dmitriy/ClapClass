@@ -39,8 +39,6 @@
                     type="material"
                     class="w-16 h-16"
                 ></CaseCardIcon>
-      
-                
             </div>
         </div>
 
@@ -52,16 +50,16 @@
                 {{ props.data.annotation }}
             </p>
         </div>
-        
+
         <div class="cabinet-card__footer">
             <div class="cabinet-card__footer-btns">
                 <div class="cabinet-card__footer-btn-views">
                     <ViewSvg class="cabinet-card__footer-btn-img"></ViewSvg>
-                    <span>{{ props.data.showsцц || 0 }}</span>
+                    <span>{{  props.data.shows || 0 }}</span>
                 </div>
                 <div class="cabinet-card__footer-btn-rating">
                     <RaitingSvg class="cabinet-card__footer-btn-img"></RaitingSvg>
-                    <span>{{ props.data.rating || 0 }}</span>
+                    <span>{{ !props.data.rating == 0 ? props.data?.rating.toFixed(1) : 0 }}</span>
                 </div>
             </div>
             <div class="cabinet-card__footer-btn-time">
@@ -80,7 +78,7 @@
 <script setup>
 import { useBriefcaseStore } from '@/stores/briefcaseStore'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import EditSvg from '../../../../assets/icons/blog/edit.svg?component'
 import RemoveSvg from '../../../../assets/icons/blog/remove.svg?component'
 import ViewSvg from '../../../../assets/icons/case/view.svg?component'
@@ -89,6 +87,7 @@ import TimeSvg from '../../../../assets/icons/case/time-icon.svg?component'
 import ModalConfirm from '@/components/modal/ModalConfirm.vue'
 import CaseCardIcon from './CaseCardIcon.vue'
 const router = useRouter()
+const route = useRoute()
 
 const props = defineProps({
     data: {
@@ -136,7 +135,9 @@ function removeCase() {
 
 function linkCard(e, id) {
     e.stopPropagation()
-    router.push({ name: 'card-page', params: { id: id } })
+    route.name === 'showcase'
+        ? router.push({ name: 'card-page', params: { id: id } })
+        : router.push({ name: 'card-page__favorite', params: { id: id } })
 }
 </script>
 
