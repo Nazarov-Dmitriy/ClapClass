@@ -25,6 +25,4 @@ import ChangePassword from '/src/components/cabinet/profile/ChangePassword.vue'
     </CabinetLayout>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
