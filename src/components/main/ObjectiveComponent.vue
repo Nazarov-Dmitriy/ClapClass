@@ -22,7 +22,12 @@
                         формат вашего урока для формирования благоприятной внутриклассной среды
                     </p>
                     <div class="objective__btn-wrapper">
-                        <BtnComponent class="objective__btn">Узнать больше</BtnComponent>
+                        <BtnComponent
+                            class="objective__btn"
+                            emit-name="action"
+                            @action="$router.push('/about')"
+                            >Узнать больше</BtnComponent
+                        >
                     </div>
                 </div>
             </div>

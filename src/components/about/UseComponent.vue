@@ -90,15 +90,25 @@
                         создаем разминки, а формируем экосистему эффективных направлений,
                         способствуя всестороннему развитию потенциала детей.
                     </p>
-                    <BtnComponent class="use__info-btn">Попробовать сейчас</BtnComponent>
+                    <BtnComponent
+                        v-if="!getUser"
+                        emit-name="action"
+                        class="use__info-btn"
+                        @action="() => setModal('login')"
+                        >Попробовать сейчас</BtnComponent
+                    >
                 </div>
             </div>
         </div>
+
+        <Teleport to="body">
+            <AuthComponent :modal="modal" @close="() => setModal('')" />
+        </Teleport>
     </section>
 </template>
 
-<script setup >
-import { onMounted, ref } from 'vue'
+<script setup>
+import { computed, onMounted, ref } from 'vue'
 import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import TitleComponent from '../ui/TitleComponent.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -106,6 +116,8 @@ import { Navigation, Pagination } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+import { useUserStore } from '@/stores/userStore'
+import AuthComponent from '../modal/auth/AuthComponent.vue'
 
 const slidesCards = ref([
     [
@@ -178,8 +190,14 @@ const slidesCards = ref([
     ]
 ])
 
+const userStore = useUserStore()
+const modal = ref('')
+const getUser = computed(() => {
+    return userStore.getUser
+})
 const activeIndex = ref(0)
 const swiperRef = ref(null)
+
 
 const navigationOptions = {
     nextEl: '.slider__slide-arrow-btn--right',
@@ -207,6 +225,11 @@ onMounted(() => {
         })
     }, 0)
 })
+
+function setModal(value) {
+    modal.value = value
+}
+
 </script>
 
 <style lang="scss" scoped>

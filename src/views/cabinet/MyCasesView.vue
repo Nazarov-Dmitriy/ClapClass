@@ -3,8 +3,12 @@
         <PanelComponent v-model:search="panel.search" @search="search()" />
         <div class="flex grow">
             <SidebarComponent />
-            <div v-if="data" class="flex flex-col gap-6 grow">
-                <CabinetTabsComponent v-model:type="panel.type" />
+            <div v-if="data" class="flex flex-col grow">
+                <CabinetTabsComponent
+                    v-model:type="panel.type"
+                    type-view="count"
+                    :date-count="dataTypeCount"
+                />
                 <div class="cards-container">
                     <CaseList :data="data" />
                 </div>
@@ -121,6 +125,13 @@ const getListBriefcase = computed(() => {
     return briefcaseStore.getListBriefcase
 })
 
+const dataTypeCount = reactive({
+    moving: 0,
+    rhythm: 0,
+    cognitive: 0,
+    all: 0
+})
+
 onMounted(() => {
     if (getUser.value) {
         briefcaseStore.getCaseFavoriteListDb({
@@ -163,6 +174,30 @@ watch([() => panel.type], () => {
 
 watch(getListBriefcase, () => {
     data.value = getListBriefcase.value
+    dataTypeCount.moving = 0
+    dataTypeCount.rhythm = 0
+    dataTypeCount.cognitive = 0
+    dataTypeCount.all = 0
+    var result = getListBriefcase?.value?.reduce(function (acc, item) {
+        switch (item.type) {
+            case 'moving':
+                acc.moving = acc.moving + 1
+                acc.all++
+                break
+            case 'rhythm':
+                acc.rhythm = acc.rhythm + 1
+                acc.all++
+                break
+            case 'cognitive':
+                acc.cognitive = acc.cognitive + 1
+                acc.all++
+                break
+        }
+        return acc
+    }, dataTypeCount)
+    dataTypeCount.moving = result.moving
+    dataTypeCount.rhythm = result.rhythm
+    dataTypeCount.cognitive = result.cognitive
 })
 
 watch(getUser, () => {
@@ -179,7 +214,12 @@ watch(getUser, () => {
     display: grid;
     grid-template-columns: 1fr;
     gap: 16px;
-    padding: 16px;
+    padding: 24px 64px;
     width: 100%;
+    background-image: url(/images/servecies/warm-up/bg-img.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+    height: 100%;
 }
 </style>

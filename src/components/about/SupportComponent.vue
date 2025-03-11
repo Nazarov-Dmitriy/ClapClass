@@ -1,8 +1,3 @@
-<script setup lang="ts">
-import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
-
-</script>
-
 <template>
     <section class="support">
         <div class="support__container">
@@ -32,13 +27,19 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
                     alt="offer hero img"
                     class="support__offer-img support__offer-img--hero"
                 />
-                <BtnComponent emit-name="action" @action="$router.push('/')">
-                    Поддержать проект
-                </BtnComponent>
+                <a href="https://yoomoney.ru/fundraise/18LATS4B2TM.250226" target="_blank">
+                    <BtnComponent >
+                        Поддержать проект
+                    </BtnComponent>
+                </a>
             </div>
         </div>
     </section>
 </template>
+<script setup>
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
+
+</script>
 
 <style lang="scss" scoped>
 .support {

@@ -4,19 +4,32 @@
             <li
                 v-for="(item, index) in slidesData"
                 :key="index"
-                class="tabs-list-item"
-                :class="{ 'active-tab': type === item.value }"
+                class="tabs-list-item relative"
                 @click="handleTabClick(item.value)"
             >
-                <span>{{ item.tab }}</span>
+                <span class="tab-text" :class="{ 'active-tab': type === item.value }">{{
+                    item.tab
+                }}</span>
                 <img
-                    v-if="index > 0"
+                    v-if="index > 0 && props.typeView === 'info'"
                     class="info-btn"
                     :src="item.icon"
                     alt="tab icon"
                     @mouseover="showPopup(index)"
                     @mouseleave="hidePopup"
                 />
+                <span
+                    v-if="index === 0 && props.typeView === 'count'"
+                    class="tab-count"
+                    :class="{ active: type === item.value }"
+                    >{{ props.dateCount.all }}
+                </span>
+                <span
+                    v-if="props.typeView === 'count' && index > 0"
+                    class="tab-count"
+                    :class="{ active: type === item.value }"
+                    >{{ props.dateCount[item.value] }}
+                </span>
                 <div v-if="isPopupVisible && hoveredTab === index" class="tab-popup">
                     <p class="tab-popup__text">{{ item.popupText }} - подробности</p>
                 </div>
@@ -57,6 +70,17 @@ const slidesData = ref([
     }
 ])
 
+const props = defineProps({
+    typeView: {
+        type: String,
+        default: 'info'
+    },
+    dateCount: {
+        type: Object,
+        default: () => {}
+    }
+})
+
 const type = defineModel('type', { type: String, default: '' })
 
 function handleTabClick(index) {
@@ -82,8 +106,11 @@ function hidePopup() {
     justify-content: center;
     align-items: center;
     gap: 48px;
-    margin-bottom: -48px;
     position: relative;
+
+    @media (max-width: $xl) {
+        justify-content: space-between;
+    }
 
     @media (max-width: $lg) {
         gap: 16px;
@@ -96,18 +123,27 @@ function hidePopup() {
 
 .tabs-list-item {
     font-weight: 500;
+    color: $gray;
+    cursor: pointer;
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+}
+
+.tab-text {
+    border-bottom: 1px solid $gray;
     font-size: 20px;
     line-height: 1.5;
     text-align: center;
-    color: $gray;
-    border-bottom: 1px solid $gray;
-    cursor: pointer;
-    position: relative;
-
+    width: fit-content;
     &:hover,
     &:active {
         color: $orange;
         border-bottom: 1px solid $orange;
+    }
+
+    @media (max-width: $xl) {
+        width: min-content;
     }
 
     @media (max-width: $lg) {
@@ -118,10 +154,27 @@ function hidePopup() {
         color: $orange;
     }
 }
+
+.tab-count {
+    min-width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 12px;
+    line-height: 1.5;
+    background: $gray;
+
+    &.active {
+        background: $orange;
+    }
+}
+
 .info-btn {
-    position: absolute;
-    top: 5px;
-    right: -30px;
+    width: 24px;
+    height: 24px;
 }
 .tab-popup {
     border: 2px solid #656d75;
@@ -129,6 +182,7 @@ function hidePopup() {
     padding: 16px;
     box-sizing: border-box;
     position: absolute;
+    top: 30px;
     right: 0;
     z-index: 2;
     background: #e6eaed;

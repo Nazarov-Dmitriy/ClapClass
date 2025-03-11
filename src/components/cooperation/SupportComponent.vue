@@ -11,12 +11,14 @@
                 </div>
                 <div class="support__info">
                     <div class="support__info-btn-wrapper">
-                        <BtnComponent>Сделайте пожертвование</BtnComponent>
+                        <a href="https://yoomoney.ru/fundraise/18LATS4B2TM.250226" target="_blank">
+                            <BtnComponent> Сделайте пожертвование </BtnComponent>
+                        </a>
                         <BtnComponentWhite
                             emit-name="toggleModal"
                             :custom-class="'custom-btn'"
                             @toggle-modal="toggleModal"
-                        >Свяжитесь с нами</BtnComponentWhite
+                            >Свяжитесь с нами</BtnComponentWhite
                         >
                     </div>
 
@@ -24,17 +26,17 @@
                         <span>Присоединяйтесь</span>
                         <a :href="getLinkSocial('youtube')" class="w-[60px]" target="_blank">
                             <img
-                                src="@/assets/icons/footer/youtube.svg"
+                                src="@/assets/icons/social/youtube.svg "
                                 alt="logo"
                                 class="footer__youtube"
                             />
                         </a>
                         <a :href="getLinkSocial('vk')" class="w-[40px]" target="_blank">
-                            <img src="@/assets/icons/footer/vk.svg" alt="logo" class="footer__vk" />
+                            <img src="@/assets/icons/social/vk.svg" alt="logo" class="footer__vk" />
                         </a>
                         <a :href="getLinkSocial('telegram')" class="w-[40px]" target="_blank">
                             <img
-                                src="@/assets/icons/footer/telegram.svg"
+                                src="@/assets/icons/social/tg.svg"
                                 alt="logo"
                                 class="footer__telegram"
                             />
@@ -54,7 +56,7 @@
                     <ModalHeader @close-modal="toggleModal" />
                 </template>
                 <template #form>
-                    <UiForm  > </UiForm>
+                    <UiForm> </UiForm>
                 </template>
             </ModalComponent>
         </Teleport>

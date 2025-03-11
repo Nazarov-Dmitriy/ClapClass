@@ -14,7 +14,9 @@
                 </div>
             </div>
         </div>
-        <BtnComponent class="btn"> Узнай больше о проекте </BtnComponent>
+        <BtnComponent emit-name="action" class="btn" @action="$router.push('/about')">
+            Узнай больше о проекте
+        </BtnComponent>
     </div>
 </template>
 

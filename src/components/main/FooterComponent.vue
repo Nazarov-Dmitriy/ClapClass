@@ -9,19 +9,42 @@
                     @click="$router.push('/')"
                 />
                 <div class="footer__contact-networks">
-                    <a :href="getLinkSocial('youtube')" class="w-[60px]"  target="_blank">
+                    <a
+                        v-if="getLinkSocial('youtube')"
+                        :href="getLinkSocial('youtube')"
+                        class="w-[60px]"
+                        target="_blank"
+                    >
                         <img
-                            src="@/assets/icons/footer/youtube.svg"
+                            src="@/assets/icons/social/youtube.svg"
                             alt="logo"
                             class="footer__youtube"
                         />
                     </a>
-                    <a :href="getLinkSocial('vk')" class="w-[40px]"  target="_blank">
-                        <img src="@/assets/icons/footer/vk.svg" alt="logo" class="footer__vk" />
+                    <a
+                        v-if="getLinkSocial('rutube')"
+                        :href="getLinkSocial('rutube')"
+                        class="w-[40px]"
+                        target="_blank"
+                    >
+                        <img src="@/assets/icons/social/rutube.svg" alt="logo" class="footer__vk" />
                     </a>
-                    <a :href="getLinkSocial('telegram')" class="w-[40px]"  target="_blank">
+                    <a
+                        v-if="getLinkSocial('vk')"
+                        :href="getLinkSocial('vk')"
+                        class="w-[40px]"
+                        target="_blank"
+                    >
+                        <img src="@/assets/icons/social/vk.svg" alt="logo" class="footer__vk" />
+                    </a>
+                    <a
+                        v-if="getLinkSocial('telegram')"
+                        :href="getLinkSocial('telegram')"
+                        class="w-[40px]"
+                        target="_blank"
+                    >
                         <img
-                            src="@/assets/icons/footer/telegram.svg"
+                            src="@/assets/icons/social/tg.svg"
                             alt="logo"
                             class="footer__telegram"
                         />
@@ -51,9 +74,12 @@
                             :key="number"
                             class="footer__list-item"
                         >
-                            <router-link :to="item.url" class="footer__link">
+                            <router-link v-if="!item.target" :to="item.url" class="footer__link">
                                 {{ item.description }}
                             </router-link>
+                            <a v-else :href="item.url" :target="item.target" class="footer__link">
+                                {{ item.description }}
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -119,16 +145,16 @@ const sections = ref([
     {
         header: 'О проекте',
         items: [
-            { description: 'О проекте', url: '/' },
+            { description: 'О проекте', url: '/about' },
             { description: 'Блог', url: '/blog' }
         ]
     },
     {
         header: 'Сервисы',
         items: [
-            { description: 'Подвижные разминки', url: '/' },
-            { description: 'Ритм-разминки', url: '/' },
-            { description: 'Конгитивные разминки', url: '/' },
+            { description: 'Подвижные разминки', url: '/services#moving' },
+            { description: 'Ритм-разминки', url: '/services#rhythm' },
+            { description: 'Конгитивные разминки', url: '/services#cognitive' },
             { description: 'Витрина кейсов', url: '/' }
         ]
     },
@@ -142,15 +168,19 @@ const sections = ref([
     {
         header: 'Документы',
         items: [
-            { description: 'Пользовательское соглашение', url: '/' },
-            { description: 'Политика обработки данных', url: '/' },
-            { description: 'Разработано Freepic', url: '/' }
+            { description: 'Пользовательское соглашение', url: '/', target: '_blank' },
+            {
+                description: 'Политика обработки данных',
+                url: '/documents/user_agreement.pdf',
+                target: '_blank'
+            },
+            { description: 'Разработано Freepic', url: 'https://ru.freepik.com/', target: '_blank' }
         ]
     }
 ])
 
 function getLinkSocial(name) {
-    return getSocial.value?.filter((el) => el.name === name)[0].link
+    return getSocial.value?.filter((el) => el.name === name)[0]?.link
 }
 </script>
 <style lang="scss">

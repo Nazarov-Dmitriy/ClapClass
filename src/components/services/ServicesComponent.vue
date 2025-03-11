@@ -44,7 +44,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -53,10 +53,12 @@ import BannerComponent from './BannerComponent.vue'
 import WarmUpComponent from './WarmUpComponent.vue'
 import ImportantComponent from './ImportantComponent.vue'
 import FeaturesComponent from './FeaturesComponent.vue'
+import { useRoute } from 'vue-router'
 
 const slidesData = ref([
     {
         tab: 'Подвижные разминки',
+        value: 'moving',
         content: {
             banner: {
                 titleWhite: 'Подвижные',
@@ -107,6 +109,8 @@ const slidesData = ref([
     },
     {
         tab: 'Ритм-разминки',
+        value: 'rhythm',
+
         content: {
             banner: {
                 titleWhite: 'Ритмичные',
@@ -157,6 +161,7 @@ const slidesData = ref([
     },
     {
         tab: 'Конгитивные разминки',
+        value: 'cognitive',
         content: {
             banner: {
                 titleWhite: 'Когнитивные',
@@ -209,26 +214,7 @@ const slidesData = ref([
 
 const activeIndex = ref(0)
 const swiperRef = ref(null)
-
-const navigationOptions = {
-    nextEl: '.slider__slide-arrow-btn--right',
-    prevEl: '.slider__slide-arrow-btn--left'
-}
-
-const paginationOptions = {
-    el: '.swiper-pagination',
-    type: 'bullets',
-    clickable: true
-}
-
-const autoplayOptions = {
-    delay: 3000,
-    disableOnInteraction: true
-}
-
-function updateActiveIndex(swiper) {
-    activeIndex.value = swiper.realIndex % slidesData.value.length
-}
+const route = useRoute()
 
 function handleTabClick(index) {
     activeIndex.value = index
@@ -243,6 +229,16 @@ onMounted(() => {
             bullet[index].click()
         })
     })
+
+    if (route.hash) {
+        activeIndex.value = slidesData.value.findIndex((el) => el.value === route.hash.slice(1))
+    }
+})
+
+watch(route, () => {
+    if (route.hash) {
+        activeIndex.value = slidesData.value.findIndex((el) => el.value === route.hash.slice(1))
+    }
 })
 </script>
 
@@ -266,5 +262,4 @@ onMounted(() => {
         gap: 16px;
     }
 }
-
 </style>

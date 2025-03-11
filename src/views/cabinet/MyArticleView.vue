@@ -133,6 +133,10 @@ watch(getUser, () => {
     gap: 16px;
     padding: 16px;
     width: 100%;
+    background-image: url(/images/servecies/warm-up/bg-img.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
 }
 
 :deep(.blog-article__list){
