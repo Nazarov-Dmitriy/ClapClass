@@ -162,7 +162,11 @@ const sections = ref([
         header: 'Сотрудничество',
         items: [
             { description: 'Партнерская программа', url: '/' },
-            { description: 'Поддержать проект', url: '/' }
+            {
+                description: 'Поддержать проект',
+                url: 'https://yoomoney.ru/fundraise/18LATS4B2TM.250226',
+                target: '_blank'
+            }
         ]
     },
     {

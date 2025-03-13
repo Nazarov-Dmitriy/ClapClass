@@ -32,7 +32,6 @@
                 <div class="form__form-input-wrapper">
                     <label for="phone" class="form__label">
                         <span :class="{ form__error: formField.phoneError }">Телефон</span>
-
                         <input
                             id="phone"
                             v-model="formField.phone"
@@ -45,7 +44,7 @@
                         />
                         <span v-if="formField.phoneError" class="form__error">
                             <div class="form__error-wrapper">
-                                <img src="../../assets/images/form/form-error-svg.svg" alt="" />
+                                <ErrorSvg clip="w-5 h-5"></ErrorSvg>
                                 <span>Поле заполнено некорректно</span>
                             </div>
                         </span>
@@ -69,7 +68,7 @@
                         />
                         <span v-if="formField.emailError" class="form__error">
                             <div class="form__error-wrapper">
-                                <img src="../../assets/images/form/form-error-svg.svg" alt="" />
+                                <ErrorSvg clip="w-5 h-5"></ErrorSvg>
                                 <span>Поле заполнено некорректно</span>
                             </div>
                         </span>
@@ -95,8 +94,7 @@
                 />
                 <span v-if="formField.themeError" class="form__error">
                     <div class="form__error-wrapper">
-                        <img src="../../assets/images/form/form-error-svg.svg" alt="" />
-                        <span>Поле заполнено некорректно</span>
+                        <ErrorSvg clip="w-5 h-5"></ErrorSvg> <span>Поле заполнено некорректно</span>
                     </div>
                 </span>
 
@@ -112,8 +110,7 @@
                 ></textarea>
                 <span v-if="formField.textareaError" class="form__error form__error--textarea">
                     <div class="form__error-wrapper">
-                        <img src="../../assets/images/form/form-error-svg.svg" alt="" />
-                        <span>Поле заполнено некорректно</span>
+                        <ErrorSvg clip="w-5 h-5"></ErrorSvg> <span>Поле заполнено некорректно</span>
                     </div>
                 </span>
             </div>
@@ -143,6 +140,7 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import LabelField from '../ui/form/label/LabelField.vue'
 import InputField from '../ui/form/input/InputField.vue'
 import { useSendMessageStore } from '@/stores/sendMessageStore'
+import ErrorSvg from '@/assets/icons/error.svg?component'
 
 const sendMessageStore = useSendMessageStore()
 const getIsSuccess = computed(() => sendMessageStore.getIsSuccess)

@@ -9,8 +9,11 @@
         <template #form>
             <form class="form__wrapper" @submit.prevent>
                 <div class="form__group">
-                    <label for="registerEmail" class="form__label" :class="getError?.email && 'error'"
-                    >E-mail</label
+                    <label
+                        for="registerEmail"
+                        class="form__label"
+                        :class="getError?.email && 'error'"
+                        >E-mail</label
                     >
                     <input
                         id="registerEmail"
@@ -20,7 +23,7 @@
                         :class="getError?.email && 'error'"
                     />
                     <p v-if="getError?.email" class="error-text">
-                        {{ getError?.email }}
+                        <ErrorSvg clip="w-5 h-5"></ErrorSvg>   {{ getError?.email }}
                     </p>
                 </div>
                 <div class="form__group">
@@ -28,7 +31,7 @@
                         for="password"
                         class="form__label"
                         :class="(getError?.password || error?.repeatPassword) && 'error'"
-                    >Придумайте пароль</label
+                        >Придумайте пароль</label
                     >
                     <div class="flex w-full relative">
                         <input
@@ -56,7 +59,7 @@
                         />
                     </div>
                     <p v-if="getError?.password" class="error-text">
-                        {{ getError?.password }}
+                        <ErrorSvg clip="w-5 h-5"></ErrorSvg>  {{ getError?.password }}
                     </p>
                 </div>
                 <div class="form__group">
@@ -64,7 +67,7 @@
                         for="repeat-pass"
                         class="form__label"
                         :class="error?.repeatPassword && 'error'"
-                    >Повторите пароль</label
+                        >Повторите пароль</label
                     >
                     <div class="flex w-full relative">
                         <div class="flex w-full relative">
@@ -93,7 +96,9 @@
                             />
                         </div>
                     </div>
-                    <p v-if="error?.repeatPassword" class="error-text">Пароли не совпадают</p>
+                    <p v-if="error?.repeatPassword" class="error-text">
+                        <ErrorSvg clip="w-5 h-5"></ErrorSvg> Пароли не совпадают
+                    </p>
                 </div>
 
                 <div class="form__links">
@@ -120,6 +125,7 @@
 
 <script setup>
 import { reactive, computed, watch } from 'vue'
+import ErrorSvg from '@/assets/icons/error.svg?component'
 import ModalComponent from '../ModalComponent.vue'
 import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import ModalHeader from '../ModalHeader.vue'
@@ -222,6 +228,17 @@ watch(getIsSuccess, (val) => {
 
     &.error {
         border-color: $yellowy;
+    }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 50px white inset; /* Change the color to your own background color */
+    }
+
+    &:-webkit-autofill:hover {
+        -webkit-box-shadow: 0 0 0 50px #e6eaed inset; /* Change the color to your own background color */
     }
 }
 .input-icon {

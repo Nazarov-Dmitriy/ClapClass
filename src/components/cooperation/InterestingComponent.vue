@@ -6,7 +6,7 @@
                     <ModalHeader @close-modal="toggleModalVisible" />
                 </template>
                 <template #form>
-                    <UiForm > </UiForm>
+                    <UiForm> </UiForm>
                 </template>
             </ModalComponent>
         </Teleport>
@@ -103,10 +103,15 @@
                                                 @action="toggleModalVisible"
                                                 >{{ answer.btnText }}</BtnComponentWhite
                                             >
-                                            <BtnComponent
-                                                :currentсlass="'card__carusel-answer-btn'"
-                                                >{{ answer.btnText2 }}</BtnComponent
+                                            <a
+                                                href="https://yoomoney.ru/fundraise/18LATS4B2TM.250226"
+                                                target="_blank"
                                             >
+                                                <BtnComponent
+                                                    :currentсlass="'card__carusel-answer-btn'"
+                                                    >{{ answer.btnText2 }}</BtnComponent
+                                                >
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

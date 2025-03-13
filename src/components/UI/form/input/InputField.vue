@@ -60,7 +60,7 @@ const model = defineModel({ type: String })
     width: 100%;
 
     &.error {
-        border: 2px solid red;
+        border: 2px solid $red;
         font-size: 16px;
         line-height: 24px;
     }

@@ -31,6 +31,18 @@
                                 class="footer__youtube"
                             />
                         </a>
+                        <a
+                            v-if="getLinkSocial('rutube')"
+                            :href="getLinkSocial('rutube')"
+                            class="w-[40px]"
+                            target="_blank"
+                        >
+                            <img
+                                src="@/assets/icons/social/rutube.svg"
+                                alt="logo"
+                                class="footer__vk"
+                            />
+                        </a>
                         <a :href="getLinkSocial('vk')" class="w-[40px]" target="_blank">
                             <img src="@/assets/icons/social/vk.svg" alt="logo" class="footer__vk" />
                         </a>

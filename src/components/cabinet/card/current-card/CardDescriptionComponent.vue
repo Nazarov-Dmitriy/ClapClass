@@ -88,7 +88,7 @@
             </div>
         </div>
         <Teleport to="body">
-            <ModalComponent :visible="isAskModalVisible">
+            <ModalComponent :visible="isAskModalVisible" class="case-modal">
                 <template #header>
                     <ModalHeader @close-modal="toggleAskModal">
                         Задайте вопрос и команда клэппи свяжется с вами
@@ -100,7 +100,7 @@
                     </div>
                 </template>
             </ModalComponent>
-            <ModalComponent :visible="isFeedbackModalVisible">
+            <ModalComponent :visible="isFeedbackModalVisible" class="case-modal">
                 <template #header>
                     <ModalHeader @close-modal="toggleFeedbackModal">
                         Оставьте отзыв, это помогает улучшить разминку
@@ -376,6 +376,38 @@ watch(
     background-color: $white;
     &.active {
         background: $orange;
+    }
+}
+
+.case-modal {
+    :deep(.field__input) {
+        &.error {
+            border: 2px solid $red;
+        }
+    }
+
+    :deep(.error-text) {
+        color: $red !important;
+    }
+
+    :deep(.field__label) {
+        color: $red !important;
+    }
+
+    :deep(.form__error) {
+        color: $red !important;
+    }
+    :deep(.form__input--error) {
+        border: 2px solid $red !important;
+    }
+    :deep(.form__error) {
+        color: $red !important;
+    }
+    :deep(.form__textarea--error) {
+        border: 2px solid $red !important;
+    }
+    :deep(.form__error-wrapper) {
+        color: $red !important;
     }
 }
 </style>

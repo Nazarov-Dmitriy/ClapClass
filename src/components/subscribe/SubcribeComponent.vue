@@ -29,7 +29,7 @@
                     @keypress.enter="validateField($event, 'event')"
                 />
                 <div v-if="formField.emailError" class="input-error">
-                    <img src="../../assets/images/main/news/news-error-icon.svg" alt="" />
+                    <ErrorSvg clip="w-5 h-5"></ErrorSvg>
                     <span class="text-error">Поле заполненно некорректно</span>
                 </div>
             </div>
@@ -44,9 +44,9 @@
                 <p class="subscribe__text">
                     Нажимая кнопку “Подписаться” вы соглашаетесь с
                     <span
-                    ><a class="subscribe__text-link" href="#"
-                    >политикой обработки персональных данных</a
-                    ></span
+                        ><a class="subscribe__text-link" href="#"
+                            >политикой обработки персональных данных</a
+                        ></span
                     >
                 </p>
             </div>
@@ -61,6 +61,7 @@
 </template>
 <script setup>
 import { computed, onMounted, reactive, ref, watch } from 'vue'
+import ErrorSvg from '@/assets/icons/error.svg?component'
 import BtnComponentWhite from '@/components/ui/btns/BtnComponentWhite.vue'
 import { useUserStore } from '@/stores/userStore'
 
@@ -232,11 +233,15 @@ watch(isSuccess, () => {
 
     .input-error {
         margin-top: 0;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        color: $yellowy;
     }
 
     &.error {
         .subscribe__input {
-            outline: 2px solid $orange;
+            outline: 2px solid $yellowy;
         }
     }
 }
