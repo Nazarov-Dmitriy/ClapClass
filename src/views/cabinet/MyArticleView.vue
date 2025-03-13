@@ -4,7 +4,6 @@
         <div class="flex grow">
             <SidebarComponent />
             <div class="flex flex-col gap-6 content-container">
-                {{ panel }}
                 <SearchPanel
                     v-model:sort="panel.sort"
                     v-model:type="panel.type"
@@ -67,14 +66,14 @@
 </template>
 
 <script setup>
-import PanelComponent from '/src/components/cabinet/panel/PanelComponent.vue'
-import CabinetLayout from '/src/layouts/CabinetLayout.vue'
-import SidebarComponent from '/src/components/cabinet/sidebar/SidebarComponent.vue'
-import { computed, onMounted, reactive, ref, watch } from 'vue'
-import { useArticleStore } from '@/stores/articleStore'
-import { useUserStore } from '@/stores/userStore'
 import ListArticle from '@/components/blog/ListArticle.vue'
 import SearchPanel from '@/components/search/SearchPanel.vue'
+import { useArticleStore } from '@/stores/articleStore'
+import { useUserStore } from '@/stores/userStore'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
+import PanelComponent from '/src/components/cabinet/panel/PanelComponent.vue'
+import SidebarComponent from '/src/components/cabinet/sidebar/SidebarComponent.vue'
+import CabinetLayout from '/src/layouts/CabinetLayout.vue'
 
 const articleStore = useArticleStore()
 const userStore = useUserStore()
