@@ -22,7 +22,7 @@
                             alt=""
                         />
                         <img
-                            src="../../assets/images/form/form-hero-img.svg"
+                            src="../../assets/images/form/form-hero-img.png"
                             alt=""
                             class="form__hero-img"
                         />

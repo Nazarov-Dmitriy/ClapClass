@@ -3,17 +3,21 @@
         <div class="use__container">
             <div class="user__wrapper">
                 <Swiper
-                    ref="swiperRef"
+                    ref="swiperRefUse"
                     :modules="[Navigation, Pagination]"
                     :navigation="navigationOptions"
                     :pagination="paginationOptions"
                     :slides-per-view="1"
                     :space-between="5000"
                     :loop="true"
-                    class="slider use__slide"
+                    class="slider use__slide h-full"
                     @slide-change="updateActiveIndex"
                 >
-                    <SwiperSlide v-for="(slide, index) in slidesCards" :key="index">
+                    <SwiperSlide
+                        v-for="(slide, index) in slidesCards"
+                        :key="index"
+                        class="items-center"
+                    >
                         <div class="use__slider">
                             <div v-for="card in slide" :key="card.id" class="use__slider-card">
                                 <img :src="card.img" :alt="card.text" class="use__slide-img" />
@@ -39,7 +43,7 @@
                             <div class="slider__slide-arrow-btn-wrapper">
                                 <button
                                     class="slider__slide-arrow-btn slider__slide-arrow-btn--left use-slide-btn-left"
-                                    @click="swiperRef.value.swiper.slidePrev()"
+                                    @click="swiperRefUse.value.swiper.slidePrev()"
                                 >
                                     <svg
                                         width="12"
@@ -59,7 +63,7 @@
                                 </button>
                                 <button
                                     class="slider__slide-arrow-btn slider__slide-arrow-btn--right use-slide-btn-right"
-                                    @click="swiperRef.value.swiper.slideNext()"
+                                    @click="swiperRefUse.value.swiper.slideNext()"
                                 >
                                     <svg
                                         width="12"
@@ -196,8 +200,7 @@ const getUser = computed(() => {
     return userStore.getUser
 })
 const activeIndex = ref(0)
-const swiperRef = ref(null)
-
+const swiperRefUse = ref(null)
 
 const navigationOptions = {
     nextEl: '.slider__slide-arrow-btn--right',
@@ -229,7 +232,6 @@ onMounted(() => {
 function setModal(value) {
     modal.value = value
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -333,7 +335,7 @@ function setModal(value) {
     left: 0;
 }
 .use-slide-btn-right {
-    right: 0;
+    right: 4px;
 }
 
 .slider__slide-tabs--use {

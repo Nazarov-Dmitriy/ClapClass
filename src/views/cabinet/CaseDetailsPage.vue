@@ -127,7 +127,7 @@ watch(getUser, () => {
 }
 .card-page__main {
     display: grid;
-    grid-template-columns: 3fr 395px;
+    grid-template-columns: 1fr 395px;
     gap: 24px;
     padding: 24px 24px 48px 64px;
 

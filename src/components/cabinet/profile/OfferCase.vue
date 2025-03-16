@@ -12,13 +12,13 @@
                     class="font-medium text-base text-gray"
                     :class="errors?.name && 'text-red'"
                     for="offerName"
-                >Название</label
+                    >Название</label
                 >
                 <input
                     id="offerName"
                     v-model="formData.name"
                     placeholder="Введите название"
-                    class="border border-solid rounded-3xl border-fonLight p-4 box-border"
+                    class="border border-solid rounded-3xl border-fonLight p-4 box-border autofill"
                     type="text"
                     :class="errors?.name && 'border-red'"
                 />
@@ -31,13 +31,13 @@
                     class="font-medium text-base text-gray"
                     :class="errors?.type && 'text-red'"
                     for="type"
-                >Тип разминки</label
+                    >Тип разминки</label
                 >
                 <input
                     id="type"
                     v-model="formData.type"
                     placeholder="Введите тип разминки"
-                    class="border border-solid rounded-3xl border-fonLight p-4 box-border"
+                    class="border border-solid rounded-3xl border-fonLight p-4 box-border autofill"
                     type="text"
                     :class="errors?.type && 'border-red'"
                 />
@@ -102,6 +102,15 @@
             Предложить кейс
         </BtnComponentOrange>
     </div>
+    <Teleport to="body">
+        <ModalComponent :visible="modal" class="">
+            <template #header>
+                <ModalHeader :class="{ success: getIsSuccess }" @close-modal="toggleAskModal">
+                    Спасибо за сообщение!
+                </ModalHeader>
+            </template>
+        </ModalComponent>
+    </Teleport>
 </template>
 
 <script setup>
@@ -112,6 +121,8 @@ import BtnComponentOrange from '@/components/ui/btns/BtnComponentOrange.vue'
 import TitleComponent from '../../ui/TitleComponent.vue'
 import { useSendMessageStore } from '@/stores/sendMessageStore'
 import { useUserStore } from '@/stores/userStore'
+import ModalHeader from '@/components/modal/ModalHeader.vue'
+import ModalComponent from '@/components/modal/ModalComponent.vue'
 
 const sendMessageStore = useSendMessageStore()
 const userStore = useUserStore()
@@ -122,6 +133,7 @@ const fileInput = ref(null)
 const file = ref(null)
 const fileLoad = ref(false)
 const sendForm = ref(false)
+const modal = ref(false)
 
 const formData = ref({
     name: '',
@@ -140,6 +152,10 @@ onMounted(() => {
 
 function addFile() {
     fileInput.value.click()
+}
+
+function toggleAskModal() {
+    modal.value = !modal.value
 }
 
 function onFileChange(event) {
@@ -164,9 +180,7 @@ function chanfeListenersFile(reader) {
 
 function handleEvent(event) {
     if (event.type === 'load') {
-        setTimeout(() => {
-            fileLoad.value = false
-        }, 5000)
+        fileLoad.value = false
     } else if (event.type === 'error' || event.type === 'abort') {
         errors.value.size = 'Ошибка'
     }
@@ -238,6 +252,7 @@ function validateAndSubmit() {
 watch(getIsSuccess, (val) => {
     if (val === 'send-case') {
         resetForm()
+        toggleAskModal()
     }
 })
 </script>

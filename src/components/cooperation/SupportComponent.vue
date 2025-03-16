@@ -63,9 +63,19 @@
             </div>
         </div>
         <Teleport to="body">
-            <ModalComponent :visible="isModalVisible" @close-modal="toggleModal">
+            <ModalComponent
+                :visible="isModalVisible"
+                class="support-modal"
+                @close-modal="toggleModal"
+            >
                 <template #header>
-                    <ModalHeader @close-modal="toggleModal" />
+                    <ModalHeader :class="{ success: getIsSuccess }" @close-modal="toggleModal">
+                        {{
+                            getIsSuccess
+                                ? 'Спасибо за сообщение!'
+                                : 'Заполните форму, и команда Клеппи свяжется с вами'
+                        }}
+                    </ModalHeader>
                 </template>
                 <template #form>
                     <UiForm> </UiForm>
@@ -84,9 +94,13 @@ import ModalComponent from '../modal/ModalComponent.vue'
 import ModalHeader from '../modal/ModalHeader.vue'
 import ShareComponent from '../article/ShareComponent.vue'
 import { useSocialStore } from '@/stores/socialStore'
+import { useSendMessageStore } from '@/stores/sendMessageStore'
 
+const sendMessageStore = useSendMessageStore()
 const socialStore = useSocialStore()
 const isModalVisible = ref(false)
+
+const getIsSuccess = computed(() => sendMessageStore.getIsSuccess)
 
 const getSocial = computed(() => {
     return socialStore.getSocial
@@ -154,6 +168,21 @@ function getLinkSocial(name) {
     @media (max-width: $lg) {
         display: grid;
         grid-template-columns: 1fr;
+    }
+}
+
+.support-modal {
+    .success {
+        border-radius: 25px;
+        justify-content: space-between;
+
+        :deep(.modal__header-info) {
+            width: 100%;
+        }
+
+        @media (max-width: $lg) {
+            justify-content: center;
+        }
     }
 }
 

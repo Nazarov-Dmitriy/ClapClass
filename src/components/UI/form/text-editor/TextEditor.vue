@@ -1,7 +1,7 @@
 <template>
     <div class="ck-editor-wrapper" :class="{ error: props.error }">
         <ckeditor v-model="model" :editor="editor" :config="editorConfig" />
-        <p v-if="props.error" class="error-text mt-2" >
+        <p v-if="props.error" class="error-text mt-2">
             <ErrorSvg clip="w-5 h-5"></ErrorSvg> {{ props.errorText }}
         </p>
     </div>
@@ -232,6 +232,7 @@ watch(props, () => {}, { deep: true })
         }
     }
 }
+
 
 .error-text {
     color: $red;

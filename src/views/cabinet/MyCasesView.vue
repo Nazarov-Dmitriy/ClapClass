@@ -3,7 +3,7 @@
         <PanelComponent v-model:search="panel.search" @search="search()" />
         <div class="flex grow">
             <SidebarComponent />
-            <div v-if="data" class="flex flex-col grow">
+            <div v-if="data && !emptyCase" class="flex flex-col grow">
                 <CabinetTabsComponent
                     v-model:type="panel.type"
                     type-view="count"
@@ -112,6 +112,8 @@ import { useUserStore } from '@/stores/userStore'
 const briefcaseStore = useBriefcaseStore()
 const userStore = useUserStore()
 const data = ref()
+const emptyCase = ref(true)
+
 const panel = reactive({
     search: '',
     type: ''
@@ -206,6 +208,12 @@ watch(getUser, () => {
         type: panel.type,
         user_id: getUser?.value.id
     })
+})
+
+watch(getListBriefcase, (val) => {
+    if (val.length > 0) {
+        emptyCase.value = false
+    }
 })
 </script>
 

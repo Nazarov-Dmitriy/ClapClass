@@ -213,6 +213,19 @@ export const useArticleStore = defineStore('userArticle', {
                         this.favoriteArticle = res.data
                     }
                 })
+        },
+        async setArticlePublished(id) {
+            this.isSuccess = ''
+            axiosR
+                .put('/article/published/' + id)
+                .then((res) => {
+                    if (res.status == 200) {
+                        this.isSuccess = 'published'
+                    }
+                })
+                .catch((err) => {
+                    console.dir(err)
+                })
         }
     }
 })

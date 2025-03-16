@@ -49,11 +49,21 @@ const getArticleList = computed(() => {
 })
 
 onMounted(() => {
-    articleStore.getArticleListDb({ search: panel.search, sort: panel.sort, type: panel.type })
+    articleStore.getArticleListDb({
+        search: panel.search,
+        sort: panel.sort,
+        type: panel.type,
+        enablePublished: true
+    })
 })
 
 function search() {
-    articleStore.getArticleListDb({ search: panel.search, sort: panel.sort, type: panel.type })
+    articleStore.getArticleListDb({
+        search: panel.search,
+        sort: panel.sort,
+        type: panel.type,
+        enablePublished: true
+    })
 }
 
 watch(
@@ -63,7 +73,8 @@ watch(
             articleStore.getArticleListDb({
                 search: panel.search,
                 sort: panel.sort,
-                type: panel.type
+                type: panel.type,
+                enablePublished: true
             })
         }
     },
@@ -75,12 +86,22 @@ watch(getArticleList, () => {
 })
 
 watch([() => panel.type, () => panel.sort], () => {
-    articleStore.getArticleListDb({ search: panel.search, sort: panel.sort, type: panel.type })
+    articleStore.getArticleListDb({
+        search: panel.search,
+        sort: panel.sort,
+        type: panel.type,
+        enablePublished: true
+    })
 })
 
 watch(getIsSuccess, (val) => {
     if (val === 'remove') {
-        articleStore.getArticleListDb({ search: panel.search, sort: panel.sort, type: panel.type })
+        articleStore.getArticleListDb({
+            search: panel.search,
+            sort: panel.sort,
+            type: panel.type,
+            enablePublished: true
+        })
     }
 })
 </script>

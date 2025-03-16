@@ -18,7 +18,7 @@
                     <input
                         id="registerEmail"
                         v-model="inputData.email"
-                        class="form__input"
+                        class="form__input autofill"
                         placeholder="marina_ivanova@mail.ru"
                         :class="getError?.email && 'error'"
                     />
@@ -40,7 +40,7 @@
                             v-model="inputData.password"
                             :type="!passwordVisible.password ? 'password' : 'text'"
                             :class="(getError?.password || error?.repeatPassword) && 'error'"
-                            class="form__input"
+                            class="form__input autofill"
                             placeholder="пароль"
                         />
                         <img
@@ -76,7 +76,7 @@
                                 ref="repeatPasswordInput"
                                 v-model="inputData.repeatPassword"
                                 :type="!passwordVisible.repeatPassword ? 'password' : 'text'"
-                                class="form__input"
+                                class="form__input autofill"
                                 placeholder="повторите пароль"
                                 :class="error?.repeatPassword && 'error'"
                             />
@@ -230,15 +230,8 @@ watch(getIsSuccess, (val) => {
         border-color: $yellowy;
     }
 
-    &:-webkit-autofill,
-    &:-webkit-autofill:hover,
-    &:-webkit-autofill:focus,
-    &:-webkit-autofill:active {
-        -webkit-box-shadow: 0 0 0 50px white inset; /* Change the color to your own background color */
-    }
-
-    &:-webkit-autofill:hover {
-        -webkit-box-shadow: 0 0 0 50px #e6eaed inset; /* Change the color to your own background color */
+    &.autofill {
+        -webkit-text-fill-color: $gray;
     }
 }
 .input-icon {

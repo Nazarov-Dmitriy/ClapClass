@@ -77,7 +77,7 @@ const slidesData = ref([
                 ]
             },
             important: {
-                title: 'Важность разминок',
+                title: 'Почему это важно?',
                 img: '/images/servecies/important/hero-img1.png',
                 text: [
                     'Большую часть дня школьники проводят сидя, провоцируя спад физического и эмоционального тонуса. Происходит взаимообогащение негативных факторов, формирующих привычки, ведущие к деструктивным изменениям костно-мышечной структуры и системы кровообращения.',
@@ -129,7 +129,7 @@ const slidesData = ref([
                 ]
             },
             important: {
-                title: 'Важность разминок',
+                title: 'Почему это важно',
                 img: '/images/servecies/important/hero-img2.png',
                 text: [
                     'Усидчивость - ключевой вызов для младших школьников. Преобладание непроизвольного внимания дополняется фрагментарным мышлением, сочетающим кратковременную мотивацию и потребность постоянной стимуляции.',
@@ -180,7 +180,7 @@ const slidesData = ref([
                 ]
             },
             important: {
-                title: 'Важность разминок',
+                title: 'Почему это важно',
                 img: '/images/servecies/important/hero-img3.png',
                 text: [
                     'Длительное поддержание мыслительной активности – труднодоступный навык в условиях потребления информации «короткими порциями». Без тренировки построения сложных логических взаимосвязей между фрагментами знаний невозможно их качественное накопление и формирование опыта.',
@@ -213,12 +213,11 @@ const slidesData = ref([
 ])
 
 const activeIndex = ref(0)
-const swiperRef = ref(null)
 const route = useRoute()
 
 function handleTabClick(index) {
+   
     activeIndex.value = index
-    swiperRef.value.swiper.slideTo(index)
 }
 
 onMounted(() => {
@@ -248,6 +247,7 @@ watch(route, () => {
 }
 .services__components-wrapper {
     overflow: hidden;
+    width: 100%;
 }
 .services__tabs {
     display: grid;

@@ -40,11 +40,7 @@ export const useSendMessageStore = defineStore('sendMessageStore', {
                         this.status = 200
                         this.errors = null
                         this.isSuccess = 'send-case'
-                        toast.success('Данные успешно отправлены', {
-                            autoClose: 3000,
-                            dangerouslyHTMLString: true
-                        })
-                    }
+                                     }
                 })
                 .catch((err) => {
                     this.errors = err.response.data
@@ -62,10 +58,6 @@ export const useSendMessageStore = defineStore('sendMessageStore', {
                         this.status = 200
                         this.errors = null
                         this.isSuccess = 'send-form'
-                        toast.success('Данные успешно отправлены', {
-                            autoClose: 3000,
-                            dangerouslyHTMLString: true
-                        })
                     }
                 })
                 .catch((err) => {

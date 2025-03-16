@@ -1,7 +1,7 @@
 <template>
     <Transition name="modal">
         <div v-if="props.visible" v-esc="activateEmit" class="modal-wrapper" @click="activateEmit">
-            <div class="modal" @click.stop>
+            <div class="modal" :class="modalClass" @click.stop>
                 <slot name="header" />
                 <slot name="form" />
             </div>
@@ -16,6 +16,10 @@ const props = defineProps({
     visible: {
         type: Boolean,
         default: false
+    },
+    modalClass: {
+        type: String,
+        default: ''
     }
 })
 

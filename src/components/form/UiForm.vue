@@ -1,8 +1,5 @@
 <template>
     <div class="form__info">
-        <div v-if="formField.success" class="form__success">
-            <h2 class="form__success-title">Сообщение отправлено</h2>
-        </div>
         <form
             v-if="!formField.success"
             class="form__form"
@@ -36,7 +33,7 @@
                             id="phone"
                             v-model="formField.phone"
                             type="text"
-                            class="form__input form__input--phone"
+                            class="form__input form__input--phone autofill"
                             :class="{ 'form__input--error': formField.phoneError }"
                             placeholder="+7 (912) 234-56-78"
                             @input="changePhone($event)"
@@ -60,7 +57,7 @@
                             id="fieldEmail"
                             v-model="formField.email"
                             type="text"
-                            class="form__input form__input--email"
+                            class="form__input form__input--email autofill"
                             :class="{ 'form__input--error': formField.emailError }"
                             placeholder="marina_ivanova@mail.ru"
                             @input="changeEmail($event)"
@@ -86,7 +83,7 @@
                     id="theme"
                     v-model="formField.theme"
                     type="text"
-                    class="form__input form__input--theme"
+                    class="form__input form__input--theme autofill"
                     :class="{ 'form__input--error': formField.themeError }"
                     placeholder="Введите тему сообщения"
                     @input="changeMessage($event)"
@@ -306,15 +303,8 @@ watch(getIsSuccess, (val) => {
         border-color: $yellowy;
     }
 
-    &:-webkit-autofill,
-    &:-webkit-autofill:hover,
-    &:-webkit-autofill:focus,
-    &:-webkit-autofill:active {
-        -webkit-box-shadow: 0 0 0 50px white inset; /* Change the color to your own background color */
-    }
-
-    &:-webkit-autofill:hover {
-        -webkit-box-shadow: 0 0 0 50px #e6eaed inset; /* Change the color to your own background color */
+    &.autofill {
+        -webkit-text-fill-color: #656d75;
     }
 }
 </style>
@@ -337,10 +327,9 @@ watch(getIsSuccess, (val) => {
     flex-direction: column;
     gap: 40px;
     order: 2;
-    margin-bottom: 40px;
     background-color: $gray;
     border-radius: 0 0 25px 25px;
-    padding: 10px 15px;
+    padding: 24px 48px 48px;
 }
 .form__fields {
     display: flex;

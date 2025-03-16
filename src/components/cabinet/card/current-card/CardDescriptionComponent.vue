@@ -1,6 +1,6 @@
 <template>
     <div class="card-page__left">
-        <div class="card-page__left-img-wrapper">
+        <div class="card-page__left-img-wrapper ">
             <Swiper
                 v-if="props.data"
                 :modules="[Navigation, Pagination, Autoplay]"
@@ -9,7 +9,7 @@
                 :slides-per-view="1"
                 :space-between="5000"
                 :loop="true"
-                class="slider"
+                class="slider "
                 @slide-change="updateActiveIndex"
                 @swiper="getRef"
             >
@@ -90,29 +90,48 @@
         <Teleport to="body">
             <ModalComponent :visible="isAskModalVisible" class="case-modal">
                 <template #header>
-                    <ModalHeader @close-modal="toggleAskModal">
-                        Задайте вопрос и команда клэппи свяжется с вами
+                    <ModalHeader
+                        :class="{ success: getIsSuccess }"
+                        :image="getIsSuccess ? '' : 'question'"
+                        @close-modal="toggleAskModal"
+                    >
+                        {{
+                            getIsSuccess
+                                ? 'Спасибо за сообщение!'
+                                : 'Задайте вопрос и команда клэппи свяжется с вами'
+                        }}
                     </ModalHeader>
                 </template>
                 <template #form>
-                    <div class="modal">
+                    <div class="case-modal__form">
                         <UiForm />
                     </div>
                 </template>
             </ModalComponent>
-            <ModalComponent :visible="isFeedbackModalVisible" class="case-modal">
+            <ModalComponent
+                :visible="isFeedbackModalVisible"
+                class="case-modal"
+                :class="{ success: getIsSuccess }"
+            >
                 <template #header>
-                    <ModalHeader @close-modal="toggleFeedbackModal">
-                        Оставьте отзыв, это помогает улучшить разминку
+                    <ModalHeader
+                        :image="getIsSuccess ? '' : 'rewies'"
+                        @close-modal="toggleFeedbackModal"
+                    >
+                        {{
+                            getIsSuccess
+                                ? 'Спасибо за сообщение!'
+                                : 'Оставьте отзыв, это помогает улучшить разминку'
+                        }}
                     </ModalHeader>
                 </template>
                 <template #form>
-                    <div class="modal">
+                    <div class="case-modal__form">
                         <UiForm />
                     </div>
                 </template>
             </ModalComponent>
-            <ModalComponent :visible="isRateModalVisible">
+            <ModalComponent :visible="isRateModalVisible" modal-class="!max-w-[656px]">
                 <template #header>
                     <RateModal
                         :current-rating="props.currentRating"
@@ -134,11 +153,12 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import ModalHeader from '/src/components/modal/ModalHeader.vue'
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import ModalComponent from '/src/components/modal/ModalComponent.vue'
 import UiForm from '/src/components/form/UiForm.vue'
 import RateModal from '/src/components/modal/cabinet/RateModal.vue'
 import { useBriefcaseStore } from '@/stores/briefcaseStore'
+import { useSendMessageStore } from '@/stores/sendMessageStore'
 
 const props = defineProps({
     data: {
@@ -155,11 +175,13 @@ const props = defineProps({
     }
 })
 const briefcaseStore = useBriefcaseStore()
+const sendMessageStore = useSendMessageStore()
 const activeIndex = ref(0)
 const swiper = ref(null)
 const isAskModalVisible = ref(false)
 const isFeedbackModalVisible = ref(false)
 const isRateModalVisible = ref(false)
+const getIsSuccess = computed(() => sendMessageStore.getIsSuccess)
 
 const navigationOptions = {
     nextEl: '.card-page__left-img-substrate-btn--right',
@@ -240,9 +262,10 @@ watch(
 <style lang="scss" scoped>
 .card-page__left {
     width: 100%;
+    min-width: 0; 
     @include flex-col-gap(24px);
 }
-.modal {
+.case-modal__form {
     :deep(.form__form) {
         background-color: $fonLight;
     }
@@ -258,9 +281,11 @@ watch(
     position: relative;
     z-index: 1;
     width: 100%;
+    min-width: 0;
+    max-width: 100%;
 }
 .slider {
-    max-width: 1300px;
+    max-width: 1400px;
     width: 100%;
     padding: 0;
 
@@ -380,6 +405,25 @@ watch(
 }
 
 .case-modal {
+    :deep(.modal) {
+        border: 4px solid white;
+        border-radius: 30px;
+        overflow: hidden;
+    }
+
+    .success {
+        border-radius: 25px;
+        justify-content: space-between;
+
+        :deep(.modal__header-info) {
+            width: 100%;
+        }
+
+        @media (max-width: $lg) {
+            justify-content: center;
+        }
+    }
+
     :deep(.field__input) {
         &.error {
             border: 2px solid $red;
@@ -390,7 +434,7 @@ watch(
         color: $red !important;
     }
 
-    :deep(.field__label) {
+    :deep(.field__label.error) {
         color: $red !important;
     }
 

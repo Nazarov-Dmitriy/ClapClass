@@ -13,7 +13,11 @@
             <SearchIcon class="blog__search-icon"></SearchIcon>
         </div>
         <div class="blog__btns" :class="{ active: showMenu }">
-            <DropdownComponent :options="props.option" class="blog__dropdown z-100" @select="change" />
+            <DropdownComponent
+                :options="props.option"
+                class="blog__dropdown z-100"
+                @select="change"
+            />
             <DropdownComponent
                 :sort="props.type"
                 :options="props.optionCaseType"
@@ -38,7 +42,7 @@
 <script setup>
 import { ref } from 'vue'
 import DropdownComponent from '../ui/dropdown/DropdownComponent.vue'
-import SearchIcon from '../../assets/icons/search.svg?component'
+import SearchIcon from '@/assets/icons/search.svg?component'
 
 const emit = defineEmits(['update:search', 'update:sort', 'update:type', 'search', 'reset'])
 
@@ -151,8 +155,7 @@ function changeType(select) {
         background: $yellowy;
 
         & + .blog__search-icon path {
-            fill: $orange;
-            stroke: $orange;
+            color: $orange;
         }
     }
 }
@@ -163,6 +166,7 @@ function changeType(select) {
     position: absolute;
     top: 11px;
     right: 16px;
+    color: $gray;
 }
 
 .blog__btn-menu {

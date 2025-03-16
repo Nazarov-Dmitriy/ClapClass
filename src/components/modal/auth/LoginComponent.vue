@@ -20,7 +20,7 @@
                         <input
                             v-model="inputData.email"
                             type="text"
-                            class="form__input"
+                            class="form__input autofill"
                             :class="getError?.email && 'error'"
                             placeholder="пароль"
                         />
@@ -39,7 +39,7 @@
                             id="password"
                             v-model="inputData.password"
                             placeholder="Введите пароль"
-                            class="form__input"
+                            class="form__input autofill"
                             :class="getError?.password && 'error'"
                             :type="passwordVisible.password ? 'password' : 'text'"
                         />
@@ -210,15 +210,8 @@ onUnmounted(() => {
         border-color: $yellowy;
     }
 
-    &:-webkit-autofill,
-    &:-webkit-autofill:hover,
-    &:-webkit-autofill:focus,
-    &:-webkit-autofill:active {
-        -webkit-box-shadow: 0 0 0 50px white inset; /* Change the color to your own background color */
-    }
-
-    &:-webkit-autofill:hover {
-        -webkit-box-shadow: 0 0 0 50px #e6eaed inset; /* Change the color to your own background color */
+    &.autofill {
+        -webkit-text-fill-color: gray;
     }
 }
 .input-icon {

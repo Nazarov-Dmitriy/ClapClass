@@ -10,12 +10,12 @@
                     :option="option"
                     @search="search()"
                 />
-                <div class="">
+                <div>
                     <div v-if="data" class="cards-container">
                         <ListArticle :data="data" class="22" />
                     </div>
 
-                    <div v-else class="article-container">
+                    <div v-if="emptyFavorite" class="article-container">
                         <div class="flex flex-col gap-14">
                             <div class="flex justify-center">
                                 <h3
@@ -78,6 +78,7 @@ import CabinetLayout from '/src/layouts/CabinetLayout.vue'
 const articleStore = useArticleStore()
 const userStore = useUserStore()
 const data = ref()
+const emptyFavorite = ref(true)
 const panel = reactive({
     search: '',
     sort: '',
@@ -123,7 +124,9 @@ watch(
         if (newVal.trim() == '') {
             articleStore.getArticleFavoriteListDb({
                 search: panel.search,
-                user_id: getUser?.value.id
+                user_id: getUser?.value.id,
+                sort: panel.sort,
+                type: panel.type
             })
         }
     }
@@ -134,7 +137,12 @@ watch(getArticleList, () => {
 })
 
 watch([() => panel.type, () => panel.sort], () => {
-    articleStore.getArticleListDb({ search: panel.search, sort: panel.sort, type: panel.type })
+    articleStore.getArticleFavoriteListDb({
+        search: panel.search,
+        user_id: getUser?.value.id,
+        sort: panel.sort,
+        type: panel.type
+    })
 })
 watch(getUser, () => {
     articleStore.getArticleFavoriteListDb({
@@ -143,6 +151,12 @@ watch(getUser, () => {
         sort: panel.sort,
         type: panel.type
     })
+})
+
+watch(getArticleList, (val) => {
+    if (val.length > 0) {
+        emptyFavorite.value = false
+    }
 })
 </script>
 

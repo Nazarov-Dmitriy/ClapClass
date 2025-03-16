@@ -34,25 +34,21 @@ import Profile from '@/assets/icons/case/sidebar/sidebar-icon4.svg?component'
 
 const links = [
     {
-        icon: '/icons/cabinet/sidebar/sidebar-icon1.svg',
         description: 'ВИТРИНА КЕЙСОВ',
         link: '/cabinet/showcase',
         component: Case
     },
     {
-        icon: '/icons/cabinet/sidebar/sidebar-icon2.svg',
         description: 'МОИ КЕЙСЫ',
         link: '/cabinet/my-cases',
         component: MyCase
     },
     {
-        icon: '/icons/cabinet/sidebar/sidebar-icon3.svg',
         description: 'МОИ СТАТЬИ',
         link: '/cabinet/my-article',
         component: MyArticle
     },
     {
-        icon: '/icons/cabinet/sidebar/sidebar-icon4.svg',
         description: 'ПРОФИЛЬ',
         link: '/cabinet/profile',
         component: Profile

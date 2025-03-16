@@ -46,7 +46,7 @@
                                             <BtnComponent
                                                 class="slider__slide-info-text-btn"
                                                 emit-name="action"
-                                                @action="$router.push( item.url)"
+                                                @action="$router.push(item.url)"
                                             >
                                                 Подробнее
                                             </BtnComponent>
@@ -465,6 +465,7 @@ onMounted(() => {
     cursor: pointer;
     position: absolute;
     top: 50%;
+    translate:0 -50% ;
     display: flex;
     justify-content: center;
     align-items: center;

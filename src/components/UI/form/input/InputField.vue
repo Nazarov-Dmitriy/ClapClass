@@ -5,7 +5,7 @@
             v-model="model"
             :placeholder="props.placeholder"
             :type="props.type"
-            class="field__input"
+            class="field__input autofill"
             :class="[{ error: props.error }, props.class, `border-${props.errorColor}`]"
         />
         <p v-if="props.error" class="error-text" :class="props.error && props.errorClass">
@@ -64,18 +64,7 @@ const model = defineModel({ type: String })
         font-size: 16px;
         line-height: 24px;
     }
-
-    &:-webkit-autofill,
-    &:-webkit-autofill:hover,
-    &:-webkit-autofill:focus,
-    &:-webkit-autofill:active {
-        -webkit-box-shadow:0 0 0 50px white inset; /* Change the color to your own background color */
-    }
-
-    &:-webkit-autofill:hover {
-        -webkit-box-shadow: 0 0 0 50px #e6eaed inset; /* Change the color to your own background color */
-    }
-}
+ }
 
 .error-text {
     color: $red;
