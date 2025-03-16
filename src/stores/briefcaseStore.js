@@ -369,6 +369,19 @@ export const useBriefcaseStore = defineStore('userBriefcase', {
                 .catch((err) => {
                     this.error = err.data
                 })
+        },
+        async setArticlePublished(id) {
+            this.isSuccess = ''
+            axiosR
+                .put('/briefcase/published/' + id)
+                .then((res) => {
+                    if (res.status == 200) {
+                        this.isSuccess = 'published'
+                    }
+                })
+                .catch((err) => {
+                    console.dir(err)
+                })
         }
     }
 })

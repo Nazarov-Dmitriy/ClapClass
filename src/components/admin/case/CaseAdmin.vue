@@ -56,18 +56,33 @@ const getListBriefcase = computed(() => {
 })
 
 onMounted(() => {
-    briefcaseStore.getCaseListDb({ search: panel.search, sort: panel.sort, type: panel.type })
+    briefcaseStore.getCaseListDb({
+        search: panel.search,
+        sort: panel.sort,
+        type: panel.type,
+        enablePublished: true
+    })
 })
 
 function search() {
-    briefcaseStore.getCaseListDb({ search: panel.search, sort: panel.sort, type: panel.type })
+    briefcaseStore.getCaseListDb({
+        search: panel.search,
+        sort: panel.sort,
+        type: panel.type,
+        enablePublished: true
+    })
 }
 
 function resetSearchPanel() {
     panel.search = ''
     panel.sort = 'DESC'
     panel.type = null
-    briefcaseStore.getCaseListDb({ search: panel.search, sort: panel.sort, type: panel.type })
+    briefcaseStore.getCaseListDb({
+        search: panel.search,
+        sort: panel.sort,
+        type: panel.type,
+        enablePublished: true
+    })
 }
 
 watch(
@@ -77,7 +92,8 @@ watch(
             briefcaseStore.getCaseListDb({
                 search: panel.search,
                 sort: panel.sort,
-                type: panel.type
+                type: panel.type,
+                enablePublished: true
             })
         }
     },
@@ -89,12 +105,22 @@ watch(getListBriefcase, () => {
 })
 
 watch([() => panel.type, () => panel.sort], () => {
-    briefcaseStore.getCaseListDb({ search: panel.search, sort: panel.sort, type: panel.type })
+    briefcaseStore.getCaseListDb({
+        search: panel.search,
+        sort: panel.sort,
+        type: panel.type,
+        enablePublished: true
+    })
 })
 
 watch(getIsSuccess, (val) => {
     if (val === 'remove') {
-        briefcaseStore.getCaseListDb({ search: panel.search, sort: panel.sort, type: panel.type })
+        briefcaseStore.getCaseListDb({
+            search: panel.search,
+            sort: panel.sort,
+            type: panel.type,
+            enablePublished: true
+        })
     }
 })
 </script>

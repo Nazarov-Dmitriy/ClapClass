@@ -8,13 +8,30 @@
                 &lt; назад
             </button>
             <div class="flex flex-col gap-6">
+                <div class="flex flex-col w-full gap-4">
+                    <h1 class="font-medium text-2xl">
+                        {{ pageType === 'edit' ? 'Редактировать кейс' : 'Добавить кейс' }}
+                    </h1>
+                    <div v-if="getShowPublishedBtn" class="flex gap-2 items-center">
+                        <input
+                            id="published"
+                            v-model="published"
+                            type="checkbox"
+                            value="false"
+                            class="w-5 h-5"
+                            :disabled="publishedDisabled"
+                            @change="setPublished"
+                        />
+                        <label for="published">Опубликовать</label>
+                    </div>
+                </div>
                 <div class="flex flex-col gap-4">
                     <div class="flex flex-col gap-2">
                         <p class="text-gray text-lg font-semibold">Основные данные</p>
 
                         <div class="flex flex-col gap-2">
                             <LabelField for="title" :error="!!getErrors?.title"
-                            >Название
+                                >Название
                             </LabelField>
                             <InputField
                                 v-model="caseData.title"
@@ -27,7 +44,7 @@
                         </div>
                         <div class="flex flex-col gap-2">
                             <LabelField for="annotation" :error="!!getErrors?.annotation"
-                            >Краткое описание
+                                >Краткое описание
                             </LabelField>
                             <TextareaField
                                 v-model="caseData.annotation"
@@ -40,7 +57,7 @@
                         </div>
                         <div class="flex flex-col gap-2">
                             <LabelField for="description" :error="!!getErrors?.description"
-                            >Полное описание
+                                >Полное описание
                             </LabelField>
                             <TextEditor
                                 v-model="caseData.description"
@@ -64,7 +81,7 @@
                             </div>
                             <div class="flex flex-col gap-2 w-1/2">
                                 <LabelField for="author" :error="!!getErrors?.author"
-                                >Автор
+                                    >Автор
                                 </LabelField>
                                 <InputField
                                     v-model="caseData.author"
@@ -79,7 +96,7 @@
                         <div class="flex gap-2">
                             <div class="flex flex-col gap-2 w-1/2">
                                 <LabelField for="duration" :error="!!getErrors?.duration"
-                                >Время прохождения
+                                    >Время прохождения
                                 </LabelField>
                                 <InputField
                                     v-model="caseData.duration"
@@ -94,7 +111,7 @@
                         </div>
                         <div class="flex gap-2 flex-col">
                             <LabelField for="preview_img" :error="!!getErrors?.preview_img"
-                            >Обложка кейса
+                                >Обложка кейса
                             </LabelField>
                             <FileField
                                 field-id="preview_img"
@@ -110,7 +127,7 @@
                         </div>
                         <div class="flex gap-2 flex-col">
                             <LabelField for="rules" :error="!!getErrors?.rules"
-                            >Правила
+                                >Правила
                             </LabelField>
                             <FileField
                                 field-id="rules"
@@ -126,7 +143,7 @@
                         </div>
                         <div class="flex gap-2 flex-col">
                             <LabelField for="material" :error="!!getErrors?.material"
-                            >Материал
+                                >Материал
                             </LabelField>
                             <FileField
                                 field-id="material"
@@ -146,7 +163,7 @@
                         class="w-fit"
                         :disable="changeDate || getDisableRequest"
                         @action="pageType === 'edit' || changeDate ? edit() : save()"
-                    >{{ pageType === 'edit' || changeDate ? 'Редактировать' : 'Сохранить' }}
+                        >{{ pageType === 'edit' || changeDate ? 'Редактировать' : 'Сохранить' }}
                     </BtnComponent>
                 </div>
 
@@ -178,14 +195,13 @@
                 emit-name="action"
                 class="w-fit mt-4"
                 @action="newCase()"
-            >Создать новый кейс
+                >Создать новый кейс
             </BtnComponent>
         </section>
         <Teleport to="body">
             <Loader v-if="!isLoad" />
         </Teleport>
     </ContnentLayout>
-
 </template>
 <script setup>
 import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
@@ -208,7 +224,8 @@ import Loader from '@/components/ui/loader/Loader.vue'
 
 const briefcaseStore = useBriefcaseStore()
 const isLoad = ref(true)
-
+const published = ref(false)
+const publishedDisabled = ref(false)
 const getIsSuccess = computed(() => {
     return briefcaseStore.getIsSuccess
 })
@@ -232,7 +249,7 @@ const pageType = ref('add')
 
 const editBlock = reactive({
     caseData: false,
-    caseDataVideoRules: false,
+    caseDataVideoRules: false
 })
 
 const caseData = reactive({
@@ -268,6 +285,22 @@ onMounted(() => {
         isLoad.value = true
     }, 10000)
 })
+const getShowPublishedBtn = computed(() => {
+    if (
+        pageType.value === "edit"
+        // &&
+        // (getUser.value.role === 'ROLE_ADMIN' || getUser.value.role === 'ROLE_MODERATOR')
+    ) {
+        return true
+    } else {
+        return false
+    }
+})
+
+function setPublished() {
+    publishedDisabled.value = true
+    briefcaseStore.setArticlePublished(caseData.id)
+}
 
 function save() {
     const data = new FormData()
@@ -374,6 +407,7 @@ watch(
     getBriefcase,
     async () => {
         isLoad.value = true
+        published.value = getBriefcase.value.published
         caseData.id = getBriefcase.value.id
         caseData.title = getBriefcase.value.title
         caseData.description = getBriefcase.value.description
@@ -397,11 +431,16 @@ watch(getIsSuccess, async (val) => {
     if (val === 'add') {
         await nextTick()
         changeDate.value = true
-    } else if (val === 'video-rules') {
+    }
+    if (val === 'video-rules') {
         editBlock.caseDataVideoRules = true
         changeVideoRules.value = true
         await nextTick()
         changeVideoRules.value = true
+    }
+
+    if (val === 'published') {
+        publishedDisabled.value = false
     }
 })
 </script>
