@@ -69,7 +69,9 @@
                                 <input
                                     v-model="email"
                                     class="news__card-form-input"
-                                    :class="{ 'is-invalid': showDangerBlock }"
+                                    :class="{
+                                        'is-invalid': showDangerBlock
+                                    }"
                                     type="text"
                                     placeholder="Введите ваш email"
                                 />
@@ -91,7 +93,11 @@
                                         <p class="news__card-text--subscribe">
                                             Нажимая кнопку “Подписаться” вы соглашаетесь с
                                             <span>
-                                                <a class="news__card-text-link--subscribe" href="#">
+                                                <a
+                                                    class="news__card-text-link--subscribe underline"
+                                                    href="/documents/user_agreement.pdf"
+                                                    target="_blank"
+                                                >
                                                     политикой обработки персональных данных
                                                 </a>
                                             </span>
@@ -113,7 +119,7 @@
 <script setup>
 import { ref, defineProps, watch, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import BtnComponent from '../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import { useUserStore } from '@/stores/userStore'
 
 const props = defineProps({
@@ -155,7 +161,9 @@ function goToBlog() {
 function addSubscribe() {
     if (validateEmail(email.value)) {
         showDangerBlock.value = false
-        userStore.addSubscribe({ email: email.value })
+        userStore.addSubscribe({
+            email: email.value
+        })
         email.value = ''
     } else {
         showDangerBlock.value = true

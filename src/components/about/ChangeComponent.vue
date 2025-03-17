@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BtnComponent from '../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 </script>
 
 <template>
@@ -14,9 +14,9 @@ import BtnComponent from '../btns/BtnComponent.vue'
                     </p>
                     <BtnComponent
                         emit-name="action"
-                        @action="$router.push('/cooperation')"
                         class="change__card-info-btn"
-                        >Сотрудничество</BtnComponent
+                        @action="$router.push('/cooperation')"
+                    >Сотрудничество</BtnComponent
                     >
                 </div>
                 <img

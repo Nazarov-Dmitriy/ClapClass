@@ -69,7 +69,7 @@
         </Transition>
         <div class="header__container">
             <div class="header__wrapper">
-                <div class="header__logo">
+                <div class="header__logo shrink-0">
                     <router-link to="/">
                         <img
                             src="../../assets/images/header/header-logo.png"
@@ -84,9 +84,9 @@
                     <span class="line" />
                     <span class="line" />
                 </div>
-                <nav class="header__nav">
+                <nav class="header__nav min-w-0">
                     <ul class="header__list">
-                        <li class="header__list-item">
+                        <li class="header__list-item shrink-0">
                             <router-link
                                 to="/services"
                                 class="header__list-link"
@@ -95,7 +95,7 @@
                                 Сервисы
                             </router-link>
                         </li>
-                        <li class="header__list-item">
+                        <li class="header__list-item shrink-0">
                             <router-link
                                 class="header__list-link"
                                 to="/about"
@@ -104,7 +104,7 @@
                                 О проекте
                             </router-link>
                         </li>
-                        <li class="header__list-item">
+                        <li class="header__list-item shrink-0">
                             <router-link
                                 to="/cooperation"
                                 class="header__list-link"
@@ -113,12 +113,12 @@
                                 Сотрудничество
                             </router-link>
                         </li>
-                        <li class="header__list-item">
+                        <li class="header__list-item shrink-0">
                             <router-link to="/blog" class="header__list-link" active-class="active">
                                 Блог
                             </router-link>
                         </li>
-                        <li v-if="getUser" class="header__list-item">
+                        <li v-if="getUser" class="header__list-item truncate">
                             <router-link
                                 to="/admin"
                                 class="header__list-link"
@@ -162,7 +162,7 @@
                         class="flex gap-4 items-center px-2 py-1 cursor-pointer"
                         @click="logout()"
                     >
-                        <span :class="{ cabinet: activeLkClass }">Выход</span>
+                        <span>Выход</span>
                         <img class="w-5 h-5" src="@/assets/icons/header/exit.svg" alt="" />
                     </div>
                 </div>
@@ -174,7 +174,7 @@
     </header>
 </template>
 <script setup>
-import BtnComponent from '../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
 import AuthComponent from '../modal/auth/AuthComponent.vue'
 import { useUserStore } from '@/stores/userStore'
@@ -294,8 +294,10 @@ watch(getIsSuccess, (val) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 16px;
 
     @media (max-width: $lg) {
+        gap: 0;
         display: grid;
         grid-template-areas:
             'logo hamburger'
@@ -380,6 +382,10 @@ watch(getIsSuccess, (val) => {
         justify-content: flex-end;
         align-items: flex-end;
         gap: 16px;
+    }
+
+    @media (max-width: $xl) {
+        gap: 32px;
     }
 }
 

@@ -29,7 +29,7 @@
     </div>
 </template>
 <script setup>
-import BtnComponent from '@/components/btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import InputField from '@/components/ui/form/input/InputField.vue'
 import LabelField from '@/components/ui/form/label/LabelField.vue'
 import { useSocialStore } from '@/stores/socialStore'

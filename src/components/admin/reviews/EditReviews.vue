@@ -146,7 +146,6 @@
 <script setup>
 import EditSvg from '@/assets/icons/blog/edit.svg?component'
 import RemoveSvg from '@/assets/icons/blog/remove.svg?component'
-import Loader from '@/components/loader/Loader.vue'
 import { useReviewsStore } from '@/stores/reviewsStore'
 import { computed, onMounted, reactive, ref, watch } from 'vue'
 import VueDatePicker from '@vuepic/vue-datepicker'
@@ -154,6 +153,7 @@ import '@vuepic/vue-datepicker/dist/main.css'
 import ModalConfirm from '@/components/modal/ModalConfirm.vue'
 import InputField from '@/components/ui/form/input/InputField.vue'
 import TextareaField from '@/components/ui/form/textarea/TextareaField.vue'
+import Loader from '@/components/ui/loader/Loader.vue'
 
 const reviewsStore = useReviewsStore()
 const isLoad = ref(false)
@@ -386,7 +386,6 @@ watch(getSuccess, () => {
     color: white;
 
     @media (max-width: $md) {
-        // background: blue;
         padding: 6px 12px;
     }
 }

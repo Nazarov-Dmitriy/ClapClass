@@ -1,7 +1,7 @@
 <template>
     <div class="modal__header">
         <div class="modal-close-wrapper">
-            <span class="modal-close" @click="closeModal">
+            <span class="modal-close relative z-10" @click="closeModal">
                 <svg
                     width="24"
                     height="24"
@@ -30,18 +30,39 @@
             </p>
             <slot name="subtitle" />
         </div>
-        <div class="modal__header-hero">
+        <div class="modal__header-hero shrink-0" :class="{ rewies: props.image == 'rewies' }">
             <img
-                src="../../assets/images/form/form-hero-img.svg"
-                alt=""
+                v-if="props.image == 'question'"
+                src="@/assets/images/form/question.png"
+                alt="image"
                 class="modal__header-hero-img"
             />
+            <img
+                v-else-if="props.image == 'rewies'"
+                src="@/assets/images/form/rewies.png"
+                alt="image"
+                class="modal__header-hero-img"
+            />
+            <img
+                v-else
+                src="@/assets/images/form/form-hero-img.png"
+                alt="image"
+                class="modal__header-hero-img"
+            />
+            {{ getImageName }}
         </div>
     </div>
 </template>
 
 <script setup>
 const emit = defineEmits(['closeModal'])
+
+const props = defineProps({
+    image: {
+        type: String,
+        default: ''
+    }
+})
 
 function closeModal() {
     emit('closeModal')
@@ -52,7 +73,7 @@ function closeModal() {
 .modal__header {
     padding: 16px 64px 0px 64px;
     box-sizing: border-box;
-    background: url('../../assets/images/modal/modalHeader/modal-header-bg.png');
+    background: url('@/assets/images/modal/modalHeader/modal-header-bg.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -61,7 +82,6 @@ function closeModal() {
     justify-content: center;
     gap: 24px;
     border-radius: 25px 25px 0 0;
-    margin-bottom: -5px;
 
     @media (max-width: $lg) {
         padding: 24px;
@@ -87,19 +107,26 @@ function closeModal() {
 }
 
 .modal__header-hero {
+    width: 226px;
+    height: 171px;
+
+    &.rewies {
+        min-width: 264px;
+    }
+
     @media (max-width: $lg) {
         display: none;
     }
 }
 .modal__header-hero-img {
-    width: 226px;
-    transform: translate(0, -5px);
+    width: 100%;
+    height: 100%;
 }
 
 .modal-close-wrapper {
     position: absolute;
-    top: 24px;
-    right: 24px;
+    top: 16px;
+    right: 18px;
 
     @media (max-width: $lg) {
         top: 10px;

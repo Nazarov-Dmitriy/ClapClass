@@ -19,7 +19,7 @@
                         class="form__input"
                     />
                     <p v-if="getError?.email" class="error-text">
-                        {{ getError?.email }}
+                        <ErrorSvg clip="w-5 h-5"></ErrorSvg>       {{ getError?.email }}
                     </p>
                 </div>
                 <BtnComponent
@@ -38,10 +38,11 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import ModalComponent from '../ModalComponent.vue'
-import BtnComponent from '../../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import ModalHeader from '../ModalHeader.vue'
 import { useUserStore } from '@/stores/userStore'
 import { toast } from "vue3-toastify";
+import ErrorSvg from '@/assets/icons/error.svg?component'
 
 const props = defineProps({
     open: {

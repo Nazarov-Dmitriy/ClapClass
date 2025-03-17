@@ -67,7 +67,7 @@
 
 <script setup>
 import { computed, onMounted } from 'vue'
-import BtnComponent from '../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import { useReviewsStore } from '@/stores/reviewsStore'
 
 const reviewsStore = useReviewsStore()
@@ -144,18 +144,9 @@ function getUrl(url) {
 }
 
 .reviews__cards-wrapper {
-    // display: flex;
-    // width: 500%;
     overflow: hidden;
 }
 .reviews__cards {
-    // display: grid;
-    // grid-auto-flow: column;
-    // gap: 48px;
-    // width: calc(100% + 64px);
-    // scrollbar-width: none;
-    // -ms-overflow-style: none;
-    // animation: slide 100s linear infinite;
     display: flex;
     width: 100%;
     @media (max-width: $lg) {

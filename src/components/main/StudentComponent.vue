@@ -173,7 +173,6 @@ onBeforeUnmount(() => {
     gap: 24px;
     max-width: 586px;
     width: 100%;
-    cursor: pointer;
     justify-content: space-between;
     transition: 0.3s;
 

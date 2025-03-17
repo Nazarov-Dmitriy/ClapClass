@@ -3,11 +3,7 @@ require('@rushstack/eslint-patch/modern-module-resolution')
 
 module.exports = {
     root: true,
-    extends: [
-        'eslint:recommended',
-        'plugin:vue/vue3-recommended',
-        'prettier',
-    ],
+    extends: ['eslint:recommended', 'plugin:vue/vue3-recommended', 'prettier'],
     parserOptions: {
         ecmaVersion: 'latest'
     },
@@ -17,8 +13,6 @@ module.exports = {
         'import/extensions': 0,
         'import/no-unresolved': 0,
         'import/no-extraneous-dependencies': 0,
-        'vue/html-indent': ['warn', 4],
-        indent: ['warn', 4, {  SwitchCase: 1 }],
         'space-before-function-paren': [
             'error',
             {
@@ -38,6 +32,6 @@ module.exports = {
         'vue/no-v-model-argument': 0,
         'vue/no-v-html': 0,
         'func-names': 0,
-        "space-before-function-paren": 0
+        'space-before-function-paren': 0
     }
 }

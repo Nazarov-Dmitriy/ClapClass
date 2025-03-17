@@ -77,6 +77,7 @@ function article(id) {
     display: flex;
     gap: 16px;
     flex-direction: column;
+    width: 100%;
 
     @media (max-width: $xl) {
         flex-direction: row;

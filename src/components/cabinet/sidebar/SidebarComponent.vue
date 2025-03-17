@@ -7,12 +7,12 @@
                 class="sidebar__link"
                 @click="handleLinkClick(index, link.link)"
             >
-                <img
-                    :src="isActiveLink(link.link) ? link.activeIcon : link.icon"
-                    :alt="link.description"
-                    :class="{ 'link-active-border': isActiveLink(link.link) }"
-                    class="sidebar__link-img"
+                <div
+                    class="w-12 h-12 p-[3px] border border-px rounded-lg border-gray"
+                    :class="{ 'link-active ': isActiveLink(link.link) }"
                 >
+                    <component :is="link.component" class="sidebar__link-img"></component>
+                </div>
                 <p
                     :class="{ 'link-active-text': isActiveLink(link.link) }"
                     class="sidebar__link-description"
@@ -27,31 +27,31 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import Case from '@/assets/icons/case/sidebar/sidebar-icon1.svg?component'
+import MyCase from '@/assets/icons/case/sidebar/sidebar-icon2.svg?component'
+import MyArticle from '@/assets/icons/case/sidebar/sidebar-icon3.svg?component'
+import Profile from '@/assets/icons/case/sidebar/sidebar-icon4.svg?component'
 
 const links = [
     {
-        icon: '/icons/cabinet/sidebar/sidebar-icon1.svg',
-        activeIcon: '/icons/cabinet/sidebar/sidebar-active-icon1.svg',
         description: 'ВИТРИНА КЕЙСОВ',
-        link: '/cabinet/showcase'
+        link: '/cabinet/showcase',
+        component: Case
     },
     {
-        icon: '/icons/cabinet/sidebar/sidebar-icon2.svg',
-        activeIcon: '/icons/cabinet/sidebar/sidebar-active-icon1.svg',
         description: 'МОИ КЕЙСЫ',
-        link: '/cabinet/my-cases'
+        link: '/cabinet/my-cases',
+        component: MyCase
     },
     {
-        icon: '/icons/cabinet/sidebar/sidebar-icon3.svg',
-        activeIcon: '/icons/cabinet/sidebar/sidebar-active-icon1.svg',
         description: 'МОИ СТАТЬИ',
-        link: '/cabinet/my-article'
+        link: '/cabinet/my-article',
+        component: MyArticle
     },
     {
-        icon: '/icons/cabinet/sidebar/sidebar-icon4.svg',
-        activeIcon: '/icons/cabinet/sidebar-active-icon1.svg',
         description: 'ПРОФИЛЬ',
-        link: '/cabinet/profile'
+        link: '/cabinet/profile',
+        component: Profile
     }
 ]
 
@@ -59,7 +59,7 @@ const activeLinkIndex = ref(null)
 const route = useRoute()
 const router = useRouter()
 
-function handleLinkClick (index, link) {
+function handleLinkClick(index, link) {
     if (route.path !== link) {
         router.push(link)
     }
@@ -74,8 +74,11 @@ const isActiveLink = (link) => route.path === link
     color: #e05704 !important;
 }
 
-.link-active-border {
+.link-active {
     border: 1px solid #e05704 !important;
+    .sidebar__link-img {
+        color: $orange;
+    }
 }
 
 .sidebar {
@@ -101,11 +104,10 @@ const isActiveLink = (link) => route.path === link
 }
 
 .sidebar__link-img {
-    border: 1px solid #656d75;
-    border-radius: 8px;
-    padding: 4px;
-    max-width: 48px;
+    color: $gray;
     transition: filter 0.3s;
+    width: 100%;
+    height: 100%;
 }
 
 .sidebar__link-description {

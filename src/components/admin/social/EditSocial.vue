@@ -66,11 +66,11 @@
 <script setup>
 import EditSvg from '@/assets/icons/blog/edit.svg?component'
 import RemoveSvg from '@/assets/icons/blog/remove.svg?component'
-import Loader from '@/components/loader/Loader.vue'
 import { computed, onMounted, ref, watch } from 'vue'
 import ModalConfirm from '@/components/modal/ModalConfirm.vue'
 import InputField from '@/components/ui/form/input/InputField.vue'
 import { useSocialStore } from '@/stores/socialStore'
+import Loader from '@/components/ui/loader/Loader.vue'
 
 const socialStore = useSocialStore()
 const isLoad = ref(true)

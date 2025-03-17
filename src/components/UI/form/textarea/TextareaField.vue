@@ -9,10 +9,14 @@
             :class="{ error: props.error }"
             rows="5"
         />
-        <p v-if="props.error" class="error-text">{{ props.errorText }}</p>
+        <p v-if="props.error" class="error-text">
+            <ErrorSvg clip="w-5 h-5"></ErrorSvg>{{ props.errorText }}
+        </p>
     </div>
 </template>
 <script setup>
+import ErrorSvg from '@/assets/icons/error.svg?component'
+
 const props = defineProps({
     inputId: {
         type: String,
@@ -27,8 +31,8 @@ const props = defineProps({
         default: ''
     },
     error: {
-        type: String,
-        default: ''
+        type: Boolean,
+        default: false
     },
     errorText: {
         type: String,
@@ -62,5 +66,7 @@ const model = defineModel({ type: String })
 
 .error-text {
     color: $red;
+    display: flex;
+    gap: 4px;
 }
 </style>

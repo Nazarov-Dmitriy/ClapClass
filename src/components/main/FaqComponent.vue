@@ -49,7 +49,7 @@
                                 class="faq__answer-text"
                             >
                                 {{ question.answer.part1 }}
-                                <router-link class="faq__answer-link" to="/">
+                                <router-link class="faq__answer-link" :to="question.answer.href">
                                     {{ question.answer.link }}
                                 </router-link>
                                 {{ question.answer.part2 }}
@@ -109,7 +109,8 @@ const questions = ref([
         answer: {
             part1: 'Информация по этому вопросу собрана в разделе ',
             link: '"Сотрудничество"',
-            part2: ''
+            part2: '',
+            href: '/cooperation'
         }
     }
 ])

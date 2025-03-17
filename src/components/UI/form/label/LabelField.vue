@@ -1,5 +1,9 @@
 <template>
-    <label :for="props.for" class="field__label" :class="{ error: props.error }">
+    <label
+        :for="props.for"
+        class="field__label"
+        :class="[{ error: props.error }, error && props.errorClass]"
+    >
         <slot></slot>
     </label>
 </template>
@@ -12,6 +16,10 @@ const props = defineProps({
     error: {
         type: Boolean,
         default: false
+    },
+    errorClass: {
+        type: String,
+        default: ''
     }
 })
 </script>
@@ -40,6 +48,25 @@ const props = defineProps({
 
         &.error {
             background: $red;
+        }
+    }
+
+    &.btn-orange {
+        box-shadow:
+            0 2px 4px 0 rgba(21, 15, 13, 0.1),
+            0 8px 8px 0 rgba(21, 15, 13, 0.09);
+        border: 2px solid #e05704;
+        border-radius: 24px;
+        padding: 6px 16px;
+        background: none;
+        cursor: pointer;
+        transition: 0.4s;
+        display: block;
+        color: $orange;
+
+        &.error {
+            background: $red;
+            color: $white;
         }
     }
 }

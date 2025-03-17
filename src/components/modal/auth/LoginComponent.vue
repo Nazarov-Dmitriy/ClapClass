@@ -14,32 +14,32 @@
             <form class="form__wrapper" @submit.prevent>
                 <div class="form__group">
                     <label for="email" class="form__label" :class="getError?.email && 'error'"
-                    >E-mail</label
+                        >E-mail</label
                     >
                     <div class="flex w-full relative">
                         <input
                             v-model="inputData.email"
                             type="text"
-                            class="form__input"
+                            class="form__input autofill"
                             :class="getError?.email && 'error'"
                             placeholder="пароль"
                         />
                         <img class="input-icon" src="/icons/auth/inputs/input-mail.svg" alt="" />
                     </div>
                     <p v-if="getError?.email" class="error-text">
-                        {{ getError?.email }}
+                        <ErrorSvg clip="w-5 h-5"></ErrorSvg> {{ getError?.email }}
                     </p>
                 </div>
                 <div class="form__group">
                     <label for="password" class="form__label" :class="getError?.password && 'error'"
-                    >Пароль</label
+                        >Пароль</label
                     >
                     <div class="flex w-full relative">
                         <input
                             id="password"
                             v-model="inputData.password"
                             placeholder="Введите пароль"
-                            class="form__input"
+                            class="form__input autofill"
                             :class="getError?.password && 'error'"
                             :type="passwordVisible.password ? 'password' : 'text'"
                         />
@@ -60,7 +60,7 @@
                     </div>
 
                     <p v-if="getError?.password" class="error-text">
-                        {{ getError?.password }}
+                        <ErrorSvg clip="w-5 h-5"></ErrorSvg> {{ getError?.password }}
                     </p>
                 </div>
                 <div class="form__login flex justify-between items-center">
@@ -106,11 +106,11 @@
 <script setup>
 import { ref, onUnmounted, reactive, computed, watch } from 'vue'
 import ModalComponent from '../ModalComponent.vue'
-import BtnComponent from '../../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import ModalHeader from '../ModalHeader.vue'
 import { useUserStore } from '../../../stores/userStore'
 import { useRouter } from 'vue-router'
-
+import ErrorSvg from '@/assets/icons/error.svg?component'
 const props = defineProps({
     open: {
         type: Boolean,
@@ -208,6 +208,10 @@ onUnmounted(() => {
 
     &.error {
         border-color: $yellowy;
+    }
+
+    &.autofill {
+        -webkit-text-fill-color: gray;
     }
 }
 .input-icon {

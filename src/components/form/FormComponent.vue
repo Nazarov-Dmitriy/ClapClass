@@ -22,7 +22,7 @@
                             alt=""
                         />
                         <img
-                            src="../../assets/images/form/form-hero-img.svg"
+                            src="../../assets/images/form/form-hero-img.png"
                             alt=""
                             class="form__hero-img"
                         />
@@ -67,7 +67,6 @@
                                     <span :class="{ form__error: formField.phoneError }"
                                     >Телефон</span
                                     >
-
                                     <input
                                         id="phone"
                                         v-model="formField.phone"
@@ -171,7 +170,7 @@
 
 <script setup>
 import { computed, onMounted, reactive, watch } from 'vue'
-import BtnComponent from '../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import { useSendMessageStore } from '@/stores/sendMessageStore'
 
 const sendMessageStore = useSendMessageStore()

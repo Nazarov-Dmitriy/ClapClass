@@ -20,17 +20,39 @@
                             Сервис геймификации здоровьесберегающих технологий
                         </p>
                         <div class="about__info-btn-wrapper">
-                            <BtnComponent class="about__info-btn"> Присоединиться </BtnComponent>
+                            <BtnComponent
+                                v-if="!getUser"
+                                emit-name="action"
+                                class="about__info-btn"
+                                @action="() => setModal('login')"
+                            >
+                                Присоединиться
+                            </BtnComponent>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <Teleport to="body">
+            <AuthComponent :modal="modal" @close="() => setModal('')" />
+        </Teleport>
     </section>
 </template>
 
 <script setup>
-import BtnComponent from '../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
+import AuthComponent from '../modal/auth/AuthComponent.vue';
+import { useUserStore } from '@/stores/userStore';
+import { computed, ref } from 'vue';
+const userStore = useUserStore()
+const modal = ref('')
+const getUser = computed(() => {
+    return userStore.getUser
+})
+
+function setModal(value) {
+    modal.value = value
+}
 </script>
 
 <style lang="scss">

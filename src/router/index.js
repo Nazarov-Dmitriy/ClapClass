@@ -8,11 +8,13 @@ import AboutView from '../views/AboutView.vue'
 import CabinetView from '../views/cabinet/ShowcaseView.vue'
 import MyCasesView from '../views/cabinet/MyCasesView.vue'
 import MyArticleView from '../views/cabinet/MyArticleView.vue'
-import CardPage from '../views/cabinet/CardPage.vue'
+import CaseDetailsPage from '../views/cabinet/CaseDetailsPage.vue'
 import ProfileView from '../views/cabinet/ProfileView.vue'
 import EditArticle from '@/views/blog/edit/EditArticle.vue'
 import AdminPage from '@/views/AdminPage.vue'
 import { useUserStore } from '@/stores/userStore'
+import ErrorPage from '@/views/error/ErrorPage.vue'
+import EditCase from '@/components/admin/case/EditCase.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,17 +35,36 @@ const router = createRouter({
                 {
                     path: 'create',
                     name: 'create-article',
-                    component: EditArticle
+                    component: EditArticle,
+                    meta: { protected: true }
                 },
                 {
                     path: 'edit/:id',
                     name: 'edit-article',
-                    component: EditArticle
+                    component: EditArticle,
+                    meta: { protected: true }
                 },
                 {
                     path: ':id',
                     name: 'blog-articke',
                     component: ArticlePage
+                }
+            ]
+        },
+        {
+            path: '/case',
+            children: [
+                {
+                    path: 'create',
+                    name: 'create-case',
+                    component: EditCase,
+                    meta: { protected: true }
+                },
+                {
+                    path: 'edit/:id',
+                    name: 'edit-case',
+                    component: EditCase,
+                    meta: { protected: true }
                 }
             ]
         },
@@ -77,15 +98,19 @@ const router = createRouter({
                     component: CabinetView
                 },
                 {
-                    path: 'showcase/:name/',
-                    props: true,
+                    path: 'showcase/:id',
                     name: 'card-page',
-                    component: CardPage
+                    component: CaseDetailsPage
                 },
                 {
                     path: 'my-cases',
                     name: 'my-cases',
                     component: MyCasesView
+                },
+                {
+                    path: 'my-cases/:id',
+                    name: 'card-page__favorite',
+                    component: CaseDetailsPage
                 },
                 {
                     path: 'my-article',
@@ -98,6 +123,11 @@ const router = createRouter({
                     component: ProfileView
                 }
             ]
+        },
+        {
+            path: '/error',
+            name: 'error',
+            component: ErrorPage
         }
     ],
     scrollBehavior(_, __, savedPosition) {

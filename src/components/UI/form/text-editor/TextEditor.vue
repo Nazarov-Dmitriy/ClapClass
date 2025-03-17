@@ -1,12 +1,14 @@
 <template>
     <div class="ck-editor-wrapper" :class="{ error: props.error }">
         <ckeditor v-model="model" :editor="editor" :config="editorConfig" />
-        <p v-if="props?.error" class="error-text mt-2">
-            {{ props.errorText }}
+        <p v-if="props.error" class="error-text mt-2">
+            <ErrorSvg clip="w-5 h-5"></ErrorSvg> {{ props.errorText }}
         </p>
     </div>
 </template>
 <script setup>
+import ErrorSvg from '@/assets/icons/error.svg?component'
+
 import coreTranslations from 'ckeditor5/translations/ru.js'
 import {
     ClassicEditor,
@@ -143,7 +145,7 @@ const props = defineProps({
         default: null
     },
     errorText: {
-        type: String ,
+        type: String,
         default: null
     }
 })
@@ -229,5 +231,12 @@ watch(props, () => {}, { deep: true })
             background: $red;
         }
     }
+}
+
+
+.error-text {
+    color: $red;
+    display: flex;
+    gap: 4px;
 }
 </style>

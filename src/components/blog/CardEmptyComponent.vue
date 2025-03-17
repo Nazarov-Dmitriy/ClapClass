@@ -1,18 +1,18 @@
 <template>
     <div class="skeleton-article__card">
-        <div class="skeleton-article__cover animate-pulse bg-amber-400"></div>
+        <div class="skeleton-article__cover animate-pulse bg-fonLight"></div>
 
         <div class="skeleton-article__contnent">
-            <h3 class="skeleton-article__title animate-pulse rounded-full bg-amber-400">
+            <h3 class="skeleton-article__title animate-pulse rounded-full bg-fonLight">
                 props.data.title
             </h3>
             <div class="skeleton-article__footer">
                 <div class="skeleton-article__btns">
-                    <div class="skeleton-article__btn animate-pulse rounded-full bg-amber-400">
+                    <div class="skeleton-article__btn animate-pulse rounded-full bg-fonLight">
                         <p class="w-6 h-6"></p>
                         <div class="skeleton-article__count">1</div>
                     </div>
-                    <div class="skeleton-article__btn animate-pulse rounded-full bg-amber-400">
+                    <div class="skeleton-article__btn animate-pulse rounded-full bg-fonLight">
                         <div class="skeleton-article__btn">
                             <p class="w-6 h-6"></p>
                             <div class="skeleton-article__count">1</div>

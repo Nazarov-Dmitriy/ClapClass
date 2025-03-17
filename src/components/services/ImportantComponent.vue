@@ -29,14 +29,11 @@ defineProps({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 .important {
-    padding: 80px 240px;
+    padding: 80px 64px;
     box-sizing: border-box;
 
-    @media (max-width: $xxl) {
-        padding: 80px 64px;
-    }
     @media (max-width: $lg) {
         padding: 64px 16px;
     }
@@ -45,9 +42,12 @@ defineProps({
     }
 }
 .important__wrapper {
+
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: start;
+    max-width: 1312px;
+    margin: 0 auto;
 
     @media (max-width: $lg) {
         grid-template-columns: 1fr;

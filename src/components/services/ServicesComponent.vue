@@ -18,7 +18,7 @@
                 :slides-per-view="1"
                 :space-between="500"
                 @swiper="onSwiper"
-                @slideChange="onSlideChange"
+                @slide-change="onSlideChange"
             >
                 <swiper-slide>
                     <div class="services__components-wrapper">
@@ -34,7 +34,7 @@
                             :information="slidesData[activeIndex].content.important"
                         />
                         <FeaturesComponent
-                            :featuresCardInfo="slidesData[activeIndex].content.featuresCardInfo"
+                            :features-card-info="slidesData[activeIndex].content.featuresCardInfo"
                         />
                     </div>
                 </swiper-slide>
@@ -44,7 +44,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -53,10 +53,12 @@ import BannerComponent from './BannerComponent.vue'
 import WarmUpComponent from './WarmUpComponent.vue'
 import ImportantComponent from './ImportantComponent.vue'
 import FeaturesComponent from './FeaturesComponent.vue'
+import { useRoute } from 'vue-router'
 
 const slidesData = ref([
     {
         tab: 'Подвижные разминки',
+        value: 'moving',
         content: {
             banner: {
                 titleWhite: 'Подвижные',
@@ -75,7 +77,7 @@ const slidesData = ref([
                 ]
             },
             important: {
-                title: 'Важность разминок',
+                title: 'Почему это важно?',
                 img: '/images/servecies/important/hero-img1.png',
                 text: [
                     'Большую часть дня школьники проводят сидя, провоцируя спад физического и эмоционального тонуса. Происходит взаимообогащение негативных факторов, формирующих привычки, ведущие к деструктивным изменениям костно-мышечной структуры и системы кровообращения.',
@@ -107,6 +109,8 @@ const slidesData = ref([
     },
     {
         tab: 'Ритм-разминки',
+        value: 'rhythm',
+
         content: {
             banner: {
                 titleWhite: 'Ритмичные',
@@ -125,7 +129,7 @@ const slidesData = ref([
                 ]
             },
             important: {
-                title: 'Важность разминок',
+                title: 'Почему это важно',
                 img: '/images/servecies/important/hero-img2.png',
                 text: [
                     'Усидчивость - ключевой вызов для младших школьников. Преобладание непроизвольного внимания дополняется фрагментарным мышлением, сочетающим кратковременную мотивацию и потребность постоянной стимуляции.',
@@ -157,6 +161,7 @@ const slidesData = ref([
     },
     {
         tab: 'Конгитивные разминки',
+        value: 'cognitive',
         content: {
             banner: {
                 titleWhite: 'Когнитивные',
@@ -175,7 +180,7 @@ const slidesData = ref([
                 ]
             },
             important: {
-                title: 'Важность разминок',
+                title: 'Почему это важно',
                 img: '/images/servecies/important/hero-img3.png',
                 text: [
                     'Длительное поддержание мыслительной активности – труднодоступный навык в условиях потребления информации «короткими порциями». Без тренировки построения сложных логических взаимосвязей между фрагментами знаний невозможно их качественное накопление и формирование опыта.',
@@ -208,31 +213,11 @@ const slidesData = ref([
 ])
 
 const activeIndex = ref(0)
-const swiperRef = ref(null)
-
-const navigationOptions = {
-    nextEl: '.slider__slide-arrow-btn--right',
-    prevEl: '.slider__slide-arrow-btn--left'
-}
-
-const paginationOptions = {
-    el: '.swiper-pagination',
-    type: 'bullets',
-    clickable: true
-}
-
-const autoplayOptions = {
-    delay: 3000,
-    disableOnInteraction: true
-}
-
-function updateActiveIndex(swiper) {
-    activeIndex.value = swiper.realIndex % slidesData.value.length
-}
+const route = useRoute()
 
 function handleTabClick(index) {
+   
     activeIndex.value = index
-    swiperRef.value.swiper.slideTo(index)
 }
 
 onMounted(() => {
@@ -243,17 +228,26 @@ onMounted(() => {
             bullet[index].click()
         })
     })
+
+    if (route.hash) {
+        activeIndex.value = slidesData.value.findIndex((el) => el.value === route.hash.slice(1))
+    }
+})
+
+watch(route, () => {
+    if (route.hash) {
+        activeIndex.value = slidesData.value.findIndex((el) => el.value === route.hash.slice(1))
+    }
 })
 </script>
 
 <style scoped lang="scss">
-.services {
-}
 .services__wrapper {
     position: relative;
 }
-.services__components-wrapper{
+.services__components-wrapper {
     overflow: hidden;
+    width: 100%;
 }
 .services__tabs {
     display: grid;
@@ -267,7 +261,5 @@ onMounted(() => {
     @media (max-width: $lg) {
         gap: 16px;
     }
-}
-.services__item {
 }
 </style>

@@ -9,18 +9,21 @@
         <template #form>
             <form class="form__wrapper" @submit.prevent>
                 <div class="form__group">
-                    <label for="registerEmail" class="form__label" :class="getError?.email && 'error'"
-                    >E-mail</label
+                    <label
+                        for="registerEmail"
+                        class="form__label"
+                        :class="getError?.email && 'error'"
+                        >E-mail</label
                     >
                     <input
                         id="registerEmail"
                         v-model="inputData.email"
-                        class="form__input"
+                        class="form__input autofill"
                         placeholder="marina_ivanova@mail.ru"
                         :class="getError?.email && 'error'"
                     />
                     <p v-if="getError?.email" class="error-text">
-                        {{ getError?.email }}
+                        <ErrorSvg clip="w-5 h-5"></ErrorSvg>   {{ getError?.email }}
                     </p>
                 </div>
                 <div class="form__group">
@@ -28,7 +31,7 @@
                         for="password"
                         class="form__label"
                         :class="(getError?.password || error?.repeatPassword) && 'error'"
-                    >Придумайте пароль</label
+                        >Придумайте пароль</label
                     >
                     <div class="flex w-full relative">
                         <input
@@ -37,7 +40,7 @@
                             v-model="inputData.password"
                             :type="!passwordVisible.password ? 'password' : 'text'"
                             :class="(getError?.password || error?.repeatPassword) && 'error'"
-                            class="form__input"
+                            class="form__input autofill"
                             placeholder="пароль"
                         />
                         <img
@@ -56,7 +59,7 @@
                         />
                     </div>
                     <p v-if="getError?.password" class="error-text">
-                        {{ getError?.password }}
+                        <ErrorSvg clip="w-5 h-5"></ErrorSvg>  {{ getError?.password }}
                     </p>
                 </div>
                 <div class="form__group">
@@ -64,7 +67,7 @@
                         for="repeat-pass"
                         class="form__label"
                         :class="error?.repeatPassword && 'error'"
-                    >Повторите пароль</label
+                        >Повторите пароль</label
                     >
                     <div class="flex w-full relative">
                         <div class="flex w-full relative">
@@ -73,7 +76,7 @@
                                 ref="repeatPasswordInput"
                                 v-model="inputData.repeatPassword"
                                 :type="!passwordVisible.repeatPassword ? 'password' : 'text'"
-                                class="form__input"
+                                class="form__input autofill"
                                 placeholder="повторите пароль"
                                 :class="error?.repeatPassword && 'error'"
                             />
@@ -93,7 +96,9 @@
                             />
                         </div>
                     </div>
-                    <p v-if="error?.repeatPassword" class="error-text">Пароли не совпадают</p>
+                    <p v-if="error?.repeatPassword" class="error-text">
+                        <ErrorSvg clip="w-5 h-5"></ErrorSvg> Пароли не совпадают
+                    </p>
                 </div>
 
                 <div class="form__links">
@@ -120,8 +125,9 @@
 
 <script setup>
 import { reactive, computed, watch } from 'vue'
+import ErrorSvg from '@/assets/icons/error.svg?component'
 import ModalComponent from '../ModalComponent.vue'
-import BtnComponent from '../../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import ModalHeader from '../ModalHeader.vue'
 import { useUserStore } from '../../../stores/userStore'
 
@@ -222,6 +228,10 @@ watch(getIsSuccess, (val) => {
 
     &.error {
         border-color: $yellowy;
+    }
+
+    &.autofill {
+        -webkit-text-fill-color: $gray;
     }
 }
 .input-icon {

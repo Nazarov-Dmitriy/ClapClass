@@ -43,7 +43,11 @@
                                             {{ item.text }}
                                         </p>
                                         <div class="slider__slide-info-text-btn-wrapper">
-                                            <BtnComponent class="slider__slide-info-text-btn">
+                                            <BtnComponent
+                                                class="slider__slide-info-text-btn"
+                                                emit-name="action"
+                                                @action="$router.push(item.url)"
+                                            >
                                                 Подробнее
                                             </BtnComponent>
                                         </div>
@@ -133,18 +137,13 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import BtnComponent from '../btns/BtnComponent.vue'
-import BtnComponentWhite from '../btns/BtnComponentWhite.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
+import BtnComponentWhite from '@/components/ui/btns/BtnComponentWhite.vue'
 import AuthComponent from '../modal/auth/AuthComponent.vue'
 
-const isModalVisible = ref(false)
 const modal = ref('')
 function setModal(value) {
     modal.value = value
-}
-
-function toggleVisible() {
-    isModalVisible.value = !isModalVisible.value
 }
 
 const slidesData = ref([
@@ -153,21 +152,24 @@ const slidesData = ref([
         svg: '/images/slider/slide-svg1.svg',
         img: '/images/slider/slide-img1.png',
         title: 'Откройте второе дыхание!',
-        text: 'Пробудите утомившийся класс, превратив перерыв на уроке в потрясающий танцевальный флешмоб'
+        text: 'Пробудите утомившийся класс, превратив перерыв на уроке в потрясающий танцевальный флешмоб',
+        url: '/services#moving'
     },
     {
         tab: 'Ритм-разминки',
         svg: '/images/slider/slide-svg2.svg',
         img: '/images/slider/slide-img2.png',
         title: 'На старт, внимание!',
-        text: 'Активируйте режим концентрации учеников веселыми ритм-играми, задавая необходимый темп занятия'
+        text: 'Активируйте режим концентрации учеников веселыми ритм-играми, задавая необходимый темп занятия',
+        url: '/services#rhythm'
     },
     {
         tab: 'Конгитивные разминки',
         svg: '/images/slider/slide-svg3.svg',
         img: '/images/slider/slide-img3.png',
         title: 'Курс на эффективность!',
-        text: 'Настройте аудиторию на мозговой штурм при помощи нейрогимнастики и увлекательных упражнений брейн-фитнеса'
+        text: 'Настройте аудиторию на мозговой штурм при помощи нейрогимнастики и увлекательных упражнений брейн-фитнеса',
+        url: '/services#cognitive'
     }
 ])
 
@@ -463,6 +465,7 @@ onMounted(() => {
     cursor: pointer;
     position: absolute;
     top: 50%;
+    translate:0 -50% ;
     display: flex;
     justify-content: center;
     align-items: center;

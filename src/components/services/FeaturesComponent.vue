@@ -14,12 +14,14 @@
                 </div>
             </div>
         </div>
-        <BtnComponent class="btn"> Узнай больше о проекте </BtnComponent>
+        <BtnComponent emit-name="action" class="btn" @action="$router.push('/about')">
+            Узнай больше о проекте
+        </BtnComponent>
     </div>
 </template>
 
 <script setup>
-import BtnComponent from '../btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 
 const props = defineProps({
     featuresCardInfo: {
@@ -39,6 +41,7 @@ const props = defineProps({
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
+    box-shadow: 0 -16px 2px 0 rgba(14, 8, 6, 0.15);
 
     @media (max-width: $lg) {
         padding: 24px 24px 48px 24px;
@@ -55,12 +58,9 @@ const props = defineProps({
 .features__blocks {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    gap: 48px;
     align-items: center;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    max-width: 1440px;
+    max-width: 1312px;
     margin: 0 auto;
 
     -ms-overflow-style: none;
@@ -69,10 +69,20 @@ const props = defineProps({
     &::-webkit-scrollbar {
         display: none;
     }
+    @media (max-width: $xl) {
+        gap: 16px;
+    }
 
     @media (max-width: $lg) {
         display: flex;
         flex-wrap: nowrap;
+        overflow-x: auto;
+        margin: 0 -24px;
+        padding: 0 24px 16px;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scroll-padding: 24px;
+        margin-bottom: -16px;
     }
     @media (max-width: $sm) {
         max-width: auto;

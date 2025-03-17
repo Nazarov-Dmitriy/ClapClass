@@ -1,7 +1,7 @@
 <template>
     <div class="warm-up">
         <div class="warm-up__wrapper">
-            <img :src="information.img" alt="" class="warm-up__img" v-if="information.img" />
+            <img v-if="information.img" :src="information.img" alt="" class="warm-up__img" />
             <div class="warm-up__info">
                 <h2 class="warm-up__info-title">{{ information.title }}</h2>
                 <Swiper
@@ -15,8 +15,8 @@
                     simulate-touch="true"
                     :loop="true"
                     :autoplay="autoplayOptions"
-                    @slideChange="updateActiveIndex"
                     class="slider"
+                    @slide-change="updateActiveIndex"
                 >
                     <SwiperSlide v-for="(text, index) in texts" :key="index">
                         <div class="flex flex-col justify-between gap-4 sm:gap-10">
@@ -34,7 +34,6 @@
                                 </div>
                                 <button
                                     v-show="activeIndex !== texts.length - 1"
-                                    @click="swiperRef.value.swiper.slideNext()"
                                     class="btn btn--next"
                                 >
                                     <svg
@@ -53,11 +52,7 @@
                                         />
                                     </svg>
                                 </button>
-                                <button
-                                    v-show="activeIndex !== 0"
-                                    @click="swiperRef.value.swiper.slidePrev()"
-                                    class="btn btn--prev"
-                                >
+                                <button v-show="activeIndex !== 0" class="btn btn--prev">
                                     <svg
                                         width="32"
                                         height="32"
@@ -120,6 +115,8 @@ const autoplayOptions = {
 }
 
 function updateActiveIndex(swiper) {
+    console.log(swiper)
+
     activeIndex.value = swiper.realIndex % props.texts.length
 }
 </script>
@@ -139,6 +136,8 @@ function updateActiveIndex(swiper) {
     background-size: cover;
     background-position: 0 0;
     position: relative;
+    box-shadow: 0 16px 2px 0 rgba(14, 8, 6, 0.15);
+
     @media (max-width: $lg) {
         padding: 196px 48px 48px 48px;
     }
@@ -151,7 +150,7 @@ function updateActiveIndex(swiper) {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
     align-items: center;
-    max-width: 1440px;
+    max-width: 1312px;
     margin: 0 auto;
 
     @media (max-width: $lg) {

@@ -6,7 +6,7 @@
         @click="isDropDownVisible = !isDropDownVisible"
     >
         <div class="dropdown-selected">
-            <p class="dropdown-selected-text">
+            <p class="dropdown-selected-text truncate">
                 {{ selectedOption || defaultValue }}
             </p>
             <svg
@@ -46,11 +46,7 @@ const props = defineProps({
     options: {
         type: Array,
         default: () => []
-    },
-    sort: {
-        type: String,
-        default: null
-    },
+    }, 
     placeholder: {
         type: String,
         default: 'Выберите'
@@ -154,7 +150,7 @@ watch(
 
 .dropdown-selected-text {
     min-width: 150px;
-    color: $gray;
+    color: $black;
     font-size: 16px;
     font-weight: 400;
     line-height: 1.5;

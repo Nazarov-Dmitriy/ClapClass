@@ -72,3 +72,40 @@ body,
     line-height: 24px;
     color: $yellowy;
 }
+
+.error-yellowy {
+    color: $yellowy !important;
+}
+
+.article-h1 {
+    font-size: 40px;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.article-h2 {
+    font-size: 32px;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.article-h3 {
+    font-size: 24px;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.autofill {
+    font-weight: 400;
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 50px white inset;
+    }
+
+    &:-webkit-autofill:hover {
+        -webkit-box-shadow: 0 0 0 50px #e6eaed inset;
+    }
+}

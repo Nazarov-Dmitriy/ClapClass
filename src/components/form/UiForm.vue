@@ -1,51 +1,47 @@
 <template>
     <div class="form__info">
-        <div v-if="formField.success" class="form__success">
-            <h2 class="form__success-title">Сообщение отправлено</h2>
-        </div>
         <form
             v-if="!formField.success"
-            @submit.prevent="handleSubmit"
-            @keypress.enter.prevent="validateForm"
             class="form__form"
+            @submit.prevent=""
+            @keypress.enter.prevent="validateForm"
         >
             <div class="form__fields">
-                <label for="username" class="form__label" :class="{ form__error: formField.nameError }">
-                    Как вас зовут?
-                </label>
-                <input
-                    type="text"
-                    id="username"
-                    class="form__input form__input--name"
-                    :class="{ 'form__input--error': formField.nameError }"
+                <LabelField
+                    for="Мария"
+                    class="form__label"
+                    :error="formField.nameError"
+                    error-class="error-yellowy"
+                >
+                    Как вас зовут?</LabelField
+                >
+                <InputField
                     v-model="formField.name"
+                    input-id="name"
                     placeholder="Мария Ивановна"
-                    @keypress.enter="validateField($event, 'event', 'name')"
-                />
-                <span v-if="formField.nameError" class="form__error">
-                    <div class="form__error-wrapper">
-                        <img src="../../assets/images/form/form-error-svg.svg" alt="" />
-                        <span>Поле заполнено некорректно</span>
-                    </div>
-                </span>
+                    type="text"
+                    class="form__input form__input--name"
+                    :error="formField.nameError"
+                    error-text="Поле заполнено некорректно"
+                    error-class="!text-yellowy"
+                ></InputField>
 
                 <div class="form__form-input-wrapper">
                     <label for="phone" class="form__label">
                         <span :class="{ form__error: formField.phoneError }">Телефон</span>
-
                         <input
-                            type="text"
                             id="phone"
-                            class="form__input form__input--phone"
-                            :class="{ 'form__input--error': formField.phoneError }"
                             v-model="formField.phone"
+                            type="text"
+                            class="form__input form__input--phone autofill"
+                            :class="{ 'form__input--error': formField.phoneError }"
                             placeholder="+7 (912) 234-56-78"
                             @input="changePhone($event)"
                             @keypress.enter="validateField($event, 'event', 'phone')"
                         />
                         <span v-if="formField.phoneError" class="form__error">
                             <div class="form__error-wrapper">
-                                <img src="../../assets/images/form/form-error-svg.svg" alt="" />
+                                <ErrorSvg clip="w-5 h-5"></ErrorSvg>
                                 <span>Поле заполнено некорректно</span>
                             </div>
                         </span>
@@ -58,63 +54,60 @@
                     >
                         <span :class="{ form__error: formField.phoneError }">E-mail</span>
                         <input
-                            type="text"
                             id="fieldEmail"
-                            class="form__input form__input--email"
-                            :class="{ 'form__input--error': formField.emailError }"
                             v-model="formField.email"
+                            type="text"
+                            class="form__input form__input--email autofill"
+                            :class="{ 'form__input--error': formField.emailError }"
                             placeholder="marina_ivanova@mail.ru"
                             @input="changeEmail($event)"
                             @keypress.enter="validateField($event, 'event', 'email')"
                         />
                         <span v-if="formField.emailError" class="form__error">
                             <div class="form__error-wrapper">
-                                <img src="../../assets/images/form/form-error-svg.svg" alt="" />
+                                <ErrorSvg clip="w-5 h-5"></ErrorSvg>
                                 <span>Поле заполнено некорректно</span>
                             </div>
                         </span>
                     </label>
                 </div>
 
-                <!-- Added Message Field -->
                 <label
-                    for="message"
+                    for="theme"
                     class="form__label"
-                    :class="{ form__error: formField.messageError }"
+                    :class="{ form__error: formField.themeError }"
                 >
                     Ваше сообщение
                 </label>
                 <input
+                    id="theme"
+                    v-model="formField.theme"
                     type="text"
-                    id="message"
-                    class="form__input form__input--message"
-                    :class="{ 'form__input--error': formField.messageError }"
-                    v-model="formField.message"
+                    class="form__input form__input--theme autofill"
+                    :class="{ 'form__input--error': formField.themeError }"
                     placeholder="Введите тему сообщения"
                     @input="changeMessage($event)"
-                    @keypress.enter="validateField($event, 'event', 'message')"
+                    @keypress.enter="validateField($event, 'event', 'theme')"
                 />
-                <span v-if="formField.messageError" class="form__error">
+                <span v-if="formField.themeError" class="form__error">
                     <div class="form__error-wrapper">
-                        <img src="../../assets/images/form/form-error-svg.svg" alt="" />
-                        <span>Поле заполнено некорректно</span>
+                        <ErrorSvg clip="w-5 h-5"></ErrorSvg> <span>Поле заполнено некорректно</span>
                     </div>
                 </span>
 
                 <textarea
                     id="question"
+                    v-model="formField.textarea"
                     cols="30"
                     rows="10"
                     class="form__textarea"
                     :class="{ 'form__textarea--error': formField.textareaError }"
-                    v-model="formField.textarea"
                     placeholder="Введите ваше сообщение"
                     @input="changeTextarea($event)"
                 ></textarea>
                 <span v-if="formField.textareaError" class="form__error form__error--textarea">
                     <div class="form__error-wrapper">
-                        <img src="../../assets/images/form/form-error-svg.svg" alt="" />
-                        <span>Поле заполнено некорректно</span>
+                        <ErrorSvg clip="w-5 h-5"></ErrorSvg> <span>Поле заполнено некорректно</span>
                     </div>
                 </span>
             </div>
@@ -139,19 +132,26 @@
     </div>
 </template>
 <script setup>
-import { reactive } from 'vue'
-import BtnComponent from '../btns/BtnComponent.vue'
+import { computed, reactive, watch } from 'vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
+import LabelField from '../ui/form/label/LabelField.vue'
+import InputField from '../ui/form/input/InputField.vue'
+import { useSendMessageStore } from '@/stores/sendMessageStore'
+import ErrorSvg from '@/assets/icons/error.svg?component'
+
+const sendMessageStore = useSendMessageStore()
+const getIsSuccess = computed(() => sendMessageStore.getIsSuccess)
 
 const formField = reactive({
     name: '',
     phone: '',
     email: '',
-    message: '', // Added field
+    theme: '',
     textarea: '',
     nameError: false,
     phoneError: false,
     emailError: false,
-    messageError: false, // Added field
+    themeError: false,
     textareaError: false,
     success: false
 })
@@ -175,8 +175,8 @@ function validateField(param, event, nameParam) {
             /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
         formField.emailError = !email_regexp.test(String(target).toLowerCase())
     }
-    if (nameParam === 'message') {
-        formField.messageError = target.length < 3
+    if (nameParam === 'theme') {
+        formField.themeError = target.length < 3
     }
     if (nameParam === 'textarea') {
         formField.textareaError = target.length < 3
@@ -204,10 +204,10 @@ function changeEmail(event) {
 
 function changeMessage(event) {
     let target = event.target
-    formField.message = target.value
+    formField.theme = target.value
 
-    if (formField.messageError && target.value.length >= 3) {
-        formField.messageError = false
+    if (formField.themeError && target.value.length >= 3) {
+        formField.themeError = false
     }
 }
 
@@ -221,7 +221,7 @@ function changeTextarea(event) {
 }
 
 function validateForm() {
-    let validateFieldArr = ['name', 'phone', 'email', 'message', 'textarea']
+    let validateFieldArr = ['name', 'phone', 'email', 'theme', 'textarea']
 
     validateFieldArr.forEach((item) => {
         validateField(formField[item], 'validate', item)
@@ -231,11 +231,16 @@ function validateForm() {
         !formField.nameError &&
         !formField.phoneError &&
         !formField.emailError &&
-        !formField.messageError &&
+        !formField.themeError &&
         !formField.textareaError
     ) {
-        formField.success = true
-        resetForm()
+        sendMessageStore.sendFormTheme({
+            name: formField.name,
+            phone: formField.phone,
+            email: formField.email,
+            theme: formField.theme,
+            textarea: formField.textarea
+        })
     }
 }
 
@@ -243,54 +248,23 @@ function resetForm() {
     formField.name = ''
     formField.phone = ''
     formField.email = ''
-    formField.message = ''
+    formField.theme = ''
     formField.textarea = ''
 }
 
-function handleSubmit() {
-    validateForm()
-}
+watch(getIsSuccess, (val) => {
+    if (val === 'send-form') {
+        formField.success = true
+        resetForm()
+    }
+})
 </script>
 
-<style lang="scss" scoped>
-.form__success-title {
-    font-family: 'CenturyGothic';
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 1.5;
-    text-align: center;
-    color: $white;
-    padding: 48px 48px;
-    background-color: $gray;
-    border-radius: 0 0 24px 24px;
-}
-
-.form__form {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    order: 2;
-    margin-bottom: 40px;
-    background-color: $gray;
-    border-radius: 0 0 25px 25px;
-    padding: 10px 15px;
-}
-.form__fields {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-.form__label {
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.5;
-    color: $white;
-    width: 100%;
-}
-.form__input {
+<style lang="scss">
+.form__info .form__input {
     border: 2px solid $gray;
     border-radius: 24px;
-    padding: 16px;
+    padding: 14px 16px;
     width: 100%;
     background: $white;
     box-sizing: border-box;
@@ -324,7 +298,52 @@ function handleSubmit() {
         background-position: calc(100% - 16px);
         margin-top: 8px;
     }
+
+    &.error {
+        border-color: $yellowy;
+    }
+
+    &.autofill {
+        -webkit-text-fill-color: #656d75;
+    }
 }
+</style>
+
+<style lang="scss" scoped>
+.form__success-title {
+    font-family: 'CenturyGothic';
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.5;
+    text-align: center;
+    color: $white;
+    padding: 48px 48px;
+    background-color: $gray;
+    border-radius: 0 0 24px 24px;
+}
+
+.form__form {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    order: 2;
+    background-color: $gray;
+    border-radius: 0 0 25px 25px;
+    padding: 24px 48px 48px;
+}
+.form__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.form__label {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: $white;
+    width: 100%;
+}
+
 .form__input--error {
     border: 2px solid $yellowy !important;
 }

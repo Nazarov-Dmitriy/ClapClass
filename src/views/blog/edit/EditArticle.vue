@@ -7,6 +7,18 @@
             <h1 class="font-medium text-2xl">
                 {{ pageType ? 'Редактировать статью' : 'Добавить статью' }}
             </h1>
+            <div v-if="getShowPublishedBtn" class="flex gap-2 items-center">
+                <input
+                    id="published"
+                    v-model="published"
+                    type="checkbox"
+                    value="false"
+                    class="w-5 h-5"
+                    :disabled="publishedDisabled"
+                    @change="setPublished"
+                />
+                <label for="published">Опубликовать</label>
+            </div>
             <div class="flex flex-col gap-4">
                 <div class="flex flex-col gap-2">
                     <LabelField for="title" :error="getErrors?.title || dataArticleError?.title"
@@ -86,12 +98,12 @@ import { useRoute } from 'vue-router'
 import PulseLoader from 'vue-spinner/src/ClipLoader.vue'
 import DropdownComponent from '@/components/ui/dropdown/DropdownComponent.vue'
 import TextEditor from '@/components/ui/form/text-editor/TextEditor.vue'
-import BtnComponent from '@/components/btns/BtnComponent.vue'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import * as yup from 'yup'
-import Loader from '@/components/loader/Loader.vue'
 import LabelField from '@/components/ui/form/label/LabelField.vue'
 import InputField from '@/components/ui/form/input/InputField.vue'
 import FileField from '@/components/ui/form/file/FileField.vue'
+import Loader from '@/components/ui/loader/Loader.vue'
 
 const userStore = useUserStore()
 const articleStore = useArticleStore()
@@ -99,6 +111,8 @@ const route = useRoute()
 const saveArticle = ref(false)
 const pageType = ref(null)
 const isLoad = ref(true)
+const published = ref(false)
+const publishedDisabled = ref(false)
 
 const formShema = yup.object({
     title: yup.string().required('title'),
@@ -109,6 +123,7 @@ const formShema = yup.object({
 })
 
 const dataArticle = reactive({
+    id: null,
     title: null,
     article: '',
     type: 'article',
@@ -153,6 +168,23 @@ onMounted(() => {
         isLoad.value = false
     }
 })
+
+const getShowPublishedBtn = computed(() => {
+    if (
+        pageType.value 
+        // &&
+        // (getUser.value.role === 'ROLE_ADMIN' || getUser.value.role === 'ROLE_MODERATOR')
+    ) {
+        return true
+    } else {
+        return false
+    }
+})
+
+ function setPublished() {
+    publishedDisabled.value = true
+    articleStore.setArticlePublished(dataArticle.id)
+}
 
 function fileChange(file) {
     if (!file) {
@@ -292,12 +324,17 @@ watch(getIsSuccess, (val) => {
             saveArticle.value = false
         }, 300)
     }
+    if (val === 'published') {
+        publishedDisabled.value = false
+    }
 })
 
 watch(
     getArticle,
     () => {
         isLoad.value = true
+        published.value = getArticle.value.published
+        dataArticle.id = getArticle.value.id
         dataArticle.title = getArticle.value.title
         dataArticle.article = getArticle.value.article
         dataArticle.type = getArticle.value.type

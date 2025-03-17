@@ -29,8 +29,8 @@
                         </div>
                         <div class="slider__slide-arrow-btn-wrapper">
                             <button
-                                class="about-btn about-btn--feature-left"
-                                @click="swiperRef.value.swiper.slidePrev()"
+                                class="slider__slide-arrow-btn slider__slide-arrow-btn--left about-btn-left"
+                                @click="swiperRef?.value.swiper.slidePrev()"
                             >
                                 <svg
                                     width="12"
@@ -49,8 +49,8 @@
                                 </svg>
                             </button>
                             <button
-                                class="about-btn about-btn--feature-right"
-                                @click="swiperRef.value.swiper.slideNext()"
+                                class="slider__slide-arrow-btn slider__slide-arrow-btn--right about-btn-right"
+                                @click="swiperRef?.value.swiper.slideNext()"
                             >
                                 <svg
                                     width="12"
@@ -74,7 +74,7 @@
             </Swiper>
             <div class="slider__slide-tabs slider__slide-tabs--about">
                 <span
-                    v-for="(item, index) in slidesData"
+                    v-for="(_, index) in slidesData"
                     :key="index"
                     class="slider__slide-tabs-span slider__slide-tabs-span--about"
                     :class="{ active: activeIndex === index }"
@@ -122,7 +122,6 @@ const slidesData = ref([
 ])
 
 const activeIndex = ref(0)
-const swiperRef = ref(null)
 
 const navigationOptions = {
     nextEl: '.about-btn--feature-right',
@@ -137,11 +136,6 @@ const paginationOptions = {
 
 function updateActiveIndex(swiper) {
     activeIndex.value = swiper.realIndex % slidesData.value.length
-}
-
-function handleTabClick(index) {
-    activeIndex.value = index
-    swiperRef.value.swiper.slideTo(index)
 }
 
 onMounted(() => {
@@ -240,6 +234,7 @@ onMounted(() => {
     }
 }
 .slider__info-text {
+    font-family: 'Inter';
     text-align: left;
     font-weight: 400;
     font-size: 20px;

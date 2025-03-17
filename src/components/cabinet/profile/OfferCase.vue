@@ -12,13 +12,13 @@
                     class="font-medium text-base text-gray"
                     :class="errors?.name && 'text-red'"
                     for="offerName"
-                >Название</label
+                    >Название</label
                 >
                 <input
                     id="offerName"
                     v-model="formData.name"
                     placeholder="Введите название"
-                    class="border border-solid rounded-3xl border-fonLight p-4 box-border"
+                    class="border border-solid rounded-3xl border-fonLight p-4 box-border autofill"
                     type="text"
                     :class="errors?.name && 'border-red'"
                 />
@@ -31,13 +31,13 @@
                     class="font-medium text-base text-gray"
                     :class="errors?.type && 'text-red'"
                     for="type"
-                >Тип разминки</label
+                    >Тип разминки</label
                 >
                 <input
                     id="type"
                     v-model="formData.type"
                     placeholder="Введите тип разминки"
-                    class="border border-solid rounded-3xl border-fonLight p-4 box-border"
+                    class="border border-solid rounded-3xl border-fonLight p-4 box-border autofill"
                     type="text"
                     :class="errors?.type && 'border-red'"
                 />
@@ -89,6 +89,9 @@
             <p v-if="errors?.size" class="text-red text-sm">
                 {{ errors.size }}
             </p>
+            <p v-if="errors.file" class="error-text flex gap-1">
+                <ErrorSvg clip="w-5 h-5"></ErrorSvg> {{ errors.file }}
+            </p>
         </div>
         <BtnComponentOrange
             emit-name="action"
@@ -99,15 +102,27 @@
             Предложить кейс
         </BtnComponentOrange>
     </div>
+    <Teleport to="body">
+        <ModalComponent :visible="modal" class="">
+            <template #header>
+                <ModalHeader :class="{ success: getIsSuccess }" @close-modal="toggleAskModal">
+                    Спасибо за сообщение!
+                </ModalHeader>
+            </template>
+        </ModalComponent>
+    </Teleport>
 </template>
 
 <script setup>
 import PulseLoader from 'vue-spinner/src/ClipLoader.vue'
+import ErrorSvg from '@/assets/icons/error.svg?component'
 import { computed, onMounted, ref, watch } from 'vue'
-import BtnComponentOrange from '../../btns/BtnComponentOrange.vue'
+import BtnComponentOrange from '@/components/ui/btns/BtnComponentOrange.vue'
 import TitleComponent from '../../ui/TitleComponent.vue'
 import { useSendMessageStore } from '@/stores/sendMessageStore'
 import { useUserStore } from '@/stores/userStore'
+import ModalHeader from '@/components/modal/ModalHeader.vue'
+import ModalComponent from '@/components/modal/ModalComponent.vue'
 
 const sendMessageStore = useSendMessageStore()
 const userStore = useUserStore()
@@ -118,6 +133,7 @@ const fileInput = ref(null)
 const file = ref(null)
 const fileLoad = ref(false)
 const sendForm = ref(false)
+const modal = ref(false)
 
 const formData = ref({
     name: '',
@@ -126,7 +142,8 @@ const formData = ref({
 const errors = ref({
     name: '',
     type: '',
-    size: ''
+    size: '',
+    file: ''
 })
 
 onMounted(() => {
@@ -135,6 +152,10 @@ onMounted(() => {
 
 function addFile() {
     fileInput.value.click()
+}
+
+function toggleAskModal() {
+    modal.value = !modal.value
 }
 
 function onFileChange(event) {
@@ -159,9 +180,7 @@ function chanfeListenersFile(reader) {
 
 function handleEvent(event) {
     if (event.type === 'load') {
-        setTimeout(() => {
-            fileLoad.value = false
-        }, 5000)
+        fileLoad.value = false
     } else if (event.type === 'error' || event.type === 'abort') {
         errors.value.size = 'Ошибка'
     }
@@ -189,6 +208,7 @@ function validateForm() {
     let isValid = true
     errors.value.name = ''
     errors.value.type = ''
+    errors.value.file = ''
 
     if (!formData.value.name.trim()) {
         errors.value.name = 'Название обязательно для заполнения.'
@@ -196,6 +216,10 @@ function validateForm() {
     }
     if (!formData.value.type.trim()) {
         errors.value.type = 'Тип разминки обязателен для заполнения.'
+        isValid = false
+    }
+    if (!file.value) {
+        errors.value.file = 'Обязательное поле'
         isValid = false
     }
 
@@ -228,6 +252,7 @@ function validateAndSubmit() {
 watch(getIsSuccess, (val) => {
     if (val === 'send-case') {
         resetForm()
+        toggleAskModal()
     }
 })
 </script>

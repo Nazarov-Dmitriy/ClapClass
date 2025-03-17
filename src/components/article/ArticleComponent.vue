@@ -423,7 +423,7 @@ watch(getFavoriteArticle, () => {
     display: flex;
     gap: 16px;
     align-items: center;
-    flex: 0 0 218px;
+    flex: 0 0 auto;
     font-size: 16px;
     line-height: 24px;
     font-weight: 500;

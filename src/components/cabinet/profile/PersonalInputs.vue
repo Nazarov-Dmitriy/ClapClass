@@ -4,7 +4,9 @@
             <div class="grid grid-cols-2 gap-6 item-center">
                 <div class="flex flex-col gap-4">
                     <div class="flex flex-col gap-2">
-                        <label class="label" for="personalName" :class="errors?.name && 'error'">ФИО</label>
+                        <label class="label" for="personalName" :class="errors?.name && 'error'"
+                            >ФИО</label
+                        >
                         <input
                             id="personalName"
                             v-model="form.name"
@@ -20,7 +22,7 @@
 
                     <div class="flex flex-col gap-2">
                         <label class="label" for="phone" :class="errors?.phone && 'error'"
-                        >Телефон</label
+                            >Телефон</label
                         >
                         <input
                             id="phone"
@@ -38,7 +40,7 @@
 
                     <div class="flex flex-col gap-2">
                         <label class="label" for="personalEmail" :class="errors?.email && 'error'"
-                        >email*</label
+                            >email*</label
                         >
                         <input
                             id="personalEmail"
@@ -55,7 +57,7 @@
                 <div class="flex flex-col gap-4">
                     <div class="flex flex-col gap-2">
                         <label class="label" for="city" :class="errors?.city && 'error'"
-                        >Город</label
+                            >Город</label
                         >
                         <input
                             id="city"
@@ -72,7 +74,7 @@
 
                     <div class="flex flex-col gap-2">
                         <label class="label" for="work-place" :class="errors?.place_work && 'error'"
-                        >Место работы</label
+                            >Место работы</label
                         >
                         <input
                             id="work-place"
@@ -89,7 +91,7 @@
 
                     <div class="flex flex-col gap-2">
                         <label class="label" for="position" :class="errors?.position && 'error'"
-                        >Должность</label
+                            >Должность</label
                         >
                         <input
                             id="position"
@@ -157,30 +159,30 @@ function validateField(field) {
     const value = form[field]
 
     switch (field) {
-        case 'name':
-            errors.name = value.length === 0 ? 'Это поле обязательно' : ''
-            break
-        case 'phone':
-            // eslint-disable-next-line no-case-declarations
-            const phoneRegexp = /^\+7 \(\d{3}\)\s?\d{3}-\d{2}-\d{2}$/
-            errors.phone = !phoneRegexp.test(value) ? 'Неверный формат телефона' : ''
-            break
-        case 'email':
-            // eslint-disable-next-line no-case-declarations
-            const emailRegexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-            errors.email = !emailRegexp.test(value) ? 'Неверный формат email' : ''
-            break
-        case 'city':
-            errors.city = value.length === 0 ? 'Это поле обязательно' : ''
-            break
-        case 'place_work':
-            errors.place_work = value.length === 0 ? 'Это поле обязательно' : ''
-            break
-        case 'position':
-            errors.position = value.length === 0 ? 'Это поле обязательно' : ''
-            break
-        default:
-            break
+    case 'name':
+        errors.name = value.length === 0 ? 'Это поле обязательно' : ''
+        break
+    case 'phone':
+        // eslint-disable-next-line no-case-declarations
+        const phoneRegexp = /^\+7 \(\d{3}\)\s?\d{3}-\d{2}-\d{2}$/
+        errors.phone = !phoneRegexp.test(value) ? 'Неверный формат телефона' : ''
+        break
+    case 'email':
+        // eslint-disable-next-line no-case-declarations
+        const emailRegexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        errors.email = !emailRegexp.test(value) ? 'Неверный формат email' : ''
+        break
+    case 'city':
+        errors.city = value.length === 0 ? 'Это поле обязательно' : ''
+        break
+    case 'place_work':
+        errors.place_work = value.length === 0 ? 'Это поле обязательно' : ''
+        break
+    case 'position':
+        errors.position = value.length === 0 ? 'Это поле обязательно' : ''
+        break
+    default:
+        break
     }
 }
 
