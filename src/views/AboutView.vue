@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import AboutFeaturesComponent from '../components/about/AboutFeaturesComponent.vue'
 import AchievementComponent from '../components/about/AchievementComponent.vue'
 import AcquaintComponent from '../components/about/AcquaintComponent.vue'

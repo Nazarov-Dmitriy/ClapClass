@@ -203,8 +203,8 @@ const activeIndex = ref(0)
 const swiperRefUse = ref(null)
 
 const navigationOptions = {
-    nextEl: '.slider__slide-arrow-btn--right',
-    prevEl: '.slider__slide-arrow-btn--left'
+    nextEl: '.use-slide-btn-right',
+    prevEl: '.use-slide-btn-left'
 }
 
 const paginationOptions = {
