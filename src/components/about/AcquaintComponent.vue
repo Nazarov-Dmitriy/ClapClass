@@ -4,18 +4,14 @@
             <div class="acquaint__wrapper">
                 <div class="acquaint__info">
                     <div class="acquaint__info-titles">
-                        <h2 class="acquaint__title acquaint__title--white">
-                            Знакомьтесь
-                        </h2>
-                        <h2 class="acquaint__title acquaint__title--orange">
-                            Clapp Class
-                        </h2>
+                        <h2 class="acquaint__title acquaint__title--white">Знакомьтесь</h2>
+                        <h2 class="acquaint__title acquaint__title--orange">Clapp Class</h2>
                     </div>
                     <img
                         src="/images/about/acquaint/hero-img.png"
                         alt=""
                         class="acquaint__hero-img acquaint__hero-img--mobile"
-                    >
+                    />
                     <p class="acquaint__text">
                         Сервис, способный наполнить ваш класс весельем, движением и аплодисментами
                     </p>
@@ -25,7 +21,7 @@
                         src="/images/about/acquaint/hero-img.png"
                         alt=""
                         class="acquaint__hero-img"
-                    >
+                    />
                 </div>
             </div>
         </div>
@@ -72,12 +68,28 @@
     width: 100%;
     justify-content: center;
     align-items: center;
+    margin-left: auto;
+
+    @media (max-width: $lg) {
+        margin-left: 0;
+    }
 }
 .acquaint__info-titles {
     @media (max-width: $lg) {
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    @media (max-width: $lg) {
+        height: 192px;
+        justify-content: flex-end;
+    }
+
+    @media (max-width: $sm) {
+        height: 140px;
+        justify-content: flex-end;
+
     }
 }
 .acquaint__title {
@@ -97,7 +109,7 @@
 .acquaint__title--white {
     font-family: 'CenturyGothic';
     border: 4px solid $orange;
-    padding: 16px 24px;
+    padding: 12px 20px;
     box-sizing: border-box;
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: rgba(255, 255, 255, 0.8);
@@ -111,12 +123,13 @@
     }
     @media (max-width: $sm) {
         max-width: 227px;
+        transform: translate(5px, 15px) rotate(-6deg);
     }
 }
 .acquaint__title--orange {
     font-family: 'CenturyGothic';
     border: 4px solid $white;
-    padding: 16px 24px;
+    padding: 12px 20px;
     box-sizing: border-box;
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: $orange;
@@ -131,7 +144,6 @@
     }
     @media (max-width: $sm) {
         max-width: 211px;
-        transform: translate(5px, -15px);
     }
 }
 .acquaint__text {

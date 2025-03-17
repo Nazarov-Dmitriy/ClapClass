@@ -1,4 +1,4 @@
-<script setup >
+<script setup>
 import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 </script>
 
@@ -38,7 +38,7 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
                         emit-name="action"
                         class="info__texts-btn"
                         @action="$router.push('/blog')"
-                    >Блог проекта</BtnComponent
+                        >Блог проекта</BtnComponent
                     >
                 </div>
             </div>
@@ -48,14 +48,18 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 
 <style lang="scss" scoped>
 .info {
-    padding: 48px 64px;
+    padding: 100px 64px 100px;
     box-sizing: border-box;
 
     @media (max-width: $lg) {
-        padding: 24px 16px;
+        padding: 80px 64px 100px;
+    }
+
+    @media (max-width: $md) {
+        padding: 80px 16px 56px;
     }
     @media (max-width: $sm) {
-        padding: 16px;
+        padding: 48px 16px 32px;
     }
 }
 .info__container {
@@ -67,6 +71,7 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        gap: 48px;
     }
 }
 .info__wrapper {
@@ -76,37 +81,57 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     display: grid;
     grid-template-columns: auto 1fr;
-    align-items: center;
     gap: 48px;
     background-image: url('/images/about/information/information-img.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 0 0;
     overflow: hidden;
-    padding: 48px 24px;
     box-sizing: border-box;
+    min-height: 545px;
+
+    @media (max-width: $lg) {
+        gap: 16px;
+        align-items: center;
+    }
 
     @media (max-width: $sm) {
         grid-template-columns: 1fr;
+        min-height: auto;
     }
 }
+
 .info__video {
     width: 100%;
     max-width: 307px;
-    min-width: 288px;
     background-color: grey;
     object-fit: cover;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 1.56;
     border-radius: 24px;
-    height: calc(100% + 24px);
-    
+    height: 100%;
+    max-height: 545px;
+
+    @media (max-width: $lg) {
+        max-width: 266px;
+        max-height: 464px;
+    }
+
+    @media (max-width: $md) {
+        max-width: 247px;
+        max-height: 430px;
+    }
+
     @media (max-width: $sm) {
         display: none;
     }
+
     &--mobile {
         display: none;
         @media (max-width: $sm) {
             display: block;
+
+            max-width: 288px;
+            max-height: 503px;
         }
     }
 }
@@ -115,6 +140,16 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
     display: flex;
     flex-direction: column;
     gap: 48px;
+    padding: 52px 24px;
+
+    @media (max-width: $lg) {
+        padding: 24px 24px;
+        gap: 24px;
+    }
+
+    @media (max-width: $sm) {
+        padding: 32px 16px;
+    }
 }
 .info__texts {
     padding: 0 24px;
@@ -160,6 +195,16 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
     font-size: 36px;
     line-height: 48px;
     color: $orange;
+
+    @media (max-width: $md) {
+        font-size: 33px;
+        line-height: 48px;
+    }
+
+    @media (max-width: $sm) {
+        font-size: 24px;
+        line-height: 36px;
+    }
 }
 .info__texts-subtitles {
     display: grid;
@@ -170,9 +215,20 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
     font-size: 20px;
     line-height: 150%;
     color: $black;
+
+    @media (max-width: $lg) {
+        font-size: 16px;
+    }
 }
 .info__texts-btn {
     width: max-content;
     margin-top: -24px;
+    @media (max-width: $lg) {
+        margin-top: 0;
+    }
+
+    @media (max-width: $sm) {
+        margin: 0 auto;
+    }
 }
 </style>

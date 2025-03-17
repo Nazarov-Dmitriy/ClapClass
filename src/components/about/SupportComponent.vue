@@ -28,9 +28,7 @@
                     class="support__offer-img support__offer-img--hero"
                 />
                 <a href="https://yoomoney.ru/fundraise/18LATS4B2TM.250226" target="_blank">
-                    <BtnComponent >
-                        Поддержать проект
-                    </BtnComponent>
+                    <BtnComponent> Поддержать проект </BtnComponent>
                 </a>
             </div>
         </div>
@@ -38,33 +36,32 @@
 </template>
 <script setup>
 import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
-
 </script>
 
 <style lang="scss" scoped>
 .support {
-    padding: 48px 64px;
+    padding: 48px 64px 0;
     box-sizing: border-box;
     overflow-x: hidden;
 
     @media (max-width: $lg) {
-        padding: 24px 16px;
+        padding: 24px 16px 0;
     }
     @media (max-width: $sm) {
-        padding: 16px;
+        padding: 16px 16px 0;
     }
 }
 .support__container {
     max-width: 1440px;
     margin: 0 auto;
     display: grid;
-    gap: 48px;
+    gap: 24px;
 
     @media (max-width: $lg) {
-        gap: 35px;
+        gap: 10px;
     }
     @media (max-width: $sm) {
-        gap: 24px;
+        gap:0px;
     }
 }
 .support__wrapper {
@@ -72,7 +69,6 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
     grid-template-columns: 280px 1fr;
     align-items: center;
     background: $yellowy;
-    padding: 0 64px;
     height: 251px;
     position: relative;
 
@@ -84,6 +80,8 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
         height: 100%;
         z-index: -1;
         left: -200%;
+        top: 0;
+
     }
 
     @media (max-width: $lg) {
@@ -91,9 +89,10 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
         flex-direction: column;
         height: auto;
         padding: 0 24px;
+        gap: 54px;
     }
     @media (max-width: $sm) {
-        padding: 0;
+        padding: 16px 0;
     }
 }
 .support__hero {
@@ -103,9 +102,12 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
     height: 100%;
 
     @media (max-width: $lg) {
+        max-width: 256px;
         max-width: 100%;
         display: flex;
         justify-content: center;
+        height: 251px;
+        z-index: 2;
     }
 }
 .support__hero-img {
@@ -115,7 +117,11 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 
     @media (max-width: $lg) {
         position: relative;
+        width: 256px;
+        height: 280px;
+        top: 0;
     }
+
     @media (max-width: $sm) {
         top: 0;
     }
@@ -124,6 +130,7 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
     display: flex;
     flex-direction: column;
     gap: 16px;
+    align-items: center;
 
     @media (max-width: $lg) {
         background-color: $white;
@@ -136,8 +143,9 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
             background-color: $white;
             width: calc(100% + 100%);
             left: -50%;
-            height: 100%;
+            height: calc(100% + 54px);
             z-index: 0;
+            bottom: 0;
         }
     }
     @media (max-width: $sm) {
@@ -162,11 +170,16 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
     font-family: 'CenturyGothic';
     font-weight: 700;
     font-size: 36px;
-    line-height: 48px;
+    line-height: 1.5;
     text-align: center;
     color: $orange;
     position: relative;
     z-index: 1;
+    max-width: 778px;
+
+    @media (max-width: $sm) {
+        font-size: 24px;
+    }
 }
 .support__offer {
     display: flex;
@@ -209,11 +222,8 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
         margin-top: 0;
     }
 }
-.support__offer-img {
-}
 .support__offer-img--coin {
     transform: translate(0, 25px);
 }
-.support__offer-img--hero {
-}
+
 </style>
