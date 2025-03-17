@@ -23,7 +23,7 @@
                         :class="getError?.email && 'error'"
                     />
                     <p v-if="getError?.email" class="error-text">
-                        <ErrorSvg clip="w-5 h-5"></ErrorSvg>   {{ getError?.email }}
+                        <ErrorSvg clip="w-5 h-5"></ErrorSvg> {{ getError?.email }}
                     </p>
                 </div>
                 <div class="form__group">
@@ -59,7 +59,7 @@
                         />
                     </div>
                     <p v-if="getError?.password" class="error-text">
-                        <ErrorSvg clip="w-5 h-5"></ErrorSvg>  {{ getError?.password }}
+                        <ErrorSvg clip="w-5 h-5"></ErrorSvg> {{ getError?.password }}
                     </p>
                 </div>
                 <div class="form__group">
@@ -104,7 +104,13 @@
                 <div class="form__links">
                     <p class="form__text">
                         Нажимая кнопку, я соглашаюсь с
-                        <span>Политикой обработки персональных данных.</span>
+                        <a
+                            class="news__card-text-link--subscribe underline"
+                            href="/documents/privat_policy.pdf"
+                            target="_blank"
+                        >
+                            Политикой обработки персональных данных.
+                        </a>
                     </p>
                     <BtnComponent class="form__btn" emit-name="action" @action="registerUser">
                         Зарегистрироваться

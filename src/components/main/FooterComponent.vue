@@ -172,10 +172,10 @@ const sections = ref([
     {
         header: 'Документы',
         items: [
-            { description: 'Пользовательское соглашение', url: '/', target: '_blank' },
+            { description: 'Пользовательское соглашение', url: '/documents/user_agreement.pdf', target: '_blank' },
             {
                 description: 'Политика обработки данных',
-                url: '/documents/user_agreement.pdf',
+                url: '/documents/privat_policy.pdf',
                 target: '_blank'
             },
             { description: 'Разработано Freepic', url: 'https://ru.freepik.com/', target: '_blank' }

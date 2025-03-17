@@ -93,7 +93,7 @@
                                     class="form__label"
                                     :class="{ form__error: formField.emailError }"
                                 >
-                                    <span :class="{ form__error: formField.phoneError }"
+                                    <span :class="{ form__error: formField.emailError }"
                                     >E-mail</span
                                     >
                                     <input
@@ -229,7 +229,7 @@ function changePhone(event) {
 function changeEmail(event) {
     let target = event.target
     let x = target.value.match(
-        /([a-zA-Z]{1})([a-zA-Z0-9._-]{0,19})([@]{0,1})([a-zA-Z0-9._-]{0,10})([.]{0,1})([a-zA-Z0-9._-]{0,5})/
+        /([a-zA-Z0-9]{1})([a-zA-Z0-9._-]{0,19})([@]{0,1})([a-zA-Z0-9._-]{0,10})([.]{0,1})([a-zA-Z0-9._-]{0,5})/
     )
     target.value = x ? x[1] + x[2] + x[3] + x[4] + x[5] + x[6] : ''
     formField.email = target.value
@@ -481,7 +481,7 @@ watch(getIsSuccess, (val) => {
 }
 .form__form-input-wrapper {
     display: flex;
-    align-items: center;
+    align-items: start;
     gap: 16px;
     @media (max-width: $sm) {
         flex-direction: column;

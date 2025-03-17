@@ -95,7 +95,7 @@
                                             <span>
                                                 <a
                                                     class="news__card-text-link--subscribe underline"
-                                                    href="/documents/user_agreement.pdf"
+                                                    href="/documents/privat_policy.pdf"
                                                     target="_blank"
                                                 >
                                                     политикой обработки персональных данных

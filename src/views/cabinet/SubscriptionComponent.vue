@@ -8,7 +8,7 @@
             <img class="subscribe__hero" src="../../assets/images/article/hero.png" alt="hero" />
         </div>
         <div class="subscribe__form grow">
-            <TransitionGroup  name="list">
+            <TransitionGroup name="list">
                 <div v-if="subscribe" class="flex items-center justify-center h-full">
                     <p class="subscribe__card-text">Вы уже подписаны</p>
                 </div>
@@ -23,13 +23,16 @@
                     <p class="subscribe__text">
                         Нажимая кнопку “Подписаться” вы соглашаетесь с
                         <span
-                        ><a class="subscribe__text-link" href="#"
-                        >политикой обработки персональных данных</a
-                        ></span
+                            ><a
+                                class="subscribe__text-link"
+                                href="/documents/privat_policy.pdf"
+                                target="_blank"
+                                >политикой обработки персональных данных</a
+                            ></span
                         >
                     </p>
                 </div>
-            </TransitionGroup >
+            </TransitionGroup>
         </div>
     </div>
 </template>
@@ -145,11 +148,11 @@ watch(isSuccess, (val) => {
 
 .list-enter-active,
 .list-leave-active {
-  transition: all 0.2s ease;
-  opacity: 1;
+    transition: all 0.2s ease;
+    opacity: 1;
 }
 .list-enter-from,
 .list-leave-to {
-  opacity: 0;
+    opacity: 0;
 }
 </style>
