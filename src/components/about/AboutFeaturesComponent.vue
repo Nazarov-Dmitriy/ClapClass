@@ -124,8 +124,8 @@ const slidesData = ref([
 const activeIndex = ref(0)
 
 const navigationOptions = {
-    nextEl: '.about-btn--feature-right',
-    prevEl: '.about-btn--feature-left'
+    nextEl: '.about-btn-right',
+    prevEl: '.about-btn-left'
 }
 
 const paginationOptions = {
@@ -260,51 +260,18 @@ onMounted(() => {
         display: block;
     }
 }
-// .slider__slide-arrow-btn--right {
-//     right: -70px;
+.slider__slide-arrow-btn--right {
+    right: -70px;
 
-//     @media (max-width: $lg) {
-//         right: -30px;
-//     }
-// }
-// .slider__slide-arrow-btn--left {
-//     left: -70;
-
-//     @media (max-width: $lg) {
-//         left: -30px;
-//     }
-// }
-
-.about-btn {
-    border: 2px solid $orange;
-    border-radius: 100px;
-    background: $yellowy;
-    padding: 8px 12px;
-    box-sizing: border-box;
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-        background-color: $red;
-
-        & > svg path {
-            stroke: $white;
-        }
-    }
-    &--feature-left {
-        left: -60px;
-    }
-    &--feature-right {
-        right: -60px;
-        transform: rotate(180deg);
-    }
     @media (max-width: $lg) {
-        display: block;
+        right: -30px;
+    }
+}
+.slider__slide-arrow-btn--left {
+    left: -70;
+
+    @media (max-width: $lg) {
+        left: -30px;
     }
 }
 .slider__slide-tabs--about {
