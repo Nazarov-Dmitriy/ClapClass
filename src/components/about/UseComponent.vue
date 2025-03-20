@@ -236,37 +236,46 @@ function setModal(value) {
 
 <style lang="scss" scoped>
 .use {
-    padding: 48px 64px;
+    padding: 128px 0 0;
+
     @media (max-width: $lg) {
-        padding: 24px 16px;
+        padding: 80px 0 0;
     }
+
     @media (max-width: $sm) {
-        padding: 16px;
+        padding: 48px 0 0;
     }
 }
+
 .use__container {
     max-width: 1440px;
     margin: 0 auto;
 }
+
 .user__wrapper {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
+    grid-template-columns: 19fr 10fr;
     justify-content: center;
     align-items: center;
-    gap: 84px;
+    padding: 0 64px;
 
     @media (max-width: $xl) {
-        grid-template-columns: 2fr 1fr;
+        gap: 0;
     }
 
     @media (max-width: $lg) {
         grid-template-columns: 1fr;
         gap: 16px;
     }
+    @media (max-width: $md) {
+        padding: 0 16px;
+    }
 }
+
 .use__slide {
     padding: 0;
 }
+
 .use__slide-img {
     border-radius: 24px;
     padding: 24px;
@@ -274,11 +283,22 @@ function setModal(value) {
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: #fff7ac;
     object-fit: cover;
+
+    @media (max-width: $sm) {
+        width: 64px;
+        aspect-ratio: 1;
+        padding: 8px;
+    }
 }
+
 .use__slider {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 28px;
+
+    @media (max-width: $lg) {
+        max-width: 464px;
+    }
 
     @media (max-width: $sm) {
         display: flex;
@@ -287,6 +307,8 @@ function setModal(value) {
 }
 .slider {
     width: 100%;
+    min-width: 0;
+    max-width: 692px;
 }
 .use__slider-card {
     display: flex;
@@ -294,6 +316,13 @@ function setModal(value) {
     justify-content: space-between;
     align-items: center;
     gap: 16px;
+
+    @media (max-width: $sm) {
+        width: 290px;
+        padding: 16px;
+        flex-direction: row;
+        justify-content: start;
+    }
 }
 
 .use__title {
@@ -313,6 +342,11 @@ function setModal(value) {
     display: flex;
     flex-direction: column;
     gap: 24px;
+
+    @media (max-width: $sm) {
+        gap: 16px;
+        order: -1;
+    }
 }
 .use__text {
     font-weight: 400;

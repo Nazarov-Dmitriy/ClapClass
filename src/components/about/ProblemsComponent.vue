@@ -4,7 +4,7 @@
             <div class="problems__wrapper">
                 <div class="problems__info">
                     <TitleComponent class="problems__info-title"
-                    >Решаем актуальные проблемы</TitleComponent
+                        >Решаем актуальные проблемы</TitleComponent
                     >
                     <p class="problems__info-text">
                         Учеба не должна перегружать младшеклассников, лишая естественной потребности
@@ -19,7 +19,7 @@
                         emit-name="action"
                         class="problems__info-btn"
                         @action="$router.push('/services')"
-                    >Сервисы</BtnComponent
+                        >Сервисы</BtnComponent
                     >
                 </div>
                 <div class="problems__cards">
@@ -73,15 +73,14 @@ const cards = ref([
 </script>
 <style lang="scss" scoped>
 .problems {
-    padding: 48px 64px;
+    padding: 148px 64px 0;
     box-sizing: border-box;
-    overflow: hidden;
 
-    @media (max-width: $lg) {
-        padding: 24px 16px;
+    @media (max-width: $md) {
+        padding: 80px 16px 0;
     }
     @media (max-width: $sm) {
-        padding: 16px;
+        padding: 48px 16px 0;
     }
 }
 .problems__container {
@@ -115,6 +114,10 @@ const cards = ref([
     @media (max-width: $lg) {
         text-align: center;
     }
+
+    @media (max-width: $lg) {
+        text-align: start;
+    }
 }
 
 .problems__info-text {
@@ -145,11 +148,19 @@ const cards = ref([
     gap: 16px;
 
     @media (max-width: $lg) {
+        margin: 0 -64px;
         display: flex;
-        overflow-x: auto;
+        overflow-x: scroll;
         gap: 16px;
         scroll-snap-type: x mandatory;
-        justify-content: start;
+        scroll-behavior: smooth;
+        justify-content: flex-start;
+        padding: 0 64px;
+    }
+
+    @media (max-width: $md) {
+        margin: 0 -16px;
+        padding: 0 16px;
     }
 }
 
@@ -180,8 +191,7 @@ const cards = ref([
         width: 188px;
     }
 }
-.problems__card-icon {
-}
+
 .problems__card-tex {
     font-weight: 400;
     font-size: 16px;

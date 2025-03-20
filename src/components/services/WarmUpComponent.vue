@@ -115,8 +115,6 @@ const autoplayOptions = {
 }
 
 function updateActiveIndex(swiper) {
-    console.log(swiper)
-
     activeIndex.value = swiper.realIndex % props.texts.length
 }
 </script>

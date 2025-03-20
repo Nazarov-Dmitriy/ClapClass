@@ -8,15 +8,17 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
             <div class="change__card">
                 <div class="change__card-info">
                     <h2 class="change__card-info-title">Изменим образование вместе!</h2>
-                    <p class="change__card-info-text">
-                        Стань амбассадором нового движения! Присоединяйся к команде, задающей тренд
-                        на увлекательное образование!
-                    </p>
+                    <div class="flex flex-col">
+                        <p class="change__card-info-text">Стань амбассадором нового движения!</p>
+                        <p class="change__card-info-text">
+                            Присоединяйся к команде, задающей тренд на увлекательное образование!
+                        </p>
+                    </div>
                     <BtnComponent
                         emit-name="action"
                         class="change__card-info-btn"
                         @action="$router.push('/cooperation')"
-                    >Сотрудничество</BtnComponent
+                        >Сотрудничество</BtnComponent
                     >
                 </div>
                 <img
@@ -31,12 +33,18 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 
 <style lang="scss" scoped>
 .change {
-    padding: 48px 64px;
+    padding: 120px 64px 80px;
+
     @media (max-width: $lg) {
-        padding: 24px 16px;
+        padding: 80px 64px 64px;
     }
+
+    @media (max-width: $md) {
+        padding: 80px 16px 0;
+    }
+
     @media (max-width: $sm) {
-        padding: 16px;
+        padding: 48px 16px;
     }
 }
 .change__container {
@@ -59,6 +67,7 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 
     @media (max-width: $lg) {
         grid-template-columns: 1fr;
+        max-width: 580px;
     }
     @media (max-width: $sm) {
         padding: 24px 16px;
@@ -88,9 +97,11 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
         text-align: center;
         font-size: 32px;
         line-height: 150%;
+        margin: 0 -24px;
     }
     @media (max-width: $sm) {
         font-size: 24px;
+        margin: 0;
     }
 }
 .change__card-info-text {

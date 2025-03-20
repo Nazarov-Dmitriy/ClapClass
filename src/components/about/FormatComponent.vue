@@ -43,11 +43,7 @@ import TitleComponent from '../ui/TitleComponent.vue'
                             объяснение правил предоставьте Клэппи.
                         </p>
                     </div>
-                    <img
-                        src="/images/about/format/format-img2.png"
-                        alt="game title image"
-                        class="game__img game__img--mobile"
-                    />
+                    <div class="game__info-empty"></div>
                 </div>
                 <div class="game__img-wrapper">
                     <img
@@ -63,22 +59,30 @@ import TitleComponent from '../ui/TitleComponent.vue'
 
 <style lang="scss" scoped>
 .format {
-    padding: 48px 64px;
+    padding: 148px 0 20px;
     overflow: hidden;
+
     @media (max-width: $lg) {
-        padding: 24px 16px;
+        padding: 80px 0 0;
     }
     @media (max-width: $sm) {
-        padding: 16px;
+        padding: 80px 0 0;
     }
 }
 .format__container {
     max-width: 1440px;
     margin: 0 auto;
+
+    @media (max-width: $lg) {
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+    }
 }
 .game__block {
     display: grid;
     grid-template-columns: 1fr auto;
+    position: relative;
     @media (max-width: $sm) {
         display: flex;
         flex-direction: column;
@@ -86,23 +90,43 @@ import TitleComponent from '../ui/TitleComponent.vue'
         align-items: center;
     }
 }
+
 .format__wrapper {
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
     position: relative;
 
+    @media (max-width: $lg) {
+        margin: 0 -24px;
+    }
+
     @media (max-width: $sm) {
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin: 0;
     }
 }
 .format__img {
     transform: translate(50px, 0);
 
+    @media (max-width: $lg) {
+        display: none;
+    }
+
+    @media (max-width: $sm) {
+        display: block;
+        transform: translate(0, 0);
+    }
+
     &--mobile {
         display: none;
+
+        position: absolute;
+        top: -38px;
+        width: 171px;
+        height: 311px;
 
         @media (max-width: $lg) {
             display: block;
@@ -112,14 +136,6 @@ import TitleComponent from '../ui/TitleComponent.vue'
         @media (max-width: $sm) {
             display: none;
         }
-    }
-    @media (max-width: $lg) {
-        display: none;
-    }
-
-    @media (max-width: $sm) {     
-        display: block;
-        transform: translate(0, 0);
     }
 }
 .format__info {
@@ -160,6 +176,13 @@ import TitleComponent from '../ui/TitleComponent.vue'
     display: flex;
     flex-direction: column;
     gap: 24px;
+
+    @media (max-width: $lg) {
+        padding-left: 204px;
+    }
+    @media (max-width: $lg) {
+        padding-left: 0;
+    }
 }
 
 .format__info-text {
@@ -174,12 +197,8 @@ import TitleComponent from '../ui/TitleComponent.vue'
 }
 
 .game__wrapper {
-    padding: 16px 148px 16px 64px;
     box-sizing: border-box;
-    background: #e6eaed;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     position: relative;
 
     &::after {
@@ -196,45 +215,88 @@ import TitleComponent from '../ui/TitleComponent.vue'
         }
     }
 
-    @media (max-width: $lg) {
-        padding: 16px 64px;
-    }
     @media (max-width: $sm) {
         flex-direction: column;
         padding: 16px;
     }
 }
+
 .game__info {
     display: flex;
     flex-direction: column;
+    background: #e6eaed;
+    padding: 16px 148px 16px 64px;
     gap: 24px;
+
+    @media (max-width: $lg) {
+        padding: 8px 148px 8px 64px;
+        gap: 16px;
+    }
+
+    @media (max-width: $lg) {
+        padding: 16px;
+        margin: 0 -16px;
+    }
 }
 .game__title {
     text-align: right;
+
+    @media (max-width: $lg) {
+        text-align: start;
+    }
+}
+
+.game__info-empty {
+    flex-shrink: 0;
+    width: 248px;
+    height: 100%;
+
+    @media (max-width: $lg) {
+        width: 224px;
+        background: #e6eaed;
+    }
+
+    @media (max-width: $sm) {
+        display: none;
+    }
 }
 
 .game__img-wrapper {
+    position: absolute;
+    right: 37px;
+    top: -38px;
+
+    @media (max-width: $xl) {
+        right: 30px;
+    }
+
+    @media (max-width: $md) {
+        right: 20px;
+    }
+
     @media (max-width: $sm) {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        top: auto;
+        right: auto;
+        position: static;
         order: -1;
     }
 }
 
 .game__img {
-    display: block;
-    transform: translate(-100px, 0);
+    @media (max-width: $xl) {
+        width: 387px;
+        height: 299px;
+    }
 
     @media (max-width: $lg) {
-        display: none;
+        width: 326px;
+        height: 252px;
     }
 
     @media (max-width: $sm) {
-        display: block;
         width: 280px;
-        transform: translate(0);
+        height: 240px;
         order: -1;
     }
 
@@ -242,6 +304,11 @@ import TitleComponent from '../ui/TitleComponent.vue'
         display: none;
 
         @media (max-width: $lg) {
+            position: absolute;
+            width: 326px;
+            height: 252px;
+            right: 31px;
+            bottom: 0;
             display: block;
             transform: translate(0);
             width: 326px;

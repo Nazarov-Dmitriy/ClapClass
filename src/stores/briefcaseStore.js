@@ -379,8 +379,7 @@ export const useBriefcaseStore = defineStore('userBriefcase', {
                         this.isSuccess = 'published'
                     }
                 })
-                .catch((err) => {
-                    console.dir(err)
+                .catch(() => {
                 })
         }
     }

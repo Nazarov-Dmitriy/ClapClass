@@ -42,7 +42,7 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 .support {
     padding: 48px 64px 0;
     box-sizing: border-box;
-    overflow-x: hidden;
+    overflow: hidden;
 
     @media (max-width: $lg) {
         padding: 24px 16px 0;
@@ -187,6 +187,7 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
     justify-content: center;
     align-items: center;
     position: relative;
+    margin-bottom: -30px;
 
     :deep(.btn-orange) {
         padding: 16px;

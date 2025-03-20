@@ -20,12 +20,18 @@
 
 <style lang="scss" scoped>
 .achievements {
-    padding: 48px 64px;
+    padding: 120px 64px 0;
+   
     @media (max-width: $lg) {
-        padding: 24px 16px;
+        padding: 80px 64px 0;
     }
+
+    @media (max-width: $md) {
+        padding: 80px 16px 0;
+    }
+
     @media (max-width: $sm) {
-        padding: 16px;
+        padding: 48px 16px 0;
     }
 }
 .achievements__container {

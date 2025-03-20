@@ -151,15 +151,20 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .features {
-    padding: 48px 64px;
+    padding: 148px 64px 16px;
     box-sizing: border-box;
     overflow: hidden;
 
     @media (max-width: $lg) {
-        padding: 24px 16px;
+        padding: 80px 64px 16px;
     }
+
+    @media (max-width: $md) {
+        padding: 80px 16px 16px;
+    }
+
     @media (max-width: $sm) {
-        padding: 16px;
+        padding: 48px 16px 0;
     }
 }
 .features__container {
@@ -168,17 +173,26 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: 48px;
+
+    @media (max-width: $lg) {
+        gap: 24px;
+    }
 }
 .features__title {
     text-align: center;
 }
 .slider__wrapper {
-    width: 90%;
+    margin: 0 72px;
+
     &::before {
         content: none;
     }
     &::after {
         content: none;
+    }
+
+    @media (max-width: $sm) {
+        margin: 0;
     }
 }
 .slider {
@@ -197,6 +211,7 @@ onMounted(() => {
     @media (max-width: $lg) {
         width: 100%;
         margin: 0 auto;
+        padding: 48px 24px;
     }
     @media (max-width: $sm) {
         display: flex;
@@ -204,6 +219,7 @@ onMounted(() => {
         justify-content: center;
         align-items: center;
         gap: 24px;
+        padding: 16px 16px 24px;
     }
 }
 
@@ -214,6 +230,12 @@ onMounted(() => {
     box-sizing: border-box;
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: #fff7ac;
+
+    @media (max-width: $sm) {
+        padding: 24px;
+        width: 128px;
+        aspect-ratio: 1;
+    }
 }
 .slider__img {
     object-fit: cover;
@@ -262,26 +284,22 @@ onMounted(() => {
 }
 .slider__slide-arrow-btn--right {
     right: -70px;
-
-    @media (max-width: $lg) {
-        right: -30px;
-    }
 }
 .slider__slide-arrow-btn--left {
     left: -70;
-
-    @media (max-width: $lg) {
-        left: -30px;
-    }
 }
 .slider__slide-tabs--about {
     display: none;
+
     @media (max-width: $sm) {
         display: flex;
     }
 }
 .slider__slide-tabs-span--about {
     background: #fff7ac;
+    width: 40px;
+    height: 12px;
+    margin-top: 8px;
 
     &.active {
         background: #e05704;

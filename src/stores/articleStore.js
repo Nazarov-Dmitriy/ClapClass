@@ -223,8 +223,7 @@ export const useArticleStore = defineStore('userArticle', {
                         this.isSuccess = 'published'
                     }
                 })
-                .catch((err) => {
-                    console.dir(err)
+                .catch(() => {
                 })
         }
     }
