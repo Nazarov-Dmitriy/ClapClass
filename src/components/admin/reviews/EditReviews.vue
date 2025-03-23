@@ -145,7 +145,7 @@
 </template>
 <script setup>
 import EditSvg from '@/assets/icons/blog/edit.svg?component'
-import RemoveSvg from '@/assets/icons/blog/remove.svg?component'
+import RemoveSvg from '@/assets/icons/remove.svg?component'
 import { useReviewsStore } from '@/stores/reviewsStore'
 import { computed, onMounted, reactive, ref, watch } from 'vue'
 import VueDatePicker from '@vuepic/vue-datepicker'

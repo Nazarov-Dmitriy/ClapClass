@@ -62,13 +62,24 @@
                         ref="fileInput"
                         type="file"
                         class="hidden"
+                        multiple
                         accept=".pdf,.docx,.png,.jpg,.zip,.rar,.7zip"
                         @change="onFileChange"
                     />
                 </div>
-                <p v-if="file" class="font-normal text-[14px] leading-[150%] text-center text-gray">
-                    Выбран файл: {{ file.name }}
-                </p>
+                <div
+                    v-for="(file, ind) in files"
+                    :key="ind"
+                    class="flex justify-between items-center w-full"
+                >
+                    <p class="font-normal text-[14px] leading-[150%] text-center text-gray">
+                        {{ file.name }}
+                    </p>
+                    <button class="w-4 h-5 hover:text-[#e05704]" @click="removeFile(ind)">
+                        <CloseSvg></CloseSvg>
+                    </button>
+                </div>
+
                 <p class="font-normal text-[14px] leading-[150%] text-center text-gray">
                     Чтобы начать загрузку, выберите файлы на компьютере или перетащите их в это
                     окно.
@@ -96,7 +107,7 @@
         <BtnComponentOrange
             emit-name="action"
             class="mx-auto"
-            :disable="fileLoad || sendForm"
+            :disable="fileLoad || sendForm || fileSize / (1024 * 1024) > 35"
             @action="validateAndSubmit"
         >
             Предложить кейс
@@ -123,6 +134,7 @@ import { useSendMessageStore } from '@/stores/sendMessageStore'
 import { useUserStore } from '@/stores/userStore'
 import ModalHeader from '@/components/modal/ModalHeader.vue'
 import ModalComponent from '@/components/modal/ModalComponent.vue'
+import CloseSvg from '@/assets/icons/close.svg?component'
 
 const sendMessageStore = useSendMessageStore()
 const userStore = useUserStore()
@@ -130,7 +142,8 @@ const getIsSuccess = computed(() => sendMessageStore.getIsSuccess)
 const getUser = computed(() => userStore.getUser)
 
 const fileInput = ref(null)
-const file = ref(null)
+const files = ref([])
+const fileSize = ref(0)
 const fileLoad = ref(false)
 const sendForm = ref(false)
 const modal = ref(false)
@@ -159,49 +172,73 @@ function toggleAskModal() {
 }
 
 function onFileChange(event) {
-    const reader = new FileReader()
-    const selectedFile = event.target.files[0]
-    if (selectedFile && selectedFile.size <= 36 * 1024 * 1024) {
-        file.value = selectedFile
-        errors.value.size = null
-        fileLoad.value = true
-        chanfeListenersFile(reader)
-        reader.readAsArrayBuffer(selectedFile)
-    } else {
-        errors.value.size = 'Файл слишком большой. Максимальный размер 35 MB.'
-    }
-}
+    fileLoad.value = true
+    const inputFiles = event.target.files
 
-function chanfeListenersFile(reader) {
-    reader.addEventListener('load', handleEvent)
-    reader.addEventListener('error', handleEvent)
-    reader.addEventListener('abort', handleEvent)
-}
+    if (inputFiles.length > 0) {
+        const promises = [...inputFiles].map((file) => {
+            return new Promise((resolve, reject) => {
+                const fileReader = new FileReader()
+                fileReader.onload = (e) => {
+                    if (e.target?.result) {
 
-function handleEvent(event) {
-    if (event.type === 'load') {
-        fileLoad.value = false
-    } else if (event.type === 'error' || event.type === 'abort') {
-        errors.value.size = 'Ошибка'
+                        resolve(file)
+                        files.value.push(file)
+                        fileSize.value = fileSize.value + file.size
+                    }
+                }
+                fileReader.onabort = () => {
+                    reject(new Error('Загрузка файла прекращена'))
+                }
+                fileReader.onerror = () => {
+                    reject(new Error('Ошибка при чтение файла'))
+                }
+                fileReader.readAsDataURL(file)
+            })
+        })
+        Promise.all(promises).finally(() => {
+            fileLoad.value = false
+        })
     }
 }
 
 function onFileDrop(event) {
-    const reader = new FileReader()
-    const droppedFile = event.dataTransfer.files[0]
-    if (droppedFile && droppedFile.size <= 36 * 1024 * 1024) {
-        file.value = droppedFile
-        errors.value.size = null
-        fileLoad.value = true
-        chanfeListenersFile(reader)
-        reader.readAsArrayBuffer(droppedFile)
-    } else {
-        errors.value.size = 'Файл слишком большой. Максимальный размер 35 MB.'
+    fileLoad.value = true
+    const inputFiles = event.dataTransfer.files
+    if (inputFiles.length > 0) {
+        const promises = [...inputFiles].map((file) => {
+            return new Promise((resolve, reject) => {
+                const fileReader = new FileReader()
+                fileReader.onload = (e) => {
+                    if (e.target?.result) {
+                        resolve(file)
+                        files.value.push(file)
+                        fileSize.value = fileSize.value + file.size
+                    }
+                }
+                fileReader.onabort = () => {
+                    reject(new Error('Загрузка файла прекращена'))
+                }
+                fileReader.onerror = () => {
+                    reject(new Error('Ошибка при чтение файла'))
+                }
+                fileReader.readAsDataURL(file)
+            })
+        })
+        Promise.all(promises).finally(() => {
+            fileLoad.value = false
+        })
     }
 }
 
 function onDragOver(event) {
     event.dataTransfer.dropEffect = 'copy'
+}
+function removeFile(id) {
+    files.value = files.value.filter((file, ind) => {
+        ind === id ? (fileSize.value = fileSize.value - file.size) : null
+        return ind !== id
+    })
 }
 
 function validateForm() {
@@ -218,7 +255,7 @@ function validateForm() {
         errors.value.type = 'Тип разминки обязателен для заполнения.'
         isValid = false
     }
-    if (!file.value) {
+    if (files.value.length === 0) {
         errors.value.file = 'Обязательное поле'
         isValid = false
     }
@@ -227,7 +264,7 @@ function validateForm() {
 }
 
 function resetForm() {
-    file.value = null
+    files.value = []
     fileLoad.value = false
     formData.value.name = ''
     formData.value.type = ''
@@ -237,12 +274,15 @@ function resetForm() {
 function validateAndSubmit() {
     if (validateForm()) {
         let resFormData = new FormData()
-        if (file.value) {
+
+        if (files.value.length > 0) {
             resFormData.append('name', getUser?.value?.name)
             resFormData.append('email', getUser?.value?.email)
             resFormData.append('title', formData.value.name)
             resFormData.append('type', formData.value.type)
-            resFormData.append('file', file.value)
+            files.value.forEach((file) => {
+                resFormData.append('files', file)
+            })
             sendMessageStore.sendOfferMaterial(resFormData)
             sendForm.value = true
         }

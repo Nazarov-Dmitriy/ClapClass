@@ -12,7 +12,7 @@
                 />
                 <div>
                     <div v-if="data" class="cards-container">
-                        <ListArticle :data="data" class="22" />
+                        <ListArticle :data="data"   />
                     </div>
 
                     <div v-if="emptyFavorite" class="article-container">

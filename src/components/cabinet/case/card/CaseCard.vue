@@ -43,9 +43,25 @@
         </div>
 
         <div class="cabinet-card__info">
-            <h2 class="cabinet-card__info-title">
-                {{ props.data.title }}
-            </h2>
+            <div class="flex justify-between items-center flex-wrap">
+                <h2 class="cabinet-card__info-title truncate">
+                    {{ props.data.title }}
+                </h2>
+                <div v-if="props.panelBtn" class="flex gap-2.5">
+                    <div
+                        class="w-9 h-9 p-1.5 border-2 border rounded-md border-orange"
+                        @click.stop="removeFaforite"
+                    >
+                        <RemoveSvg class="w-full h-full text-orange" />
+                    </div>
+                    <div
+                        class="w-9 h-9 p-1.5 border-2 border rounded-md border-orange"
+                        @click.stop="shareFaforite"
+                    >
+                        <ShareSvg class="w-full h-full text-orange" />
+                    </div>
+                </div>
+            </div>
             <p class="cabinet-card__info-text">
                 {{ props.data.annotation }}
             </p>
@@ -55,7 +71,7 @@
             <div class="cabinet-card__footer-btns">
                 <div class="cabinet-card__footer-btn-views">
                     <ViewSvg class="cabinet-card__footer-btn-img"></ViewSvg>
-                    <span>{{  props.data.shows || 0 }}</span>
+                    <span>{{ props.data.shows || 0 }}</span>
                 </div>
                 <div class="cabinet-card__footer-btn-rating">
                     <RaitingSvg class="cabinet-card__footer-btn-img"></RaitingSvg>
@@ -77,17 +93,17 @@
 
 <script setup>
 import { useBriefcaseStore } from '@/stores/briefcaseStore'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import EditSvg from '../../../../assets/icons/blog/edit.svg?component'
-import RemoveSvg from '../../../../assets/icons/blog/remove.svg?component'
-import ViewSvg from '../../../../assets/icons/case/view.svg?component'
-import RaitingSvg from '../../../../assets/icons/case/raiting.svg?component'
-import TimeSvg from '../../../../assets/icons/case/time-icon.svg?component'
+import EditSvg from '@/assets/icons/blog/edit.svg?component'
+import RemoveSvg from '@/assets/icons/remove.svg?component'
+import ShareSvg from '@/assets/icons/share.svg?component'
+import ViewSvg from '@/assets/icons/case/view.svg?component'
+import RaitingSvg from '@/assets/icons/case/raiting.svg?component'
+import TimeSvg from '@/assets/icons/case/time-icon.svg?component'
 import ModalConfirm from '@/components/modal/ModalConfirm.vue'
 import CaseCardIcon from './CaseCardIcon.vue'
-const router = useRouter()
-const route = useRoute()
+import { useUserStore } from '@/stores/userStore'
 
 const props = defineProps({
     data: {
@@ -97,11 +113,19 @@ const props = defineProps({
     editing: {
         type: Boolean,
         default: false
+    },
+    panelBtn: {
+        type: Boolean,
+        default: false
     }
 })
 
-defineEmits(['link'])
+const emit = defineEmits(['link', 'remove'])
 const briefcaseStore = useBriefcaseStore()
+const userStore = useUserStore()
+const router = useRouter()
+const route = useRoute()
+
 const modalShow = ref(false)
 const removeId = ref(null)
 
@@ -114,6 +138,10 @@ function validUrl(url) {
     }
 }
 
+const getUser = computed(() => {
+    return userStore.getUser
+})
+
 function getUrl(url) {
     return import.meta.env.VITE_S3_URL + url
 }
@@ -121,6 +149,26 @@ function getUrl(url) {
 const edit = (e, id) => {
     e.stopPropagation()
     router.push({ name: 'edit-case', params: { id: id } })
+}
+
+const removeFaforite = () => {
+    briefcaseStore.removeFavorite({
+        briefcase_id: props.data?.id,
+        user_id: getUser.value?.id
+    })
+    setTimeout(() => {
+        emit('remove')
+    }, 100)
+}
+
+const shareFaforite = async (e) => {
+    e.preventDefault()
+   
+    try {
+        await navigator.clipboard.writeText(window.location.href +"/"+ props.data.id)
+    } catch (error) {
+        console.error(error.message)
+    }
 }
 
 function toggleDialog(id) {

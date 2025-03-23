@@ -50,6 +50,23 @@
                                     Админстрирование
                                 </router-link>
                             </li>
+                            <li v-if="getUser" class="header__list-item">
+                                <router-link
+                                    active-class="active"
+                                    to="/cabinet/profile"
+                                    class="header__list-link"
+                                >
+                                    Кабинет
+                                </router-link>
+                            </li>
+                            <li v-if="getUser" class="header__list-item">
+                                <button class="header__list-link" @click="setModal('login')">
+                                    Другой аккаунт
+                                </button>
+                            </li>
+                            <li v-if="getUser" class="header__list-item">
+                                <button class="header__list-link" @click="logout()">Выход</button>
+                            </li>
                         </ul>
                     </nav>
                     <div
@@ -118,7 +135,14 @@
                                 Блог
                             </router-link>
                         </li>
-                        <li v-if="getUser" class="header__list-item truncate">
+
+                        <li
+                            v-if="
+                                getUser &&
+                                (getUser.role === 'admin' || getUser.role === 'moderator')
+                            "
+                            class="header__list-item truncate"
+                        >
                             <router-link
                                 to="/admin"
                                 class="header__list-link"
@@ -138,33 +162,44 @@
                     >
                         Вход
                     </BtnComponent>
-                    <button
-                        v-if="getAutotizationBtn === 'page'"
-                        class="btn__profile"
-                        @click="$router.push('/cabinet/profile')"
-                    >
-                        <img
-                            v-if="getUser?.avatar"
-                            :src="getUrl"
-                            alt="user"
-                            class="btn__profile-img w-12 h-12 rounded-full"
-                        />
-                        <img
-                            v-else
-                            src="@/assets/icons/header/user.svg"
-                            alt="user"
-                            class="btn__profile-img"
-                        />
-                    </button>
+                    <button v-else ref="refMenu" class="btn__profile">
+                        <div
+                            class="flex w-12 h-12 items-center justify-center"
+                            @click="$router.push('/cabinet/profile')"
+                        >
+                            <img
+                                v-if="getUser?.avatar"
+                                :src="getUrl"
+                                alt="user"
+                                class="btn__profile-img rounded-full"
+                            />
+                            <p v-else-if="getName !== ''" class="btn__profile-text">
+                                {{ getName }}
+                            </p>
+                            <img
+                                v-else
+                                src="@/assets/icons/header/user.svg"
+                                alt="user"
+                                class="btn__profile-img"
+                                :class="getName == '' && '!border-none'"
+                            />
+                        </div>
 
-                    <div
-                        v-if="getAutotizationBtn === 'cabinet'"
-                        class="flex gap-4 items-center px-2 py-1 cursor-pointer"
-                        @click="logout()"
-                    >
-                        <span>Выход</span>
-                        <img class="w-5 h-5" src="@/assets/icons/header/exit.svg" alt="" />
-                    </div>
+                        <ArrowSvg
+                            class="hover:text-red duration-300 ease-in-out"
+                            :class="openUserMenu && 'text-orange rotate-180'"
+                            @click="openUserMenu = !openUserMenu"
+                        ></ArrowSvg>
+
+                        <Transition name="menu">
+                            <div v-if="openUserMenu" class="btn__profile-menu">
+                                <p class="btn__profile-menu-item" @click="setModal('login')">
+                                    Другой аккаунт
+                                </p>
+                                <p class="btn__profile-menu-item" @click="logout()">Выход</p>
+                            </div>
+                        </Transition>
+                    </button>
                 </div>
             </div>
             <Teleport to="body">
@@ -174,41 +209,53 @@
     </header>
 </template>
 <script setup>
+import ArrowSvg from '@/assets/icons/arrow.svg?component'
 import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
-import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
-import AuthComponent from '../modal/auth/AuthComponent.vue'
 import { useUserStore } from '@/stores/userStore'
-import { useRoute, useRouter } from 'vue-router'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+import AuthComponent from '../modal/auth/AuthComponent.vue'
 
 const isVisible = ref(false)
 const btnMenu = ref(false)
 const headerMobile = ref(null)
 const modal = ref('')
 const userStore = useUserStore()
-const route = useRoute()
 const router = useRouter()
+const openUserMenu = ref(false)
+const refMenu = ref(null)
 
 const getUser = computed(() => {
     return userStore.getUser
 })
 
-const getAutotizationBtn = computed(() => {
-    let path = route.path
-    if (userStore.getUser) {
-        return path.includes('/cabinet/') ? 'cabinet' : 'page'
-    } else {
-        return false
+const getName = computed(() => {
+    if (userStore.getUser && userStore.getUser?.name) {
+        let nameData = userStore.getUser?.name?.split(' ')
+        return (
+            nameData[0]?.slice(0, 1).toUpperCase() +
+            (nameData[1] ? nameData[1]?.slice(0, 1).toUpperCase() : '')
+        )
     }
+    return ''
 })
+
+const closeMenu = (element) => {
+    if (!refMenu.value?.contains(element.target)) {
+        openUserMenu.value = false
+    }
+}
 
 const getIsSuccess = computed(() => userStore.getIsSuccess)
 
 onMounted(() => {
     window.addEventListener('click', closeHeader)
+    window.addEventListener('click', closeMenu)
 })
 
 onBeforeUnmount(() => {
     window.removeEventListener('click', closeHeader)
+    window.removeEventListener('click', closeMenu)
 })
 
 function setMenuAcive() {
@@ -431,6 +478,64 @@ watch(getIsSuccess, (val) => {
     }
 }
 
+.btn__profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+}
+
+.btn__profile-text {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 500;
+    font-family: 'Inter';
+    color: $gray;
+    padding: 12px;
+    border-radius: 100%;
+    border: 1px solid gray;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
+    &:hover {
+        border-color: $red;
+    }
+}
+
+.btn__profile-img {
+    border: 1px solid $gray;
+    border-radius: 100%;
+
+    &:hover {
+        border-color: $red;
+    }
+}
+
+.btn__profile-menu {
+    position: absolute;
+    top: 52px;
+    right: 0;
+    width: 100%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.btn__profile-menu-item {
+    font-size: 14px;
+    line-height: 21px;
+    border-bottom: 1px solid $gray;
+    text-align: right;
+    color: $gray;
+
+    &:hover {
+        color: $red;
+        border-color: $red;
+    }
+}
+
 .slide-fade-enter-active {
     transition: all 0.3s ease-out;
 }
@@ -443,5 +548,23 @@ watch(getIsSuccess, (val) => {
 .slide-fade-leave-to {
     transform: translateY(-4px);
     opacity: 0;
+}
+
+.menu-enter-active {
+    transition: all 0.3s ease-out;
+}
+
+.menu-leave-active {
+    transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.menu-enter-from,
+.menu-leave-to {
+    opacity: 0;
+}
+
+.menu-enter-to,
+.menu-leave-from {
+    opacity: 1;
 }
 </style>

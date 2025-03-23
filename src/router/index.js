@@ -87,10 +87,11 @@ const router = createRouter({
             path: '/admin',
             name: 'admin-page',
             component: AdminPage,
-            meta: { protected: true }
+            // meta: { protected: true, admin: true }
         },
         {
             path: '/cabinet',
+            meta: { protected: true },
             children: [
                 {
                     path: 'showcase',

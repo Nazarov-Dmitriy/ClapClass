@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import RemoveSvg from '@/assets/icons/blog/remove.svg?component'
+import RemoveSvg from '@/assets/icons/remove.svg?component'
 
 const props = defineProps({
     show: Boolean

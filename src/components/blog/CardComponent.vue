@@ -12,8 +12,8 @@
                 class="mr-2 border border-[#656d75] hover:border-[#e05704] hover:text-[#e05704] rounded-xl px-4 py-2"
                 @click.stop="toggleDialog(props.data.id)"
             >
-                <span class="hidden sm:block"> Удалить</span>
-                <RemoveSvg class="w-6 h-6 sm:hidden" />
+                <span class="hidden md:block"> Удалить</span>
+                <RemoveSvg class="w-6 h-6 md:hidden" />
             </button>
         </div>
         <div
@@ -73,8 +73,8 @@
 
 <script setup>
 import { useArticleStore } from '@/stores/articleStore'
-import EditSvg from '../../assets/icons/blog/edit.svg?component'
-import RemoveSvg from '../../assets/icons/blog/remove.svg?component'
+import EditSvg from '@/assets/icons/blog/edit.svg?component'
+import RemoveSvg from '@/assets/icons/remove.svg?component'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import ModalConfirm from '../modal/ModalConfirm.vue'

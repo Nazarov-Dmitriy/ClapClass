@@ -20,6 +20,7 @@ import ArticlesAdmin from '@/components/admin/ArticlesAdmin.vue'
 import CaseAdmin from '@/components/admin/case/CaseAdmin.vue'
 import ReviewsAdmin from '@/components/admin/reviews/ReviewsAdmin.vue'
 import SocialAdmin from '@/components/admin/social/SocialAdmin.vue'
+import UsersComponent from '@/components/admin/users/UsersComponent.vue'
 import DropdownComponent from '@/components/ui/dropdown/DropdownComponent.vue'
 import ContnentLayout from '@/layouts/ContnentLayout.vue'
 import { useUserStore } from '@/stores/userStore'
@@ -28,8 +29,9 @@ import { computed, ref, watch } from 'vue'
 const contentArr = [
     { label: 'Статья', value: 'article' },
     { label: 'Отзывы', value: 'reviews' },
-    { label: 'соц. сети', value: 'social' },
-    { label: 'кейсы', value: 'case' },
+    { label: 'Cоц. сети', value: 'social' },
+    { label: 'Кейсы', value: 'case' },
+    { label: 'Пользователи', value: 'user' },
 ]
 
 const component = computed(() => {
@@ -46,6 +48,9 @@ const component = computed(() => {
             break
         case 'case':
             currentComponent = CaseAdmin
+            break
+        case 'user':
+            currentComponent = UsersComponent
             break
 
         default:

@@ -1,7 +1,14 @@
 <template>
     <div class="blog-article__container">
         <div v-if="renderList.length > 0" class="blog-article__list">
-            <CaseCard v-for="el in renderList" :key="el.id" :data="el" :editing="props.editing" />
+            <CaseCard
+                v-for="el in renderList"
+                :key="el.id"
+                :data="el"
+                :editing="props.editing"
+                :panel-btn="props.panelBtn"
+                @remove="remove"
+            />
         </div>
         <div v-else>
             <h2 class="no-result">По запросу {{ search }} ничего не найдено.</h2>
@@ -31,13 +38,22 @@ const props = defineProps({
     editing: {
         type: Boolean,
         default: false
+    },
+    panelBtn: {
+        type: Boolean,
+        default: false
     }
 })
+const emit = defineEmits(['remove'])
 
 const renderList = ref([])
 
 function getRenderList(list) {
     renderList.value = list
+}
+
+function remove() {
+    emit('remove')
 }
 
 watch(

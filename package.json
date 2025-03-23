@@ -13,6 +13,7 @@
     },
     "dependencies": {
         "@ckeditor/ckeditor5-vue": "^7.0.0",
+        "@unhead/vue": "^1.11.20",
         "@videojs-player/vue": "^1.0.0",
         "@vuepic/vue-datepicker": "^11.0.1",
         "axios": "^1.7.7",

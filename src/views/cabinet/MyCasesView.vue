@@ -10,7 +10,7 @@
                     :date-count="dataTypeCount"
                 />
                 <div class="cards-container">
-                    <CaseList :data="data" />
+                    <CaseList :data="data" :panel-btn="true" @remove="removeFavorite" />
                 </div>
             </div>
             <div
@@ -143,6 +143,14 @@ onMounted(() => {
         })
     }
 })
+
+function removeFavorite() {
+    briefcaseStore.getCaseFavoriteListDb({
+        search: panel.search,
+        type: panel.type,
+        user_id: getUser?.value.id
+    })
+}
 
 function search() {
     briefcaseStore.getCaseFavoriteListDb({

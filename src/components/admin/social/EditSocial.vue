@@ -65,7 +65,7 @@
 </template>
 <script setup>
 import EditSvg from '@/assets/icons/blog/edit.svg?component'
-import RemoveSvg from '@/assets/icons/blog/remove.svg?component'
+import RemoveSvg from '@/assets/icons/remove.svg?component'
 import { computed, onMounted, ref, watch } from 'vue'
 import ModalConfirm from '@/components/modal/ModalConfirm.vue'
 import InputField from '@/components/ui/form/input/InputField.vue'

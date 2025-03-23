@@ -44,12 +44,6 @@
 </template>
 <script setup>
 import { computed, onMounted, ref } from 'vue'
-const props = defineProps({
-    article: {
-        type: Object,
-        default: () => {}
-    }
-})
 
 const showMenu = ref(false)
 const menu = ref(null)
@@ -66,16 +60,20 @@ const closeDropDown = (element) => {
     }
 }
 
-function copyText(event) {
+async function copyText(event) {
     event.preventDefault()
-    navigator.clipboard.writeText(window.location.href)
+    try {
+        await navigator.clipboard.writeText(window.location.href)
+    } catch (error) {
+        console.error(error.message)
+    }
 }
 
 const getTelgramLink = computed(() => {
-    return `https://t.me/share/url?url=${window.location.href}&text=${props.article?.title}`
+    return `https://t.me/share/url?url=${window.location.href}&text=Сотрудничество`
 })
 const getVkLink = computed(() => {
-    return `http://vk.com/share.php?url=${window.location.href}&title=${props.article?.title}&image=${props.article?.img}`
+    return `http://vk.com/share.php?url=${window.location.href}&title=Сотрудничество`
 })
 
 onMounted(() => {

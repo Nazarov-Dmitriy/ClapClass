@@ -6,7 +6,9 @@
                 :href="getUrl(props.data?.rules_video?.path)"
                 target="_blank"
             >
-                <button class="active-btn shrink-0"></button>
+                <button class="active-btn shrink-0">
+                    <PlayIcon></PlayIcon>
+                </button>
                 <p class="font-bold text-2xl leading-[150%] text-[#e05704] text-center shrink-0">
                     Посмотрите правила
                 </p>
@@ -40,11 +42,16 @@
             </div>
         </template>
         <div v-if="props.data?.levels.length === 0 && !props.data?.rules_video">
-            <span class="font-normal text-xl leading-[150%] text-black text-center">Загрузите видео правили и уровни кейса</span>
+            <span class="font-normal text-xl leading-[150%] text-black text-center"
+                >Загрузите видео правили и уровни кейса</span
+            >
         </div>
     </div>
 </template>
 <script setup>
+import PlayIcon from '../../../assets/icons/case/play-icon.svg?component'
+// import RulesSvg from '@/assets/icons/case/rules.svg?component'
+
 const props = defineProps({
     data: {
         type: Object,
@@ -93,15 +100,17 @@ function getUrl(path) {
 .active-btn {
     width: 64px;
     height: 64px;
-    background-image: url('/icons/cabinet/start-activities/start.svg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     width: 64px;
     height: 64px;
+    color: $orange;
+    border-radius: 100%;
 
     &:hover {
-        background-image: url('/icons/cabinet/start-activities/start-active.svg');
+        color: $red;
+        box-shadow: 0 0 20px 0 $orange;
     }
 }
 </style>

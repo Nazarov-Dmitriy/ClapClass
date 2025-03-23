@@ -10,7 +10,6 @@ const axiosR = axios.create({
     }
 })
 
-
 axiosR.interceptors.request.use(
     (config) => {
         if (localStorage.getItem('token')) {
@@ -29,8 +28,14 @@ axiosR.interceptors.response.use(
         return response
     },
     (error) => {
+        console.log(error)
+
         if (error.code === 'ERR_NETWORK' && window.location.pathname !== '/error') {
-            window.location.href = '/error'
+            window.location.href = '/error?status=500'
+        }
+
+        if (error.status === 403 && window.location.pathname !== '/error') {
+            window.location.href = '/error?status=403'
         }
 
         return Promise.reject(error.response)

@@ -1,4 +1,7 @@
 <template>
+    <Head>
+        <meta property="og:title" content="Сотрудничество" />
+    </Head>
     <section class="support">
         <div class="support__container">
             <div class="support__wrapper">
@@ -86,6 +89,7 @@
 </template>
 
 <script setup>
+import { Head } from '@unhead/vue/components'
 import { computed, ref } from 'vue'
 import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import BtnComponentWhite from '@/components/ui/btns/BtnComponentWhite.vue'
