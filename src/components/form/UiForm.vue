@@ -327,7 +327,7 @@ watch(getIsSuccess, (val) => {
     flex-direction: column;
     gap: 40px;
     order: 2;
-    background-color: $gray;
+    background-color: $fonLight;
     border-radius: 0 0 25px 25px;
     padding: 24px 48px 48px;
 }

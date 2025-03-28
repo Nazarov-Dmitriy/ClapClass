@@ -6,7 +6,7 @@
                 {{ props.data.title }}
             </TitleComponent>
         </div>
-        <div class="card-page__header-right">
+        <div class="card-page__header-right items-center">
             <RaitingSvg class="card-page__header-right-img"></RaitingSvg>
             <span>{{ !props.data?.rating == 0 ? props.data.rating.toFixed(1) : 0 }}</span>
             <ViewSvg class="card-page__header-right-img"></ViewSvg>

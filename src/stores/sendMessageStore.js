@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import axiosR from '@/api/http'
-import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 
 export const useSendMessageStore = defineStore('sendMessageStore', {

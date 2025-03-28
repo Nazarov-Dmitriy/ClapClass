@@ -159,30 +159,30 @@ function validateField(field) {
     const value = form[field]
 
     switch (field) {
-    case 'name':
-        errors.name = value.length === 0 ? 'Это поле обязательно' : ''
-        break
-    case 'phone':
-        // eslint-disable-next-line no-case-declarations
-        const phoneRegexp = /^\+7 \(\d{3}\)\s?\d{3}-\d{2}-\d{2}$/
-        errors.phone = !phoneRegexp.test(value) ? 'Неверный формат телефона' : ''
-        break
-    case 'email':
-        // eslint-disable-next-line no-case-declarations
-        const emailRegexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        errors.email = !emailRegexp.test(value) ? 'Неверный формат email' : ''
-        break
-    case 'city':
-        errors.city = value.length === 0 ? 'Это поле обязательно' : ''
-        break
-    case 'place_work':
-        errors.place_work = value.length === 0 ? 'Это поле обязательно' : ''
-        break
-    case 'position':
-        errors.position = value.length === 0 ? 'Это поле обязательно' : ''
-        break
-    default:
-        break
+        case 'name':
+            errors.name = value.length === 0 ? 'Это поле обязательно' : ''
+            break
+        case 'phone':
+            // eslint-disable-next-line no-case-declarations
+            const phoneRegexp = /^\+7 \(\d{3}\)\s?\d{3}-\d{2}-\d{2}$/
+            errors.phone = !phoneRegexp.test(value) ? 'Неверный формат телефона' : ''
+            break
+        case 'email':
+            // eslint-disable-next-line no-case-declarations
+            const emailRegexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+            errors.email = !emailRegexp.test(value) ? 'Неверный формат email' : ''
+            break
+        case 'city':
+            errors.city = value.length === 0 ? 'Это поле обязательно' : ''
+            break
+        case 'place_work':
+            errors.place_work = value.length === 0 ? 'Это поле обязательно' : ''
+            break
+        case 'position':
+            errors.position = value.length === 0 ? 'Это поле обязательно' : ''
+            break
+        default:
+            break
     }
 }
 
@@ -227,7 +227,7 @@ defineExpose({
 .lk__main-personal-input {
     border: 2px solid $fonLight;
     border-radius: 24px;
-    padding: 16px;
+    padding: 15px 16px;
     background: $white;
     font-size: 16px;
     line-height: 24px;
@@ -240,8 +240,13 @@ defineExpose({
     }
 }
 
-.label.error {
-    color: red;
+.label {
+    font-size: 16px;
+    line-height: 1.5;
+
+    &.error {
+        color: red;
+    }
 }
 
 .error-text {

@@ -12,7 +12,7 @@
                 />
                 <div>
                     <div v-if="data" class="cards-container">
-                        <ListArticle :data="data"   />
+                        <ListArticle :data="data" />
                     </div>
 
                     <div v-if="emptyFavorite" class="article-container">
@@ -186,6 +186,14 @@ watch(getArticleList, (val) => {
     grid-template-columns: 1fr;
     gap: 16px;
     width: 100%;
+
+    :deep(.blog-article__card) {
+        background: $white;
+
+        &:hover {
+            background: $yellowy;
+        }
+    }
 }
 
 :deep(.blog-article__list) {

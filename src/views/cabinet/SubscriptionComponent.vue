@@ -1,7 +1,7 @@
 <template>
-    <div class="subscribe h-full">
+    <div class="subscribe mt-2">
         <div class="subscribe__img-container">
-            <TitleComponent class="text-center"> Подписка на новости ClapClass </TitleComponent>
+            <TitleComponent class="text-center text-center !text-[24px]/[36px] max-w-[272px] mx-auto"> Подписка на новости ClapClass </TitleComponent>
             <p class="font-normal text-base leading-[150%] text-center text-gray">
                 Узнавай первым о новых кейсах, статьсях и обновлениях платформы
             </p>
@@ -9,7 +9,7 @@
         </div>
         <div class="subscribe__form grow">
             <TransitionGroup name="list">
-                <div v-if="subscribe" class="flex items-center justify-center h-full">
+                <div v-if="!subscribe" class="flex items-center justify-center h-full">
                     <p class="subscribe__card-text">Вы уже подписаны</p>
                 </div>
                 <div v-else class="subscribe__info">
@@ -91,6 +91,9 @@ watch(isSuccess, (val) => {
 
 .subscribe__img-container {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .subscribe__slogan {
@@ -103,15 +106,15 @@ watch(isSuccess, (val) => {
 
 .subscribe__hero {
     margin: 0 auto;
-    width: 315px;
-    height: 211px;
+    width: 232px;
+    height: 155px;
     display: block;
 }
 
 .subscribe__form {
     background: $gray;
     border-radius: 24px;
-    padding: 32px 16px;
+    padding:16px;
     gap: 36px;
     display: flex;
     flex-direction: column;
@@ -123,7 +126,7 @@ watch(isSuccess, (val) => {
 .subscribe__info {
     display: flex;
     flex-direction: column;
-    gap: 36px;
+    gap: 16px;
     align-items: center;
 }
 
@@ -132,6 +135,7 @@ watch(isSuccess, (val) => {
     line-height: 1.5;
     color: $white;
     text-align: center;
+    max-width: 512px;
 }
 
 .subscribe__text-link {

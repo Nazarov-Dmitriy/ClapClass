@@ -76,7 +76,7 @@
             <div class="card-page__left-text" v-html="props.data?.description" />
 
             <div class="card-page__btns">
-                <BtnComponentOrange emit-name="action" @action="toggleRateModal"
+                <BtnComponentOrange emit-name="action" class="bg-white" @action="toggleRateModal"
                     >Оценить кейс</BtnComponentOrange
                 >
                 <BtnComponentOrange emit-name="action" @action="toggleAskModal"
@@ -221,13 +221,16 @@ function updateActiveIndex(swiper) {
 }
 
 function toggleAskModal() {
+    sendMessageStore.setIsSuccess(false)
     isAskModalVisible.value = !isAskModalVisible.value
 }
 
 function toggleFeedbackModal() {
+    sendMessageStore.setIsSuccess(false)
     isFeedbackModalVisible.value = !isFeedbackModalVisible.value
 }
 function toggleRateModal() {
+    sendMessageStore.setIsSuccess(false)
     isRateModalVisible.value = !isRateModalVisible.value
 }
 

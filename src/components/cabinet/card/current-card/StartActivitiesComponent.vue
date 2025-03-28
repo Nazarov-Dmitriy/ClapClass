@@ -45,7 +45,7 @@
                         </p>
                     </div>
                     <div
-                        class="flex flex-col gap-3 cursor-pointer"
+                        class="flex flex-col cursor-pointer text-base items-center"
                         @click="downloadFile(props.data?.rules?.path, props.data?.rules.name)"
                     >
                         <RulesSvg class="card-page__right-rules-img w-[56px] h-[56px]"></RulesSvg>
@@ -61,7 +61,7 @@
                         </p>
                     </div>
                     <div
-                        class="flex flex-col gap-3 cursor-pointer"
+                        class="flex flex-col cursor-pointer text-base items-center"
                         @click="downloadFile(props.data?.material.path, props.data?.material.name)"
                     >
                         <MaterialSvg
@@ -171,10 +171,21 @@ watch(getIsSuccess, (val) => {
 })
 </script>
 <style lang="scss" scoped>
+.card-page__right {
+    min-height: 0;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .card-page__right-options {
     border-bottom: 1px solid $gray;
     padding: 0px 0px 16px 0px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 .card-page__right-btns {
     @include flex-col-gap(16px);
@@ -256,14 +267,14 @@ watch(getIsSuccess, (val) => {
     }
 }
 
-.modal-header__start{
+.modal-header__start {
     padding: 16px 24px 0px 24px;
     justify-content: space-between;
     height: 187px;
 }
 
-:deep(.modal__header-info){
-    max-width:670px;
+:deep(.modal__header-info) {
+    max-width: 670px;
     width: 100%;
 }
 </style>

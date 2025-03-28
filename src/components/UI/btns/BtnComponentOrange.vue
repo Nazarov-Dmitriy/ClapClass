@@ -49,6 +49,7 @@ function submitEmit() {
     cursor: pointer;
     transition: 0.4s;
     display: block;
+    background: $white;
 
     &:hover {
         border: 2px solid $white;
@@ -63,11 +64,11 @@ function submitEmit() {
 
     &:active,
     &.active {
-        border: 2px solid $black;
+        border: 2px solid $white;
         background: $red;
 
         .btn-orange__text {
-            color: $black;
+            color: $white;
         }
     }
     &:disabled {

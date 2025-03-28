@@ -287,7 +287,7 @@ onMounted(() => {
 })
 const getShowPublishedBtn = computed(() => {
     if (
-        pageType.value === "edit"
+        pageType.value === 'edit'
         // &&
         // (getUser.value.role === 'ROLE_ADMIN' || getUser.value.role === 'ROLE_MODERATOR')
     ) {
@@ -450,7 +450,15 @@ watch(getIsSuccess, async (val) => {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding-bottom: 20px;
+    padding: 16px 60px;
+
+    @media (max-width: $lg) {
+        padding: 16px 40px;
+    }
+
+    @media (max-width: $sm) {
+        padding: 16px;
+    }
 }
 
 .error-text {

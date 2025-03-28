@@ -31,7 +31,7 @@
                     >{{ props.dateCount[item.value] }}
                 </span>
                 <div v-if="isPopupVisible && hoveredTab === index" class="tab-popup">
-                    <p class="tab-popup__text">{{ item.popupText }} - подробности</p>
+                    <p class="tab-popup__text">{{ item.popupText }}.</p>
                 </div>
             </li>
         </ul>

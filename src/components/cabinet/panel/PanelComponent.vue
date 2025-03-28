@@ -15,7 +15,7 @@
                 </li>
             </ul>
         </div>
-        <div class="panel__search">
+        <div class="panel__search" :class="{ hidden: props.hiddenSearch }">
             <div class="blog__search">
                 <input
                     :value="props.search"
@@ -26,7 +26,7 @@
                     @keypress.enter="$emit('search')"
                     @blur="$emit('search')"
                 />
-                <SearchIcon class="blog__search-icon"></SearchIcon> 
+                <SearchIcon class="blog__search-icon"></SearchIcon>
             </div>
         </div>
     </div>
@@ -41,6 +41,14 @@ const props = defineProps({
     search: {
         type: String,
         default: ''
+    },
+    title: {
+        type: String,
+        default: ''
+    },
+    hiddenSearch: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -71,6 +79,11 @@ function updateBreadcrumbs() {
             return translations[decodedSegment] || decodedSegment
         })
 
+    if (props.title) {
+        path.splice(-1)
+        path.push(props.title)
+    }
+    
     breadcrumbs.value = path
 }
 

@@ -60,8 +60,11 @@
                                 </router-link>
                             </li>
                             <li v-if="getUser" class="header__list-item">
-                                <button class="header__list-link" @click="setModal('login')">
-                                    Другой аккаунт
+                                <button
+                                    class="header__list-link"
+                                    @click="() => router.push({ name: 'showcase' })"
+                                >
+                                    личный кабинет
                                 </button>
                             </li>
                             <li v-if="getUser" class="header__list-item">
@@ -171,7 +174,7 @@
                                 v-if="getUser?.avatar"
                                 :src="getUrl"
                                 alt="user"
-                                class="btn__profile-img rounded-full"
+                                class="btn__profile-img rounded-full w-full h-full"
                             />
                             <p v-else-if="getName !== ''" class="btn__profile-text">
                                 {{ getName }}
@@ -193,8 +196,11 @@
 
                         <Transition name="menu">
                             <div v-if="openUserMenu" class="btn__profile-menu">
-                                <p class="btn__profile-menu-item" @click="setModal('login')">
-                                    Другой аккаунт
+                                <p
+                                    class="btn__profile-menu-item"
+                                    @click="() => router.push({ name: 'showcase' })"
+                                >
+                                    личный кабинет
                                 </p>
                                 <p class="btn__profile-menu-item" @click="logout()">Выход</p>
                             </div>
@@ -504,6 +510,7 @@ watch(getIsSuccess, (val) => {
 }
 
 .btn__profile-img {
+    object-fit: cover;
     border: 1px solid $gray;
     border-radius: 100%;
 

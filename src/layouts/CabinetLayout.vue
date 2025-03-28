@@ -21,6 +21,7 @@ import HeaderComponent from '../components/header/HeaderComponent.vue'
 }
 
 .main-container {
+    min-height: 0;
     max-width: 1920px;
     margin: 0 auto;
     display: flex;

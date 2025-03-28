@@ -174,12 +174,14 @@ watch(
     { deep: true }
 )
 
-watch([() => panel.type], () => {
-    briefcaseStore.getCaseFavoriteListDb({
-        search: panel.search,
-        type: panel.type,
-        user_id: getUser?.value.id
-    })
+watch([() => panel.type], (val) => {
+    console.log(val)
+    if(val[0] === ''){
+        data.value = getListBriefcase.value 
+    }else{
+        data.value = getListBriefcase.value.filter((el) => el.type === val[0])
+
+    }
 })
 
 watch(getListBriefcase, () => {

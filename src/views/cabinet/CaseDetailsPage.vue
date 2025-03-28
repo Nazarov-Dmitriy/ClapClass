@@ -1,8 +1,7 @@
 <template>
-    <CabinetLayout>
-        <PanelComponent />
-
-        <div class="flex">
+    <CabinetLayout class="max-h-[100vh] overflow-hidden">
+        <PanelComponent :title="data?.title" :hidden-search="true" />
+        <div class="flex min-h-0">
             <SidebarComponent />
             <div class="card-page">
                 <CaseCardHeaderComponent :data="data" />
@@ -17,14 +16,13 @@
                             <TitleComponent class="recommend-title">
                                 Также рекомендуем
                             </TitleComponent>
-                            <div class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-4 pb-12">
                                 <CaseCard v-for="el in listRandom" :key="el.id" :data="el" />
                             </div>
                         </div>
                     </StartActivitiesComponent>
                 </div>
             </div>
-            
         </div>
     </CabinetLayout>
     <Teleport to="body">
@@ -56,7 +54,6 @@ const briefcaseId = ref()
 const data = computed(() => {
     return briefcaseStore.getBriefcase
 })
-
 
 const listRandom = computed(() => {
     return briefcaseStore.getListBriefcaseRandom
@@ -118,18 +115,22 @@ watch(getUser, () => {
         user_id: getUser.value.id
     })
 })
-
 </script>
 
 <style lang="scss" scoped>
 .card-page {
     width: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
 }
 .card-page__main {
+    min-height: 0;
+    overflow: hidden;
     display: grid;
     grid-template-columns: 1fr 395px;
     gap: 24px;
-    padding: 24px 24px 48px 64px;
+    padding: 24px 24px 0 64px;
 
     @media (max-width: $xl) {
         grid-template-columns: 1fr 1fr;
@@ -138,10 +139,13 @@ watch(getUser, () => {
 }
 .recommend {
     margin-top: 24px;
-    max-height: 912px;
+    max-height: 100%;
+    min-height: 0;
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
+    width: 100%;
     @include flex-col-gap(16px);
+
     :deep(.title) {
         font-family: 'CenturyGothic';
         font-weight: 700;
@@ -154,5 +158,14 @@ watch(getUser, () => {
 
 :deep(.cabinet-card__img) {
     max-height: 280px;
+}
+:deep(.cabinet-card__img) {
+    max-height: 280px;
+}
+
+:deep(.cabinet-card) {
+    &:hover {
+        box-shadow: none;
+    }
 }
 </style>

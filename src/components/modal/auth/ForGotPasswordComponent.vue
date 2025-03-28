@@ -80,7 +80,7 @@ watch(getIsSuccess, (val) => {
     border-radius: 0 0 24px 24px;
     padding: 16px 16px 48px 16px;
     box-sizing: border-box;
-    background: $gray;
+    background: $fonLight;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -96,7 +96,7 @@ watch(getIsSuccess, (val) => {
     font-weight: 500;
     font-size: 16px;
     line-height: 150%;
-    color: $white;
+    color: $gray;
 }
 
 .form__input {
@@ -108,7 +108,7 @@ watch(getIsSuccess, (val) => {
     color: $gray;
 
     &.error {
-        border-color: $yellowy;
+        border-color: $red;
     }
 }
 
@@ -199,6 +199,6 @@ watch(getIsSuccess, (val) => {
 }
 
 .error-text {
-    color: $yellowy;
+    color: $red;
 }
 </style>

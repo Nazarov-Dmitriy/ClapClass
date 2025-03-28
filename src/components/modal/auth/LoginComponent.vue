@@ -22,7 +22,7 @@
                             type="text"
                             class="form__input autofill"
                             :class="getError?.email && 'error'"
-                            placeholder="пароль"
+                            placeholder="email"
                         />
                         <img class="input-icon" src="/icons/auth/inputs/input-mail.svg" alt="" />
                     </div>
@@ -158,7 +158,7 @@ function login() {
 watch(getIsSuccess, (val) => {
     if (val === 'login') {
         userStore.setIsSuccess()
-        router.push('/')
+        router.push({ name: 'showcase' })
         emit('change-modal', '')
     }
 })
@@ -176,7 +176,7 @@ onUnmounted(() => {
     border-radius: 0 0 24px 24px;
     padding: 16px 16px 48px 16px;
     box-sizing: border-box;
-    background: $gray;
+    background-color: $fonLight;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -190,10 +190,10 @@ onUnmounted(() => {
     font-weight: 500;
     font-size: 16px;
     line-height: 150%;
-    color: $white;
+    color: $gray;
 
     &.error {
-        color: $yellowy;
+        color: $red;
     }
 }
 
@@ -207,7 +207,7 @@ onUnmounted(() => {
     width: 100%;
 
     &.error {
-        border-color: $yellowy;
+        border-color: $red;
     }
 
     &.autofill {
@@ -234,6 +234,7 @@ onUnmounted(() => {
     line-height: 150%;
     color: $black;
     text-align: center;
+    
     & span {
         font-weight: 400;
         font-size: 16px;
@@ -260,15 +261,15 @@ onUnmounted(() => {
     font-size: 16px;
     line-height: 150%;
     text-align: center;
-    color: $white;
+    color: $gray;
 }
 .form__footer-link {
     font-weight: 400;
     font-size: 16px;
     line-height: 150%;
     text-align: center;
-    color: $white;
-    border-bottom: 1px solid #fff;
+    color: $gray;
+    border-bottom: 1px solid $gray;
 
     &--black {
         color: $black;
@@ -281,7 +282,7 @@ onUnmounted(() => {
     align-items: center;
 }
 .checkbox-label {
-    color: $white;
+    color: $gray;
 }
 .forgot-subtitle {
     font-weight: 400;
@@ -292,6 +293,6 @@ onUnmounted(() => {
 }
 
 .error-text {
-    color: $yellowy;
+    color: $red;
 }
 </style>

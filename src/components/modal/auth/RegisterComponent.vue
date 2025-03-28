@@ -202,7 +202,7 @@ watch(getIsSuccess, (val) => {
     border-radius: 0 0 24px 24px;
     padding: 16px 16px 48px 16px;
     box-sizing: border-box;
-    background: $gray;
+    background: $fonLight;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -216,10 +216,10 @@ watch(getIsSuccess, (val) => {
     font-weight: 500;
     font-size: 16px;
     line-height: 150%;
-    color: $white;
+    color: $gray;
 
     &.error {
-        color: $yellowy;
+        color: $red;
     }
 }
 
@@ -233,7 +233,7 @@ watch(getIsSuccess, (val) => {
     width: 100%;
 
     &.error {
-        border-color: $yellowy;
+        border-color: $red;
     }
 
     &.autofill {
@@ -286,15 +286,15 @@ watch(getIsSuccess, (val) => {
     font-size: 16px;
     line-height: 150%;
     text-align: center;
-    color: $white;
+    color: $gray;
 }
 .form__footer-link {
     font-weight: 400;
     font-size: 16px;
     line-height: 150%;
     text-align: center;
-    color: $white;
-    border-bottom: 1px solid #fff;
+    color: $gray;
+    border-bottom: 1px solid $gray;
 
     &--black {
         color: $black;
@@ -318,6 +318,6 @@ watch(getIsSuccess, (val) => {
 }
 
 .error-text {
-    color: $yellowy;
+    color: $red;
 }
 </style>

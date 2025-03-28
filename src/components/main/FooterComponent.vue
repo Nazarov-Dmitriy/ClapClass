@@ -74,10 +74,20 @@
                             :key="number"
                             class="footer__list-item"
                         >
-                            <router-link v-if="!item.target" :to="item.url" class="footer__link">
+                            <router-link
+                                v-if="!item.target && item.url"
+                                :to="item.url"
+                                class="footer__link"
+                            >
                                 {{ item.description }}
                             </router-link>
-                            <a v-else :href="item.url" :target="item.target" class="footer__link">
+                            <a
+                                v-else
+                                :href="item.url"
+                                :target="item.target"
+                                class="footer__link cursor-pointer"
+                                @click="item.function ? item.function() : null"
+                            >
                                 {{ item.description }}
                             </a>
                         </li>
@@ -121,13 +131,24 @@
             </div>
         </div>
     </section>
+    <Teleport to="body">
+        <AuthComponent :modal="modal" @close="() => (modal = '')" />
+    </Teleport>
 </template>
 <script setup>
 import { useSocialStore } from '@/stores/socialStore'
-import { computed, ref } from 'vue'
+import { useUserStore } from '@/stores/userStore'
+import { computed, ref, watch } from 'vue'
+import AuthComponent from '../modal/auth/AuthComponent.vue'
 
 const menuIndex = ref([])
 const socialStore = useSocialStore()
+const userStore = useUserStore()
+const modal = ref('')
+
+const getUser = computed(() => {
+    return userStore.getUser
+})
 
 function activeMenu(index) {
     if (!menuIndex.value.includes(index)) {
@@ -140,6 +161,11 @@ function activeMenu(index) {
 const getSocial = computed(() => {
     return socialStore.getSocial
 })
+
+function caseUrl() {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    modal.value = 'login'
+}
 
 const sections = ref([
     {
@@ -155,7 +181,7 @@ const sections = ref([
             { description: 'Подвижные разминки', url: '/services#moving' },
             { description: 'Ритм-разминки', url: '/services#rhythm' },
             { description: 'Конгитивные разминки', url: '/services#cognitive' },
-            { description: 'Витрина кейсов', url: '/' }
+            { description: 'Витрина кейсов', url: null, function: caseUrl }
         ]
     },
     {
@@ -172,7 +198,11 @@ const sections = ref([
     {
         header: 'Документы',
         items: [
-            { description: 'Пользовательское соглашение', url: '/documents/user_agreement.pdf', target: '_blank' },
+            {
+                description: 'Пользовательское соглашение',
+                url: '/documents/user_agreement.pdf',
+                target: '_blank'
+            },
             {
                 description: 'Политика обработки данных',
                 url: '/documents/privat_policy.pdf',
@@ -186,6 +216,13 @@ const sections = ref([
 function getLinkSocial(name) {
     return getSocial.value?.filter((el) => el.name === name)[0]?.link
 }
+
+watch(getUser, (val) => {
+    if (val) {
+        sections.value[1].items[3].url = '/cabinet/showcase'
+        sections.value[1].items[3].function = null
+    }
+})
 </script>
 <style lang="scss">
 .footer {

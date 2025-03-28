@@ -91,8 +91,8 @@ const getUrl = computed(() => {
 }
 
 .profile__photo-img-wrapper {
-    width: 307px;
-    height: 307px;
+    width: 240px;
+    height: 240px;
     position: relative;
     border-radius: 50%;
     overflow: hidden;

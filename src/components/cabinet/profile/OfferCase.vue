@@ -1,7 +1,7 @@
 <template>
     <div class="rounded-3xl p-4 bg-fonLight flex flex-col gap-3 h-full">
         <TitleComponent
-            class="text-center font-bold text-[24px] leading-[150%] text-orange-500"
+            class="text-center font-bold text-orange-500  !text-[24px]/[36px]"
             style="font-family: 'CenturyGothic'"
         >
             Предложить кейс
@@ -46,7 +46,7 @@
                 </p>
             </div>
         </div>
-        <div>
+        <div class="flex flex-col gap-2">
             <p class="font-medium text-[16px] leading-[20px] text-gray">Загрузите файл</p>
             <div
                 class="border border-dashed border-gray rounded-[20px] p-[8px_16px] box-border flex flex-col justify-center items-center gap-2"
@@ -88,7 +88,7 @@
                     Максимальный размер файлов 35 MB
                 </p>
             </div>
-            <div class="w-full flex items-center justify-center mt-1">
+            <div v-if="fileLoad" class="w-full flex items-center justify-center mt-1">
                 <PulseLoader
                     :loading="fileLoad"
                     :color="'#e05704'"
