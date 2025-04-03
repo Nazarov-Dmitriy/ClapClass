@@ -13,7 +13,7 @@
                 >
                     <SwiperSlide v-for="(card, index) in slidesDataArr" :key="index">
                         <div class="slider__card">
-                            <div class="slider__card-img-wrapper">
+                            <div class="slider__card-img-wrapper" :class="card.class">
                                 <img
                                     :src="card.img"
                                     alt=""
@@ -28,7 +28,7 @@
                     </SwiperSlide>
                     <div class="slider__slide-tabs">
                         <span
-                            v-for="(item, index) in slidesDataArr"
+                            v-for="(_, index) in slidesDataArr"
                             :key="index"
                             class="slider__slide-tabs-span"
                             :class="{ active: activeIndex === index }"
@@ -37,9 +37,14 @@
                 </Swiper>
 
                 <div v-else class="slider__card-wrapper--desctop">
-                    <div class="slider__card" v-for="(card, index) in slidesDataArr" :key="index">
-                        <div class="slider__card-img-wrapper">
-                            <img :src="card.img" alt="" class="slider__card-img" />
+                    <div v-for="(card, index) in slidesDataArr" :key="index" class="slider__card">
+                        <div class="slider__card-img-wrapper" :class="card.class">
+                            <img
+                                :src="card.img"
+                                alt=""
+                                class="slider__card-img"
+                                :class="card.class"
+                            />
                         </div>
                         <p class="slider__card-text">
                             {{ card.text }}
@@ -148,24 +153,44 @@ onUnmounted(() => {
 }
 .slider__card-img-wrapper {
     position: absolute;
-    top: -80px;
-    left: -70px;
+    top: -47px;
+    left: -12px;
     z-index: 0;
 
     @media (max-width: $lg) {
-        top: -40px;
-        left: -20px;
+        top: -43px;
+        left: -10px;
+    }
+
+    &.hero-img {
+        top: -65px;
+        left: -24px;
+
+        @media (max-width: $lg) {
+            top: -47px;
+            left: -10px;
+        }
     }
 }
 .slider__card-img {
+    rotate: -17deg;
     @media (max-width: $lg) {
         width: 120px;
+        height: 56px;
+    }
+
+    &.hero-img {
+        rotate: -20deg;
+        width: 125px;
+        height: 97px;
+
+        @media (max-width: $lg) {
+            width: 100px;
+            height: 77px;
+        }
     }
 }
-.hero-img {
-    position: absolute;
-    top: -30px;
-}
+
 .slider__card-text {
     padding: 8px 16px;
     font-weight: 400;

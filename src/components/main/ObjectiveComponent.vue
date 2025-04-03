@@ -17,17 +17,20 @@
                 <div class="objective__info">
                     <h2 class="objective__title">Наша главная цель</h2>
 
-                    <p class="objective__subtitle">
-                        Создаем игровые сервисы позволяющие настроить необходимую атмосферу, темп и
-                        формат вашего урока для формирования благоприятной внутриклассной среды
-                    </p>
-                    <div class="objective__btn-wrapper">
-                        <BtnComponent
-                            class="objective__btn"
-                            emit-name="action"
-                            @action="$router.push('/about')"
-                            >Узнать больше</BtnComponent
-                        >
+                    <div class="flex flex-col gap-6">
+                        <p class="objective__subtitle">
+                            Создаем игровые сервисы позволяющие настроить необходимую атмосферу,
+                            темп и формат вашего урока для формирования благоприятной внутриклассной
+                            среды
+                        </p>
+                        <div class="objective__btn-wrapper">
+                            <BtnComponent
+                                class="objective__btn"
+                                emit-name="action"
+                                @action="$router.push('/about')"
+                                >Узнать больше</BtnComponent
+                            >
+                        </div>
                     </div>
                 </div>
             </div>
@@ -58,7 +61,7 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
     }
 }
 .objective__container {
-    max-width: 1920px;
+    max-width: 1792px;
     margin: 0 auto;
 }
 .objective__wrapper {
@@ -136,6 +139,7 @@ import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
     line-height: 1.5;
     text-align: center;
     color: $black;
+    padding: 8px 16px;
 
     @media (max-width: $lg) {
         font-size: 24px;

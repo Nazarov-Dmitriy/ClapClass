@@ -29,7 +29,7 @@ defineProps({
 })
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 .important {
     padding: 80px 64px;
     box-sizing: border-box;
@@ -42,11 +42,11 @@ defineProps({
     }
 }
 .important__wrapper {
-
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: start;
     max-width: 1312px;
+    gap: 16px;
     margin: 0 auto;
 
     @media (max-width: $lg) {
@@ -56,7 +56,12 @@ defineProps({
 .important__info {
     display: grid;
     gap: 48px;
+
+    @media (max-width: $sm) {
+        gap: 16px;
+    }
 }
+
 .important__title {
     font-family: 'CenturyGothic';
     font-weight: 700;
@@ -66,6 +71,10 @@ defineProps({
 
     @media (max-width: $lg) {
         text-align: center;
+    }
+    @media (max-width: $sm) {
+        font-size: 24px;
+        line-height: 36px;
     }
 }
 .important__text-wrapper {
@@ -79,10 +88,13 @@ defineProps({
     color: $black;
 }
 .important__img {
-    object-fit: cover;
+    object-fit: contain;
     aspect-ratio: 1 / 1;
+    margin: auto 0;
     @media (max-width: $lg) {
-        max-width: 420px;
+        object-fit: cover;
+            max-width: 420px;
+        height: 280px;
         width: 100%;
         order: -1;
         margin: 0 auto;

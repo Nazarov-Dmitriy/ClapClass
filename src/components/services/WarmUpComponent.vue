@@ -19,68 +19,65 @@
                     @slide-change="updateActiveIndex"
                 >
                     <SwiperSlide v-for="(text, index) in texts" :key="index">
-                        <div class="flex flex-col justify-between gap-4 sm:gap-10">
+                        <div class="flex flex-col justify-between gap-4 sm:gap-10 h-fit">
                             <p class="warm-up__text">{{ text }}</p>
-                            <div class="tab-wrapper">
-                                <div class="slider__slide-tabs">
-                                    <span
-                                        v-for="(tab, tabIndex) in texts"
-                                        :key="tabIndex"
-                                        :class="{
-                                            'slider__slide-tabs-span': true,
-                                            active: activeIndex === tabIndex
-                                        }"
-                                    ></span>
-                                </div>
-                                <button
-                                    v-show="activeIndex !== texts.length - 1"
-                                    class="btn btn--next"
-                                >
-                                    <svg
-                                        width="32"
-                                        height="32"
-                                        viewBox="0 0 32 32"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M12 24L20 16L12 8"
-                                            stroke="#E05704"
-                                            stroke-width="4"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                    </svg>
-                                </button>
-                                <button v-show="activeIndex !== 0" class="btn btn--prev">
-                                    <svg
-                                        width="32"
-                                        height="32"
-                                        viewBox="0 0 32 32"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M12 24L20 16L12 8"
-                                            stroke="#E05704"
-                                            stroke-width="4"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                    </svg>
-                                </button>
-                            </div>
                         </div>
                     </SwiperSlide>
                 </Swiper>
+                <div class="tab-wrapper">
+                    <div class="slider__slide-tabs">
+                        <span
+                            v-for="(_, tabIndex) in texts"
+                            :key="tabIndex"
+                            :class="{
+                                'slider__slide-tabs-span': true,
+                                active: activeIndex === tabIndex
+                            }"
+                        ></span>
+                    </div>
+                    <button v-show="activeIndex !== texts.length - 1" class="btn btn--next">
+                        <svg
+                            width="32"
+                            height="32"
+                            viewBox="0 0 32 32"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M12 24L20 16L12 8"
+                                stroke="#E05704"
+                                stroke-width="4"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </button>
+                    <button v-show="activeIndex !== 0" class="btn btn--prev">
+                        <svg
+                            width="32"
+                            height="32"
+                            viewBox="0 0 32 32"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M12 24L20 16L12 8"
+                                stroke="#E05704"
+                                stroke-width="4"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/vue'
 import { ref } from 'vue'
 
 const props = defineProps({
@@ -91,7 +88,7 @@ const props = defineProps({
     texts: {
         type: Array,
         required: true
-    }
+    },
 })
 
 const swiperRef = ref(null)
@@ -117,6 +114,8 @@ const autoplayOptions = {
 function updateActiveIndex(swiper) {
     activeIndex.value = swiper.realIndex % props.texts.length
 }
+
+
 </script>
 
 <style scoped lang="scss">
@@ -126,7 +125,7 @@ function updateActiveIndex(swiper) {
     padding: 0;
 }
 .warm-up {
-    margin-top: -5%;
+    margin-top: -100px;
     padding: 196px 64px 48px 64px;
     box-sizing: border-box;
     background-image: url('/images/servecies/warm-up/bg-img.png');
@@ -137,9 +136,12 @@ function updateActiveIndex(swiper) {
     box-shadow: 0 16px 2px 0 rgba(14, 8, 6, 0.15);
 
     @media (max-width: $lg) {
+        margin-top: -148px;
+
         padding: 196px 48px 48px 48px;
     }
     @media (max-width: $sm) {
+        margin-top: -64px;
         padding: 80px 16px 16px 16px;
     }
 }
@@ -160,7 +162,7 @@ function updateActiveIndex(swiper) {
     max-width: 648px;
     width: 100%;
     height: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 0.72;
     object-fit: cover;
 
     @media (max-width: $lg) {
@@ -168,9 +170,14 @@ function updateActiveIndex(swiper) {
         margin: 0 auto;
     }
 }
+
+.swiper-slide {
+    height: fit-content;
+}
+
 .warm-up__info {
-    display: grid;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
     gap: 48px;
     border-radius: 24px;
     padding: 48px 16px;
@@ -178,7 +185,9 @@ function updateActiveIndex(swiper) {
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: rgba(255, 255, 255, 0.8);
     height: 100%;
+    min-width: 0;
 }
+
 .warm-up__info-title {
     font-family: 'CenturyGothic';
     font-weight: 700;

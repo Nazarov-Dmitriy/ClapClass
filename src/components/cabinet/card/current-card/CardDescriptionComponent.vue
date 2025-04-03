@@ -15,7 +15,9 @@
             >
                 <SwiperSlide v-for="(img, index) in props.data?.images_slider" :key="index">
                     <img :src="getUrl(img.path)" alt="" class="card-page__left-img" />
-                    <div class="card-page__left-img-substrate">
+                
+                </SwiperSlide>
+                <div class="card-page__left-img-substrate">
                         <div class="card-page__left-img-substrate-btns">
                             <button
                                 class="card-page__left-img-substrate-btn card-page__left-img-substrate-btn--left z-10"
@@ -65,7 +67,6 @@
                             />
                         </div>
                     </div>
-                </SwiperSlide>
             </Swiper>
             <div v-else class="slider_empty animate-pulse bg-amber-400">
                 <div alt="" class="card-page__left-img -z-1"></div>

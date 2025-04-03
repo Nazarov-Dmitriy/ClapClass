@@ -2,89 +2,99 @@
     <section class="use">
         <div class="use__container">
             <div class="user__wrapper">
-                <Swiper
-                    ref="swiperRefUse"
-                    :modules="[Navigation, Pagination]"
-                    :navigation="navigationOptions"
-                    :pagination="paginationOptions"
-                    :slides-per-view="1"
-                    :space-between="5000"
-                    :loop="true"
-                    class="slider use__slide h-full"
-                    @slide-change="updateActiveIndex"
-                >
-                    <SwiperSlide
-                        v-for="(slide, index) in slidesCards"
-                        :key="index"
-                        class="items-center"
+                <div class="flex flex-col gap-4 relative w-full min-w-0 lg:min-w-[580px]">
+                    <Swiper
+                        ref="swiperRefUse"
+                        :modules="[Navigation, Pagination]"
+                        :navigation="navigationOptions"
+                        :pagination="paginationOptions"
+                        :slides-per-view="1"
+                        :space-between="5000"
+                        :loop="true"
+                        class="slider use__slide h-full"
+                        @slide-change="updateActiveIndex"
                     >
-                        <div class="use__slider">
-                            <div v-for="card in slide" :key="card.id" class="use__slider-card">
-                                <img :src="card.img" :alt="card.text" class="use__slide-img" />
-                                <div class="flex flex-col gap-1">
-                                    <span
-                                        v-for="item in card.text"
-                                        :key="item"
-                                        class="use__slide-text"
-                                    >
-                                        {{ item }}
-                                    </span>
+                        <SwiperSlide
+                            v-for="(slide, index) in slidesCards"
+                            :key="index"
+                            class="items-center"
+                        >
+                            <div class="use__slider">
+                                <div v-for="card in slide" :key="card.id" class="use__slider-card">
+                                    <img :src="card.img" :alt="card.text" class="use__slide-img" />
+                                    <div class="flex flex-col gap-1 relative">
+                                        <span
+                                            v-for="item in card.text"
+                                            :key="item"
+                                            class="use__slide-text"
+                                        >
+                                            {{ item }}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
+                        </SwiperSlide>
+                    </Swiper>
 
-                            <div class="slider__slide-tabs slider__slide-tabs--use">
-                                <span
-                                    v-for="(item, idx) in slidesCards"
-                                    :key="idx"
-                                    class="slider__slide-tabs-span slider__slide-tabs-span--use"
-                                    :class="{ active: activeIndex === idx }"
+                    <div class="slider__slide-tabs slider__slide-tabs--use">
+                        <span
+                            v-for="(_, idx) in slidesCards"
+                            :key="idx"
+                            class="slider__slide-tabs-span slider__slide-tabs-span--use"
+                            :class="{ active: activeIndex === idx }"
+                        />
+                    </div>
+                    <div class="slider__slide-arrow-btn-wrapper">
+                        <button
+                            class="slider__slide-arrow-btn slider__slide-arrow-btn--left use-slide-btn-left"
+                            @click="swiperRefUse.value.swiper.slidePrev()"
+                        >
+                            <svg
+                                width="12"
+                                height="21"
+                                viewBox="0 0 12 21"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M10 18.6221L2 10.6221L10 2.62207"
+                                    stroke="#E05704"
+                                    stroke-width="4"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
                                 />
-                            </div>
-                            <div class="slider__slide-arrow-btn-wrapper">
-                                <button
-                                    class="slider__slide-arrow-btn slider__slide-arrow-btn--left use-slide-btn-left"
-                                    @click="swiperRefUse.value.swiper.slidePrev()"
-                                >
-                                    <svg
-                                        width="12"
-                                        height="21"
-                                        viewBox="0 0 12 21"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M10 18.6221L2 10.6221L10 2.62207"
-                                            stroke="#E05704"
-                                            stroke-width="4"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                    </svg>
-                                </button>
-                                <button
-                                    class="slider__slide-arrow-btn slider__slide-arrow-btn--right use-slide-btn-right"
-                                    @click="swiperRefUse.value.swiper.slideNext()"
-                                >
-                                    <svg
-                                        width="12"
-                                        height="21"
-                                        viewBox="0 0 12 21"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M10 18.6221L2 10.6221L10 2.62207"
-                                            stroke="#E05704"
-                                            stroke-width="4"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </SwiperSlide>
-                </Swiper>
+                            </svg>
+                        </button>
+                        <button
+                            class="slider__slide-arrow-btn slider__slide-arrow-btn--right use-slide-btn-right"
+                            @click="swiperRefUse.value.swiper.slideNext()"
+                        >
+                            <svg
+                                width="12"
+                                height="21"
+                                viewBox="0 0 12 21"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M10 18.6221L2 10.6221L10 2.62207"
+                                    stroke="#E05704"
+                                    stroke-width="4"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+                    <BtnComponent
+                        v-if="!getUser"
+                        emit-name="action"
+                        class="use__info-btn mobile"
+                        @action="() => setModal('register')"
+                        >Попробовать сейчас</BtnComponent
+                    >
+                </div>
+
                 <div class="use__info">
                     <TitleComponent class="use__title">Используем лучшие практики</TitleComponent>
                     <p class="use__text">
@@ -98,7 +108,7 @@
                         v-if="!getUser"
                         emit-name="action"
                         class="use__info-btn"
-                        @action="() => setModal('login')"
+                        @action="() => setModal('register')"
                         >Попробовать сейчас</BtnComponent
                     >
                 </div>
@@ -254,13 +264,16 @@ function setModal(value) {
 
 .user__wrapper {
     display: grid;
-    grid-template-columns: 19fr 10fr;
+    grid-template-columns: 173fr 134fr;
     justify-content: center;
     align-items: center;
     padding: 0 64px;
+    gap: 84px;
+    min-width: 0;
 
-    @media (max-width: $xl) {
-        gap: 0;
+    @media (max-width: $xxl) {
+        gap: 16px;
+
     }
 
     @media (max-width: $lg) {
@@ -273,7 +286,14 @@ function setModal(value) {
 }
 
 .use__slide {
-    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 56px;
+
+    @media (max-width: $md) {
+        padding: 0;
+    }
 }
 
 .use__slide-img {
@@ -283,8 +303,9 @@ function setModal(value) {
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: #fff7ac;
     object-fit: cover;
+    margin: 0 20px;
 
-    @media (max-width: $sm) {
+    @media (max-width: $md) {
         width: 64px;
         aspect-ratio: 1;
         padding: 8px;
@@ -293,14 +314,11 @@ function setModal(value) {
 
 .use__slider {
     display: grid;
+    max-width: 580px;
     grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
+    gap: 8px;
 
-    @media (max-width: $lg) {
-        max-width: 464px;
-    }
-
-    @media (max-width: $sm) {
+    @media (max-width: $md) {
         display: flex;
         flex-direction: column;
     }
@@ -309,15 +327,24 @@ function setModal(value) {
     width: 100%;
     min-width: 0;
     max-width: 692px;
+    min-height: 0;
+
+    @media (max-width: $md) {
+        max-width: 540px;
+    }
 }
+
 .use__slider-card {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
     gap: 16px;
+    padding: 16px 0;
+    max-width: 188px;
+    width: 100%;
 
-    @media (max-width: $sm) {
+    @media (max-width: $md) {
+        max-width: none;
         width: 290px;
         padding: 16px;
         flex-direction: row;
@@ -336,14 +363,13 @@ function setModal(value) {
     line-height: 150%;
     text-align: center;
     color: #656d75;
-    max-width: 121px;
 }
 .use__info {
     display: flex;
     flex-direction: column;
     gap: 24px;
 
-    @media (max-width: $sm) {
+    @media (max-width: $md) {
         gap: 16px;
         order: -1;
     }
@@ -358,17 +384,38 @@ function setModal(value) {
         text-align: center;
     }
 }
+
 .use__info-btn {
     width: max-content;
 
     @media (max-width: $lg) {
         margin: 0 auto;
     }
+
+    @media (max-width: $md) {
+        display: none;
+    }
+
+    &.mobile {
+        display: none;
+
+        @media (max-width: $md) {
+            display: flex;
+        }
+    }
+}
+
+.slider__slide-arrow-btn-wrapper {
+    @media (max-width: $md) {
+        display: none;
+    }
 }
 .use-slide-btn-left {
+    z-index: 100;
     left: 0;
 }
 .use-slide-btn-right {
+    z-index: 100;
     right: 4px;
 }
 
@@ -381,6 +428,7 @@ function setModal(value) {
     max-width: 40px;
     width: 100%;
     background: #fff7ac;
+    height: 12px;
 }
 
 .slider__slide-tabs-span--use.active {

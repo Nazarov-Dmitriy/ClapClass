@@ -27,6 +27,7 @@
                             :texts="texts"
                         />
                         <WarmUpComponent
+                            :key="activeIndex"
                             :information="slidesData[activeIndex].content.warmUp"
                             :texts="slidesData[activeIndex].content.warmUp.texts"
                         />
@@ -216,19 +217,10 @@ const activeIndex = ref(0)
 const route = useRoute()
 
 function handleTabClick(index) {
-   
     activeIndex.value = index
 }
 
 onMounted(() => {
-    const bullet = document.querySelectorAll('.swiper-pagination-bullet')
-    const tabs = document.querySelectorAll('.slider__tabs-list-item')
-    tabs.forEach((tab, index) => {
-        tab.addEventListener('click', () => {
-            bullet[index].click()
-        })
-    })
-
     if (route.hash) {
         activeIndex.value = slidesData.value.findIndex((el) => el.value === route.hash.slice(1))
     }

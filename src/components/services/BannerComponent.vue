@@ -5,9 +5,11 @@
                 <img :src="props.information.img" alt="" class="sm:w-20 sm:h-20 w-12 h-12" />
             </div>
             <div class="services__titles">
-                <h2 class="services__title services__title--white">
-                    {{ props.information.titleWhite }}
-                </h2>
+                <div class="services__title-wraper--white">
+                    <h2 class="services__title services__title--white">
+                        {{ props.information.titleWhite }}
+                    </h2>
+                </div>
                 <h2 class="services__title services__title--orange">
                     {{ props.information.titleOrange }}
                 </h2>
@@ -80,18 +82,21 @@ function setModal(value) {
         padding: 16px;
         gap: 16px;
     }
+    @media (max-width: $sm) {
+        box-shadow: none;
+    }
 }
 .services__title-block {
     display: flex;
     align-items: flex-end;
     position: relative;
     font-family: 'CenturyGothic';
-    width: 570px;
+    width: 566px;
     height: 280px;
 
     @media (max-width: $xl) {
         justify-content: center;
-        width: 414px;
+        width: 434px;
         height: 265px;
         margin: 17px 0;
     }
@@ -132,7 +137,7 @@ function setModal(value) {
     }
 }
 .services__titles {
-    margin-left: 150px;
+    margin-left: 130px;
     @media (max-width: $xl) {
         margin-left: 0;
     }
@@ -156,13 +161,26 @@ function setModal(value) {
         font-size: 26px;
     }
 }
+.services__title-wraper--white {
+    min-width: 424px;
+    transform: rotate(-6deg);
+
+    @media (max-width: $lg) {
+        min-width: 340px;
+    }
+
+    @media (max-width: $sm) {
+        min-width: 210px;
+    }
+}
+
 .services__title--white {
     border: 4px solid #e05704;
-    padding: 16px;
+    padding: 12px;
     box-sizing: border-box;
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: rgba(255, 255, 255, 0.8);
-    transform: rotate(-6deg);
+    width: fit-content;
     color: $orange;
 
     @media (max-width: $lg) {
@@ -174,7 +192,7 @@ function setModal(value) {
 }
 .services__title--orange {
     border: 4px solid $white;
-    padding: 16px;
+    padding: 12px;
     box-sizing: border-box;
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: $orange;

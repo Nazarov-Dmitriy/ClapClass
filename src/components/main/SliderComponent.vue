@@ -16,110 +16,112 @@
                         </li>
                     </ul>
                 </div>
-                <div class="slider__slider-wrapper">
-                    <Swiper
-                        ref="swiperRef"
-                        :modules="[Navigation, Pagination, Autoplay]"
-                        :navigation="navigationOptions"
-                        :pagination="paginationOptions"
-                        :slides-per-view="1"
-                        :space-between="5000"
-                        :loop="true"
-                        :autoplay="autoplayOptions"
-                        @slide-change="updateActiveIndex"
-                    >
-                        <SwiperSlide v-for="(item, index) in slidesData" :key="index">
-                            <div class="slider__slide">
-                                <img :src="item.img" alt="" class="slider__slide-img" />
-                                <div class="slider__slide-info">
-                                    <div class="slider__slide-info-title-wrapper">
-                                        <img :src="getPath(item.svg)" alt="" />
-                                        <h2 class="slider__slide-info-title">
-                                            {{ item.title }}
-                                        </h2>
-                                    </div>
-                                    <div class="slider__slide-info-text-wrapper">
-                                        <p class="slider__slide-info-text">
-                                            {{ item.text }}
-                                        </p>
-                                        <div class="slider__slide-info-text-btn-wrapper">
-                                            <BtnComponent
-                                                class="slider__slide-info-text-btn"
-                                                emit-name="action"
-                                                @action="$router.push(item.url)"
-                                            >
-                                                Подробнее
-                                            </BtnComponent>
+                <div class="flex flex-col gap-4">
+                    <div class="slider__slider-wrapper">
+                        <Swiper
+                            ref="swiperRef"
+                            :modules="[Navigation, Pagination, Autoplay]"
+                            :navigation="navigationOptions"
+                            :pagination="paginationOptions"
+                            :slides-per-view="1"
+                            :space-between="5000"
+                            :loop="true"
+                            :autoplay="autoplayOptions"
+                            @slide-change="updateActiveIndex"
+                        >
+                            <SwiperSlide v-for="(item, index) in slidesData" :key="index">
+                                <div class="slider__slide">
+                                    <img :src="item.img" alt="" class="slider__slide-img" />
+                                    <div class="slider__slide-info">
+                                        <div class="slider__slide-info-title-wrapper">
+                                            <img :src="getPath(item.svg)" alt="" />
+                                            <h2 class="slider__slide-info-title">
+                                                {{ item.title }}
+                                            </h2>
+                                        </div>
+                                        <div class="slider__slide-info-text-wrapper">
+                                            <p class="slider__slide-info-text">
+                                                {{ item.text }}
+                                            </p>
+                                            <div class="slider__slide-info-text-btn-wrapper">
+                                                <BtnComponent
+                                                    class="slider__slide-info-text-btn"
+                                                    emit-name="action"
+                                                    @action="$router.push(item.url)"
+                                                >
+                                                    Подробнее
+                                                </BtnComponent>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="slider__slide-arrow-btn-wrapper">
-                                    <button
-                                        class="slider__slide-arrow-btn slider__slide-arrow-btn--left"
-                                        @click="swiperRef.value.swiper.slidePrev()"
+                            </SwiperSlide>
+                            <div class="slider__slide-arrow-btn-wrapper">
+                                <button
+                                    class="slider__slide-arrow-btn slider__slide-arrow-btn--left"
+                                    @click="swiperRef.value.swiper.slidePrev()"
+                                >
+                                    <svg
+                                        width="12"
+                                        height="21"
+                                        viewBox="0 0 12 21"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
                                     >
-                                        <svg
-                                            width="12"
-                                            height="21"
-                                            viewBox="0 0 12 21"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                d="M10 18.6221L2 10.6221L10 2.62207"
-                                                stroke="#E05704"
-                                                stroke-width="4"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                            />
-                                        </svg>
-                                    </button>
-                                    <button
-                                        class="slider__slide-arrow-btn slider__slide-arrow-btn--right"
-                                        @click="swiperRef.value.swiper.slideNext()"
+                                        <path
+                                            d="M10 18.6221L2 10.6221L10 2.62207"
+                                            stroke="#E05704"
+                                            stroke-width="4"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                    </svg>
+                                </button>
+                                <button
+                                    class="slider__slide-arrow-btn slider__slide-arrow-btn--right"
+                                    @click="swiperRef.value.swiper.slideNext()"
+                                >
+                                    <svg
+                                        width="12"
+                                        height="21"
+                                        viewBox="0 0 12 21"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
                                     >
-                                        <svg
-                                            width="12"
-                                            height="21"
-                                            viewBox="0 0 12 21"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                d="M10 18.6221L2 10.6221L10 2.62207"
-                                                stroke="#E05704"
-                                                stroke-width="4"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                            />
-                                        </svg>
-                                    </button>
-                                </div>
+                                        <path
+                                            d="M10 18.6221L2 10.6221L10 2.62207"
+                                            stroke="#E05704"
+                                            stroke-width="4"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                    </svg>
+                                </button>
                             </div>
-                        </SwiperSlide>
-                    </Swiper>
-                    <div class="swiper-pagination" />
-                </div>
-                <div class="slider__slide-tabs">
-                    <span
-                        v-for="(item, index) in slidesData"
-                        :key="index"
-                        class="slider__slide-tabs-span"
-                        :class="{ active: activeIndex === index }"
-                    />
+                        </Swiper>
+                        <div class="swiper-pagination" />
+                    </div>
+                    <div class="slider__slide-tabs">
+                        <span
+                            v-for="(_, index) in slidesData"
+                            :key="index"
+                            class="slider__slide-tabs-span"
+                            :class="{ active: activeIndex === index }"
+                        />
+                    </div>
                 </div>
                 <div class="slider__info">
                     <p class="slider__info-text">
                         Присоединяйтесь к проекту и создайте свою витрину кейсов
                     </p>
                     <div class="slider__info-btn-wrapper">
-                        <BtnComponentWhite
+                        <BtnComponentOrange
                             class="slider__info-btn"
                             emit-name="action"
                             @action="setModal('register')"
                         >
                             Регистрация
-                        </BtnComponentWhite>
+                        </BtnComponentOrange>
                     </div>
                 </div>
             </div>
@@ -131,15 +133,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Pagination, Autoplay } from 'swiper/modules'
+import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
-import BtnComponentWhite from '@/components/ui/btns/BtnComponentWhite.vue'
+import { Autoplay, Navigation, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { onMounted, ref } from 'vue'
 import AuthComponent from '../modal/auth/AuthComponent.vue'
+import BtnComponentOrange from '../ui/btns/BtnComponentOrange.vue'
 
 const modal = ref('')
 function setModal(value) {
@@ -239,6 +241,7 @@ onMounted(() => {
     padding: 100px 64px 48px 64px;
     box-sizing: border-box;
     overflow: hidden;
+
     @media (max-width: $lg) {
         padding: 48px 16px;
     }
@@ -251,6 +254,8 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: 48px;
+    margin: 0 auto;
+
     @media (max-width: $sm) {
         gap: 16px;
     }
@@ -277,6 +282,9 @@ onMounted(() => {
     flex-direction: column;
     gap: 48px;
     position: relative;
+    max-width: 1792px;
+    padding: 0 96px;
+
     &::after {
         content: '';
         position: absolute;
@@ -288,6 +296,7 @@ onMounted(() => {
         background: $yellowy;
         z-index: -1;
     }
+
     &::before {
         content: '';
         position: absolute;
@@ -299,7 +308,14 @@ onMounted(() => {
         background: $yellowy;
         z-index: -1;
     }
+
+    @media (max-width: $lg) {
+        padding: 0 64px;
+    }
+
     @media (max-width: $sm) {
+        padding: 0 0;
+
         gap: 16px;
     }
 }
@@ -351,10 +367,11 @@ onMounted(() => {
     padding: 16px;
     pointer-events: none;
     position: relative;
-    width: 85%;
+    width: 100%;
+    max-width: 1600px;
     @media (max-width: $lg) {
         flex-direction: column;
-        width: 80%;
+  
     }
     @media (max-width: $sm) {
         width: 100%;
@@ -370,8 +387,10 @@ onMounted(() => {
     object-fit: cover;
     border-radius: 24px;
     aspect-ratio: 2 / 1;
+
     @media (max-width: $lg) {
         width: 100%;
+        max-height: 192px;
     }
 }
 
@@ -465,7 +484,7 @@ onMounted(() => {
     cursor: pointer;
     position: absolute;
     top: 50%;
-    translate:0 -50% ;
+    translate: 0 -50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -479,11 +498,19 @@ onMounted(() => {
         }
     }
     &--left {
-        left: -60px;
+        left: -96px;
+
+        @media (max-width: $lg) {
+            left: -64px;
+        }
     }
     &--right {
-        right: -60px;
+        right: -96px;
         transform: rotate(180deg);
+
+        @media (max-width: $lg) {
+            right: -64px;
+        }
     }
 }
 
@@ -496,7 +523,6 @@ onMounted(() => {
     justify-content: center;
     align-items: center;
     gap: 24px;
-    transform: translateY(-30px);
     @media (max-width: $sm) {
         transform: translateY(-5px);
     }

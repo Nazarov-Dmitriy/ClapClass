@@ -7,25 +7,28 @@
                     <div class="project__card">
                         <div class="project__card-wrapper" @click="$router.push('/cooperation')">
                             <img
-                                src="../../assets/images/main/project/project-card1.png"
+                                src="/images/main/project/project-card1.png"
                                 alt=""
                                 class="project__card-img"
                             />
                             <span>Приглашаем к соавторству </span>
                         </div>
                         <div class="project__card-wrapper" @click="$router.push('/cooperation')">
-                            <img
-                                src="../../assets/images/main/project/project-card4.png"
-                                alt=""
-                                class="project__card-img"
-                            />
-                            <span>Стать инновационной площадкой </span>
+                            <div class="project__card-img">
+                                <img
+                                    src="/images/main/project/project-card4.png"
+                                    alt=""
+                                    class="w-full h-full"
+                                />
+                            </div>
+
+                            <span class="sm:!w-[272px]">Стать инновационной площадкой </span>
                         </div>
                     </div>
                     <div class="project__card">
                         <div class="project__card-wrapper" @click="$router.push('/cooperation')">
                             <img
-                                src="../../assets/images/main/project/project-card2.png"
+                                src="/images/main/project/project-card2.png"
                                 alt=""
                                 class="project__card-img"
                             />
@@ -33,7 +36,7 @@
                         </div>
                         <div class="project__card-wrapper" @click="$router.push('/cooperation')">
                             <img
-                                src="../../assets/images/main/project/project-card5.png"
+                                src="/images/main/project/project-card5.png"
                                 alt=""
                                 class="project__card-img"
                             />
@@ -43,7 +46,7 @@
                     <div class="project__card">
                         <div class="project__card-wrapper" @click="$router.push('/cooperation')">
                             <img
-                                src="../../assets/images/main/project/project-card3.png"
+                                src="/images/main/project/project-card3.png"
                                 alt=""
                                 class="project__card-img"
                             />
@@ -51,7 +54,7 @@
                         </div>
                         <div class="project__card-wrapper" @click="$router.push('/cooperation')">
                             <img
-                                src="../../assets/images/main/project/project-card6.png"
+                                src="/images/main/project/project-card6.png"
                                 alt=""
                                 class="project__card-img"
                             />
@@ -186,9 +189,14 @@ const projectCard = ref(null)
     width: 168px;
     cursor: pointer;
     transition: all 0.3s ease;
+    padding: 24px;
+    background: $yellowy;
+    border-radius: 24px;
+    box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
 
     @media (max-width: $sm) {
         width: 116px;
+        padding: 16px;
     }
 
     &:hover + span {
@@ -219,6 +227,7 @@ const projectCard = ref(null)
     align-items: center;
     height: 250px;
     margin-top: 32px;
+    gap: 16px;
 
     @media (max-width: $lg) {
         display: flex;

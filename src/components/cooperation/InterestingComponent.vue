@@ -20,7 +20,9 @@
                 >
                     <div class="card__wrapper">
                         <div class="card__hero-img-wrapper">
-                            <img :src="card.heroImg" alt="" class="card__hero-img" />
+                            <div class="card__hero-img-container">
+                                <img :src="card.heroImg" alt="" class="card__hero-img" />
+                            </div>
                             <p class="card__hero-text">{{ card.heroText }}</p>
                         </div>
                         <h2 class="card__title">
@@ -221,7 +223,7 @@ const cardsInfoArr = ref([
         padding: 48px 16px;
     }
     @media (max-width: 767px) {
-        padding: 64px 16px 48px 16px;
+        padding: 64px 16px 8px 16px;
     }
 }
 
@@ -263,7 +265,7 @@ const cardsInfoArr = ref([
 
 .card__wrapper {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 168px 1fr;
     gap: 38px;
     align-items: center;
 
@@ -279,6 +281,8 @@ const cardsInfoArr = ref([
 
 .card__hero-img-wrapper {
     grid-row: span 2;
+    display: grid;
+    gap: 16px;
     @media (max-width: $lg) {
         grid-area: img;
     }
@@ -287,6 +291,19 @@ const cardsInfoArr = ref([
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+}
+
+.card__hero-img-container {
+    padding: 24px;
+    background: $yellowy;
+    border-radius: 24px;
+    box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
+
+    @media (max-width: $sm) {
+       width: 132px;
+       height: 132px;
+       padding: 16px;
     }
 }
 
@@ -322,6 +339,7 @@ const cardsInfoArr = ref([
     }
     @media (max-width: $sm) {
         font-size: 24px;
+        margin-top: -8px;
     }
 }
 
@@ -397,9 +415,6 @@ const cardsInfoArr = ref([
     display: flex;
     flex-direction: column;
     gap: 16px;
-}
-
-.card__carusel-answer-text {
 }
 
 .card__carusel-answer-action {

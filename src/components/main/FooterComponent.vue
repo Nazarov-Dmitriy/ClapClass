@@ -104,14 +104,14 @@
                         </p>
                     </div>
                 </a>
-                <a href="#" target="_blank" class="footer__copyright-sosh">
+                <a href="https://sch34krsk.gosuslugi.ru" target="_blank" class="footer__copyright-sosh">
                     <img src="@/assets/icons/footer/sosh34.svg" alt="cot" class="footer__sosh" />
                     <div>
                         <p class="footer__cot-text footer__cot-firsttext">
-                            МАОУ СОШ №34 им. героя СССР Кожевникова А.Л., г. Красноярск»
+                            МАОУ СОШ №34 им. героя СССР Кожевникова А.Л., г. Красноярск
                         </p>
                         <p class="footer__cot-subtext">МАОУ СОШ №34, г. Красноярск</p>
-                        <p class="footer__cot-text">Автор проекта: Войнов Александр Витальевич»</p>
+                        <p class="footer__cot-text">Автор проекта: Войнов Александр Витальевич</p>
                     </div>
                 </a>
 

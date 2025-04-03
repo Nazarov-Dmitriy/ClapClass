@@ -42,6 +42,30 @@
                         <div class="col-span-3">Новости появится в ближайшее время</div>
                     </template>
 
+                    <div class="news__card-img-wrapper mobil">
+                        <div class="news__card-img-text-wrapper">
+                            <p class="news__card-img-text">Подписывайся на наши новости!</p>
+                            <svg
+                                width="68"
+                                height="87"
+                                viewBox="0 0 68 87"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="news-text-bg"
+                            >
+                                <path
+                                    d="M47.2974 0C47.2974 0 -2.32469 16.9931 0.0850042 54.5359C2.49469 92.0788 68 86.738 68 86.738C68 86.738 47.3076 75.7545 47.2974 58.4541C47.2873 41.1537 47.2974 0 47.2974 0Z"
+                                    fill="white"
+                                />
+                            </svg>
+                        </div>
+                        <img
+                            src="../../assets/images/main/news/news-hero.png"
+                            alt="Subscribe"
+                            class="news__card-img"
+                        />
+                    </div>
+
                     <div class="news__card--subscribe lg:col-start-4">
                         <div class="news__card-img-wrapper">
                             <img
@@ -51,11 +75,19 @@
                             />
                             <div class="news__card-img-text-wrapper">
                                 <p class="news__card-img-text">Подписывайся на наши новости!</p>
-                                <img
+                                <svg
+                                    width="68"
+                                    height="87"
+                                    viewBox="0 0 68 87"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
                                     class="news-text-bg"
-                                    src="../../assets/images/main/news/news-text-bg.png"
-                                    alt="Text Background"
-                                />
+                                >
+                                    <path
+                                        d="M47.2974 0C47.2974 0 -2.32469 16.9931 0.0850042 54.5359C2.49469 92.0788 68 86.738 68 86.738C68 86.738 47.3076 75.7545 47.2974 58.4541C47.2873 41.1537 47.2974 0 47.2974 0Z"
+                                        fill="white"
+                                    />
+                                </svg>
                             </div>
                         </div>
                         <div class="news__card-info news__card-info--subscribe h-full">
@@ -440,13 +472,6 @@ watch(isSuccess, () => {
     padding: 32px 16px 16px 16px;
     box-shadow: 0 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: $gray;
-
-    @media (max-width: $lg) {
-        margin-top: 220px;
-    }
-    @media (max-width: $sm) {
-        margin-top: 320px;
-    }
 }
 
 .news__card-text--subscribe {
@@ -472,18 +497,72 @@ watch(isSuccess, () => {
 
 .news__card-img-wrapper {
     position: relative;
+    top: -32px;
+
+    @media (max-width: $lg) {
+        display: none;
+    }
 }
+
+.news__card-img-wrapper.mobil {
+    position: relative;
+    padding-top: 82px;
+    display: none;
+    top: 16px;
+    margin-top: -16px;
+
+    @media (max-width: $lg) {
+        display: flex;
+        justify-content: end;
+    }
+
+    @media (max-width: $sm) {
+        padding-top: 0px;
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+    }
+
+    & .news__card-img {
+        position: static;
+
+        @media (max-width: $sm) {
+            width: 288px;
+            height: 182px;
+            transform: unset;
+        }
+    }
+
+    & .news__card-img-text-wrapper {
+        position: relative;
+        transform: unset;
+        left: unset;
+        bottom: unset;
+        height: fit-content;
+        margin-top: -24px;
+
+        @media (max-width: $sm) {
+            top: unset;
+            margin-top: 0px;
+        }
+    }
+}
+
 .news__card-img {
     position: absolute;
     transform: translate(-50%);
-    top: -242px;
+    bottom: 0;
     left: 50%;
+    width: 323px;
+    height: 211px;
+    max-width: none;
 
     @media (max-width: $lg) {
         right: 0;
         left: auto;
         transform: translate(0);
     }
+
     @media (max-width: $sm) {
         width: 288px;
         transform: translate(-50%);
@@ -504,8 +583,9 @@ watch(isSuccess, () => {
     padding: 16px;
     position: absolute;
     width: 204px;
-    top: -240px;
-    left: -257px;
+    bottom: 111px;
+    left: -151px;
+    left: calc(clamp(-14.813rem, 11.944vw - 23.771rem, -9.438rem));
     z-index: 1;
 
     @media (max-width: $lg) {
@@ -524,6 +604,9 @@ watch(isSuccess, () => {
     top: 50px;
     right: -20px;
     z-index: -1;
+    -webkit-filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.25))
+        drop-shadow(0 16px rgba(14, 8, 6, 0.15));
+    filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.25)) drop-shadow(0 16px rgba(14, 8, 6, 0.15));
 
     @media (max-width: $sm) {
         display: none;

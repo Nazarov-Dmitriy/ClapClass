@@ -165,7 +165,7 @@ onBeforeUnmount(() => {
 .student__card {
     border: 2px solid #656d75;
     border-radius: 24px;
-    padding: 128px 0px 0px 0px;
+    padding: 108px 0px 0px 0px;
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: $white;
     display: flex;
@@ -210,7 +210,7 @@ onBeforeUnmount(() => {
 
 .student__card-img {
     position: absolute;
-    top: -200px;
+    top: -170px;
 }
 
 .student__card-title {

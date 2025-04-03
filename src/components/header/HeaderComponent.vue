@@ -361,6 +361,8 @@ watch(getIsSuccess, (val) => {
 }
 
 .header__logo-img {
+    width: 140px;
+    height: 48px;
     cursor: pointer;
 }
 

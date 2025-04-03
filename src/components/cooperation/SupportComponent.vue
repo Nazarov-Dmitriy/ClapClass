@@ -132,7 +132,6 @@ function getLinkSocial(name) {
     }
 }
 .support__container {
-    max-width: 1042px;
     margin: 0 auto;
     scrollbar-gutter: stable;
 }
@@ -146,6 +145,8 @@ function getLinkSocial(name) {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    max-width: 1042px;
+    margin: 0 auto;
 }
 .support__title {
     font-family: 'CenturyGothic';
@@ -173,6 +174,10 @@ function getLinkSocial(name) {
         display: grid;
         grid-template-columns: 1fr;
     }
+
+    @media (max-width: $sm) {
+        gap: 16px;
+    }
 }
 
 .support-modal {
@@ -199,6 +204,7 @@ function getLinkSocial(name) {
     }
     @media (max-width: $sm) {
         flex-direction: column;
+        gap: 16px;
     }
 }
 

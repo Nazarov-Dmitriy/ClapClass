@@ -65,7 +65,7 @@ import TitleComponent from '../ui/TitleComponent.vue'
     @media (max-width: $lg) {
         padding: 80px 0 0;
     }
-    @media (max-width: $sm) {
+    @media (max-width: $md) {
         padding: 80px 0 0;
     }
 }
@@ -83,7 +83,7 @@ import TitleComponent from '../ui/TitleComponent.vue'
     display: grid;
     grid-template-columns: 1fr auto;
     position: relative;
-    @media (max-width: $sm) {
+    @media (max-width: $md) {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -101,7 +101,7 @@ import TitleComponent from '../ui/TitleComponent.vue'
         margin: 0 -24px;
     }
 
-    @media (max-width: $sm) {
+    @media (max-width: $md) {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -115,7 +115,7 @@ import TitleComponent from '../ui/TitleComponent.vue'
         display: none;
     }
 
-    @media (max-width: $sm) {
+    @media (max-width: $md) {
         display: block;
         transform: translate(0, 0);
     }
@@ -133,7 +133,7 @@ import TitleComponent from '../ui/TitleComponent.vue'
             transform: translate(0, 0);
         }
 
-        @media (max-width: $sm) {
+        @media (max-width: $md) {
             display: none;
         }
     }
@@ -166,7 +166,7 @@ import TitleComponent from '../ui/TitleComponent.vue'
         align-items: center;
         gap: 37px;
     }
-    @media (max-width: $sm) {
+    @media (max-width: $md) {
         flex-direction: column;
         padding: 16px;
     }
@@ -180,7 +180,7 @@ import TitleComponent from '../ui/TitleComponent.vue'
     @media (max-width: $lg) {
         padding-left: 204px;
     }
-    @media (max-width: $lg) {
+    @media (max-width: $md) {
         padding-left: 0;
     }
 }
@@ -191,7 +191,7 @@ import TitleComponent from '../ui/TitleComponent.vue'
     line-height: 150%;
     color: $black;
 
-    @media (max-width: $lg) {
+    @media (max-width: $md) {
         font-size: 16px;
     }
 }
@@ -215,7 +215,7 @@ import TitleComponent from '../ui/TitleComponent.vue'
         }
     }
 
-    @media (max-width: $sm) {
+    @media (max-width: $md) {
         flex-direction: column;
         padding: 16px;
     }
@@ -229,11 +229,11 @@ import TitleComponent from '../ui/TitleComponent.vue'
     gap: 24px;
 
     @media (max-width: $lg) {
-        padding: 8px 148px 8px 64px;
+        padding: 8px 128px 8px 64px;
         gap: 16px;
     }
 
-    @media (max-width: $lg) {
+    @media (max-width: $md) {
         padding: 16px;
         margin: 0 -16px;
     }
@@ -256,7 +256,7 @@ import TitleComponent from '../ui/TitleComponent.vue'
         background: #e6eaed;
     }
 
-    @media (max-width: $sm) {
+    @media (max-width: $md) {
         display: none;
     }
 }
@@ -270,11 +270,11 @@ import TitleComponent from '../ui/TitleComponent.vue'
         right: 30px;
     }
 
-    @media (max-width: $md) {
-        right: 20px;
-    }
+    // @media (max-width: $md) {
+    //     right: 20px;
+    // }
 
-    @media (max-width: $sm) {
+    @media (max-width: $md) {
         display: flex;
         top: auto;
         right: auto;
@@ -294,7 +294,7 @@ import TitleComponent from '../ui/TitleComponent.vue'
         height: 252px;
     }
 
-    @media (max-width: $sm) {
+    @media (max-width: $md) {
         width: 280px;
         height: 240px;
         order: -1;
@@ -314,7 +314,7 @@ import TitleComponent from '../ui/TitleComponent.vue'
             width: 326px;
         }
 
-        @media (max-width: $sm) {
+        @media (max-width: $md) {
             display: none;
         }
     }

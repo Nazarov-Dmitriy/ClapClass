@@ -27,50 +27,50 @@
                                 {{ slide.text }}
                             </p>
                         </div>
-                        <div class="slider__slide-arrow-btn-wrapper">
-                            <button
-                                class="slider__slide-arrow-btn slider__slide-arrow-btn--left about-btn-left"
-                                @click="swiperRef?.value.swiper.slidePrev()"
-                            >
-                                <svg
-                                    width="12"
-                                    height="21"
-                                    viewBox="0 0 12 21"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M10 18.6221L2 10.6221L10 2.62207"
-                                        stroke="#E05704"
-                                        stroke-width="4"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                </svg>
-                            </button>
-                            <button
-                                class="slider__slide-arrow-btn slider__slide-arrow-btn--right about-btn-right"
-                                @click="swiperRef?.value.swiper.slideNext()"
-                            >
-                                <svg
-                                    width="12"
-                                    height="21"
-                                    viewBox="0 0 12 21"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M10 18.6221L2 10.6221L10 2.62207"
-                                        stroke="#E05704"
-                                        stroke-width="4"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
                     </div>
                 </SwiperSlide>
+                <div class="slider__slide-arrow-btn-wrapper">
+                    <button
+                        class="slider__slide-arrow-btn slider__slide-arrow-btn--left about-btn-left"
+                        @click="swiperRef?.value.swiper.slidePrev()"
+                    >
+                        <svg
+                            width="12"
+                            height="21"
+                            viewBox="0 0 12 21"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M10 18.6221L2 10.6221L10 2.62207"
+                                stroke="#E05704"
+                                stroke-width="4"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </button>
+                    <button
+                        class="slider__slide-arrow-btn slider__slide-arrow-btn--right about-btn-right"
+                        @click="swiperRef?.value.swiper.slideNext()"
+                    >
+                        <svg
+                            width="12"
+                            height="21"
+                            viewBox="0 0 12 21"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M10 18.6221L2 10.6221L10 2.62207"
+                                stroke="#E05704"
+                                stroke-width="4"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </button>
+                </div>
             </Swiper>
             <div class="slider__slide-tabs slider__slide-tabs--about">
                 <span
@@ -168,7 +168,7 @@ onMounted(() => {
     }
 }
 .features__container {
-    max-width: 1307px;
+    max-width: 1084px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -182,7 +182,10 @@ onMounted(() => {
     text-align: center;
 }
 .slider__wrapper {
-    margin: 0 72px;
+    margin: 0;
+    padding: 0 72px;
+    gap: 0;
+    position: relative;
 
     &::before {
         content: none;
@@ -207,12 +210,17 @@ onMounted(() => {
     box-sizing: border-box;
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: #e6eaed;
+    max-width: 1040px;
 
     @media (max-width: $lg) {
+        grid-template-columns: 128px auto;
+
         width: 100%;
         margin: 0 auto;
         padding: 48px 24px;
+        column-gap: 24px;
     }
+
     @media (max-width: $sm) {
         display: flex;
         flex-direction: column;
@@ -231,6 +239,11 @@ onMounted(() => {
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: #fff7ac;
 
+    @media (max-width: $lg) {
+        padding: 24px;
+        flex-shrink: 0;
+    }
+
     @media (max-width: $sm) {
         padding: 24px;
         width: 128px;
@@ -241,6 +254,7 @@ onMounted(() => {
     object-fit: cover;
     aspect-ratio: 1 / 1;
 }
+
 .slider__info {
     display: flex;
     flex-direction: column;
@@ -283,10 +297,10 @@ onMounted(() => {
     }
 }
 .slider__slide-arrow-btn--right {
-    right: -70px;
+    right: 0px;
 }
 .slider__slide-arrow-btn--left {
-    left: -70;
+    left: 0;
 }
 .slider__slide-tabs--about {
     display: none;

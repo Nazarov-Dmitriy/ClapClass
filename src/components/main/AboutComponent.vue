@@ -41,9 +41,9 @@
 
 <script setup>
 import BtnComponent from '@/components/ui/btns/BtnComponent.vue'
-import AuthComponent from '../modal/auth/AuthComponent.vue';
-import { useUserStore } from '@/stores/userStore';
-import { computed, ref } from 'vue';
+import AuthComponent from '../modal/auth/AuthComponent.vue'
+import { useUserStore } from '@/stores/userStore'
+import { computed, ref } from 'vue'
 const userStore = useUserStore()
 const modal = ref('')
 const getUser = computed(() => {
@@ -61,6 +61,7 @@ function setModal(value) {
     height: 687px;
     box-sizing: border-box;
     position: relative;
+    overflow: hidden;
 
     @media (max-width: $lg) {
         padding: 48px 16px 0px 16px;
@@ -105,83 +106,91 @@ function setModal(value) {
         align-items: center;
         gap: 48px;
     }
+
+    @media (max-width: $sm) {
+        gap: 24px;
+    }
 }
+
 .about__slogan {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     width: 100%;
     position: absolute;
-    bottom: 0;
 
     @media (max-width: $lg) {
         position: static;
         order: -1;
-        max-width: 486px;
+        max-width: 484px;
         width: 100%;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: start;
+        height: 214px;
     }
 
     @media (max-width: $sm) {
-        max-width: 316px;
+        max-width: 296px;
+        height: 121px;
     }
 }
 .about__slogan-title {
     font-family: 'CenturyGothic';
     font-weight: 700;
     font-size: 60px;
-    line-height: 60px;
+    line-height: 90px;
     text-align: center;
     color: $orange;
     border: 4px solid $orange;
-    padding: 16px 0;
+    padding: 12px 20px;
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: rgba(255, 255, 255, 0.8);
-    transform: rotate(-4deg);
     box-sizing: border-box;
-    margin-top: 24px;
     width: 541px;
-    transform: translate(-30px, 0) rotate(-6deg);
+    transform: translate(6px, -20px) rotate(-6deg);
 
     @media (max-width: $lg) {
         font-size: 40px;
         line-height: 1.5;
-        transform: translate(-30px, 10px) rotate(-8deg);
-        width: calc(100% - 30px);
+        transform: translate(4px, 6px) rotate(-6deg);
+        width: fit-content;
     }
     @media (max-width: $sm) {
         font-size: 26px;
-        transform: translate(-12px, 10px) rotate(-8deg);
-        padding: 9px 0;
+        transform: translate(2px, 6px) rotate(-6deg);
+        padding: 4px 12px;
     }
 }
 .about__slogan-subtitle {
     font-family: 'CenturyGothic';
     font-weight: 700;
     font-size: 60px;
-    line-height: 1;
+    line-height: 1.5;
     text-align: center;
     color: $white;
     border: 4px solid $white;
-    padding: 16px 0;
+    padding: 12px 24px;
     box-shadow: 16px 16px 2px 0 rgba(14, 8, 6, 0.15);
     background: $orange;
     box-sizing: border-box;
+    width: fit-content;
+    position: relative;
+    margin-left: 32px;
     transform: rotate(-2deg);
-    width: 604px;
+    bottom: 32px;
 
     @media (max-width: $lg) {
         font-size: 40px;
         line-height: 1.5;
-        transform: translate(10px, 0) rotate(-2deg);
-        width: 100%;
+        transform: translate(0, 39px) rotate(-2deg);
+        width: fit-content;
     }
     @media (max-width: $sm) {
         font-size: 26px;
-        transform: translate(0, 0) rotate(-2deg);
-        padding: 9px 0;
+        transform: translate(0, 32px) rotate(-2deg);
+        padding: 4px 12px;
+        margin-left: 0;
     }
 }
 .about__info {
@@ -190,6 +199,7 @@ function setModal(value) {
     gap: 48px;
     align-items: end;
     width: 100%;
+    z-index: 100;
 }
 .about__info-logo {
     max-width: 496px;
@@ -233,8 +243,10 @@ function setModal(value) {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    margin-right: 32px;
 
     @media (max-width: $lg) {
+        margin-right: 0;
         justify-content: center;
         align-items: center;
         width: 100%;

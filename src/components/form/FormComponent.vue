@@ -7,24 +7,14 @@
                     <h2 class="form__hero-title">Остались вопросы?</h2>
                     <div class="form__hero-img-wrapper">
                         <img
-                            class="form__hero-question-img"
-                            src="../../assets/images/form/form-question-img.png"
-                            alt=""
-                        />
-                        <img
-                            class="form__hero-question-img form__hero-question-img--center"
-                            src="../../assets/images/form/form-question-img.png"
-                            alt=""
-                        />
-                        <img
-                            class="form__hero-question-img form__hero-question-img--right"
-                            src="../../assets/images/form/form-question-img.png"
-                            alt=""
-                        />
-                        <img
                             src="../../assets/images/form/form-hero-img.png"
                             alt=""
                             class="form__hero-img"
+                        />
+                        <img
+                            src="../../assets/images/form/form-hero-img-mobil.png"
+                            alt=""
+                            class="form__hero-img-mobil"
                         />
                     </div>
                 </div>
@@ -65,7 +55,7 @@
                             <div class="form__form-input-wrapper">
                                 <label for="phone" class="form__label">
                                     <span :class="{ form__error: formField.phoneError }"
-                                    >Телефон</span
+                                        >Телефон</span
                                     >
                                     <input
                                         id="phone"
@@ -94,7 +84,7 @@
                                     :class="{ form__error: formField.emailError }"
                                 >
                                     <span :class="{ form__error: formField.emailError }"
-                                    >E-mail</span
+                                        >E-mail</span
                                     >
                                     <input
                                         id="email"
@@ -291,14 +281,13 @@ watch(getIsSuccess, (val) => {
     @media (max-width: $lg) {
         padding: 48px 16px 0px 16px;
     }
-    @media (max-width: $lg) {
-        padding: 24px 16px 0 16px;
+    @media (max-width: $sm) {
+        padding: 24px 16px;
     }
 }
 
 .form__wrapper {
     display: flex;
-    align-items: end;
     justify-content: space-around;
     gap: 16px;
 
@@ -306,25 +295,38 @@ watch(getIsSuccess, (val) => {
         display: flex;
         align-items: center;
     }
-    @media (max-width: $xl) {
+    @media (max-width: $lg) {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        gap: 48px;
     }
 }
+.form__form {
+    z-index: 1;
+    position: relative;
+    background: transparent !important;
+}
+
 .form__hero {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 546px;
-    max-width: 546px;
+    max-width: 536px;
     width: 100%;
+
     @media (max-width: $xl) {
+        max-width: 432px;
+    }
+
+    @media (max-width: $lg) {
         order: 2;
         height: 100%;
+        max-width: none;
     }
     @media (max-width: $sm) {
         display: none;
+        overflow: hidden;
     }
 }
 .form__hero-title {
@@ -333,14 +335,14 @@ watch(getIsSuccess, (val) => {
     font-size: 36px;
     line-height: 48px;
     color: $white;
-    @media (max-width: $xl) {
+    @media (max-width: $lg) {
         display: none;
     }
 
     &--mobile {
         display: none;
 
-        @media (max-width: $xl) {
+        @media (max-width: $lg) {
             display: block;
             text-align: center;
             margin-bottom: 48px;
@@ -358,6 +360,11 @@ watch(getIsSuccess, (val) => {
     flex-direction: column;
     align-items: end;
     position: relative;
+    bottom: 0;
+
+    @media (max-width: $lg) {
+        align-items: initial;
+    }
 }
 
 .form__hero-question-img {
@@ -379,10 +386,25 @@ watch(getIsSuccess, (val) => {
 }
 
 .form__hero-img {
-    width: 100%;
-    max-width: 654px;
+    max-width: 604px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+
     @media (max-width: $lg) {
-        max-width: 604px;
+        display: none;
+    }
+}
+
+.form__hero-img-mobil {
+    display: none;
+
+    @media (max-width: $lg) {
+        display: block;
+        width: 604px;
+        height: 440px;
+        max-width: none;
     }
 }
 
@@ -408,12 +430,16 @@ watch(getIsSuccess, (val) => {
     margin-bottom: 40px;
     background-color: $gray;
     border-radius: 0 0 25px 25px;
-    padding: 10px 15px;
+
+    @media (max-width: $lg) {
+        margin-bottom: 0px;
+    }
 }
 .form__fields {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    z-index: 1;
 }
 .form__label {
     font-weight: 500;
@@ -508,6 +534,7 @@ watch(getIsSuccess, (val) => {
     font-size: 16px;
     font-family: 'Inter';
     color: $gray;
+    max-height: 194px;
 
     &:hover {
         background-color: #e6eaed;
