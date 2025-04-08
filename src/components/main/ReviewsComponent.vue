@@ -10,51 +10,139 @@
                 </div>
                 <div class="reviews__cards-wrapper">
                     <div class="reviews__cards">
-                        <div class="reviews__cards-inner">
-                            <div class="reviews__cards-group">
-                                <div
-                                    v-for="(review, index) in getReviewsList"
-                                    :key="index"
-                                    class="reviews__card"
-                                >
-                                    <div class="reviews__card-header">
-                                        <img
-                                            :src="getUrl(review.filePath)"
-                                            alt=""
-                                            class="reviews__card-img"
-                                        />
-                                        <div class="reviews__card-header-text">
-                                            <span>{{ review.author }}</span>
-                                            <span>{{ review.date }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="reviews__card-body">
-                                        <p class="reviews__card-text">
-                                            {{ review.description }}
-                                        </p>
+                        <div class="reviews__cards-group">
+                            <div
+                                v-for="(review, index) in getReviewsList"
+                                :key="index"
+                                class="reviews__card"
+                            >
+                                <div class="reviews__card-header">
+                                    <img
+                                        :src="getUrl(review.filePath)"
+                                        alt=""
+                                        class="reviews__card-img"
+                                    />
+                                    <div class="reviews__card-header-text">
+                                        <span>{{ review.author }}</span>
+                                        <span>{{ review.date }}</span>
                                     </div>
                                 </div>
-                                <div
-                                    v-for="(review, index) in getReviewsList"
-                                    :key="index"
-                                    class="reviews__card"
-                                >
-                                    <div class="reviews__card-header">
-                                        <img
-                                            :src="getUrl(review.filePath)"
-                                            alt=""
-                                            class="reviews__card-img"
-                                        />
-                                        <div class="reviews__card-header-text">
-                                            <span>{{ review.author }}</span>
-                                            <span>{{ review.date }}</span>
-                                        </div>
+                                <div class="reviews__card-body">
+                                    <p class="reviews__card-text">
+                                        {{ review.description }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div
+                                v-for="(review, index) in getReviewsList"
+                                :key="index"
+                                class="reviews__card"
+                            >
+                                <div class="reviews__card-header">
+                                    <img
+                                        :src="getUrl(review.filePath)"
+                                        alt=""
+                                        class="reviews__card-img"
+                                    />
+                                    <div class="reviews__card-header-text">
+                                        <span>{{ review.author }}</span>
+                                        <span>{{ review.date }}</span>
                                     </div>
-                                    <div class="reviews__card-body">
-                                        <p class="reviews__card-text">
-                                            {{ review.description }}
-                                        </p>
+                                </div>
+                                <div class="reviews__card-body">
+                                    <p class="reviews__card-text">
+                                        {{ review.description }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div
+                                v-for="(review, index) in getReviewsList"
+                                :key="index"
+                                class="reviews__card"
+                            >
+                                <div class="reviews__card-header">
+                                    <img
+                                        :src="getUrl(review.filePath)"
+                                        alt=""
+                                        class="reviews__card-img"
+                                    />
+                                    <div class="reviews__card-header-text">
+                                        <span>{{ review.author }}</span>
+                                        <span>{{ review.date }}</span>
                                     </div>
+                                </div>
+                                <div class="reviews__card-body">
+                                    <p class="reviews__card-text">
+                                        {{ review.description }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="reviews__cards-group">
+                            <div
+                                v-for="(review, index) in getReviewsList"
+                                :key="index"
+                                class="reviews__card"
+                            >
+                                <div class="reviews__card-header">
+                                    <img
+                                        :src="getUrl(review.filePath)"
+                                        alt=""
+                                        class="reviews__card-img"
+                                    />
+                                    <div class="reviews__card-header-text">
+                                        <span>{{ review.author }}</span>
+                                        <span>{{ review.date }}</span>
+                                    </div>
+                                </div>
+                                <div class="reviews__card-body">
+                                    <p class="reviews__card-text">
+                                        {{ review.description }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div
+                                v-for="(review, index) in getReviewsList"
+                                :key="index"
+                                class="reviews__card"
+                            >
+                                <div class="reviews__card-header">
+                                    <img
+                                        :src="getUrl(review.filePath)"
+                                        alt=""
+                                        class="reviews__card-img"
+                                    />
+                                    <div class="reviews__card-header-text">
+                                        <span>{{ review.author }}</span>
+                                        <span>{{ review.date }}</span>
+                                    </div>
+                                </div>
+                                <div class="reviews__card-body">
+                                    <p class="reviews__card-text">
+                                        {{ review.description }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div
+                                v-for="(review, index) in getReviewsList"
+                                :key="index"
+                                class="reviews__card"
+                            >
+                                <div class="reviews__card-header">
+                                    <img
+                                        :src="getUrl(review.filePath)"
+                                        alt=""
+                                        class="reviews__card-img"
+                                    />
+                                    <div class="reviews__card-header-text">
+                                        <span>{{ review.author }}</span>
+                                        <span>{{ review.date }}</span>
+                                    </div>
+                                </div>
+                                <div class="reviews__card-body">
+                                    <p class="reviews__card-text">
+                                        {{ review.description }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -96,10 +184,6 @@ function getUrl(url) {
     @media (max-width: $sm) {
         padding: 24px 16px;
     }
-}
-
-.reviews__container {
-    overflow: hidden;
 }
 
 .reviews__wrapper {
@@ -144,11 +228,25 @@ function getUrl(url) {
 }
 
 .reviews__cards-wrapper {
-    overflow: hidden;
+    margin: 0 -40px;
+    mask-image: linear-gradient(
+        to right,
+        hsl(0 0% 0%/ 0),
+        hsl(0 0% 0% / 1) 5%,
+        hsl(0 0% 0% /1) 95%,
+        hsl(0 0% 0% / 0)
+    );
+
+    @media (max-width: $lg) {
+        margin: 0 -16px;
+    }
 }
 .reviews__cards {
     display: flex;
     width: 100%;
+    gap: 48px;
+    overflow: hidden;
+
     @media (max-width: $lg) {
         width: 100%;
     }
@@ -158,17 +256,18 @@ function getUrl(url) {
     display: none;
 }
 
-.reviews__cards-inner {
-    display: flex;
-    width: 200%;
-}
-
 .reviews__cards-group {
+    flex-shrink: 0;
     display: flex;
-    flex: 1;
+    align-items: center;
+    justify-content: space-around;
     gap: 48px;
-    width: 50%;
+    min-width: 100%;
     animation: slide 15s linear infinite;
+
+    @media (max-width: $lg) {
+        animation: slide-lg 15s linear infinite;
+    }
 }
 
 .reviews__card {
@@ -180,8 +279,10 @@ function getUrl(url) {
     border-radius: 24px;
     padding: 24px;
     background: $white;
+    flex-shrink: 0;
     width: 430px;
     box-sizing: border-box;
+    height: 100%;
 
     @media (max-width: $sm) {
         width: 357px;
@@ -224,12 +325,20 @@ function getUrl(url) {
 }
 
 @keyframes slide {
-    0% {
-        transform: translateX(100%);
+    from {
+        transform: translateX(40px);
     }
+    to {
+        transform: translateX(calc(-100% - 8px));
+    }
+}
 
-    100% {
-        transform: translateX(-100%);
+@keyframes slide-lg {
+    from {
+        transform: translateX(16px);
+    }
+    to {
+        transform: translateX(calc(-100% - 32px));
     }
 }
 </style>

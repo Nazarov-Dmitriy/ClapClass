@@ -69,6 +69,8 @@ onBeforeUnmount(() => {
     overflow: auto;
     transform: translateY(0);
     margin: auto;
+    display: flex;
+    flex-direction: column;
 
     &::-webkit-scrollbar {
         width: 0;

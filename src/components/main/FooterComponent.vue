@@ -138,7 +138,7 @@
 <script setup>
 import { useSocialStore } from '@/stores/socialStore'
 import { useUserStore } from '@/stores/userStore'
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import AuthComponent from '../modal/auth/AuthComponent.vue'
 
 const menuIndex = ref([])
@@ -146,6 +146,12 @@ const socialStore = useSocialStore()
 const userStore = useUserStore()
 const modal = ref('')
 
+onMounted(()=>{
+    if (getUser.value) {
+        sections.value[1].items[3].url = '/cabinet/showcase'
+        sections.value[1].items[3].function = null
+    }
+})
 const getUser = computed(() => {
     return userStore.getUser
 })
@@ -187,7 +193,7 @@ const sections = ref([
     {
         header: 'Сотрудничество',
         items: [
-            { description: 'Партнерская программа', url: '/' },
+            { description: 'Партнерская программа', url: '/cooperation' },
             {
                 description: 'Поддержать проект',
                 url: 'https://yoomoney.ru/fundraise/18LATS4B2TM.250226',

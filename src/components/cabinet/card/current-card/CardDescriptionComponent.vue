@@ -1,6 +1,6 @@
 <template>
     <div class="card-page__left">
-        <div class="card-page__left-img-wrapper ">
+        <div class="card-page__left-img-wrapper">
             <Swiper
                 v-if="props.data"
                 :modules="[Navigation, Pagination, Autoplay]"
@@ -9,64 +9,63 @@
                 :slides-per-view="1"
                 :space-between="5000"
                 :loop="true"
-                class="slider "
+                class="slider"
                 @slide-change="updateActiveIndex"
                 @swiper="getRef"
             >
                 <SwiperSlide v-for="(img, index) in props.data?.images_slider" :key="index">
                     <img :src="getUrl(img.path)" alt="" class="card-page__left-img" />
-                
                 </SwiperSlide>
                 <div class="card-page__left-img-substrate">
-                        <div class="card-page__left-img-substrate-btns">
-                            <button
-                                class="card-page__left-img-substrate-btn card-page__left-img-substrate-btn--left z-10"
+                    <div class="card-page__left-img-substrate-btns">
+                        <button
+                            class="card-page__left-img-substrate-btn card-page__left-img-substrate-btn--left z-10"
+                        >
+                            <svg
+                                width="33"
+                                height="32"
+                                viewBox="0 0 33 32"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
                             >
-                                <svg
-                                    width="33"
-                                    height="32"
-                                    viewBox="0 0 33 32"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M20.5 8L12.5 16L20.5 24"
-                                        stroke="white"
-                                        stroke-width="4"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                </svg>
-                            </button>
-                            <button
-                                class="card-page__left-img-substrate-btn card-page__left-img-substrate-btn--right"
+                                <path
+                                    d="M20.5 8L12.5 16L20.5 24"
+                                    stroke="white"
+                                    stroke-width="4"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </button>
+                        <button
+                            class="card-page__left-img-substrate-btn card-page__left-img-substrate-btn--right"
+                        >
+                            <svg
+                                width="33"
+                                height="32"
+                                viewBox="0 0 33 32"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
                             >
-                                <svg
-                                    width="33"
-                                    height="32"
-                                    viewBox="0 0 33 32"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M20.5 8L12.5 16L20.5 24"
-                                        stroke="white"
-                                        stroke-width="4"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="slider__slide-tabs">
-                            <span
-                                v-for="(_, ind) in props.data?.images_slider"
-                                :key="ind"
-                                class="slider__slide-tabs-span"
-                                :class="{ active: activeIndex === ind }"
-                            />
-                        </div>
+                                <path
+                                    d="M20.5 8L12.5 16L20.5 24"
+                                    stroke="white"
+                                    stroke-width="4"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </button>
                     </div>
+                    <div class="slider__slide-tabs">
+                        <span
+                            v-for="(_, ind) in props.data?.images_slider"
+                            :key="ind"
+                            class="slider__slide-tabs-span"
+                            :class="{ active: activeIndex === ind }"
+                        />
+                    </div>
+                </div>
             </Swiper>
             <div v-else class="slider_empty animate-pulse bg-amber-400">
                 <div alt="" class="card-page__left-img -z-1"></div>
@@ -266,10 +265,13 @@ watch(
 <style lang="scss" scoped>
 .card-page__left {
     width: 100%;
-    min-width: 0; 
+    min-width: 0;
     @include flex-col-gap(24px);
 }
 .case-modal__form {
+    overflow: hidden;
+    display: flex;
+    
     :deep(.form__form) {
         background-color: $fonLight;
     }

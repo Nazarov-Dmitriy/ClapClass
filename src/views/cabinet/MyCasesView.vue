@@ -175,7 +175,6 @@ watch(
 )
 
 watch([() => panel.type], (val) => {
-    console.log(val)
     if(val[0] === ''){
         data.value = getListBriefcase.value 
     }else{

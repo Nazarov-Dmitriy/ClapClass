@@ -310,6 +310,10 @@ watch(getIsSuccess, (val) => {
 </style>
 
 <style lang="scss" scoped>
+.form__info{
+    display: flex
+;
+}
 .form__success-title {
     font-family: 'CenturyGothic';
     font-weight: 700;
@@ -330,6 +334,7 @@ watch(getIsSuccess, (val) => {
     background-color: $fonLight;
     border-radius: 0 0 25px 25px;
     padding: 24px 48px 48px;
+    overflow-y: auto;
 }
 .form__fields {
     display: flex;
