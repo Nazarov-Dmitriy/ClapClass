@@ -160,7 +160,7 @@ function validateField(field) {
 
     switch (field) {
         case 'name':
-            errors.name = value.length === 0 ? 'Это поле обязательно' : ''
+            errors.name = value?.length === 0 || !value ? 'Это поле обязательно' : ''
             break
         case 'phone':
             // eslint-disable-next-line no-case-declarations
@@ -171,15 +171,17 @@ function validateField(field) {
             // eslint-disable-next-line no-case-declarations
             const emailRegexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
             errors.email = !emailRegexp.test(value) ? 'Неверный формат email' : ''
+            console.log(11)
+
             break
         case 'city':
-            errors.city = value.length === 0 ? 'Это поле обязательно' : ''
+            errors.city = value?.length === 0 || !value ? 'Это поле обязательно' : ''
             break
         case 'place_work':
-            errors.place_work = value.length === 0 ? 'Это поле обязательно' : ''
+            errors.place_work = value?.length === 0  || !value ? 'Это поле обязательно' : ''
             break
         case 'position':
-            errors.position = value.length === 0 ? 'Это поле обязательно' : ''
+            errors.position = value?.length === 0  || !value ? 'Это поле обязательно' : ''
             break
         default:
             break

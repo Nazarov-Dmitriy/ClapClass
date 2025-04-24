@@ -24,7 +24,7 @@
                                 v-if="!getUser"
                                 emit-name="action"
                                 class="about__info-btn"
-                                @action="() => setModal('login')"
+                                @action="() => setModal('register')"
                             >
                                 Присоединиться
                             </BtnComponent>
@@ -118,6 +118,7 @@ function setModal(value) {
     justify-content: flex-end;
     width: 100%;
     position: absolute;
+    bottom: -18px;
 
     @media (max-width: $lg) {
         position: static;

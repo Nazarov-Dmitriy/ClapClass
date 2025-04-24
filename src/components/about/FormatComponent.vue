@@ -141,7 +141,7 @@ import TitleComponent from '../ui/TitleComponent.vue'
 .format__info {
     display: grid;
     grid-template-columns: auto 1fr;
-    padding: 16px 64px 16px 148px;
+    padding: 16px 64px 16px 96px;
     box-sizing: border-box;
     background: #fff7ac;
     position: relative;

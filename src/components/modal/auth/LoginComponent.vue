@@ -14,7 +14,7 @@
             <form class="form__wrapper" @submit.prevent>
                 <div class="form__group">
                     <label for="email" class="form__label" :class="getError?.email && 'error'"
-                        >E-mail</label
+                        >Ваш e-mail</label
                     >
                     <div class="flex w-full relative">
                         <input
@@ -22,7 +22,7 @@
                             type="text"
                             class="form__input autofill"
                             :class="getError?.email && 'error'"
-                            placeholder="email"
+                            placeholder="Введите e-mail"
                         />
                         <img class="input-icon" src="/icons/auth/inputs/input-mail.svg" alt="" />
                     </div>
@@ -64,21 +64,20 @@
                     </p>
                 </div>
                 <div class="form__login flex justify-between items-center">
-                    <div class="flex gap-2 cursor-pointer">
-                        <div
-                            v-if="isCheckboxActive"
-                            class="checkbox-filled flex justify-center items-center bg-[#fff7ac]"
-                            @click="toggleCheckbox"
-                        >
-                            <img src="/icons/auth/checkboxes/checkbox-filled.svg" alt="" />
+                    <div class="flex gap-2 cursor-pointer items-center">
+                        <div class="w-6 h-6 p-[3px]">
+                            <div
+                                class="w-[18px] h-[18px] rounded-[2px] border-[2px] border-gray bg-white select-none"
+                                @click="toggleCheckbox"
+                            >
+                                <div
+                                    v-if="isCheckboxActive"
+                                    class="checkbox-filled flex justify-center items-center"
+                                >
+                                    <img src="/icons/auth/checkboxes/checkbox-filled.svg" alt="" />
+                                </div>
+                            </div>                 
                         </div>
-                        <img
-                            v-else
-                            src="/icons/auth/checkboxes/checkbox-empty.svg"
-                            alt=""
-                            @click="toggleCheckbox"
-                        />
-
                         <span class="checkbox-label" @click="toggleCheckbox">Запомнить меня</span>
                     </div>
                     <BtnComponent emit-name="action" @action="login"> Войти </BtnComponent>
@@ -234,7 +233,7 @@ onUnmounted(() => {
     line-height: 150%;
     color: $black;
     text-align: center;
-    
+
     & span {
         font-weight: 400;
         font-size: 16px;

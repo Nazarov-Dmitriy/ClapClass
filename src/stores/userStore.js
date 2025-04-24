@@ -203,7 +203,7 @@ export const useUserStore = defineStore('userStore', {
                     }
                 })
                 .catch((err) => {
-                    this.errors = err.response.data
+                    this.error = err.data
                 })
         }
     }

@@ -1,7 +1,11 @@
 <template>
     <div class="subscribe mt-2">
         <div class="subscribe__img-container">
-            <TitleComponent class="text-center text-center !text-[24px]/[36px] max-w-[272px] mx-auto"> Подписка на новости ClapClass </TitleComponent>
+            <TitleComponent
+                class="text-center text-center !text-[24px]/[36px] max-w-[272px] mx-auto"
+            >
+                Подписка на новости ClapClass
+            </TitleComponent>
             <p class="font-normal text-base leading-[150%] text-center text-gray">
                 Узнавай первым о новых кейсах, статьсях и обновлениях платформы
             </p>
@@ -114,7 +118,7 @@ watch(isSuccess, (val) => {
 .subscribe__form {
     background: $gray;
     border-radius: 24px;
-    padding:16px;
+    padding: 16px;
     gap: 36px;
     display: flex;
     flex-direction: column;

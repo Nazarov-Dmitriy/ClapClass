@@ -191,7 +191,7 @@ watch(getArticleList, (val) => {
         background: $white;
 
         &:hover {
-            background: $yellowy;
+            box-shadow: 0 0 20px 0 $orange;
         }
     }
 }

@@ -138,7 +138,7 @@ const slidesCards = ref([
         {
             id: 1,
             img: '/images/about/use/card-img1.svg',
-            text: ['Геймификации']
+            text: ['Геймификация']
         },
         {
             id: 2,

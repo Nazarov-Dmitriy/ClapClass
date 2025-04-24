@@ -186,6 +186,7 @@ function updateActiveIndex(swiper) {
     background: rgba(255, 255, 255, 0.8);
     height: 100%;
     min-width: 0;
+    overflow: hidden;
 }
 
 .warm-up__info-title {

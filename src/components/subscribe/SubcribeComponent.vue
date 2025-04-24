@@ -25,6 +25,9 @@
                     class="subscribe__input"
                     type="text"
                     placeholder="Введите ваш email"
+                    :class="{
+                        '!border-yellowy !border !border-solid': getError?.error
+                    }"
                     @input="changeEmail($event)"
                     @keypress.enter="validateField($event, 'event')"
                 />
@@ -32,6 +35,10 @@
                     <ErrorSvg clip="w-5 h-5"></ErrorSvg>
                     <span class="text-error">Поле заполненно некорректно</span>
                 </div>
+                <p v-if="getError" class="text-red input-error">
+                    <ErrorSvg clip="w-5 h-5"></ErrorSvg>
+                    {{ getError.error }}
+                </p>
             </div>
             <div class="subscribe__info">
                 <BtnComponentWhite
@@ -44,7 +51,10 @@
                 <p class="subscribe__text">
                     Нажимая кнопку “Подписаться” вы соглашаетесь с
                     <span
-                        ><a class="subscribe__text-link" href="#"
+                        ><a
+                            class="subscribe__text-link"
+                            href="/documents/privat_policy.pdf"
+                            target="_blank"
                             >политикой обработки персональных данных</a
                         ></span
                     >
@@ -82,6 +92,10 @@ const formField = reactive({
     emailError: false
 })
 
+const getError = computed(() => {
+    return userStore.getError
+})
+
 function addSubscribe() {
     validateField(formField.email, 'validate')
     if (!formField.emailError) {
@@ -103,8 +117,7 @@ function validateField(param, event) {
     } else {
         target = param.trim()
     }
-    let email_regexp =
-        /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+    let email_regexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     !email_regexp.test(String(target).toLowerCase())
         ? (formField.emailError = true)
         : (formField.emailError = false)

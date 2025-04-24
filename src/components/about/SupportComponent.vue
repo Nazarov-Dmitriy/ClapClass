@@ -25,7 +25,7 @@
                 <img
                     src="/images/about/support/offer-hero.png"
                     alt="offer hero img"
-                    class="support__offer-img support__offer-img--hero"
+                    class="support__offer-img support__offer-img--hero z-10"
                 />
                 <a href="https://yoomoney.ru/fundraise/18LATS4B2TM.250226" target="_blank">
                     <BtnComponent> Поддержать проект </BtnComponent>

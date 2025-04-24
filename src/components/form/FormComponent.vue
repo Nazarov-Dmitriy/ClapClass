@@ -197,8 +197,7 @@ function validateField(param, event, nameParam) {
         formField.phoneError = target.length < 18
     }
     if (nameParam === 'email') {
-        let email_regexp =
-            /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+        let email_regexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         formField.emailError = !email_regexp.test(String(target).toLowerCase())
     }
     if (nameParam === 'textarea') {
@@ -335,6 +334,8 @@ watch(getIsSuccess, (val) => {
     font-size: 36px;
     line-height: 48px;
     color: $white;
+    margin-top: 32px;
+    text-align: center;
     @media (max-width: $lg) {
         display: none;
     }

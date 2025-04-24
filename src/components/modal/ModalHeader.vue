@@ -1,5 +1,5 @@
 <template>
-    <div class="modal__header">
+    <div class="modal__header" :class="{ success: getIsSuccess }">
         <div class="modal-close-wrapper">
             <span class="modal-close relative z-10" @click="closeModal">
                 <svg
@@ -26,7 +26,13 @@
         </div>
         <div class="modal__header-info">
             <p class="modal__header-info-text">
-                <slot>Заполните форму, и команда Клеппи свяжется с вами</slot>
+                <slot>
+                    {{
+                        getIsSuccess
+                            ? 'Спасибо за сообщение!'
+                            : 'Заполните форму, и команда Клеппи свяжется с вами'
+                    }}</slot
+                >
             </p>
             <slot name="subtitle" />
         </div>
@@ -55,6 +61,9 @@
 </template>
 
 <script setup>
+import { useSendMessageStore } from '@/stores/sendMessageStore'
+import { computed, onUnmounted } from 'vue'
+
 const emit = defineEmits(['closeModal'])
 
 const props = defineProps({
@@ -62,6 +71,13 @@ const props = defineProps({
         type: String,
         default: ''
     }
+})
+const sendMessageStore = useSendMessageStore()
+
+const getIsSuccess = computed(() => sendMessageStore.getIsSuccess)
+
+onUnmounted(() => {
+    sendMessageStore.setIsSuccess(false)
 })
 
 function closeModal() {
@@ -86,6 +102,10 @@ function closeModal() {
     @media (max-width: $lg) {
         padding: 24px;
         width: 100%;
+    }
+
+    &.success {
+        border-radius: 25px;
     }
 }
 

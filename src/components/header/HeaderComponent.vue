@@ -64,7 +64,7 @@
                                     class="header__list-link"
                                     @click="() => router.push({ name: 'showcase' })"
                                 >
-                                    личный кабинет
+                                    Личный кабинет
                                 </button>
                             </li>
                             <li v-if="getUser" class="header__list-item">
@@ -200,7 +200,7 @@
                                     class="btn__profile-menu-item"
                                     @click="() => router.push({ name: 'showcase' })"
                                 >
-                                    личный кабинет
+                                    Личный кабинет
                                 </p>
                                 <p class="btn__profile-menu-item" @click="logout()">Выход</p>
                             </div>

@@ -240,7 +240,6 @@ onMounted(() => {
 .slider {
     padding: 100px 64px 48px 64px;
     box-sizing: border-box;
-    overflow: hidden;
 
     @media (max-width: $lg) {
         padding: 48px 16px;

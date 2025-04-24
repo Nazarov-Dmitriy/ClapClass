@@ -27,7 +27,7 @@
                     :href="getUrl(level.file?.path)"
                     target="_blank"
                 >
-                    <button class="active-btn shrink-0"></button>
+                    <button class="active-btn shrink-0"><PlayIcon></PlayIcon></button>
                     <p
                         class="font-bold text-2xl leading-[150%] text-[#e05704] shrink-0 max-w-[262px] w-full"
                     >
@@ -39,7 +39,8 @@
                         }}</span>
                     </div>
                 </a>
-            </div>
+            </div>       
+            
         </template>
         <div v-if="props.data?.levels.length === 0 && !props.data?.rules_video">
             <span class="font-normal text-xl leading-[150%] text-black text-center"
@@ -80,6 +81,7 @@ function getUrl(path) {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    overflow: auto;
 }
 .wrapper-btn {
     border: 2px solid #e05704;

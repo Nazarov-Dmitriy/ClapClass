@@ -49,8 +49,7 @@
                         @click="downloadFile(props.data?.rules?.path, props.data?.rules.name)"
                     >
                         <RulesSvg class="card-page__right-rules-img w-[56px] h-[56px]"></RulesSvg>
-
-                        <span>Скачать</span>
+                        <span class="hover:text-red">Скачать</span>
                     </div>
                 </div>
                 <div v-if="props.data?.material?.path" class="card-page__right-rules">
@@ -67,12 +66,11 @@
                         <MaterialSvg
                             class="card-page__right-rules-img w-[56px] h-[56px]"
                         ></MaterialSvg>
-
-                        <span>Скачать</span>
+                        <span class="hover:text-red">Скачать</span>
                     </div>
                 </div>
                 <div class="card-page__right-rules-author">
-                    <span>Автор</span>
+                    <span>Автор:</span>
                     <span>{{ props.data?.author }}</span>
                 </div>
             </div>

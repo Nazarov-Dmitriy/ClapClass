@@ -102,7 +102,8 @@
                                     v-model="email"
                                     class="news__card-form-input"
                                     :class="{
-                                        'is-invalid': showDangerBlock
+                                        'is-invalid': showDangerBlock,
+                                        '!border-red': getError?.error
                                     }"
                                     type="text"
                                     placeholder="Введите ваш email"
@@ -111,6 +112,9 @@
                                     <img src="../../assets/images/form/form-error-svg.svg" alt="" />
                                     <span>Поле заполненно некорректно</span>
                                 </div>
+                                <p v-if="getError" class="text-red input-error">
+                                    {{ getError.error }}
+                                </p>
                                 <div>
                                     <div class="news__card-info-wrapper">
                                         <div class="news__card-btn-wrapper">
@@ -166,6 +170,9 @@ const userStore = useUserStore()
 const getUser = computed(() => {
     return userStore.getUser
 })
+const getError = computed(() => {
+    return userStore.getError
+})
 
 const isSuccess = computed(() => {
     return userStore.isSuccess
@@ -196,7 +203,6 @@ function addSubscribe() {
         userStore.addSubscribe({
             email: email.value
         })
-        email.value = ''
     } else {
         showDangerBlock.value = true
     }
@@ -217,6 +223,7 @@ watch(
 
 watch(isSuccess, () => {
     subscribe.value = true
+    email.value = ''
 })
 </script>
 
